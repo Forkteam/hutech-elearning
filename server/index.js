@@ -7,6 +7,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 connectDB();
 
 app.get('/', (req, res) => res.send('This is api of TeamDoAn 19DTHD4'));

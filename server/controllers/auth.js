@@ -33,17 +33,15 @@ export const register = async (req, res) => {
       .json({ success: false, message: 'Username must not have white space' });
 
   try {
-    const [user, userEmail, verifyUserEmail] = await Promise.all([
-      UserModel.findOne({ username }),
-      UserModel.findOne({ email }),
-      VerifyUserModel.findOne({ email })
-    ]);
+    const user = await UserModel.findOne({ username });
     if (user)
       return res.status(400).json({ success: false, message: 'User exist' });
+    const userEmail = await UserModel.findOne({ email });
     if (userEmail)
       return res
         .status(400)
         .json({ success: false, message: 'Email registered' });
+    const verifyUserEmail = await VerifyUserModel.findOne({ email });
     if (verifyUserEmail) await VerifyUserModel.findOneAndDelete({ email });
 
     const hashedPassword = await argon2.hash(password);
@@ -57,7 +55,7 @@ export const register = async (req, res) => {
     const accessToken = jwt.sign(
       { userId: newUser._id },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '10m' }
+      { expiresIn: '30m' }
     );
     const emailContent = activateMail(
       accessToken,
@@ -132,7 +130,7 @@ export const login = async (req, res) => {
     const accessToken = jwt.sign(
       { userId: user._id },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '2h' }
+      { expiresIn: '7d' }
     );
     res.status(200).json({ success: true, accessToken });
   } catch (error) {
