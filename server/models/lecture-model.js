@@ -18,9 +18,9 @@ const schema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users'
     },
-    classId: {
+    coursesId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'classes'
+      ref: 'courses'
     }
   },
   { timestamps: true }
