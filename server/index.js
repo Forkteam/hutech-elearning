@@ -5,6 +5,7 @@ import connectDB from './database/index.js';
 import auth from './routers/auth.js';
 import courses from './routers/courses.js';
 import lectures from './routers/lectures.js';
+import users from './routers/users.js';
 dotenv.config();
 
 const app = express();
@@ -16,6 +17,7 @@ app.get('/', (req, res) => res.send('This is api of TeamDoAn 19DTHD4'));
 app.use('/auth', auth);
 app.use('/courses', courses);
 app.use('/lectures', lectures);
+app.use('/users', users);
 
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
