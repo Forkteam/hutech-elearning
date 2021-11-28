@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Link, useLocation, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../contexts/auth-context';
 // import { Spinner } from 'react-bootstrap';
 // import LoginForm from '../components/auth/LoginForm';
 // import RegisterForm from '../components/auth/RegisterForm';
@@ -22,15 +22,15 @@ const Auth = ({ authRoute }) => {
       </div>
     );
   } else if (isAuthenticated) {
-    const { redirectTo, studentId } = queryString.parse(location.search);
+    const { RedirectTo, studentId } = queryString.parse(location.search);
     return (
       <Redirect
         to={
-          redirectTo === undefined
+          RedirectTo === undefined
             ? '/courses'
             : studentId === undefined
-            ? redirectTo
-            : `${redirectTo}&studentId=${studentId}`
+            ? RedirectTo
+            : `${RedirectTo}&studentId=${studentId}`
         }
       />
     );

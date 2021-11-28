@@ -1,8 +1,20 @@
 import { combineReducers } from 'redux';
-import datas from './datas';
-import modal from './modal';
+import courses from './courses';
+import lectures from './lectures';
+import modal from './constants/modal';
+import toast from './constants/toast';
+import currentId from './constants/currentId';
+import students from './students';
+import teachers from './teachers';
+import admins from './admins';
 
 export default combineReducers({
-  datas,
+  courses,
+  lectures,
   modal,
+  toast,
+  currentId,
+  students,
+  teachers,
+  admins,
 });

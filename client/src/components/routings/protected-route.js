@@ -27,7 +27,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
           </>
         ) : (
           history.push(
-            `/login?redirectTo=${location.pathname}${location.search}`
+            `/login?RedirectTo=${location.pathname}${location.search}`
           )
         )
       }

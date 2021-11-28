@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import { Auth } from './components/auth';
-import { Error } from './components/error';
-import { Landing } from './components/Landing';
-import { AuthContextProvider } from './context/auth-context';
-import { ProtectedRoute } from './components/routings/protected-route';
-import { Courses } from './views/courses';
+import Error from './components/layout/error';
+import Landing from './components/layout/landing';
+import ProtectedRoute from './components/routings/protected-route';
+import AuthContextProvider from './contexts/auth-context';
+import Auth from './views/auth';
+import Courses from './views/courses';
 
 function App() {
   return (

@@ -9,11 +9,11 @@ export const getStudentCourses = (payload) =>
   axios.get(`${apiURL}/courses/student-courses`, payload);
 export const getTeacherCourses = (payload) =>
   axios.get(`${apiURL}/courses/teacher-courses`, payload);
-export const createCourses = (payload) =>
+export const createCourse = (payload) =>
   axios.post(`${apiURL}/courses`, payload);
-export const updateCourses = (payload) =>
+export const updateCourse = (payload) =>
   axios.put(`${apiURL}/courses/${payload._id}`, payload);
-export const deleteCourses = (payload) =>
+export const deleteCourse = (payload) =>
   axios.delete(`${apiURL}/courses/${payload}`);
 
 export const getUsers = (payload) => axios.get(`${apiURL}/users/${payload}`);

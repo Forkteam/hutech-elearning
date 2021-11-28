@@ -1,52 +1,54 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
-import * as actions from '../actions';
-import * as api from '../../api';
+import { takeLatest } from 'redux-saga/effects';
 
-function* fetchSaga(action) {
-  try {
-    const posts = yield call(api.fetch);
-    yield put(actions.getData.getSuccess(posts.data.posts));
-  } catch (error) {
-    console.error(error);
-    yield put(actions.getData.getFailure(error));
-  }
-}
+import {
+  getAllCourses,
+  createCourse,
+  updateCourse,
+  deleteCourse,
+} from '../actions/courses';
+import {
+  getAllCoursesSaga,
+  createCourseSaga,
+  updateCourseSaga,
+  deleteCourseSaga,
+} from './courses';
 
-function* createSaga(action) {
-  try {
-    const post = yield call(api.create, action.payload);
-    yield put(actions.createData.createSuccess(post.data.post));
-  } catch (error) {
-    console.error(error);
-    yield put(actions.createData.createFailure(error));
-  }
-}
+// import {
+//   getLectures,
+//   createLecture,
+//   updateLecture,
+//   deleteLecture,
+// } from '../actions/lectures';
+// import {
+//   getLecturesSaga,
+//   createLectureSaga,
+//   updateLectureSaga,
+//   deleteLectureSaga,
+// } from './lectures';
 
-function* updateSaga(action) {
-  try {
-    const post = yield call(api.update, action.payload);
-    yield put(actions.updateData.updateSuccess(post.data.post));
-  } catch (error) {
-    console.error(error);
-    yield put(actions.updateData.updateFailure(error));
-  }
-}
-
-function* deleteSaga(action) {
-  try {
-    const post = yield call(api.delete, action.payload);
-    yield put(actions.deleteData.deleteSuccess(post.data.post));
-  } catch (error) {
-    console.error(error);
-    yield put(actions.deleteData.deleteFailure(error));
-  }
-}
+import { getUsers, createUser, updateUser, deleteUser } from '../actions/users';
+import {
+  getUsersSaga,
+  createUserSaga,
+  updateUserSaga,
+  deleteUserSaga,
+} from './users';
 
 function* mySaga() {
-  yield takeLatest(actions.getData.getRequest, fetchSaga);
-  yield takeLatest(actions.createData.createRequest, createSaga);
-  yield takeLatest(actions.updateData.updateRequest, updateSaga);
-  yield takeLatest(actions.deleteData.deleteRequest, deleteSaga);
+  yield takeLatest(getAllCourses.getAllCoursesRequest, getAllCoursesSaga);
+  yield takeLatest(createCourse.createCourseRequest, createCourseSaga);
+  yield takeLatest(updateCourse.updateCourseRequest, updateCourseSaga);
+  yield takeLatest(deleteCourse.deleteCourseRequest, deleteCourseSaga);
+
+  // yield takeLatest(getLectures.getLecturesRequest, getLecturesSaga);
+  // yield takeLatest(createLecture.createLectureRequest, createLectureSaga);
+  // yield takeLatest(updateLecture.updateLectureRequest, updateLectureSaga);
+  // yield takeLatest(deleteLecture.deleteLectureRequest, deleteLectureSaga);
+
+  yield takeLatest(getUsers.getUsersRequest, getUsersSaga);
+  yield takeLatest(createUser.createUserRequest, createUserSaga);
+  yield takeLatest(updateUser.updateUserRequest, updateUserSaga);
+  yield takeLatest(deleteUser.deleteUserRequest, deleteUserSaga);
 }
 
 export default mySaga;
