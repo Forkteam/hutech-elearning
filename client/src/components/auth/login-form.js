@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Copyright from '../layout/copyright';
+import AlertMessage from '../layout/alert-message';
 
 const LoginForm = () => {
   const { loginUser } = useContext(AuthContext);
@@ -26,7 +27,7 @@ const LoginForm = () => {
     try {
       const loginData = await loginUser(loginForm);
       if (!loginData.success) {
-        setAlert({ type: 'danger', message: loginData.message });
+        setAlert({ type: 'error', message: loginData.message });
         setTimeout(() => setAlert(null), 3000);
       }
     } catch (error) {
@@ -62,6 +63,7 @@ const LoginForm = () => {
           onChange={onChangeLoginForm}
           value={password}
         />
+        <AlertMessage info={alert} />
         <Button
           type="submit"
           fullWidth
