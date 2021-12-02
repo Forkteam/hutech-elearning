@@ -19,7 +19,7 @@ const ResetPassword = () => {
   return (
     <>
       <Typography component="h1" variant="h5">
-        Sign in
+        Forgot password
       </Typography>
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
         <TextField

@@ -11,6 +11,7 @@ import queryString from 'query-string';
 import { useContext } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
 // import { Spinner } from 'react-bootstrap';
+import CircularProgress from '@mui/material/CircularProgress';
 import LoginForm from '../components/auth/login-form';
 import RegisterForm from '../components/auth/register-form';
 import ResetPassword from '../components/auth/reset-password';
@@ -27,8 +28,8 @@ const Auth = ({ authRoute }) => {
   let body;
   if (authLoading) {
     body = (
-      <div className="spinner-container auth-form">
-        {/* <Spinner animation="border" variant="info" /> */}
+      <div>
+        <CircularProgress />
       </div>
     );
   } else if (isAuthenticated) {

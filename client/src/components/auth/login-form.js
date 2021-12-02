@@ -1,3 +1,5 @@
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../contexts/auth-context';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -7,14 +9,29 @@ import Typography from '@mui/material/Typography';
 import Copyright from '../layout/copyright';
 
 const LoginForm = () => {
-  const handleSubmit = (event) => {
+  const { loginUser } = useContext(AuthContext);
+  const [loginForm, setLoginForm] = useState({
+    username: '',
+    password: '',
+  });
+  const [alert, setAlert] = useState(null);
+  const { username, password } = loginForm;
+
+  const onChangeLoginForm = (event) => {
+    setLoginForm({ ...loginForm, [event.target.name]: event.target.value });
+  };
+
+  const onSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    try {
+      const loginData = await loginUser(loginForm);
+      if (!loginData.success) {
+        setAlert({ type: 'danger', message: loginData.message });
+        setTimeout(() => setAlert(null), 3000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -22,16 +39,17 @@ const LoginForm = () => {
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+      <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
         <TextField
           margin="normal"
           required
           fullWidth
-          id="email"
           label="Email or Username"
-          name="email"
-          autoComplete="email"
+          name="username"
+          autoComplete="username"
           autoFocus
+          onChange={onChangeLoginForm}
+          value={username}
         />
         <TextField
           margin="normal"
@@ -40,8 +58,9 @@ const LoginForm = () => {
           name="password"
           label="Password"
           type="password"
-          id="password"
           autoComplete="current-password"
+          onChange={onChangeLoginForm}
+          value={password}
         />
         <Button
           type="submit"
