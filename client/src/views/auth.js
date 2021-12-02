@@ -1,5 +1,5 @@
 // import RegisterForm from '../components/auth/RegisterForm';
-// import ActivateAccount from '../components/auth/ActivateAccount';
+import ActivateAccount from '../components/auth/activate-account';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -50,7 +50,7 @@ const Auth = ({ authRoute }) => {
       <>
         {authRoute === 'login' && <LoginForm />}
         {authRoute === 'register' && <RegisterForm />}
-        {/* {authRoute === 'activate' && <ActivateAccount />} */}
+        {authRoute === 'activate' && <ActivateAccount />}
         {authRoute === 'reset' && <ResetPassword />}
       </>
     );

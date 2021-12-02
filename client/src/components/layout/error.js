@@ -1,9 +1,8 @@
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 // import { Card, Button } from 'react-bootstrap';
 
 const Error = () => {
-  let history = useHistory();
-
+  // let history = useHistory();
   return <div>error page</div>;
 };
 
