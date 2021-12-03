@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { AuthContext } from '../../contexts/auth-context';
 import { Route, useHistory, useLocation } from 'react-router-dom';
-import NavbarMenu from '../layout/navbar-menu';
+import { AuthContext } from '../../contexts/auth-context';
+import Menu from '../layout/menu';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const history = useHistory();
@@ -24,8 +24,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props) =>
         isAuthenticated ? (
           <>
-            <NavbarMenu />
-            <Component {...rest} {...props} />
+            <Menu component={Component} />
           </>
         ) : (
           history.push(

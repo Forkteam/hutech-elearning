@@ -45,3 +45,7 @@ a {
 .text-white {
   color: #fff;
 }
+
+.jc-sb {
+  justify-content: space-between;
+}
