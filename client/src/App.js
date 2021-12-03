@@ -1,24 +1,43 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+import Error from './components/layout/error';
+import Landing from './components/layout/landing';
+import ProtectedRoute from './components/routings/protected-route';
+import AuthContextProvider from './contexts/auth-context';
+import Auth from './views/auth';
+import Courses from './views/courses';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContextProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route
+            exact
+            path="/login"
+            render={(props) => <Auth {...props} authRoute="login" />}
+          />
+          <Route
+            exact
+            path="/register"
+            render={(props) => <Auth {...props} authRoute="register" />}
+          />
+          <Route
+            exact
+            path="/activate-account"
+            render={(props) => <Auth {...props} authRoute="activate" />}
+          />
+          <Route
+            exact
+            path="/reset-password"
+            render={(props) => <Auth {...props} authRoute="reset" />}
+          />
+          <ProtectedRoute exact path="/courses" component={Courses} />
+          <Route path="/:somestring" component={Error} />
+        </Switch>
+      </Router>
+    </AuthContextProvider>
   );
 }
 
