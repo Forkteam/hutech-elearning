@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/auth-context';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 function ResponsiveDrawer({ window, component: Component, ...rest }) {
   const [mobileOpen, setMobileOpen] = useState(false);
