@@ -16,7 +16,6 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-// import { Logo } from './logo';
 
 const items = [
   {
@@ -73,16 +72,7 @@ export const Sidebar = (props) => {
           height: '100%',
         }}
       >
-        <Box sx={{ p: 3 }}>
-          {/* <Link to="/">
-            <Logo
-              sx={{
-                height: 42,
-                width: 42,
-              }}
-            />
-          </Link> */}
-        </Box>
+        <Box sx={{ p: 3 }}></Box>
         <Divider
           sx={{
             borderColor: '#2D3748',
