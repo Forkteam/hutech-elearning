@@ -14,13 +14,16 @@ const RegisterForm = () => {
   const { registerUser } = useContext(AuthContext);
   let history = useHistory();
   const [registerForm, setRegisterForm] = useState({
+    firstName: '',
+    lastName: '',
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
   const [alert, setAlert] = useState(null);
-  const { username, email, password, confirmPassword } = registerForm;
+  const { firstName, lastName, username, email, password, confirmPassword } =
+    registerForm;
 
   const onChangeRegisterForm = (event) => {
     setRegisterForm({
@@ -53,7 +56,10 @@ const RegisterForm = () => {
       return;
     }
     try {
-      const registerData = await registerUser(registerForm);
+      const registerData = await registerUser({
+        ...registerForm,
+        name: firstName + ' ' + lastName,
+      });
       if (!registerData.success) {
         setAlert({ type: 'error', message: registerData.message });
         setTimeout(() => setAlert(null), 3000);
@@ -71,6 +77,31 @@ const RegisterForm = () => {
         Sign up
       </Typography>
       <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              fullWidth
+              label="First Name"
+              name="firstName"
+              autoComplete="given-name"
+              autoFocus
+              onChange={onChangeRegisterForm}
+              value={firstName}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              fullWidth
+              label="Last Name"
+              name="lastName"
+              autoComplete="family-name"
+              onChange={onChangeRegisterForm}
+              value={lastName}
+            />
+          </Grid>
+        </Grid>
         <TextField
           margin="normal"
           required
@@ -78,7 +109,6 @@ const RegisterForm = () => {
           label="Email"
           name="email"
           autoComplete="email"
-          autoFocus
           onChange={onChangeRegisterForm}
           value={email}
         />

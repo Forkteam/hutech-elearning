@@ -21,7 +21,12 @@ const ResetPassword = () => {
       <Typography component="h1" variant="h5">
         Forgot password
       </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+      <Box
+        component="form"
+        noValidate
+        onSubmit={handleSubmit}
+        sx={{ mt: 1, width: '-webkit-fill-available' }}
+      >
         <TextField
           margin="normal"
           required

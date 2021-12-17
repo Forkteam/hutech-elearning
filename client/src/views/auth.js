@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
+import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import queryString from 'query-string';
 import { useContext } from 'react';
@@ -56,25 +57,40 @@ const Auth = ({ authRoute }) => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="sm">
-          <CssBaseline />
-          <Box
-            sx={{
-              boxShadow: 3,
-              marginTop: 8,
-              padding: 2,
-              borderRadius: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            {body}
-          </Box>
-        </Container>
+        <Paper
+          sx={{
+            position: 'absolute',
+            width: '-webkit-fill-available',
+            height:
+              authRoute !== 'register' ? '-webkit-fill-available' : 'auto',
+            borderRadius: 0,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundImage: `url(https://source.unsplash.com/random)`,
+          }}
+        >
+          <Container component="main" maxWidth="sm">
+            <CssBaseline />
+            <Box
+              sx={{
+                boxShadow: 3,
+                marginTop: 8,
+                padding: 2,
+                borderRadius: 4,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                background: 'white',
+              }}
+            >
+              <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              {body}
+            </Box>
+          </Container>
+        </Paper>
       </ThemeProvider>
     </>
   );
