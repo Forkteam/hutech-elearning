@@ -22,11 +22,11 @@ import { border, color, height, sizeHeight, sizeWidth, sizing, width } from '@mu
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
+      {'Copyright ©'}
       <Link
         sx={{ color: 'red'}} 
         color="inherit" href="https://www.facebook.com/CrisAn.2001">
-        Nhóm 2 - 19DTHD4
+          Nhóm 2 - 19DTHD4
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -34,7 +34,7 @@ function Copyright() {
   );
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const theme = createTheme();
 
@@ -77,7 +77,6 @@ export default function Album() {
               align="center"
               color="darkblue"
               fontWeight='400'
-              
               gutterBottom
             >
               Góc Học Tập
@@ -92,29 +91,30 @@ export default function Album() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Tin Tức</Button>
+              <Button variant="contained">Xem Tin Tức</Button>
               <Button variant="outlined">Secondary action</Button>
             </Stack>
           </Container>
         </Box>
+
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                  sx={{ height: '100%', display: 'flex', flexDirection: 'column'}}
                 >
-                  <CardMedia
+                  <CardMedia 
                     component="img"
                     sx={{
                       // 16:9
-                      pt: '56.25%',
+                      pt: '10px',
                     }}
                     image="https://source.unsplash.com/random"
-                    alt="random"
+                    alt="random"                  
                   />
-                  <CardContent sx={{ flexGrow: 1 }}>
+                  <CardContent  sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
                       Heading
                     </Typography>
