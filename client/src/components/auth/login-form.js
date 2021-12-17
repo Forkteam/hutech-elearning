@@ -38,14 +38,14 @@ const LoginForm = () => {
   return (
     <>
       <Typography component="h1" variant="h5">
-        Sign in
+        Đăng Nhập
       </Typography>
       <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
         <TextField
           margin="normal"
           required
           fullWidth
-          label="Email or Username"
+          label="Email hoặc Tên đăng nhập"
           name="username"
           autoComplete="username"
           autoFocus
@@ -57,7 +57,7 @@ const LoginForm = () => {
           required
           fullWidth
           name="password"
-          label="Password"
+          label="Mật khẩu"
           type="password"
           autoComplete="current-password"
           onChange={onChangeLoginForm}
@@ -70,17 +70,17 @@ const LoginForm = () => {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Sign In
+          Đăng Nhập
         </Button>
         <Grid container>
           <Grid item xs>
             <Link to="/reset-password" variant="body2">
-              Forgot password?
+              Quên mật khẩu?
             </Link>
           </Grid>
           <Grid item>
             <Link to="/register" variant="body2">
-              {"Don't have an account? Sign Up"}
+              {'Bạn chưa có tài khoản? Đăng ký'}
             </Link>
           </Grid>
         </Grid>
