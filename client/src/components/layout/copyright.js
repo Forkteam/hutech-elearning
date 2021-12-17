@@ -9,7 +9,7 @@ export default function Copyright(props) {
       align="center"
       {...props}
     >
-      {'Copyright © '}
+      {'Copyright ©'}
       <Link color="inherit" href="https://fb.com/huynhjs" target="_blank">
         TeamDoAn 19DTHD4
       </Link>{' '}
