@@ -1,7 +1,20 @@
-import { useContext } from 'react';
+import { Box, CircularProgress } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { useContext, useState } from 'react';
 import { Route, useHistory, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth-context';
-import Menu from '../layout/menu';
+import { Navbar } from '../layout/navbar';
+import { Sidebar } from '../layout/sidebar';
+
+const LayoutRoot = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flex: '1 1 auto',
+  maxWidth: '100%',
+  paddingTop: 64,
+  [theme.breakpoints.up('lg')]: {
+    paddingLeft: 280,
+  },
+}));
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const history = useHistory();
@@ -9,11 +22,12 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   const {
     authState: { authLoading, isAuthenticated },
   } = useContext(AuthContext);
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   if (authLoading) {
     return (
       <div className="spinner-container">
-        {/* <Spinner animation="border" variant="info" /> */}
+        <CircularProgress />
       </div>
     );
   }
@@ -24,7 +38,23 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props) =>
         isAuthenticated ? (
           <>
-            <Menu component={Component} />
+            <LayoutRoot>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flex: '1 1 auto',
+                  flexDirection: 'column',
+                  width: '100%',
+                }}
+              >
+                <Component {...rest} {...props} />
+              </Box>
+            </LayoutRoot>
+            <Navbar onSidebarOpen={() => setSidebarOpen(true)} />
+            <Sidebar
+              onClose={() => setSidebarOpen(false)}
+              open={isSidebarOpen}
+            />
           </>
         ) : (
           history.push(
