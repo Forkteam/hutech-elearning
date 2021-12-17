@@ -1,7 +1,12 @@
-import MailIcon from '@mui/icons-material/Mail';
+import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import SaveIcon from '@mui/icons-material/Save';
+import WorkIcon from '@mui/icons-material/Work';
 import AppBar from '@mui/material/AppBar';
+import ChatIcon from '@mui/icons-material/Chat';
+import BookIcon from '@mui/icons-material/Book';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -21,7 +26,7 @@ import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/auth-context';
 
-const drawerWidth = 200;
+const drawerWidth = 250;
 
 function ResponsiveDrawer({ window, component: Component, ...rest }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -51,10 +56,13 @@ function ResponsiveDrawer({ window, component: Component, ...rest }) {
       <Toolbar />
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {['Trang chủ', 'Thông tin cá nhân', 'Bài học đã lưu', 'Tài liệu'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            {index === 0 && <HomeIcon/>}
+            {index === 1 && <AccountBoxIcon/>}
+            {index === 2 && <SaveIcon />}
+            {index === 3 && <BookIcon />}
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -62,10 +70,12 @@ function ResponsiveDrawer({ window, component: Component, ...rest }) {
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+        {['Tin tức HUTECH', 'Blog chia sẻ', 'Tìm kiếm công việc'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {index === 0 && <NewspaperIcon/>}
+              {index === 1 && <ChatIcon/>}
+              {index === 2 && <WorkIcon />}
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -76,7 +86,6 @@ function ResponsiveDrawer({ window, component: Component, ...rest }) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ flexGrow: 1, display: 'flex' }}>
       <CssBaseline />
