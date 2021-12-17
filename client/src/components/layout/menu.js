@@ -53,7 +53,6 @@ function ResponsiveDrawer({ window, component: Component, ...rest }) {
 
   const drawer = (
     <div>
-
       <Toolbar />
       <Divider />
       <List>
@@ -70,7 +69,6 @@ function ResponsiveDrawer({ window, component: Component, ...rest }) {
         ))}
       </List>
       <Divider />
-
       <List>
         {['Tin tức HUTECH', 'Blog chia sẻ', 'Tìm kiếm công việc'].map((text, index) => (
           <ListItem button key={text}>
@@ -83,13 +81,11 @@ function ResponsiveDrawer({ window, component: Component, ...rest }) {
           </ListItem>
         ))}
       </List>
-
     </div>
   );
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ flexGrow: 1, display: 'flex' }}>
       <CssBaseline />
