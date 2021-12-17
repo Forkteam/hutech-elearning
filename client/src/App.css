@@ -49,3 +49,17 @@ a {
 .jc-sb {
   justify-content: space-between;
 }
+.login {
+  background-color: #fff;
+  justify-content: center;
+}
+@media only screen and ( min-width: 598px) and (max-width: 900px) {
+  .login{
+    background-color: red;
+  }
+}
+.login .abc{
+  display: flex;
+  align-items: center;
+  border-radius: 40px;
+}

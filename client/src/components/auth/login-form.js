@@ -36,56 +36,60 @@ const LoginForm = () => {
   };
 
   return (
-    <>
-      <Typography component="h1" variant="h5">
-        Sign in
-      </Typography>
-      <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          label="Email or Username"
-          name="username"
-          autoComplete="username"
-          autoFocus
-          onChange={onChangeLoginForm}
-          value={username}
-        />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          onChange={onChangeLoginForm}
-          value={password}
-        />
-        <AlertMessage info={alert} />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Sign In
-        </Button>
-        <Grid container>
-          <Grid item xs>
-            <Link to="/reset-password" variant="body2">
-              Forgot password?
-            </Link>
+    < >
+    
+      
+        <Typography component="h1" variant="h5">
+          Đăng Nhập
+        </Typography>
+        <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            label="Email or Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            onChange={onChangeLoginForm}
+            value={username}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            onChange={onChangeLoginForm}
+            value={password}
+          />
+          <AlertMessage info={alert} />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            
+          >
+            Đăng Nhập
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link to="/reset-password" variant="body2">
+                Quên mật khẩu ?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link to="/register" variant="body2">
+                {"Bạn chưa có tài khoản ? Đăng ký"}
+              </Link>
+            </Grid>
           </Grid>
-          <Grid item>
-            <Link to="/register" variant="body2">
-              {"Don't have an account? Sign Up"}
-            </Link>
-          </Grid>
-        </Grid>
-        <Copyright sx={{ mt: 5 }} />
-      </Box>
+          <Copyright sx={{ mt: 5 }} />
+        </Box>
+      
     </>
   );
 };
