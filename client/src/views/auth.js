@@ -67,7 +67,7 @@ const Auth = ({ authRoute }) => {
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
-            backgroundImage: `url(https://source.unsplash.com/random)`,
+            backgroundImage: `url(http://lib.hutech.edu.vn/ImageSlideShow/BANNER%204.jpg)`,
           }}
         >
           <Container component="main" maxWidth="sm">
