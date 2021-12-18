@@ -1,5 +1,3 @@
-import CameraIcon from '@mui/icons-material/PhotoCamera';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -14,9 +12,23 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import LogoHutech from '../../assets/logo.png';
 import Copyright from './copyright';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const sections = [
+  { title: 'Technology', url: '#' },
+  { title: 'Design', url: '#' },
+  { title: 'Culture', url: '#' },
+  { title: 'Business', url: '#' },
+  { title: 'Politics', url: '#' },
+  { title: 'Opinion', url: '#' },
+  { title: 'Science', url: '#' },
+  { title: 'Health', url: '#' },
+  { title: 'Style', url: '#' },
+  { title: 'Travel', url: '#' },
+];
 
 const theme = createTheme();
 
@@ -24,45 +36,53 @@ export default function Album() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar position="relative">
-          <CameraIcon sx={{ mr: 4 }} />
-          <Typography variant="h5" color="white" fontWeight="500" noWrap>
-            HUTECH - Đại Học Công Nghệ TP.HCM
-          </Typography>
-          <Button
-            sx={{
-              background: 'rgba(209, 228, 184, 0.79)',
-              color: 'black',
-              border: 2,
-              right: 10,
-              top: 12,
-              position: 'absolute',
-            }}
-          >
-            Đăng Nhập
-          </Button>
-        </Toolbar>
-      </AppBar>
-      <main>
+      <Toolbar>
+        <img alt="HUTECH" src={LogoHutech} width="150px" />
+        <Typography
+          component="h2"
+          variant="h5"
+          color="inherit"
+          align="center"
+          noWrap
+          sx={{ flex: 1 }}
+        >
+          Đại Học Công Nghệ TP.HCM - HUTECH
+        </Typography>
+        <Button variant="outlined" size="medium">
+          Đăng Nhập
+        </Button>
+      </Toolbar>
+      <main style={{ backgroundColor: '#F3F4F6' }}>
         {/* Hero unit */}
         <Box
           sx={{
+            position: 'relative',
             pt: 8,
             pb: 6,
-            color: 'red',
             background:
               'url(https://file1.hutech.edu.vn/file/editor/homepage1/Khu%20E%20%288%29.jpg) no-repeat center/ cover',
           }}
         >
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              right: 0,
+              left: 0,
+              backgroundColor: 'rgba(0,0,0,.3)',
+              filter: 'blur(1px)',
+            }}
+          />
           <Container maxWidth="sm">
             <Typography
               component="h1"
               variant="h2"
               align="center"
-              color="darkblue"
+              color="white"
               fontWeight="400"
               gutterBottom
+              sx={{ position: 'relative' }}
             >
               Góc Học Tập
             </Typography>
@@ -70,8 +90,9 @@ export default function Album() {
               fontWeight="500"
               variant="h5"
               align="center"
-              color="black"
+              color="white"
               paragraph
+              sx={{ position: 'relative' }}
             >
               Môi trường chia sẻ tài liệu học tập cho sinh viên, giúp nâng cao
               kiến thức chuyên môn, đạt thành tích tốt trong học tập.
@@ -82,8 +103,7 @@ export default function Album() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Xem Tin Tức</Button>
-              <Button variant="outlined">Secondary action</Button>
+              <Button variant="contained">Đăng Ký</Button>
             </Stack>
           </Container>
         </Box>
@@ -128,19 +148,15 @@ export default function Album() {
         </Container>
       </main>
       {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          HUTECH
-        </Typography>
+      <Box sx={{ bgcolor: 'background.paper', p: 1 }} component="footer">
         <Typography
           variant="subtitle1"
           align="center"
           color="text.secondary"
           component="p"
         >
-          Môi trường học tập tiến bộ.
+          Môi trường học tập tiến bộ. <Copyright />
         </Typography>
-        <Copyright />
       </Box>
       {/* End footer */}
     </ThemeProvider>

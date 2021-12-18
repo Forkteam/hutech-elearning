@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 import {
   AppBar,
   Avatar,
@@ -42,78 +43,81 @@ export const Navbar = (props) => {
   };
 
   return (
-    <>
-      <NavbarRoot
+    <NavbarRoot
+      sx={{
+        left: {
+          lg: 250,
+        },
+        width: {
+          lg: 'calc(100% - 250px)',
+        },
+      }}
+      {...other}
+    >
+      <Toolbar
+        disableGutters
         sx={{
-          left: {
-            lg: 250,
-          },
-          width: {
-            lg: 'calc(100% - 250px)',
-          },
+          minHeight: 64,
+          left: 0,
+          px: 2,
         }}
-        {...other}
       >
-        <Toolbar
-          disableGutters
+        <IconButton
+          onClick={onSidebarOpen}
           sx={{
-            minHeight: 64,
-            left: 0,
-            px: 2,
+            display: {
+              xs: 'inline-flex',
+              lg: 'none',
+            },
           }}
         >
-          <IconButton
-            onClick={onSidebarOpen}
-            sx={{
-              display: {
-                xs: 'inline-flex',
-                lg: 'none',
-              },
-            }}
-          >
-            <MenuIcon fontSize="small" />
+          <MenuIcon fontSize="small" />
+        </IconButton>
+        <img alt="HUTECH" src={LogoHutech} width="150px" />
+        <Box sx={{ flexGrow: 1 }} />
+        <Tooltip title="Search">
+          <IconButton sx={{ mr: 1 }}>
+            <SearchIcon fontSize="small" />
           </IconButton>
-          <img alt="HUTECH" src={LogoHutech} width="150px" />
-          <Box sx={{ flexGrow: 1 }} />
-          <Box>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={username} src="" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem>
-                <Typography textAlign="center">Profile</Typography>
-              </MenuItem>
-              <MenuItem>
-                <Typography textAlign="center">Account</Typography>
-              </MenuItem>
-              <MenuItem>
-                <Typography textAlign="center">Dashboard</Typography>
-              </MenuItem>
-              <MenuItem onClick={logout}>
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
-        </Toolbar>
-      </NavbarRoot>
-    </>
+        </Tooltip>
+        <Box>
+          <Tooltip title="Open settings">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt={username} src="" />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            <MenuItem>
+              <Typography textAlign="center">Profile</Typography>
+            </MenuItem>
+            <MenuItem>
+              <Typography textAlign="center">Account</Typography>
+            </MenuItem>
+            <MenuItem>
+              <Typography textAlign="center">Dashboard</Typography>
+            </MenuItem>
+            <MenuItem onClick={logout}>
+              <Typography textAlign="center">Logout</Typography>
+            </MenuItem>
+          </Menu>
+        </Box>
+      </Toolbar>
+    </NavbarRoot>
   );
 };
 
