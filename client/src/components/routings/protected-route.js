@@ -12,7 +12,7 @@ const LayoutRoot = styled('div')(({ theme }) => ({
   maxWidth: '100%',
   paddingTop: 64,
   [theme.breakpoints.up('lg')]: {
-    paddingLeft: 280,
+    paddingLeft: 250,
   },
 }));
 
@@ -45,6 +45,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
                   flex: '1 1 auto',
                   flexDirection: 'column',
                   width: '100%',
+                  bgcolor: '#f5f5f0',
                 }}
               >
                 <Component {...rest} {...props} />

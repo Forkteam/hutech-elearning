@@ -11,7 +11,6 @@ import Stack from '@mui/material/Stack';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
 import LogoHutech from '../../assets/logo.png';
 import Copyright from './copyright';
 
@@ -39,7 +38,12 @@ export default function Album() {
           Đăng Nhập
         </Button>
       </Toolbar>
-      <main style={{ backgroundColor: '#F3F4F6' }}>
+      <main
+        style={{
+          backgroundColor:
+            '0px 1px 1px rgba(100, 116, 139, 0.06), 0px 1px 2px rgba(100, 116, 139, 0.1)',
+        }}
+      >
         {/* Hero unit */}
         <Box
           sx={{
