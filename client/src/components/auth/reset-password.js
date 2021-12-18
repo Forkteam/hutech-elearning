@@ -19,7 +19,7 @@ const ResetPassword = () => {
   return (
     <>
       <Typography component="h1" variant="h5">
-        Forgot password
+        Quên mật khẩu
       </Typography>
       <Box
         component="form"
@@ -32,7 +32,7 @@ const ResetPassword = () => {
           required
           fullWidth
           id="email"
-          label="Email"
+          label="Email của bạn"
           name="email"
           autoComplete="email"
           autoFocus
@@ -43,12 +43,12 @@ const ResetPassword = () => {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Send reset link
+          Gửi liên kết đến email
         </Button>
         <Grid container>
           <Grid item>
             <Link to="/login" variant="body2">
-              {'Already have an account? Sign In'}
+              {'Có sẳn một tài khoản? Đăng nhập'}
             </Link>
           </Grid>
         </Grid>

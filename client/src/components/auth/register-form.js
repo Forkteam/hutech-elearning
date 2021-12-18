@@ -37,7 +37,7 @@ const RegisterForm = () => {
     if (username.includes(' ')) {
       setAlert({
         type: 'warning',
-        message: 'Username must not have white space',
+        message: 'Username không được có khoảng trắng',
       });
       setTimeout(() => setAlert(null), 5000);
       return;
@@ -45,13 +45,13 @@ const RegisterForm = () => {
     if (password.length < 6) {
       setAlert({
         type: 'warning',
-        message: "Password mustn't be less than 6 characters",
+        message: "Mật khẩu không được ít hơn 6 ký tự",
       });
       setTimeout(() => setAlert(null), 5000);
       return;
     }
     if (password !== confirmPassword) {
-      setAlert({ type: 'warning', message: 'Password does not match' });
+      setAlert({ type: 'warning', message: 'Mật khẩu không hợp lệ' });
       setTimeout(() => setAlert(null), 5000);
       return;
     }
@@ -82,7 +82,7 @@ const RegisterForm = () => {
             <TextField
               required
               fullWidth
-              label="First Name"
+              label="Họ"
               name="firstName"
               autoComplete="given-name"
               autoFocus
@@ -94,7 +94,7 @@ const RegisterForm = () => {
             <TextField
               required
               fullWidth
-              label="Last Name"
+              label="Tên"
               name="lastName"
               autoComplete="family-name"
               onChange={onChangeRegisterForm}
@@ -116,7 +116,7 @@ const RegisterForm = () => {
           margin="normal"
           required
           fullWidth
-          label="Username"
+          label="Tên đăng nhập"
           name="username"
           autoComplete="username"
           onChange={onChangeRegisterForm}
@@ -127,7 +127,7 @@ const RegisterForm = () => {
           required
           fullWidth
           name="password"
-          label="Password"
+          label="Mật khẩu"
           type="password"
           autoComplete="current-password"
           onChange={onChangeRegisterForm}
@@ -138,7 +138,7 @@ const RegisterForm = () => {
           required
           fullWidth
           name="confirmPassword"
-          label="Confirm password"
+          label="Nhập lại mật khẩu"
           type="password"
           autoComplete="current-confirmPassword"
           onChange={onChangeRegisterForm}
