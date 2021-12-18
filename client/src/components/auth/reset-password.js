@@ -48,7 +48,7 @@ const ResetPassword = () => {
         <Grid container>
           <Grid item>
             <Link to="/login" variant="body2">
-              {'Có sẳn một tài khoản? Đăng nhập'}
+              {'Bạn đã có tài khoản? Đăng nhập'}
             </Link>
           </Grid>
         </Grid>
