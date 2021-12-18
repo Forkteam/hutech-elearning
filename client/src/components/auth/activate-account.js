@@ -37,11 +37,11 @@ const ActivateAccount = () => {
   if (token === undefined || id === undefined) {
     body = (
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Please check your email
+        <Typography gutterBottom variant="h5" component="div" align='center'>
+          Vui lòng kiểm tra email!
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Your activation link will expire in 30 minutes
+          Đường link kích hoạt của bạn có hạn trong 30 phút.
         </Typography>
       </CardContent>
     );
@@ -54,7 +54,7 @@ const ActivateAccount = () => {
               {message}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Please login again
+              Tạo tài khoản thành công <br/>Vui lòng đăng nhập!
             </Typography>
             <CardActions>
               <Button
@@ -64,7 +64,7 @@ const ActivateAccount = () => {
                 sx={{ mt: 3, mb: 2 }}
               >
                 <Link className="text-white" to="/login">
-                  Go to login
+                  Đến trang đăng nhập
                 </Link>
               </Button>
             </CardActions>
@@ -74,8 +74,8 @@ const ActivateAccount = () => {
             <Typography gutterBottom variant="h5" component="div">
               {message}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Please register again
+            <Typography variant="body2" color="text.secondary" align='center'>
+              Đã xảy ra lỗi. <br/>Vui lòng đăng ký lại!
             </Typography>
             <CardActions>
               <Button
@@ -85,7 +85,7 @@ const ActivateAccount = () => {
                 sx={{ mt: 3, mb: 2 }}
               >
                 <Link className="text-white" to="/register">
-                  Go to register
+                  Đến trang đăng ký.
                 </Link>
               </Button>
             </CardActions>
@@ -97,8 +97,8 @@ const ActivateAccount = () => {
 
   return (
     <>
-      <Typography component="h1" variant="h5">
-        Activate account
+      <Typography component="h1" variant="h4">
+        Kích Hoạt Tài Khoản
       </Typography>
       <Box component="form" noValidate sx={{ mt: 1 }}>
         <Card sx={{ minWidth: 275 }}>{body}</Card>

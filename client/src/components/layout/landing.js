@@ -50,7 +50,7 @@ export default function Album() {
             pt: 8,
             pb: 6,
             background:
-              'url(https://file1.hutech.edu.vn/file/editor/homepage1/Khu%20E%20%288%29.jpg) no-repeat center/ cover',
+              'url(https://file1.hutech.edu.vn/file/editor/homepage1/IMG_7760%284%29.jpg) no-repeat center/ cover',
           }}
         >
           <Box
