@@ -62,7 +62,7 @@ const Auth = ({ authRoute }) => {
             position: 'absolute',
             width: '-webkit-fill-available',
             height:
-              authRoute !== 'register' ? '-webkit-fill-available' : 'auto',
+              authRoute !== 'register' ? '-webkit-fill-available' : '100vh',
             borderRadius: 0,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
@@ -70,12 +70,12 @@ const Auth = ({ authRoute }) => {
             backgroundImage: `url(http://lib.hutech.edu.vn/ImageSlideShow/BANNER%204.jpg)`,
           }}
         >
-          <Container component="main" maxWidth="sm">
+          <Container component="main" maxWidth="sm" >
             <CssBaseline />
             <Box
               sx={{
                 boxShadow: 3,
-                marginTop: 8,
+                marginTop: 3,
                 padding: 2,
                 borderRadius: 4,
                 display: 'flex',
