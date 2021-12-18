@@ -17,19 +17,6 @@ import Copyright from './copyright';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-const sections = [
-  { title: 'Technology', url: '#' },
-  { title: 'Design', url: '#' },
-  { title: 'Culture', url: '#' },
-  { title: 'Business', url: '#' },
-  { title: 'Politics', url: '#' },
-  { title: 'Opinion', url: '#' },
-  { title: 'Science', url: '#' },
-  { title: 'Health', url: '#' },
-  { title: 'Style', url: '#' },
-  { title: 'Travel', url: '#' },
-];
-
 const theme = createTheme();
 
 export default function Album() {
