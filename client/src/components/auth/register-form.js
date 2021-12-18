@@ -74,7 +74,7 @@ const RegisterForm = () => {
   return (
     <>
       <Typography component="h1" variant="h5">
-        Sign up
+        Đăng Ký
       </Typography>
       <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
         <Grid container spacing={2}>
@@ -151,13 +151,13 @@ const RegisterForm = () => {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Sign Up
+          Đăng ký
         </Button>
         <Grid container>
           <Grid item xs></Grid>
           <Grid item>
             <Link to="/login" variant="body2">
-              {'Already have an account? Sign In'}
+              {'Bạn đã có tài khoản? Đăng nhập'}
             </Link>
           </Grid>
         </Grid>
