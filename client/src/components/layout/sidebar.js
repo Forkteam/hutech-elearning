@@ -1,10 +1,8 @@
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import BookIcon from '@mui/icons-material/Book';
-import ChatIcon from '@mui/icons-material/Chat';
-import HomeIcon from '@mui/icons-material/Home';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SaveIcon from '@mui/icons-material/Save';
-import WorkIcon from '@mui/icons-material/Work';
+import CommentIcon from '@mui/icons-material/Comment';
 import {
   Box,
   Divider,
@@ -18,11 +16,6 @@ import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 
 const items = [
-  {
-    href: '/courses',
-    icon: <HomeIcon fontSize="small" />,
-    title: 'Trang chủ',
-  },
   {
     href: '/',
     icon: <AccountBoxIcon fontSize="small" />,
@@ -40,19 +33,14 @@ const items = [
   },
   {
     href: '/',
+    icon: <CommentIcon fontSize="small" />,
+    title: 'Bình luận của bạn',
+  },
+  {
+    href: '/',
     icon: <NewspaperIcon fontSize="small" />,
     title: 'Tin tức HUTECH',
-  },
-  {
-    href: '/',
-    icon: <ChatIcon fontSize="small" />,
-    title: 'Blog chia sẻ',
-  },
-  {
-    href: '/',
-    icon: <WorkIcon fontSize="small" />,
-    title: 'Tìm kiếm công việc',
-  },
+  }
 ];
 
 export const Sidebar = (props) => {
