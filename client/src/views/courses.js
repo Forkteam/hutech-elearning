@@ -54,7 +54,7 @@ const Courses = () => {
   return (
     <Container sx={{ py: 4 }} maxWidth="md">
       {/* End hero unit */}
-      <Grid container spacing={4}>
+      <Grid container spacing={2}>
         {items.map((item) => (
           <Grid item xs={12} sm={6} md={4} key={item.title}>
             <Card
