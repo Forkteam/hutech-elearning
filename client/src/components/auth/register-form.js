@@ -45,7 +45,7 @@ const RegisterForm = () => {
     if (password.length < 6) {
       setAlert({
         type: 'warning',
-        message: "Mật khẩu không được ít hơn 6 ký tự",
+        message: 'Mật khẩu không được ít hơn 6 ký tự',
       });
       setTimeout(() => setAlert(null), 5000);
       return;

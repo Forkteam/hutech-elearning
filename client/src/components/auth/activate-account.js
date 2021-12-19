@@ -37,8 +37,8 @@ const ActivateAccount = () => {
   if (token === undefined || id === undefined) {
     body = (
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div" align='center'>
-          Vui lòng kiểm tra email!
+        <Typography gutterBottom variant="h5" component="div" align="center">
+          Vui lòng kiểm tra email
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Đường link kích hoạt của bạn có hạn trong 30 phút.
@@ -54,7 +54,8 @@ const ActivateAccount = () => {
               {message}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Tạo tài khoản thành công <br/>Vui lòng đăng nhập!
+              Tạo tài khoản thành công <br />
+              Vui lòng đăng nhập!
             </Typography>
             <CardActions>
               <Button
@@ -74,8 +75,9 @@ const ActivateAccount = () => {
             <Typography gutterBottom variant="h5" component="div">
               {message}
             </Typography>
-            <Typography variant="body2" color="text.secondary" align='center'>
-              Đã xảy ra lỗi. <br/>Vui lòng đăng ký lại!
+            <Typography variant="body2" color="text.secondary" align="center">
+              Đã xảy ra lỗi. <br />
+              Vui lòng đăng ký lại!
             </Typography>
             <CardActions>
               <Button

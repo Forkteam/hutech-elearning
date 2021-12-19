@@ -9,9 +9,9 @@ export default function Copyright(props) {
       align="center"
       {...props}
     >
-      {'Copyright ©'}
-      <Link color="inherit" href="https://fb.com/huynhjs" target="_blank">
-        TeamDoAn 19DTHD4
+      {'Bản quyền ©'}
+      <Link color="inherit" href="/">
+        Nhóm 2 - 19DTHD4
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

@@ -1,8 +1,12 @@
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import BookIcon from '@mui/icons-material/Book';
+import GroupIcon from '@mui/icons-material/Group';
+import HelpIcon from '@mui/icons-material/Help';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
-import SaveIcon from '@mui/icons-material/Save';
-import CommentIcon from '@mui/icons-material/Comment';
+import SchoolIcon from '@mui/icons-material/School';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SubjectIcon from '@mui/icons-material/Subject';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import {
   Box,
   Divider,
@@ -17,30 +21,50 @@ import { Link, useLocation } from 'react-router-dom';
 
 const items = [
   {
+    href: '/courses',
+    icon: <SubjectIcon fontSize="small" />,
+    title: 'Danh sách môn học',
+  },
+  {
+    href: '/',
+    icon: <BookIcon fontSize="small" />,
+    title: 'Môn học của bạn',
+  },
+  {
+    href: '/',
+    icon: <SchoolIcon fontSize="small" />,
+    title: 'Danh sách sinh viên',
+  },
+  {
+    href: '/',
+    icon: <GroupIcon fontSize="small" />,
+    title: 'Danh sách giảng viên',
+  },
+  {
+    href: '/',
+    icon: <SupervisedUserCircleIcon fontSize="small" />,
+    title: 'Danh sách admin',
+  },
+  {
+    href: '/',
+    icon: <NewspaperIcon fontSize="small" />,
+    title: 'Tin tức',
+  },
+  {
     href: '/',
     icon: <AccountBoxIcon fontSize="small" />,
     title: 'Thông tin cá nhân',
   },
   {
     href: '/',
-    icon: <SaveIcon fontSize="small" />,
-    title: 'Bài học đã lưu',
+    icon: <SettingsIcon fontSize="small" />,
+    title: 'Cài đặt',
   },
   {
     href: '/',
-    icon: <BookIcon fontSize="small" />,
-    title: 'Tài liệu',
+    icon: <HelpIcon fontSize="small" />,
+    title: 'Hỗ trợ',
   },
-  {
-    href: '/',
-    icon: <CommentIcon fontSize="small" />,
-    title: 'Bình luận của bạn',
-  },
-  {
-    href: '/',
-    icon: <NewspaperIcon fontSize="small" />,
-    title: 'Tin tức HUTECH',
-  }
 ];
 
 export const Sidebar = (props) => {
@@ -70,7 +94,7 @@ export const Sidebar = (props) => {
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item, index) => (
             <>
-              {index === 4 && (
+              {index === 6 && (
                 <Divider
                   sx={{
                     borderColor: '#2D3748',
