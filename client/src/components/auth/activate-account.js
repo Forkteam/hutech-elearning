@@ -41,7 +41,7 @@ const ActivateAccount = () => {
           Vui lòng kiểm tra email
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Đường link kích hoạt của bạn có hạn trong 30 phút.
+          Đường link kích hoạt của bạn có hạn trong 10 phút.
         </Typography>
       </CardContent>
     );

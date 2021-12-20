@@ -58,7 +58,7 @@ const RegisterForm = () => {
     try {
       const registerData = await registerUser({
         ...registerForm,
-        name: firstName + ' ' + lastName,
+        fullName: firstName + ' ' + lastName,
       });
       if (!registerData.success) {
         setAlert({ type: 'error', message: registerData.message });

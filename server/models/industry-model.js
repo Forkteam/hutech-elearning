@@ -4,24 +4,18 @@ const schema = new mongoose.Schema(
   {
     code: {
       type: String,
-      required: true,
-      trim: true
+      required: true
     },
     name: {
-      type: String
+      type: String,
+      required: true
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users'
-    },
-    studentIds: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users'
-      }
-    ]
+    }
   },
   { timestamps: true }
 );
 
-export const CoursesModel = mongoose.model('courses', schema);
+export const IndustryModel = mongoose.model('industry', schema);

@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './database/index.js';
 import auth from './routers/auth.js';
-import courses from './routers/courses.js';
+import subjects from './routers/subjects.js';
 import lectures from './routers/lectures.js';
 import users from './routers/users.js';
 dotenv.config();
@@ -13,9 +13,9 @@ app.use(cors());
 app.use(express.json());
 connectDB();
 
-app.get('/', (req, res) => res.send('This is api of TeamDoAn 19DTHD4'));
+app.get('/', (req, res) => res.send('This is api of Nhom 2 19DTHD4'));
 app.use('/auth', auth);
-app.use('/courses', courses);
+app.use('/subjects', subjects);
 app.use('/lectures', lectures);
 app.use('/users', users);
 

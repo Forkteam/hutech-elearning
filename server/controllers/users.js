@@ -1,5 +1,5 @@
 import argon2 from 'argon2';
-import { CoursesModel } from '../models/courses-model.js';
+import { SubjectModel } from '../models/subject-model.js';
 import { UserModel } from '../models/user-model.js';
 
 export const getUsers = async (req, res) => {
@@ -114,7 +114,7 @@ export const deleteUser = async (req, res) => {
         .status(404)
         .json({ success: false, message: 'User not found' });
 
-    await CoursesModel.updateMany(
+    await SubjectModel.updateMany(
       { studentIds: id },
       { $pull: { studentIds: id } },
       { new: true }

@@ -1,101 +1,104 @@
 import mailer from '../mailer/index.js';
 import inviteStudent from '../mailer/invite-mail.js';
-import { CoursesModel } from '../models/courses-model.js';
+import { SubjectModel } from '../models/subject-model.js';
 import { LectureModel } from '../models/lecture-model.js';
 import { UserModel } from '../models/user-model.js';
 
-export const getAllCourses = async (_, res) => {
+export const getAllSubjects = async (_, res) => {
   try {
-    const courses = await CoursesModel.find().populate('user', ['username']);
-    return res.status(200).json({ success: true, courses });
+    const subjects = await SubjectModel.find().populate('user', ['username']);
+    return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
-export const getStudentCourses = async (req, res) => {
+export const getStudentSubjects = async (req, res) => {
   try {
-    const courses = await CoursesModel.find({
+    const subjects = await SubjectModel.find({
       studentIds: req.body.id
     }).populate('user', ['username']);
-    return res.status(200).json({ success: true, courses });
+    return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
-export const getTeacherCourses = async (req, res) => {
+export const getTeacherSubjects = async (req, res) => {
   try {
-    const courses = await CoursesModel.find({ user: req.body.id }).populate(
+    const subjects = await SubjectModel.find({ user: req.body.id }).populate(
       'user',
       ['username']
     );
-    return res.status(200).json({ success: true, courses });
+    return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
-export const getCoursesDetail = async (req, res) => {
+export const getSubjectDetail = async (req, res) => {
   try {
-    const coursesDetail = await CoursesModel.findById(id).populate('user', [
+    const subjectDetail = await SubjectModel.findById(id).populate('user', [
       'username'
     ]);
-    return res.status(200).json({ success: true, coursesDetail });
+    return res.status(200).json({ success: true, subjectDetail });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
-export const createCourses = async (req, res) => {
+export const createSubject = async (req, res) => {
   const { code } = req.body;
   if (!code)
     return res.status(400).json({ success: false, message: 'Missing code' });
   try {
-    const coursesInput = req.body;
-    const newCourses = new CoursesModel({ ...coursesInput, user: req.userId });
-    await newCourses.save();
+    const subjectInput = req.body;
+    const newSubject = new SubjectModel({
+      ...subjectInput,
+      user: req.userId
+    });
+    await newSubject.save();
     return res
       .status(200)
-      .json({ success: true, message: 'Create courses success', newCourses });
+      .json({ success: true, message: 'Create subject success', newSubject });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
-export const updateCourses = async (req, res) => {
+export const updateSubject = async (req, res) => {
   const { code } = req.body;
   if (!code)
     return res.status(400).json({ success: false, message: 'Missing code' });
   try {
-    const existingCourses = await CoursesModel.findById(id);
-    if (!existingCourses)
+    const existingSubject = await SubjectModel.findById(id);
+    if (!existingSubject)
       return res
         .status(404)
-        .json({ success: false, message: 'Courses not found' });
+        .json({ success: false, message: 'Subject not found' });
 
     const userRole = await UserModel.findById(req.userId);
-    if (userRole.role < 3 && existingCourses.user !== userRole._id)
+    if (userRole.role < 3 && existingSubject.user !== userRole._id)
       return res
         .status(403)
         .json({ success: false, message: 'Permission denied' });
 
-    const coursesInput = req.body;
-    const updatedCourses = await CoursesModel.findOneAndUpdate(
+    const subjectInput = req.body;
+    const updatedSubject = await SubjectModel.findOneAndUpdate(
       { _id: id },
-      coursesInput,
+      subjectInput,
       { new: true }
     ).populate('user', ['username']);
 
     return res.status(200).json({
       success: true,
-      message: 'Update courses success',
-      updatedCourses
+      message: 'Update subject success',
+      updatedSubject
     });
   } catch (error) {
     console.log(error);
@@ -103,25 +106,25 @@ export const updateCourses = async (req, res) => {
   }
 };
 
-export const deleteCourses = async (req, res) => {
+export const deleteSubject = async (req, res) => {
   if (!id)
     return res
       .status(400)
-      .json({ success: false, message: 'Missing courses id' });
+      .json({ success: false, message: 'Missing subject id' });
 
   try {
-    const deletedCourses = await CoursesModel.findOneAndDelete({ _id: id });
-    if (!deletedCourses)
+    const deletedSubject = await SubjectModel.findOneAndDelete({ _id: id });
+    if (!deletedSubject)
       return res
         .status(404)
-        .json({ success: false, message: 'Courses not found' });
+        .json({ success: false, message: 'Subject not found' });
 
-    await LectureModel.deleteMany({ coursesId: id });
+    await LectureModel.deleteMany({ subjectId: id });
 
     return res.status(200).json({
       success: true,
-      message: 'Delete courses success',
-      deletedCourses
+      message: 'Delete subject success',
+      deletedSubject
     });
   } catch (error) {
     console.log(error);
@@ -129,7 +132,7 @@ export const deleteCourses = async (req, res) => {
   }
 };
 
-export const inviteStudentJoinCourses = async (req, res) => {
+export const inviteStudentJoinSubject = async (req, res) => {
   const { studentId, id } = req.body;
   if (!studentId || !id)
     return res
@@ -180,19 +183,19 @@ export const addStudent = async (req, res) => {
         .status(404)
         .json({ success: false, message: 'Student not found' });
 
-    const updatedCourses = await CoursesModel.findOneAndUpdate(
+    const updatedSubject = await SubjectModel.findOneAndUpdate(
       { _id: id },
       { $addToSet: { studentIds: studentId } },
       { new: true }
     ).populate('user', ['username']);
-    if (!updatedCourses)
+    if (!updatedSubject)
       return res
         .status(404)
-        .json({ success: false, message: 'Courses not found' });
+        .json({ success: false, message: 'Subject not found' });
     return res.status(200).json({
       success: true,
       message: 'Update student success',
-      updatedCourses
+      updatedSubject
     });
   } catch (error) {
     console.log(error);
@@ -213,20 +216,20 @@ export const removeStudent = async (req, res) => {
         .status(404)
         .json({ success: false, message: 'Student not found' });
 
-    const updatedCourses = await CoursesModel.findOneAndUpdate(
+    const updatedSubject = await SubjectModel.findOneAndUpdate(
       { _id: id },
       { $pull: { studentIds: studentId } },
       { new: true }
     ).populate('user', ['username']);
-    if (!updatedCourses)
+    if (!updatedSubject)
       return res
         .status(404)
-        .json({ success: false, message: 'Courses not found' });
+        .json({ success: false, message: 'Subject not found' });
 
     return res.status(200).json({
       success: true,
       message: 'Remove student success',
-      updatedCourses
+      updatedSubject
     });
   } catch (error) {
     console.log(error);
