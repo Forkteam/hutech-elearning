@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import StatusEnum from '../enums/status.js';
+//import StatusEnum from '../enums/status.js';
 
 const schema = new mongoose.Schema(
   {
@@ -17,8 +17,8 @@ const schema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: Object.values(StatusEnum),
-      default: StatusEnum.PRIVATE
+      enum: ['PRIVATE', 'PUBLIC'],
+      default: 'PRIVATE'
     },
     industryId: {
       type: mongoose.Schema.Types.ObjectId,
