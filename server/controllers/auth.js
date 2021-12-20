@@ -55,7 +55,7 @@ export const register = async (req, res) => {
     const accessToken = jwt.sign(
       { userId: newUser._id },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '30m' }
+      { expiresIn: '10m' }
     );
     const emailContent = activateMail(
       accessToken,
@@ -130,7 +130,7 @@ export const login = async (req, res) => {
     const accessToken = jwt.sign(
       { userId: user._id },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '7d' }
+      { expiresIn: '1d' }
     );
     res.status(200).json({ success: true, accessToken });
   } catch (error) {

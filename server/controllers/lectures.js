@@ -1,13 +1,13 @@
 import mailer from '../mailer/index.js';
 import notificationMail from '../mailer/notification-mail.js';
-import { CoursesModel } from '../models/courses-model.js';
+import { SubjectModel } from '../models/subject-model.js';
 import { LectureModel } from '../models/lecture-model.js';
 import { UserModel } from '../models/user-model.js';
 
 export const getLectures = async (req, res) => {
   try {
     const lectures = await LectureModel.find({
-      coursesId: req.params.id
+      subjectId: req.params.id
     }).populate('user', ['username']);
     res.status(200).json({ success: true, lectures });
   } catch (error) {
@@ -17,7 +17,7 @@ export const getLectures = async (req, res) => {
 };
 
 export const createLecture = async (req, res) => {
-  const { title, url, coursesId } = req.body;
+  const { title, url, subjectId } = req.body;
   if (!title)
     return res.status(400).json({ success: false, message: 'Missing title' });
 
@@ -30,12 +30,12 @@ export const createLecture = async (req, res) => {
     });
     await lecture.save();
 
-    //send email to students in courses
-    const coursesData = await CoursesModel.findById(coursesId);
+    //send email to students in subject
+    const subjectData = await SubjectModel.findById(subjectId);
     const users = await UserModel.find({
-      _id: { $in: coursesData.studentIds }
+      _id: { $in: subjectData.studentIds }
     });
-    const emailContent = notificationMail(lecture._id, lecture.coursesId);
+    const emailContent = notificationMail(lecture._id, lecture.subjectId);
     users.map((user) => {
       if (user.email) mailer(user.email, emailContent);
     });

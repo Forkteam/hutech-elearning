@@ -25,13 +25,18 @@ const schema = new mongoose.Schema(
     },
     code: {
       type: String,
+      unique: true,
       trim: true
     },
-    name: {
-      type: String
-    },
-    attachment: String,
+    fullName: String,
+    avatar: String,
     birthday: Date,
+    subjectIds: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'subjects'
+      }
+    ],
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users'

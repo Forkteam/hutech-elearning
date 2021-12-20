@@ -1,4 +1,4 @@
-const notificationMail = (lectureId, coursesId) => {
+const notificationMail = (lectureId, subjectId) => {
   const emailContent = {
     subject: 'HUTECH E-LEARNING ✔',
     html: `
@@ -6,11 +6,11 @@ const notificationMail = (lectureId, coursesId) => {
         <h2 style="text-align: center; text-transform: uppercase;color: teal;">New Lesson</h2>
         <p>Teacher just posted a new lesson. Click the link to learn:
         </p>
-        <a href='${process.env.CLIENT_URL}/lectures?coursesId=${coursesId}&lectureId=${lectureId}' style="background: crimson; text-decoration: none; color: white; padding: 10px 20px; margin: 10px 0; display: inline-block;">
+        <a href='${process.env.CLIENT_URL}/lectures?subjectId=${subjectId}&lectureId=${lectureId}' style="background: crimson; text-decoration: none; color: white; padding: 10px 20px; margin: 10px 0; display: inline-block;">
           LEARN
         </a>
         <p>If the button doesn't work, you can also click on the link below:</p>
-        <div>${process.env.CLIENT_URL}/lectures?coursesId=${coursesId}&lectureId=${lectureId}</div>
+        <div>${process.env.CLIENT_URL}/lectures?subjectId=${subjectId}&lectureId=${lectureId}</div>
       </div>
     `
   };
