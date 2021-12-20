@@ -14,7 +14,7 @@ const schema = new mongoose.Schema(
       type: String,
       default: ''
     },
-    attachment: string,
+    attachment: String,
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users'
