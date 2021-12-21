@@ -3,8 +3,10 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './database/index.js';
 import auth from './routers/auth.js';
+import industries from './routers/industries.js';
 import subjects from './routers/subjects.js';
 import lectures from './routers/lectures.js';
+import comments from './routers/comments.js';
 import users from './routers/users.js';
 dotenv.config();
 
@@ -15,8 +17,10 @@ connectDB();
 
 app.get('/', (req, res) => res.send('This is api of Nhom 2 19DTHD4'));
 app.use('/auth', auth);
+app.use('/industries', industries);
 app.use('/subjects', subjects);
 app.use('/lectures', lectures);
+app.use('/comments', comments);
 app.use('/users', users);
 
 const PORT = process.env.PORT || 5050;

@@ -4,7 +4,8 @@ const schema = new mongoose.Schema(
   {
     code: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     name: {
       type: String,
@@ -18,4 +19,4 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const IndustryModel = mongoose.model('industry', schema);
+export const IndustryModel = mongoose.model('industries', schema);
