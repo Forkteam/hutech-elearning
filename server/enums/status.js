@@ -1,4 +1,2 @@
-export const StatusEnum = {
-  PRIVATE = 'PRIVATE',
-  PUBLIC = 'PUBLIC'
-}
+export const PRIVATE = 'PRIVATE';
+export const PUBLIC = 'PUBLIC';
