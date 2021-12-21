@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import SimpleAccordian from './views/accordian'
+import SimpleAccordian from './views/accordian';
+import SimpleNews from './views/news';
 import Error from './components/layout/error';
 import Landing from './components/layout/landing';
 import ProtectedRoute from './components/routings/protected-route';
@@ -38,6 +39,7 @@ function App() {
               render={(props) => <Auth {...props} authRoute="reset" />}
             />
             <ProtectedRoute exact path="/courses" component={Courses} />
+            <ProtectedRoute exact path="/news" component={SimpleNews} />
             <Route path="/accordian" component={SimpleAccordian} />
             <Route path="/:somestring" component={Error} />
           </Switch>
