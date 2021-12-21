@@ -3,6 +3,7 @@ import inviteStudent from '../mailer/invite-mail.js';
 import { SubjectModel } from '../models/subject-model.js';
 import { LectureModel } from '../models/lecture-model.js';
 import { UserModel } from '../models/user-model.js';
+import { CommentModel } from '../models/comment-model.js';
 
 export const getAllSubjects = async (_, res) => {
   try {
@@ -52,9 +53,12 @@ export const getSubjectDetail = async (req, res) => {
 };
 
 export const createSubject = async (req, res) => {
-  const { code } = req.body;
-  if (!code)
-    return res.status(400).json({ success: false, message: 'Missing code' });
+  const { name, description, image, industryId } = req.body;
+  if (!name || !description || !image || !industryId)
+    return res.status(400).json({
+      success: false,
+      message: 'Missing name/description/image/industryId'
+    });
   try {
     const subjectInput = req.body;
     const newSubject = new SubjectModel({
@@ -72,28 +76,22 @@ export const createSubject = async (req, res) => {
 };
 
 export const updateSubject = async (req, res) => {
-  const { code } = req.body;
-  if (!code)
-    return res.status(400).json({ success: false, message: 'Missing code' });
+  const { name, description, image } = req.body;
+  if (!name || !description || !image)
+    return res
+      .status(400)
+      .json({ success: false, message: 'Missing name/description/image' });
   try {
-    const existingSubject = await SubjectModel.findById(id);
-    if (!existingSubject)
-      return res
-        .status(404)
-        .json({ success: false, message: 'Subject not found' });
-
-    const userRole = await UserModel.findById(req.userId);
-    if (userRole.role < 3 && existingSubject.user !== userRole._id)
-      return res
-        .status(403)
-        .json({ success: false, message: 'Permission denied' });
-
     const subjectInput = req.body;
     const updatedSubject = await SubjectModel.findOneAndUpdate(
       { _id: id },
       subjectInput,
       { new: true }
     ).populate('user', ['username']);
+    if (!updatedSubject)
+      return res
+        .status(404)
+        .json({ success: false, message: 'Subject not found' });
 
     return res.status(200).json({
       success: true,
@@ -119,7 +117,15 @@ export const deleteSubject = async (req, res) => {
         .status(404)
         .json({ success: false, message: 'Subject not found' });
 
-    await LectureModel.deleteMany({ subjectId: id });
+    const lectures = await LectureModel.find({ subjectId: id });
+    let lectureIds = [];
+    lectures.forEach((lecture) => {
+      lectureIds.push(lecture._id);
+    });
+    await Promise.all([
+      LectureModel.deleteMany({ subjectId: id }),
+      CommentModel.deleteMany({ lectureId: { $in: lectureIds } })
+    ]);
 
     return res.status(200).json({
       success: true,
@@ -202,6 +208,7 @@ export const addStudent = async (req, res) => {
     return res.status(500).json({ success: false, message: 'Server error' });
   }
 };
+
 export const removeStudent = async (req, res) => {
   const { studentId, id } = req.body;
   if (!studentId || !id)

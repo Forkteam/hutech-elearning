@@ -3,6 +3,7 @@ import notificationMail from '../mailer/notification-mail.js';
 import { SubjectModel } from '../models/subject-model.js';
 import { LectureModel } from '../models/lecture-model.js';
 import { UserModel } from '../models/user-model.js';
+import { CommentModel } from '../models/comment-model.js';
 
 export const getLectures = async (req, res) => {
   try {
@@ -91,6 +92,8 @@ export const deleteLecture = async (req, res) => {
       return res
         .status(404)
         .json({ success: false, message: 'Lecture not found' });
+
+    await CommentModel.deleteMany({ lectureId: req.params.id });
 
     res
       .status(200)

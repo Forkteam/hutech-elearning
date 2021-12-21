@@ -39,8 +39,12 @@ function App() {
               render={(props) => <Auth {...props} authRoute="reset" />}
             />
             <ProtectedRoute exact path="/courses" component={Courses} />
+<<<<<<< HEAD
             <ProtectedRoute exact path="/news" component={SimpleNews} />
             <Route path="/accordian" component={SimpleAccordian} />
+=======
+            <ProtectedRoute exact path="/accordian" component={SimpleAccordian} />
+>>>>>>> c0e2fea82f0f79c91b6535431767804981172290
             <Route path="/:somestring" component={Error} />
           </Switch>
         </Router>
