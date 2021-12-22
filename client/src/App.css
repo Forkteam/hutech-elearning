@@ -49,3 +49,30 @@ a {
 .jc-sb {
   justify-content: space-between;
 }
+.img-responsive {
+  width: 100%;
+
+}
+.News {
+  display: grid;
+  grid-template-columns: repeat( 2, 1fr);
+  grid-gap: 10px;
+}
+.News .Box1 {
+  padding-right: 20px;
+}
+@media only screen and (max-width:415px) {
+  .News{
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba(228, 225, 225, 0.781);
+  width: 100%;
+  border-radius: 4px;
+  padding: 7px;
+  margin-bottom: 3px;
+}

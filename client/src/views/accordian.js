@@ -18,7 +18,7 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 export default function SimpleAccordion() {
   return (
     <div>
-    <Typography variant="h1" >
+    <Typography variant="h2" >
     JavaScript Cơ Bản
     </Typography>
     <Typography >
