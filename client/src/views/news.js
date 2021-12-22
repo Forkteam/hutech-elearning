@@ -7,6 +7,7 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import Avatar from '@mui/material/Avatar';
 import SquareIcon from '@mui/icons-material/Square';
 import StarsIcon from '@mui/icons-material/Stars';
+import MovieIcon from '@mui/icons-material/Movie';
 const Grid = styled(MuiGrid)(({ theme }) => ({
     width: '100%',
     ...theme.typography.body2,
@@ -83,9 +84,9 @@ export default function News() {
 
           </Grid>
           </Box>
-          <Box className = 'Box1'
+          <Box className = 'Box2'
               sx={{
-                display: 'grid',
+                
                 boxShadow: 3,
                 marginBottom: 1,
                 paddingLeft: 2,
@@ -95,7 +96,7 @@ export default function News() {
                 flexDirection: 'row',
                 alignItems: 'center',
                 background: 'White',
-                paddingright: 20 
+                
               }} 
           >
               <Box className = 'title'><Avatar sx={{  bgcolor: 'Red', marginRight: 2 }}>
@@ -111,11 +112,53 @@ export default function News() {
                 sx = {{
                 marginLeft: 2,
                 }}>
+                
+                <a href='#'><Typography ><SquareIcon sx={{fontSize: 10, marginRight: 2}}/>Tuyển sinh Đào tạo trình độ Thạc sĩ năm 2021 - Đợt 2 <img src="//www.hutech.edu.vn/s-img/newicon_vi.gif"></img></Typography></a>
                 <hr></hr>
-                <a href='#'><Typography ><SquareIcon sx={{fontSize: 10, marginRight: 2}}/>Sinh viên HUTECH đánh giá rèn luyện cá nhân và cập nhật thông tin ngoại trú từ 03/01/2022</Typography></a>
+                <a href='#'><Typography ><SquareIcon sx={{fontSize: 10, marginRight: 2}}/>Tuyển sinh Đào tạo trình độ Tiến sĩ năm 2021 – Đợt 1 <img src="//www.hutech.edu.vn/s-img/newicon_vi.gif"></img></Typography></a>
                 <hr></hr>
-                <a href='#'><Typography ><SquareIcon sx={{fontSize: 10, marginRight: 2}}/> HUTECH Startup Wings - bước đệm vững chắc để sinh viên đến với các sân chơi khởi nghiệp toàn quốc</Typography></a>
+                <a href='#'><Typography ><SquareIcon sx={{fontSize: 10, marginRight: 2}}/>Thông tin tuyển dụng <img src="//www.hutech.edu.vn/s-img/newicon_vi.gif"></img></Typography></a>
                 <hr></hr>
+              </Grid>
+          </Box>
+          <Box className = 'Box3'
+              sx={{
+                
+                marginBottom: 1,
+                paddingLeft: 2,
+                paddingTop: 1,
+                paddingBottom: 1,
+                borderRadius: 2,
+                flexDirection: 'row',
+                alignItems: 'center',
+                background: 'White',
+                
+              }} 
+          >
+              <Box className = 'title'><Avatar sx={{  bgcolor: 'Red', marginRight: 2 }}>
+              <MovieIcon />
+              </Avatar>
+              <Typography 
+              sx={{
+                  fontSize: 19,
+                  fontFamily: 'Arial'
+                 }} >MEDIA</Typography>
+              </Box>
+              <Grid 
+                sx = {{
+                marginLeft: 2,
+                }}>
+                <div className='video'>
+                  <div><iframe width="396" height="210" src="https://www.youtube.com/embed/GE4IAgD40CA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  <br></br>
+                  <a href='#'>[15' hiểu ngành] Tập 2: Khám phá ngành Công nghệ thông tin</a>
+                  </div>
+                  <div>
+                  <iframe width="396" height="210" src="https://www.youtube.com/embed/L-PzpG0xVuE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  <br></br>
+                  <a href='#'>Teaser Cuộc thi Thiết kế áo lớp 2022</a>
+                  </div>
+                </div>
               </Grid>
           </Box>
         </div>
