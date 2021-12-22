@@ -42,7 +42,7 @@ export default function SimpleAccordion() {
       <Typography><CheckIcon color="secondary"/>Nâng cao tư duy với các bài kiểm tra với testcases</Typography> 
       </Grid>
     </Grid>
-    <Typography variant="h3" marginBottom="5%">
+    <Typography variant="h3" marginBottom="5%" marginTop="5%">
     Nội dung khóa học
     </Typography>
     <div style={{ marginLeft:'5%',width: '90%',marginRight:'5%' }}>
