@@ -18,44 +18,43 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 
 export default function SimpleAccordion() {
   return (
-    <div>
-    <Typography variant="h1" margin="5%">
+    <div style={{ marginLeft:'5%',width: '90%',marginRight:'5%' }}>
+    <Typography variant="h1" marginTop="5%">
     JavaScript Cơ Bản
     </Typography>
-    <Typography margin="5%" >
+    <Typography margin="5%">
     Học Javascript cơ bản phù hợp cho người chưa từng học lập trình. Với những bài học và bài tập thực hành hay sau mỗi bài học.
     </Typography>
-    <Typography variant="h3" margin="5%">
+    <Typography variant="h3" >
     Bạn sẽ học được gì
     </Typography>
-    <Grid container >
-      <Grid item xs marginLeft="5%">
+    <Grid container marginTop="5%">
+      <Grid item xs  marginLeft="5%" marginRight="5%">
         <Typography><CheckIcon color="secondary" />Hiểu chi tiết về các khái niệm cơ bản trong JS</Typography> 
         <Typography><CheckIcon color="secondary"/>Tự tin khi phỏng vấn với kiến thức vững chắc</Typography>
         <Typography><CheckIcon color="secondary"/>Nắm chắc các tính năng trong phiên bản ES6</Typography> 
         <Typography><CheckIcon color="secondary"/>Ghi nhớ các khái niệm nhờ bài tập trắc nghiệm</Typography>
       </Grid>
-      <Grid item xs marginRight="5%">
+      <Grid item xs marginRight="3%">
       <Typography><CheckIcon color="secondary"/>Xây dựng được website đầu tiên kết hợp với JS</Typography> 
       <Typography><CheckIcon color="secondary"/>Có nền tảng để học các thư viện và framework JS</Typography> 
       <Typography><CheckIcon color="secondary"/>Thành thạo DOM APIs để tương tác với trang web</Typography> 
       <Typography><CheckIcon color="secondary"/>Nâng cao tư duy với các bài kiểm tra với testcases</Typography> 
       </Grid>
     </Grid>
-    <Typography variant="h3" margin="5%">
+    <Typography variant="h3" marginBottom="5%">
     Nội dung khóa học
     </Typography>
+    <div style={{ marginLeft:'5%',width: '90%',marginRight:'5%' }}>
       <Accordion>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
+          expandIcon={<ExpandMoreIcon/>}
         >
           <Typography>1. Giới thiệu</Typography>
         </AccordionSummary>
-        <AccordionDetails margin="5%">
+        <AccordionDetails>
         <Accordion>
-          <Typography >1.1 Giới thiệu tổng quan</Typography>
+          <Typography>1.1 Giới thiệu tổng quan</Typography>
         </Accordion>
         <Accordion>
           <Typography>1.2 Cài đặt</Typography>
@@ -65,12 +64,12 @@ export default function SimpleAccordion() {
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
         >
           <Typography>2. Làm quen</Typography>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails
+        
+        >
         <Accordion>
           <Typography>2.1 Giới thiệu tổng quan</Typography>
         </Accordion>
@@ -82,8 +81,6 @@ export default function SimpleAccordion() {
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
         >
           <Typography>3. Kiến thức cốt lỗi</Typography>
         </AccordionSummary>
@@ -93,8 +90,6 @@ export default function SimpleAccordion() {
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
         >
           <Typography>4. HTML DOM</Typography>
         </AccordionSummary>
@@ -104,8 +99,6 @@ export default function SimpleAccordion() {
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
         > 
           <Typography>5. ECMAScript 6+</Typography>
         </AccordionSummary>
@@ -115,15 +108,14 @@ export default function SimpleAccordion() {
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
         >      
           <Typography>6. Thực hành vận dụng</Typography>
         </AccordionSummary>
         <AccordionDetails>
         </AccordionDetails>
       </Accordion>
-      <Typography variant="h3" margin="5%" >
+      </div>
+      <Typography variant="h3" marginTop="5%" marginBottom="5%">
       Yêu cầu
       </Typography>
       <Grid container >
