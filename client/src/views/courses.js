@@ -6,6 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
+
 
 const items = [
   {
@@ -82,7 +84,9 @@ const Courses = () => {
                 <Typography>{item.description.slice(0, 100)}...</Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">Xem chi tiết</Button>
+                <Link to="/detail-document">
+                  <Button size="small">Xem chi tiết</Button>
+                </Link>
               </CardActions>
             </Card>
           </Grid>
