@@ -11,6 +11,7 @@ import Auth from './views/auth';
 import Subjects from './views/subjects';
 import DetailForm from './views/detail-document';
 import News from './views/news';
+import Industries from './views/industries';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
               path="/reset-password"
               render={(props) => <Auth {...props} authRoute="reset" />}
             />
+            <ProtectedRoute exact path="/industries" component={Industries} />
             <ProtectedRoute exact path="/subjects" component={Subjects} />
             <ProtectedRoute
               exact

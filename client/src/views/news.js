@@ -59,7 +59,7 @@ export default function News() {
               Tin HUTECH
             </Typography>
           </Box>
-          <a href="#">
+          <a href="/">
             <img
               class="img-responsive"
               alt="HUTECH và Công ty Cổ phần Quốc tế SEM ký kết hợp tác"
@@ -96,7 +96,7 @@ export default function News() {
             }}
           >
             <hr></hr>
-            <a href="#">
+            <a href="/">
               <Typography>
                 <SquareIcon sx={{ fontSize: 10, marginRight: 2 }} />
                 Sinh viên HUTECH đánh giá rèn luyện cá nhân và cập nhật thông
@@ -104,7 +104,7 @@ export default function News() {
               </Typography>
             </a>
             <hr></hr>
-            <a href="#">
+            <a href="/">
               <Typography>
                 <SquareIcon sx={{ fontSize: 10, marginRight: 2 }} /> HUTECH
                 Startup Wings - bước đệm vững chắc để sinh viên đến với các sân
@@ -146,27 +146,36 @@ export default function News() {
               marginLeft: 2,
             }}
           >
-            <a href="#">
+            <a href="/">
               <Typography>
                 <SquareIcon sx={{ fontSize: 10, marginRight: 2 }} />
                 Tuyển sinh Đào tạo trình độ Thạc sĩ năm 2021 - Đợt 2{' '}
-                <img src="//www.hutech.edu.vn/s-img/newicon_vi.gif"></img>
+                <img
+                  alt=""
+                  src="//www.hutech.edu.vn/s-img/newicon_vi.gif"
+                ></img>
               </Typography>
             </a>
             <hr></hr>
-            <a href="#">
+            <a href="/">
               <Typography>
                 <SquareIcon sx={{ fontSize: 10, marginRight: 2 }} />
-                Tuyển sinh Đào tạo trình độ Tiến sĩ năm 2021 – Đợt 1{' '}
-                <img src="//www.hutech.edu.vn/s-img/newicon_vi.gif"></img>
+                Tuyển sinh Đào tạo trình độ Tiến sĩ năm 2021 - Đợt 1{' '}
+                <img
+                  alt=""
+                  src="//www.hutech.edu.vn/s-img/newicon_vi.gif"
+                ></img>
               </Typography>
             </a>
             <hr></hr>
-            <a href="#">
+            <a href="/">
               <Typography>
                 <SquareIcon sx={{ fontSize: 10, marginRight: 2 }} />
                 Thông tin tuyển dụng{' '}
-                <img src="//www.hutech.edu.vn/s-img/newicon_vi.gif"></img>
+                <img
+                  alt=""
+                  src="//www.hutech.edu.vn/s-img/newicon_vi.gif"
+                ></img>
               </Typography>
             </a>
             <hr></hr>
@@ -215,7 +224,7 @@ export default function News() {
                   allowfullscreen
                 ></iframe>
                 <br></br>
-                <a href="#">
+                <a href="/">
                   [15' hiểu ngành] Tập 2: Khám phá ngành Công nghệ thông tin
                 </a>
               </div>
@@ -230,7 +239,7 @@ export default function News() {
                   allowfullscreen
                 ></iframe>
                 <br></br>
-                <a href="#">Teaser Cuộc thi Thiết kế áo lớp 2022</a>
+                <a href="/">Teaser Cuộc thi Thiết kế áo lớp 2022</a>
               </div>
             </div>
           </Grid>

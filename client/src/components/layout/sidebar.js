@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
+import { Fragment } from 'react';
 
 const items = [
   {
@@ -44,6 +45,11 @@ const items = [
     href: '/',
     icon: <SupervisedUserCircleIcon fontSize="small" />,
     title: 'Danh sách admin',
+  },
+  {
+    href: '/industries',
+    icon: <SubjectIcon fontSize="small" />,
+    title: 'Industries',
   },
   {
     href: '/',
@@ -93,7 +99,7 @@ export const Sidebar = (props) => {
         />
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item, index) => (
-            <>
+            <Fragment key={index}>
               {index === 6 && (
                 <Divider
                   sx={{
@@ -102,7 +108,7 @@ export const Sidebar = (props) => {
                   }}
                 />
               )}
-              <Link to={item.href} key={index}>
+              <Link to={item.href}>
                 <ListItem
                   sx={{
                     backgroundColor:
@@ -134,7 +140,7 @@ export const Sidebar = (props) => {
                   <ListItemText sx={{ flexGrow: 1 }}>{item.title}</ListItemText>
                 </ListItem>
               </Link>
-            </>
+            </Fragment>
           ))}
         </Box>
       </Box>

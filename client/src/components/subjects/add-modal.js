@@ -21,11 +21,11 @@ const Transition = forwardRef(function Transition(props, ref) {
 });
 
 const AddModal = () => {
-  const {
-    authState: {
-      user: { role },
-    },
-  } = useContext(AuthContext);
+  // const {
+  //   authState: {
+  //     user: { role },
+  //   },
+  // } = useContext(AuthContext);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const dispatch = useDispatch();

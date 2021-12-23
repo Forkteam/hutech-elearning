@@ -125,9 +125,8 @@ export default function DetailForm() {
               fontWeight="400"
             >
               - Có nhiều tài nguyên hỗ trợ với cộng đồng người dùng vô cùng lớn{' '}
-              <br />
-              - Có thể hoạt động mượt mà trên hầu hết mọi trình duyệt hiện nay{' '}
-              <br />
+              <br />- Có thể hoạt động mượt mà trên hầu hết mọi trình duyệt hiện
+              nay <br />
               - Học HTML khá đơn giản <br />
               - Các markup sử dụng trong HTML thường ngắn gọn, có độ đồng nhất
               cao <br />
@@ -344,7 +343,7 @@ export default function DetailForm() {
               }}
             >
               <div class="comment">
-                <a class="avatar">
+                <a href="/" class="avatar">
                   <img
                     width={40}
                     height={40}
@@ -353,7 +352,9 @@ export default function DetailForm() {
                   ></img>
                 </a>
                 <div class="content">
-                  <a class="author">Linh</a>
+                  <a href="/" class="author">
+                    Linh
+                  </a>
                   <div class="metadata">
                     <span class="date">
                       How artistic! (Today at 5:42 PM) <br />
@@ -363,7 +364,7 @@ export default function DetailForm() {
                 </div>
               </div>
               <div class="comment">
-                <a class="avatar">
+                <a href="/" class="avatar">
                   <img
                     width={40}
                     height={40}
@@ -372,7 +373,9 @@ export default function DetailForm() {
                   ></img>
                 </a>
                 <div class="content">
-                  <a class="author">Dương An</a>
+                  <a href="/" class="author">
+                    Dương An
+                  </a>
                   <div class="metadata">
                     <span>
                       This has been very useful for my research. Thanks as well!
@@ -383,7 +386,7 @@ export default function DetailForm() {
                 </div>
               </div>
               <div class="comments">
-                <a class="avatar">
+                <a href="/" class="avatar">
                   <img
                     width={40}
                     height={40}
@@ -392,7 +395,9 @@ export default function DetailForm() {
                   ></img>
                 </a>
                 <div class="content">
-                  <a class="author">Jenny Hess</a>
+                  <a href="/" class="author">
+                    Jenny Hess
+                  </a>
                   <div class="metadata">
                     <span class="date">
                       {' '}
@@ -403,7 +408,7 @@ export default function DetailForm() {
                 </div>
               </div>
               <div class="comment">
-                <a class="avatar">
+                <a href="/" class="avatar">
                   <img
                     width={40}
                     height={40}
@@ -412,7 +417,9 @@ export default function DetailForm() {
                   ></img>
                 </a>
                 <div class="content">
-                  <a class="author">Joe Henderson</a>
+                  <a href="/" class="author">
+                    Joe Henderson
+                  </a>
                   <div class="metadata">
                     <span class="date">
                       {' '}
@@ -460,7 +467,6 @@ export default function DetailForm() {
         >
           <List
             sx={{
-              position: 'absolute',
               width: '22vw',
               maxWidth: 360,
               bgcolor: 'rgba(0,0,0,.15)',
