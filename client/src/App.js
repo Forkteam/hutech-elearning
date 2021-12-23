@@ -1,16 +1,16 @@
+import { ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import SimpleAccordian from './views/accordian';
-import News from './views/news';
 import Error from './components/layout/error';
 import Landing from './components/layout/landing';
 import ProtectedRoute from './components/routings/protected-route';
 import AuthContextProvider from './contexts/auth-context';
+import { theme } from './theme';
+import SimpleAccordion from './views/accordion';
 import Auth from './views/auth';
 import Courses from './views/courses';
-import { ThemeProvider } from '@mui/material/styles';
-import { theme } from './theme';
 import DetailForm from './views/detail-document';
+import News from './views/news';
 
 function App() {
   return (
@@ -39,13 +39,18 @@ function App() {
               path="/reset-password"
               render={(props) => <Auth {...props} authRoute="reset" />}
             />
-            <Route
-              exact
-              path="/detail-document"  component={DetailForm}
-            />
             <ProtectedRoute exact path="/courses" component={Courses} />
+            <ProtectedRoute
+              exact
+              path="/detail-document"
+              component={DetailForm}
+            />
             <ProtectedRoute exact path="/news" component={News} />
-            <ProtectedRoute exact path="/accordian" component={SimpleAccordian} />
+            <ProtectedRoute
+              exact
+              path="/accordion"
+              component={SimpleAccordion}
+            />
             <Route path="/:somestring" component={Error} />
           </Switch>
         </Router>

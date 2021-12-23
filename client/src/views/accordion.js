@@ -18,32 +18,51 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 export default function SimpleAccordion() {
   return (
     <div>
-    <Typography variant="h2" >
-    JavaScript Cơ Bản
-    </Typography>
-    <Typography >
-    Học Javascript cơ bản phù hợp cho người chưa từng học lập trình. Với hơn 100 bài học và có bài tập thực hành sau mỗi bài học.
-    </Typography>
-    <Typography variant="h3" >
-    Bạn sẽ học được gì
-    </Typography>
-    <Grid container>
-      <Grid item xs>
-        <Typography><CheckIcon/>Hiểu chi tiết về các khái niệm cơ bản trong JS</Typography> 
-        <Typography><CheckIcon/>Tự tin khi phỏng vấn với kiến thức vững chắc</Typography>
-        <Typography><CheckIcon/>Nắm chắc các tính năng trong phiên bản ES6</Typography> 
-        <Typography><CheckIcon/>Ghi nhớ các khái niệm nhờ bài tập trắc nghiệm</Typography>
+      <Typography variant="h2">JavaScript Cơ Bản</Typography>
+      <Typography>
+        Học Javascript cơ bản phù hợp cho người chưa từng học lập trình. Với hơn
+        100 bài học và có bài tập thực hành sau mỗi bài học.
+      </Typography>
+      <Typography variant="h3">Bạn sẽ học được gì</Typography>
+      <Grid container>
+        <Grid item xs>
+          <Typography>
+            <CheckIcon />
+            Hiểu chi tiết về các khái niệm cơ bản trong JS
+          </Typography>
+          <Typography>
+            <CheckIcon />
+            Tự tin khi phỏng vấn với kiến thức vững chắc
+          </Typography>
+          <Typography>
+            <CheckIcon />
+            Nắm chắc các tính năng trong phiên bản ES6
+          </Typography>
+          <Typography>
+            <CheckIcon />
+            Ghi nhớ các khái niệm nhờ bài tập trắc nghiệm
+          </Typography>
+        </Grid>
+        <Grid item xs>
+          <Typography>
+            <CheckIcon />
+            Xây dựng được website đầu tiên kết hợp với JS
+          </Typography>
+          <Typography>
+            <CheckIcon />
+            Có nền tảng để học các thư viện và framework JS
+          </Typography>
+          <Typography>
+            <CheckIcon />
+            Thành thạo DOM APIs để tương tác với trang web
+          </Typography>
+          <Typography>
+            <CheckIcon />
+            Nâng cao tư duy với các bài kiểm tra với testcases
+          </Typography>
+        </Grid>
       </Grid>
-      <Grid item xs>
-      <Typography><CheckIcon/>Xây dựng được website đầu tiên kết hợp với JS</Typography> 
-      <Typography><CheckIcon/>Có nền tảng để học các thư viện và framework JS</Typography> 
-      <Typography><CheckIcon/>Thành thạo DOM APIs để tương tác với trang web</Typography> 
-      <Typography><CheckIcon/>Nâng cao tư duy với các bài kiểm tra với testcases</Typography> 
-      </Grid>
-    </Grid>
-    <Typography variant="h3" >
-    Nội dung khóa học
-    </Typography>
+      <Typography variant="h3">Nội dung khóa học</Typography>
 
       <Accordion>
         <AccordionSummary
@@ -84,9 +103,7 @@ export default function SimpleAccordion() {
           <Typography>Accordion 3</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-          s
-          </Typography>
+          <Typography>s</Typography>
         </AccordionDetails>
       </Accordion>
 
@@ -98,10 +115,8 @@ export default function SimpleAccordion() {
         >
           <Typography>Accordion 4</Typography>
         </AccordionSummary>
-        <AccordionDetails> 
-        <Typography>
-          s
-        </Typography>
+        <AccordionDetails>
+          <Typography>s</Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion>
@@ -119,17 +134,32 @@ export default function SimpleAccordion() {
           </Typography>
         </AccordionDetails>
       </Accordion>
-     
-      <Typography variant="h3" >
-      Yêu cầu
-      </Typography>
+
+      <Typography variant="h3">Yêu cầu</Typography>
       <Grid container>
         <Grid item xs>
-          <Typography><CheckIcon/>Máy vi tính kết nối internet (Windows, Ubuntu hoặc MacOS)</Typography> 
-          <Typography><CheckIcon/>Ý thức tự học cao, trách nhiệm cao, kiên trì bền bỉ không ngại cái khó</Typography>
-          <Typography><CheckIcon/>Không được nóng vội, bình tĩnh học, làm bài tập sau mỗi bài học</Typography> 
-          <Typography><CheckIcon/>Khi học nếu có khúc mắc hãy tham gia hỏi/đáp tại group FB: Học lập trình web (fullstack.edu.vn)</Typography>
-          <Typography><CheckIcon/>Bạn không cần biết gì hơn nữa, trong khóa học tôi sẽ chỉ cho bạn những gì bạn cần phải biết</Typography>
+          <Typography>
+            <CheckIcon />
+            Máy vi tính kết nối internet (Windows, Ubuntu hoặc MacOS)
+          </Typography>
+          <Typography>
+            <CheckIcon />Ý thức tự học cao, trách nhiệm cao, kiên trì bền bỉ
+            không ngại cái khó
+          </Typography>
+          <Typography>
+            <CheckIcon />
+            Không được nóng vội, bình tĩnh học, làm bài tập sau mỗi bài học
+          </Typography>
+          <Typography>
+            <CheckIcon />
+            Khi học nếu có khúc mắc hãy tham gia hỏi/đáp tại group FB: Học lập
+            trình web (fullstack.edu.vn)
+          </Typography>
+          <Typography>
+            <CheckIcon />
+            Bạn không cần biết gì hơn nữa, trong khóa học tôi sẽ chỉ cho bạn
+            những gì bạn cần phải biết
+          </Typography>
         </Grid>
       </Grid>
     </div>
