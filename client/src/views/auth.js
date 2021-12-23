@@ -62,7 +62,7 @@ const Auth = ({ authRoute }) => {
             position: 'absolute',
             width: '-webkit-fill-available',
             height:
-              authRoute !== 'register' ? '-webkit-fill-available' : '720px',
+              authRoute !== 'register' ? '-webkit-fill-available' : '120vh',
             borderRadius: 0,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
@@ -75,7 +75,7 @@ const Auth = ({ authRoute }) => {
             <Box
               sx={{
                 boxShadow: 3,
-                marginTop: 3,
+                marginTop: 5,
                 padding: 2,
                 borderRadius: 4,
                 display: 'flex',

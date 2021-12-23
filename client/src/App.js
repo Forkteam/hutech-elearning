@@ -10,6 +10,7 @@ import Auth from './views/auth';
 import Courses from './views/courses';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme';
+import DetailForm from './views/detail-document';
 
 function App() {
   return (
@@ -37,6 +38,10 @@ function App() {
               exact
               path="/reset-password"
               render={(props) => <Auth {...props} authRoute="reset" />}
+            />
+            <Route
+              exact
+              path="/detail-document"  component={DetailForm}
             />
             <ProtectedRoute exact path="/courses" component={Courses} />
             <ProtectedRoute exact path="/news" component={News} />

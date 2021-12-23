@@ -46,7 +46,7 @@ export default function Landing() {
             pt: 8,
             pb: 6,
             background:
-              'url(https://file1.hutech.edu.vn/file/editor/homepage1/IMG_7760%284%29.jpg) no-repeat center/ cover',
+              'url(https://file1.hutech.edu.vn/file/editor/homepage1/IMG_7760%284%29.jpg) no-repeat center / cover',
           }}
         >
           <Box
