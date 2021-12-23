@@ -21,7 +21,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const items = [
   {
-    href: '/courses',
+    href: '/subjects',
     icon: <SubjectIcon fontSize="small" />,
     title: 'Danh sách môn học',
   },
@@ -102,7 +102,7 @@ export const Sidebar = (props) => {
                   }}
                 />
               )}
-              <Link to={item.href} passHref>
+              <Link to={item.href} key={index}>
                 <ListItem
                   sx={{
                     backgroundColor:

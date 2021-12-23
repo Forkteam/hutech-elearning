@@ -10,7 +10,7 @@ export const INIT_STATE = {
   currentId: {
     _id: 0,
   },
-  courses: {
+  subjects: {
     loading: false,
     data: [],
   },

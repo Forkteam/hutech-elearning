@@ -8,7 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import LogoHutech from '../../assets/logo.png';
-import Courses from '../../views/courses';
+import Subjects from '../../views/subjects';
 import Copyright from './copyright';
 
 const theme = createTheme();
@@ -95,7 +95,7 @@ export default function Landing() {
             </Stack>
           </Container>
         </Box>
-        <Courses />
+        <Subjects />
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 1 }} component="footer">

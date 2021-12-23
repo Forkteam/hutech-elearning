@@ -7,7 +7,13 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { showModal } from '../redux/actions';
+import AddModal from '../components/subjects/add-modal';
 
 const items = [
   {
@@ -52,48 +58,67 @@ const items = [
   },
 ];
 
-const Courses = () => {
+const Subjects = () => {
+  const dispatch = useDispatch();
+
+  const setShowModal = useCallback(() => {
+    dispatch(showModal());
+  }, [dispatch]);
+
   return (
-    <Container sx={{ py: 4 }} maxWidth="md">
-      {/* End hero unit */}
-      <Grid container spacing={2}>
-        {items.map((item) => (
-          <Grid item xs={12} sm={6} md={4} key={item.title}>
-            <Card
-              sx={{
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                boxShadow: 3,
-              }}
-            >
-              <CardMedia
-                component="img"
+    <>
+      <Tooltip title="Create new subject">
+        <IconButton
+          aria-label="delete"
+          size="large"
+          sx={{ width: 'fit-content', alignSelf: 'end' }}
+          onClick={setShowModal}
+        >
+          <AddCircleIcon />
+        </IconButton>
+      </Tooltip>
+      <AddModal />
+      <Container sx={{ py: 4 }} maxWidth="md">
+        {/* End hero unit */}
+        <Grid container spacing={2}>
+          {items.map((item) => (
+            <Grid item xs={12} sm={6} md={4} key={item.title}>
+              <Card
                 sx={{
-                  // 16:9
-                  pt: '10px',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  boxShadow: 3,
                 }}
-                height="220"
-                image={item.image}
-                alt="random"
-              />
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography gutterBottom variant="h5" component="h5">
-                  {item.title}
-                </Typography>
-                <Typography>{item.description.slice(0, 100)}...</Typography>
-              </CardContent>
-              <CardActions>
-                <Link to="/detail-document">
-                  <Button size="small">Xem chi tiết</Button>
-                </Link>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+              >
+                <CardMedia
+                  component="img"
+                  sx={{
+                    // 16:9
+                    pt: '10px',
+                  }}
+                  height="220"
+                  image={item.image}
+                  alt="random"
+                />
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography gutterBottom variant="h5" component="h5">
+                    {item.title}
+                  </Typography>
+                  <Typography>{item.description.slice(0, 100)}...</Typography>
+                </CardContent>
+                <CardActions>
+                  <Link to="/detail-document">
+                    <Button size="small">Xem chi tiết</Button>
+                  </Link>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </>
   );
 };
 
-export default Courses;
+export default Subjects;

@@ -3,18 +3,18 @@ import axios from 'axios';
 export const apiURL =
   process.env.NODE_ENV !== 'production' ? 'http://localhost:5050' : '';
 
-export const getAllCourses = (payload) =>
-  axios.get(`${apiURL}/courses/all-courses`, payload);
-export const getStudentCourses = (payload) =>
-  axios.get(`${apiURL}/courses/student-courses`, payload);
-export const getTeacherCourses = (payload) =>
-  axios.get(`${apiURL}/courses/teacher-courses`, payload);
-export const createCourse = (payload) =>
-  axios.post(`${apiURL}/courses`, payload);
-export const updateCourse = (payload) =>
-  axios.put(`${apiURL}/courses/${payload._id}`, payload);
-export const deleteCourse = (payload) =>
-  axios.delete(`${apiURL}/courses/${payload}`);
+export const getAllSubjects = (payload) =>
+  axios.get(`${apiURL}/subjects/all-subjects`, payload);
+export const getStudentSubjects = (payload) =>
+  axios.get(`${apiURL}/subjects/student-subjects`, payload);
+export const getTeacherSubjects = (payload) =>
+  axios.get(`${apiURL}/subjects/teacher-subjects`, payload);
+export const createSubject = (payload) =>
+  axios.post(`${apiURL}/subjects`, payload);
+export const updateSubject = (payload) =>
+  axios.put(`${apiURL}/subjects/${payload._id}`, payload);
+export const deleteSubject = (payload) =>
+  axios.delete(`${apiURL}/subjects/${payload}`);
 
 export const getUsers = (payload) => axios.get(`${apiURL}/users/${payload}`);
 export const createUser = (payload) =>

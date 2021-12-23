@@ -36,7 +36,7 @@ const Auth = ({ authRoute }) => {
       <Redirect
         to={
           RedirectTo === undefined
-            ? '/courses'
+            ? '/subjects'
             : studentId === undefined
             ? RedirectTo
             : `${RedirectTo}&studentId=${studentId}`

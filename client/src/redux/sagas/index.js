@@ -1,17 +1,17 @@
 import { takeLatest } from 'redux-saga/effects';
 
 import {
-  getAllCourses,
-  createCourse,
-  updateCourse,
-  deleteCourse,
-} from '../actions/courses';
+  getAllSubjects,
+  createSubject,
+  updateSubject,
+  deleteSubject,
+} from '../actions/subjects';
 import {
-  getAllCoursesSaga,
-  createCourseSaga,
-  updateCourseSaga,
-  deleteCourseSaga,
-} from './courses';
+  getAllSubjectsSaga,
+  createSubjectSaga,
+  updateSubjectSaga,
+  deleteSubjectSaga,
+} from './subjects';
 
 // import {
 //   getLectures,
@@ -35,10 +35,10 @@ import {
 } from './users';
 
 function* mySaga() {
-  yield takeLatest(getAllCourses.getAllCoursesRequest, getAllCoursesSaga);
-  yield takeLatest(createCourse.createCourseRequest, createCourseSaga);
-  yield takeLatest(updateCourse.updateCourseRequest, updateCourseSaga);
-  yield takeLatest(deleteCourse.deleteCourseRequest, deleteCourseSaga);
+  yield takeLatest(getAllSubjects.getAllSubjectsRequest, getAllSubjectsSaga);
+  yield takeLatest(createSubject.createSubjectRequest, createSubjectSaga);
+  yield takeLatest(updateSubject.updateSubjectRequest, updateSubjectSaga);
+  yield takeLatest(deleteSubject.deleteSubjectRequest, deleteSubjectSaga);
 
   // yield takeLatest(getLectures.getLecturesRequest, getLecturesSaga);
   // yield takeLatest(createLecture.createLectureRequest, createLectureSaga);

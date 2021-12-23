@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import courses from './courses';
+import subjects from './subjects';
 import lectures from './lectures';
 import modal from './constants/modal';
 import toast from './constants/toast';
@@ -9,7 +9,7 @@ import teachers from './teachers';
 import admins from './admins';
 
 export default combineReducers({
-  courses,
+  subjects,
   lectures,
   modal,
   toast,

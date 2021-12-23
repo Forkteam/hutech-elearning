@@ -8,7 +8,7 @@ import AuthContextProvider from './contexts/auth-context';
 import { theme } from './theme';
 import SimpleAccordion from './views/accordion';
 import Auth from './views/auth';
-import Courses from './views/courses';
+import Subjects from './views/subjects';
 import DetailForm from './views/detail-document';
 import News from './views/news';
 
@@ -39,7 +39,7 @@ function App() {
               path="/reset-password"
               render={(props) => <Auth {...props} authRoute="reset" />}
             />
-            <ProtectedRoute exact path="/courses" component={Courses} />
+            <ProtectedRoute exact path="/subjects" component={Subjects} />
             <ProtectedRoute
               exact
               path="/detail-document"
