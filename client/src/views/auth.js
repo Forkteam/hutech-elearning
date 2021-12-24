@@ -26,7 +26,7 @@ const Auth = ({ authRoute }) => {
   let body;
   if (authLoading) {
     body = (
-      <div>
+      <div style={{ margin: 'auto' }}>
         <CircularProgress />
       </div>
     );

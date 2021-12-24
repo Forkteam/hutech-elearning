@@ -67,7 +67,7 @@ const AddModal = () => {
       scroll="body"
     >
       <DialogTitle>
-        {currentId._id === 0 ? 'CREATE NEW SUBJECT' : 'EDIT SUBJECT'}
+        {currentId._id === 0 ? 'CREATE NEW INDUSTRY' : 'EDIT INDUSTRY'}
       </DialogTitle>
       <DialogContent dividers>
         <TextField

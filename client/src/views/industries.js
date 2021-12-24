@@ -1,8 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
-// import CancelIcon from '@mui/icons-material/Close';
-// import SaveIcon from '@mui/icons-material/Save';
 import Button from '@mui/material/Button';
 import {
   DataGrid,
@@ -11,56 +9,16 @@ import {
   GridToolbarExport,
   GridToolbarFilterButton,
 } from '@mui/x-data-grid';
-import {
-  randomCreatedDate,
-  randomId,
-  randomTraderName,
-  randomUpdatedDate,
-} from '@mui/x-data-grid-generator';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AddModal from '../components/industries/add-modal';
 import Tooltip from '../components/layout/tooltip';
 import { showModal } from '../redux/actions';
-import { toast$ } from '../redux/selectors';
-
-const rows = [
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 25,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 36,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 19,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 28,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 23,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
-  },
-];
+import { getIndustries } from '../redux/actions/industries';
+import { toast$, industries$ } from '../redux/selectors';
+import CustomNoRowsOverlay from '../components/overlays/NoRowsOverlay';
+import CircularProgress from '@mui/material/CircularProgress';
+import moment from 'moment';
 
 function EditToolbar({ setShowModal }) {
   return (
@@ -76,8 +34,13 @@ function EditToolbar({ setShowModal }) {
 
 const Industries = () => {
   const dispatch = useDispatch();
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(7);
   const toast = useSelector(toast$);
+  const industries = useSelector(industries$);
+
+  useEffect(() => {
+    dispatch(getIndustries.getIndustriesRequest());
+  }, [dispatch]);
 
   const setShowModal = useCallback(() => {
     dispatch(showModal());
@@ -87,65 +50,62 @@ const Industries = () => {
     setRowsPerPage(newPageSize);
   };
 
-  // const handleRowEditStart = (params, event) => {
-  //   event.defaultMuiPrevented = true;
-  // };
-  // const handleRowEditStop = (params, event) => {
-  //   event.defaultMuiPrevented = true;
-  // };
-  // const handleCellFocusOut = (params, event) => {
-  //   event.defaultMuiPrevented = true;
-  // };
+  if (industries.loading) {
+    return (
+      <div style={{ margin: 'auto' }}>
+        <CircularProgress />
+      </div>
+    );
+  }
 
   // const handleEditClick = (id) => (event) => {
   //   event.stopPropagation();
   //   apiRef.current.setRowMode(id, 'edit');
   // };
-  // const handleSaveClick = (id) => (event) => {
-  //   event.stopPropagation();
-  //   apiRef.current.commitRowChange(id);
-  //   apiRef.current.setRowMode(id, 'view');
-  //   const row = apiRef.current.getRow(id);
-  //   apiRef.current.updateRows([{ ...row, isNew: false }]);
-  // };
+
   // const handleDeleteClick = (id) => (event) => {
   //   event.stopPropagation();
   //   apiRef.current.updateRows([{ id, _action: 'delete' }]);
   // };
-  // const handleCancelClick = (id) => (event) => {
-  //   event.stopPropagation();
-  //   apiRef.current.setRowMode(id, 'view');
-  //   const row = apiRef.current.getRow(id);
-  //   if (row.isNew) {
-  //     apiRef.current.updateRows([{ id, _action: 'delete' }]);
-  //   }
-  // };
 
   const columns = [
-    { field: 'name', headerName: 'Name', minWidth: 180 },
+    { field: 'code', headerName: 'Code', minWidth: 100, flex: 1 },
+    { field: 'name', headerName: 'Name', minWidth: 250, flex: 1 },
     {
-      field: 'age',
-      headerName: 'Age',
-      minWidth: 100,
-      type: 'number',
+      field: 'user',
+      headerName: 'User Created',
+      minWidth: 180,
+      flex: 1,
+      valueGetter: (param) => {
+        return `${param.value.fullName}`;
+      },
     },
     {
-      field: 'dateCreated',
+      field: 'createdAt',
       headerName: 'Date Created',
       type: 'date',
-      minWidth: 180,
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (param) => {
+        return `${moment(param.value).format('ll')}`;
+      },
     },
     {
-      field: 'lastLogin',
-      headerName: 'Last Login',
+      field: 'updatedAt',
+      headerName: 'Last Updated',
       type: 'dateTime',
-      minWidth: 220,
+      minWidth: 150,
+      flex: 1,
+      valueGetter: (param) => {
+        return `${moment(param.value).fromNow()}`;
+      },
     },
     {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      minWidth: 100,
+      minWidth: 150,
+      flex: 1,
       cellClassName: 'actions',
       getActions: ({ _id }) => [
         <GridActionsCellItem
@@ -183,21 +143,18 @@ const Industries = () => {
         }}
       >
         <DataGrid
-          rows={rows}
+          rows={industries.data}
           columns={columns}
           pageSize={rowsPerPage}
           onPageSizeChange={(newPageSize) =>
             handleChangeRowsPerPage(newPageSize)
           }
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[7, 15, 30]}
           pagination
           editMode="row"
-          //apiRef={apiRef}
-          // onRowEditStart={handleRowEditStart}
-          // onRowEditStop={handleRowEditStop}
-          // onCellFocusOut={handleCellFocusOut}
           components={{
             Toolbar: EditToolbar,
+            NoRowsOverlay: CustomNoRowsOverlay,
           }}
           componentsProps={{
             toolbar: { setShowModal },

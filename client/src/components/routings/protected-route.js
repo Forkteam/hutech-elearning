@@ -26,7 +26,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
 
   if (authLoading) {
     return (
-      <div className="spinner-container">
+      <div style={{ margin: 'auto' }}>
         <CircularProgress />
       </div>
     );

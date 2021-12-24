@@ -4,7 +4,7 @@ import { SubjectModel } from '../models/subject-model.js';
 export const getIndustries = async (req, res) => {
   try {
     const industries = await IndustryModel.find().populate('user', [
-      'username'
+      'fullName'
     ]);
     res.status(200).json({ success: true, industries });
   } catch (error) {
@@ -28,7 +28,7 @@ export const createIndustry = async (req, res) => {
     });
     await industry.save();
 
-    industry = await industry.populate('user', ['username']);
+    industry = await industry.populate('user', ['fullName']);
     res
       .status(200)
       .json({ success: true, message: 'Create industry success', industry });
@@ -52,7 +52,7 @@ export const updateIndustry = async (req, res) => {
         user: req.userId
       },
       { new: true }
-    ).populate('user', ['username']);
+    ).populate('user', ['fullName']);
 
     if (!industry)
       return res

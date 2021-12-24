@@ -19,4 +19,9 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
+schema.set('toJSON', {
+  virtuals: true,
+  versionKey: false
+});
+
 export const IndustryModel = mongoose.model('industries', schema);

@@ -18,6 +18,7 @@ const schema = new mongoose.Schema({
     required: true,
     minlength: 6
   },
+  fullName: String,
   createdAt: {
     type: Date,
     default: Date.now,

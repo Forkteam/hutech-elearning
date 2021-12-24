@@ -11,7 +11,7 @@ import { showToast } from '../actions';
 export function* getIndustriesSaga(action) {
   try {
     const response = yield call(api.getIndustries, action.payload);
-    yield put(getIndustries.getIndustriesSuccess(response.data.Industries));
+    yield put(getIndustries.getIndustriesSuccess(response.data.industries));
   } catch (error) {
     console.log(error);
     yield put(getIndustries.getIndustriesFailure(error));
@@ -21,7 +21,7 @@ export function* getIndustriesSaga(action) {
 export function* createIndustrySaga(action) {
   try {
     const response = yield call(api.createIndustry, action.payload);
-    yield put(createIndustry.createIndustrySuccess(response.data.Industry));
+    yield put(createIndustry.createIndustrySuccess(response.data.industry));
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
@@ -37,7 +37,7 @@ export function* createIndustrySaga(action) {
 export function* updateIndustrySaga(action) {
   try {
     const response = yield call(api.updateIndustry, action.payload);
-    yield put(updateIndustry.updateIndustrySuccess(response.data.Industry));
+    yield put(updateIndustry.updateIndustrySuccess(response.data.industry));
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
@@ -53,7 +53,7 @@ export function* updateIndustrySaga(action) {
 export function* deleteIndustrySaga(action) {
   try {
     const response = yield call(api.deleteIndustry, action.payload);
-    yield put(deleteIndustry.deleteIndustrySuccess(response.data.Industry));
+    yield put(deleteIndustry.deleteIndustrySuccess(response.data.industry));
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
