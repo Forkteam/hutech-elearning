@@ -52,7 +52,14 @@ const Industries = () => {
 
   if (industries.loading) {
     return (
-      <div style={{ margin: 'auto' }}>
+      <div
+        style={{
+          left: '50%',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          position: 'absolute',
+        }}
+      >
         <CircularProgress />
       </div>
     );

@@ -26,7 +26,14 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
 
   if (authLoading) {
     return (
-      <div style={{ margin: 'auto' }}>
+      <div
+        style={{
+          left: '50%',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          position: 'absolute',
+        }}
+      >
         <CircularProgress />
       </div>
     );
@@ -41,12 +48,12 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
             <LayoutRoot>
               <Box
                 sx={{
-                  display: 'flex',
-                  flex: '1 1 auto',
-                  flexDirection: 'column',
+                  // display: 'flex',
+                  // flex: '1 1 auto',
+                  // flexDirection: 'column',
                   width: '100%',
-                  bgcolor: '#f5f5f0',
                   height: '100vh',
+                  bgcolor: '#f5f5f0',
                 }}
               >
                 <Component {...rest} {...props} />

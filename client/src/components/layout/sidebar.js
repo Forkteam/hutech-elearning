@@ -7,6 +7,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SubjectIcon from '@mui/icons-material/Subject';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import ConstructionIcon from '@mui/icons-material/Construction';
 import {
   Box,
   Divider,
@@ -48,8 +49,8 @@ const items = [
   },
   {
     href: '/industries',
-    icon: <SubjectIcon fontSize="small" />,
-    title: 'Industries',
+    icon: <ConstructionIcon fontSize="small" />,
+    title: 'Danh sách ngành học',
   },
   {
     href: '/',
