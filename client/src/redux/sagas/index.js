@@ -1,6 +1,19 @@
 import { takeLatest } from 'redux-saga/effects';
 
 import {
+  getIndustries,
+  createIndustry,
+  updateIndustry,
+  deleteIndustry,
+} from '../actions/industries';
+import {
+  getIndustriesSaga,
+  createIndustrySaga,
+  updateIndustrySaga,
+  deleteIndustrySaga,
+} from './industries';
+
+import {
   getAllSubjects,
   createSubject,
   updateSubject,
@@ -35,6 +48,11 @@ import {
 } from './users';
 
 function* mySaga() {
+  yield takeLatest(getIndustries.getIndustriesRequest, getIndustriesSaga);
+  yield takeLatest(createIndustry.createIndustryRequest, createIndustrySaga);
+  yield takeLatest(updateIndustry.updateIndustryRequest, updateIndustrySaga);
+  yield takeLatest(deleteIndustry.deleteIndustryRequest, deleteIndustrySaga);
+
   yield takeLatest(getAllSubjects.getAllSubjectsRequest, getAllSubjectsSaga);
   yield takeLatest(createSubject.createSubjectRequest, createSubjectSaga);
   yield takeLatest(updateSubject.updateSubjectRequest, updateSubjectSaga);

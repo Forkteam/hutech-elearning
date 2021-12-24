@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { showModal } from '../redux/actions';
-import AddModal from '../components/subjects/add-modal';
+// import AddModal from '../components/subjects/add-modal';
 
 const items = [
   {
@@ -77,7 +77,7 @@ const Subjects = () => {
           <AddCircleIcon />
         </IconButton>
       </Tooltip>
-      <AddModal />
+      {/* <AddModal /> */}
       <Container sx={{ py: 4 }} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={2}>

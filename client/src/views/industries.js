@@ -1,11 +1,3 @@
-import {
-  DataGrid,
-  GridActionsCellItem,
-  GridToolbarColumnsButton,
-  GridToolbarContainer,
-  GridToolbarExport,
-  GridToolbarFilterButton,
-} from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
@@ -13,12 +5,24 @@ import EditIcon from '@mui/icons-material/Edit';
 // import SaveIcon from '@mui/icons-material/Save';
 import Button from '@mui/material/Button';
 import {
+  DataGrid,
+  GridActionsCellItem,
+  GridToolbarContainer,
+  GridToolbarExport,
+  GridToolbarFilterButton,
+} from '@mui/x-data-grid';
+import {
   randomCreatedDate,
   randomId,
   randomTraderName,
   randomUpdatedDate,
 } from '@mui/x-data-grid-generator';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import AddModal from '../components/industries/add-modal';
+import Tooltip from '../components/layout/tooltip';
+import { showModal } from '../redux/actions';
+import { toast$ } from '../redux/selectors';
 
 const rows = [
   {
@@ -58,29 +62,12 @@ const rows = [
   },
 ];
 
-function EditToolbar() {
-  // const { apiRef } = props;
-
-  // const handleClick = () => {
-  //   const id = randomId();
-  //   apiRef.current.updateRows([{ id, isNew: true }]);
-  //   apiRef.current.setRowMode(id, 'edit');
-  //   // Wait for the grid to render with the new row
-  //   setTimeout(() => {
-  //     apiRef.current.scrollToIndexes({
-  //       rowIndex: apiRef.current.getRowsCount() - 1,
-  //     });
-
-  //     apiRef.current.setCellFocus(id, 'name');
-  //   });
-  // };
-
+function EditToolbar({ setShowModal }) {
   return (
     <GridToolbarContainer>
-      <GridToolbarColumnsButton />
       <GridToolbarFilterButton />
       <GridToolbarExport />
-      <Button color="primary" startIcon={<AddIcon />}>
+      <Button color="primary" startIcon={<AddIcon />} onClick={setShowModal}>
         Add record
       </Button>
     </GridToolbarContainer>
@@ -88,21 +75,27 @@ function EditToolbar() {
 }
 
 const Industries = () => {
+  const dispatch = useDispatch();
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const toast = useSelector(toast$);
+
+  const setShowModal = useCallback(() => {
+    dispatch(showModal());
+  }, [dispatch]);
 
   const handleChangeRowsPerPage = (newPageSize) => {
     setRowsPerPage(newPageSize);
   };
 
-  const handleRowEditStart = (params, event) => {
-    event.defaultMuiPrevented = true;
-  };
-  const handleRowEditStop = (params, event) => {
-    event.defaultMuiPrevented = true;
-  };
-  const handleCellFocusOut = (params, event) => {
-    event.defaultMuiPrevented = true;
-  };
+  // const handleRowEditStart = (params, event) => {
+  //   event.defaultMuiPrevented = true;
+  // };
+  // const handleRowEditStop = (params, event) => {
+  //   event.defaultMuiPrevented = true;
+  // };
+  // const handleCellFocusOut = (params, event) => {
+  //   event.defaultMuiPrevented = true;
+  // };
 
   // const handleEditClick = (id) => (event) => {
   //   event.stopPropagation();
@@ -154,18 +147,18 @@ const Industries = () => {
       headerName: 'Actions',
       minWidth: 100,
       cellClassName: 'actions',
-      getActions: ({ id }) => [
+      getActions: ({ _id }) => [
         <GridActionsCellItem
           icon={<EditIcon />}
           label="Edit"
           className="textPrimary"
-          //onClick={handleEditClick(id)}
+          //onClick={handleEditClick(_id)}
           color="inherit"
         />,
         <GridActionsCellItem
           icon={<DeleteIcon />}
           label="Delete"
-          //onClick={handleDeleteClick(id)}
+          //onClick={handleDeleteClick(_id)}
           color="inherit"
         />,
       ],
@@ -173,38 +166,49 @@ const Industries = () => {
   ];
 
   return (
-    <div
-      style={{
-        height: '100%',
-        width: '100%',
-        '& .actions': {
-          color: 'text.secondary',
-        },
-        '& .textPrimary': {
-          color: 'text.primary',
-        },
-      }}
-    >
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={rowsPerPage}
-        onPageSizeChange={(newPageSize) => handleChangeRowsPerPage(newPageSize)}
-        rowsPerPageOptions={[5, 10, 25]}
-        pagination
-        //apiRef={apiRef}
-        editMode="row"
-        onRowEditStart={handleRowEditStart}
-        onRowEditStop={handleRowEditStop}
-        onCellFocusOut={handleCellFocusOut}
-        components={{
-          Toolbar: EditToolbar,
+    <>
+      <AddModal />
+      <Tooltip toast={toast} />
+      <div
+        style={{
+          height: '85%',
+          width: '95%',
+          margin: '10px auto',
+          '& .actions': {
+            color: 'text.secondary',
+          },
+          '& .textPrimary': {
+            color: 'text.primary',
+          },
         }}
-        // componentsProps={{
-        //   toolbar: { apiRef },
-        // }}
-      />
-    </div>
+      >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={rowsPerPage}
+          onPageSizeChange={(newPageSize) =>
+            handleChangeRowsPerPage(newPageSize)
+          }
+          rowsPerPageOptions={[5, 10, 25]}
+          pagination
+          editMode="row"
+          //apiRef={apiRef}
+          // onRowEditStart={handleRowEditStart}
+          // onRowEditStop={handleRowEditStop}
+          // onCellFocusOut={handleCellFocusOut}
+          components={{
+            Toolbar: EditToolbar,
+          }}
+          componentsProps={{
+            toolbar: { setShowModal },
+          }}
+          sx={{
+            backgroundColor: 'white',
+            boxShadow: 3,
+          }}
+        />
+      </div>
+    </>
   );
 };
 

@@ -5,10 +5,14 @@ export const INIT_STATE = {
   toast: {
     show: false,
     message: '',
-    type: null,
+    type: 'success',
   },
   currentId: {
     _id: 0,
+  },
+  industries: {
+    loading: false,
+    data: [],
   },
   subjects: {
     loading: false,

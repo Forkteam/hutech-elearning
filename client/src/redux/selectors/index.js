@@ -1,3 +1,4 @@
+export const industries$ = (state) => state.industries;
 export const subjects$ = (state) => state.subjects;
 export const lectures$ = (state) => state.lectures;
 export const modal$ = (state) => state.modal;

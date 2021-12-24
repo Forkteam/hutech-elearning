@@ -3,6 +3,15 @@ import axios from 'axios';
 export const apiURL =
   process.env.NODE_ENV !== 'production' ? 'http://localhost:5050' : '';
 
+export const getIndustries = (payload) =>
+  axios.get(`${apiURL}/industries`, payload);
+export const createIndustry = (payload) =>
+  axios.post(`${apiURL}/industries`, payload);
+export const updateIndustry = (payload) =>
+  axios.put(`${apiURL}/industries/${payload._id}`, payload);
+export const deleteIndustry = (payload) =>
+  axios.delete(`${apiURL}/industries/${payload}`);
+
 export const getAllSubjects = (payload) =>
   axios.get(`${apiURL}/subjects/all-subjects`, payload);
 export const getStudentSubjects = (payload) =>

@@ -46,7 +46,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
                   flexDirection: 'column',
                   width: '100%',
                   bgcolor: '#f5f5f0',
-                  height: '90vh',
+                  height: '100vh',
                 }}
               >
                 <Component {...rest} {...props} />
