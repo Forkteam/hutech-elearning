@@ -13,7 +13,7 @@ import Pagination from '@mui/material/Pagination';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 // import AddCircleIcon from '@mui/icons-material/AddCircle';
 // import Tooltip from '@mui/material/Tooltip';
@@ -22,6 +22,7 @@ import { Link } from 'react-router-dom';
 // import { useDispatch } from 'react-redux';
 // import { showModal } from '../redux/actions';
 import AddModal from '../components/subjects/add-modal';
+import { AuthContext } from '../contexts/auth-context';
 
 const items = [
   {
@@ -72,6 +73,11 @@ const Subjects = () => {
   // const setShowModal = useCallback(() => {
   //   dispatch(showModal());
   // }, [dispatch]);
+  const {
+    authState: {
+      user: { role },
+    },
+  } = useContext(AuthContext);
   const itemsPerPage = 4;
   const [page, setPage] = useState(1);
   const [noOfPages] = useState(Math.ceil(items.length / itemsPerPage));
@@ -116,6 +122,7 @@ const Subjects = () => {
               icon={<TocIcon />}
               iconPosition="start"
               label="table"
+              disabled={role < 2}
               sx={{ minHeight: '50px' }}
             />
           </Tabs>
