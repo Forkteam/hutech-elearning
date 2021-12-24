@@ -3,8 +3,8 @@ import { styled } from '@mui/material/styles';
 import { useContext, useState } from 'react';
 import { Route, useHistory, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth-context';
-import { Navbar } from '../layout/navbar';
-import { Sidebar } from '../layout/sidebar';
+import { Navbar } from '../layouts/navbar';
+import { Sidebar } from '../layouts/sidebar';
 
 const LayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',

@@ -8,7 +8,7 @@ import queryString from 'query-string';
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth-context';
-import Copyright from '../layout/copyright';
+import Copyright from '../layouts/copyright';
 
 const ActivateAccount = () => {
   const location = useLocation();

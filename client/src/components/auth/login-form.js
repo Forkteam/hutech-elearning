@@ -6,8 +6,8 @@ import Typography from '@mui/material/Typography';
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth-context';
-import AlertMessage from '../layout/alert-message';
-import Copyright from '../layout/copyright';
+import AlertMessage from '../layouts/alert-message';
+import Copyright from '../layouts/copyright';
 
 const LoginForm = () => {
   const { loginUser } = useContext(AuthContext);

@@ -1,8 +1,8 @@
 import { ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Error from './components/layout/error';
-import Landing from './components/layout/landing';
+import Error from './components/layouts/error';
+import Landing from './components/layouts/landing';
 import ProtectedRoute from './components/routings/protected-route';
 import AuthContextProvider from './contexts/auth-context';
 import { theme } from './theme';

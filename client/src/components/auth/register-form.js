@@ -6,9 +6,9 @@ import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Copyright from '../layout/copyright';
+import Copyright from '../layouts/copyright';
 import { AuthContext } from '../../contexts/auth-context';
-import AlertMessage from '../layout/alert-message';
+import AlertMessage from '../layouts/alert-message';
 
 const RegisterForm = () => {
   const { registerUser } = useContext(AuthContext);

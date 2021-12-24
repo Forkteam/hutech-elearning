@@ -74,9 +74,7 @@ const Subjects = () => {
   //   dispatch(showModal());
   // }, [dispatch]);
   const {
-    authState: {
-      user: { role },
-    },
+    authState: { user },
   } = useContext(AuthContext);
   const itemsPerPage = 4;
   const [page, setPage] = useState(1);
@@ -122,7 +120,7 @@ const Subjects = () => {
               icon={<TocIcon />}
               iconPosition="start"
               label="table"
-              disabled={role < 2}
+              disabled={user?.role < 2}
               sx={{ minHeight: '50px' }}
             />
           </Tabs>

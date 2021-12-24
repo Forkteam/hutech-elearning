@@ -12,7 +12,7 @@ import {
 import { useCallback, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AddModal from '../components/industries/add-modal';
-import Tooltip from '../components/layout/tooltip';
+import Tooltip from '../components/overlays/tooltip';
 import { showModal } from '../redux/actions';
 import { getIndustries } from '../redux/actions/industries';
 import { toast$, industries$ } from '../redux/selectors';
