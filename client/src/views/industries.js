@@ -1,120 +1,210 @@
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableHead from '@mui/material/TableHead';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableFooter from '@mui/material/TableFooter';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
+import {
+  DataGrid,
+  GridActionsCellItem,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarExport,
+  GridToolbarFilterButton,
+} from '@mui/x-data-grid';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import EditIcon from '@mui/icons-material/Edit';
+// import CancelIcon from '@mui/icons-material/Close';
+// import SaveIcon from '@mui/icons-material/Save';
+import Button from '@mui/material/Button';
+import {
+  randomCreatedDate,
+  randomId,
+  randomTraderName,
+  randomUpdatedDate,
+} from '@mui/x-data-grid-generator';
 import { useState } from 'react';
-import SingleIndustry from '../components/industries/single-industry';
-import TablePaginationActions from '../components/layout/pagination';
 
-function createData(name, calories, fat) {
-  return { name, calories, fat };
-}
-
-const subjects = [
-  createData('Cupcake', 305, 3.7),
-  createData('Donut', 452, 25.0),
-  createData('Eclair', 262, 16.0),
-  createData('Frozen yoghurt', 159, 6.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Honeycomb', 408, 3.2),
-  createData('Ice cream sandwich', 237, 9.0),
-  createData('Jelly Bean', 375, 0.0),
-  createData('KitKat', 518, 26.0),
-  createData('Lollipop', 392, 0.2),
-  createData('Marshmallow', 318, 0),
-  createData('Nougat', 360, 19.0),
-  createData('Oreo', 437, 18.0),
-].sort((a, b) => (a.calories < b.calories ? -1 : 1));
-
-const columns = [
-  { id: 'name', label: 'Name', minWidth: 100 },
-  { id: 'calories', label: 'Calories', minWidth: 160, align: 'right' },
+const rows = [
   {
-    id: 'fat',
-    label: 'Fat',
-    minWidth: 160,
-    align: 'right',
-    format: (value) => value.toFixed(2),
+    id: randomId(),
+    name: randomTraderName(),
+    age: 25,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
+  },
+  {
+    id: randomId(),
+    name: randomTraderName(),
+    age: 36,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
+  },
+  {
+    id: randomId(),
+    name: randomTraderName(),
+    age: 19,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
+  },
+  {
+    id: randomId(),
+    name: randomTraderName(),
+    age: 28,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
+  },
+  {
+    id: randomId(),
+    name: randomTraderName(),
+    age: 23,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
   },
 ];
 
-const Industries = () => {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+function EditToolbar() {
+  // const { apiRef } = props;
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - subjects.length) : 0;
+  // const handleClick = () => {
+  //   const id = randomId();
+  //   apiRef.current.updateRows([{ id, isNew: true }]);
+  //   apiRef.current.setRowMode(id, 'edit');
+  //   // Wait for the grid to render with the new row
+  //   setTimeout(() => {
+  //     apiRef.current.scrollToIndexes({
+  //       rowIndex: apiRef.current.getRowsCount() - 1,
+  //     });
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+  //     apiRef.current.setCellFocus(id, 'name');
+  //   });
+  // };
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-        <TableHead>
-          <TableRow>
-            {columns.map((column) => (
-              <TableCell
-                key={column.id}
-                align={column.align}
-                style={{ minWidth: column.minWidth }}
-              >
-                {column.label}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {(rowsPerPage > 0
-            ? subjects.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )
-            : subjects
-          ).map((subject) => (
-            <SingleIndustry subject={subject} key={subject.name} />
-          ))}
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
+      <GridToolbarExport />
+      <Button color="primary" startIcon={<AddIcon />}>
+        Add record
+      </Button>
+    </GridToolbarContainer>
+  );
+}
 
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
-              count={subjects.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  'aria-label': 'rows per page',
-                },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+const Industries = () => {
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangeRowsPerPage = (newPageSize) => {
+    setRowsPerPage(newPageSize);
+  };
+
+  const handleRowEditStart = (params, event) => {
+    event.defaultMuiPrevented = true;
+  };
+  const handleRowEditStop = (params, event) => {
+    event.defaultMuiPrevented = true;
+  };
+  const handleCellFocusOut = (params, event) => {
+    event.defaultMuiPrevented = true;
+  };
+
+  // const handleEditClick = (id) => (event) => {
+  //   event.stopPropagation();
+  //   apiRef.current.setRowMode(id, 'edit');
+  // };
+  // const handleSaveClick = (id) => (event) => {
+  //   event.stopPropagation();
+  //   apiRef.current.commitRowChange(id);
+  //   apiRef.current.setRowMode(id, 'view');
+  //   const row = apiRef.current.getRow(id);
+  //   apiRef.current.updateRows([{ ...row, isNew: false }]);
+  // };
+  // const handleDeleteClick = (id) => (event) => {
+  //   event.stopPropagation();
+  //   apiRef.current.updateRows([{ id, _action: 'delete' }]);
+  // };
+  // const handleCancelClick = (id) => (event) => {
+  //   event.stopPropagation();
+  //   apiRef.current.setRowMode(id, 'view');
+  //   const row = apiRef.current.getRow(id);
+  //   if (row.isNew) {
+  //     apiRef.current.updateRows([{ id, _action: 'delete' }]);
+  //   }
+  // };
+
+  const columns = [
+    { field: 'name', headerName: 'Name', minWidth: 180 },
+    {
+      field: 'age',
+      headerName: 'Age',
+      minWidth: 100,
+      type: 'number',
+    },
+    {
+      field: 'dateCreated',
+      headerName: 'Date Created',
+      type: 'date',
+      minWidth: 180,
+    },
+    {
+      field: 'lastLogin',
+      headerName: 'Last Login',
+      type: 'dateTime',
+      minWidth: 220,
+    },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      minWidth: 100,
+      cellClassName: 'actions',
+      getActions: ({ id }) => [
+        <GridActionsCellItem
+          icon={<EditIcon />}
+          label="Edit"
+          className="textPrimary"
+          //onClick={handleEditClick(id)}
+          color="inherit"
+        />,
+        <GridActionsCellItem
+          icon={<DeleteIcon />}
+          label="Delete"
+          //onClick={handleDeleteClick(id)}
+          color="inherit"
+        />,
+      ],
+    },
+  ];
+
+  return (
+    <div
+      style={{
+        height: '100%',
+        width: '100%',
+        '& .actions': {
+          color: 'text.secondary',
+        },
+        '& .textPrimary': {
+          color: 'text.primary',
+        },
+      }}
+    >
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={rowsPerPage}
+        onPageSizeChange={(newPageSize) => handleChangeRowsPerPage(newPageSize)}
+        rowsPerPageOptions={[5, 10, 25]}
+        pagination
+        //apiRef={apiRef}
+        editMode="row"
+        onRowEditStart={handleRowEditStart}
+        onRowEditStop={handleRowEditStop}
+        onCellFocusOut={handleCellFocusOut}
+        components={{
+          Toolbar: EditToolbar,
+        }}
+        // componentsProps={{
+        //   toolbar: { apiRef },
+        // }}
+      />
+    </div>
   );
 };
 

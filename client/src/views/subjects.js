@@ -69,7 +69,7 @@ const Subjects = () => {
     <>
       <Tooltip title="Create new subject">
         <IconButton
-          aria-label="delete"
+          aria-label="add"
           size="large"
           sx={{ width: 'fit-content', alignSelf: 'end' }}
           onClick={setShowModal}
