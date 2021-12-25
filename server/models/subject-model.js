@@ -38,4 +38,9 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
+schema.set('toJSON', {
+  virtuals: true,
+  versionKey: false
+});
+
 export const SubjectModel = mongoose.model('subjects', schema);

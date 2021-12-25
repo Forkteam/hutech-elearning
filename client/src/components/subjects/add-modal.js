@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideModal, setCurrentId, showToast } from '../../redux/actions';
 import { getIndustries } from '../../redux/actions/industries';
+import { createSubject } from '../../redux/actions/subjects';
 import { currentId$, industries$, modal$ } from '../../redux/selectors';
 import Transition from '../overlays/transition';
 
@@ -17,21 +18,21 @@ const AddModal = () => {
   const modal = useSelector(modal$);
   const currentId = useSelector(currentId$);
   const industries = useSelector(industries$);
-  const [newIndustry, setNewIndustry] = useState({
-    code: '',
+  const [newSubject, setNewSubject] = useState({
+    name: '',
     description: '',
     image: '',
     status: 'PRIVATE',
     industryId: '',
   });
-  const { code, description, status, industryId } = newIndustry;
+  const { name, description, status, industryId } = newSubject;
 
   useEffect(() => {
     dispatch(getIndustries.getIndustriesRequest());
   }, [dispatch]);
 
   const onChangeNewSubjectForm = (event) => {
-    setNewIndustry({ ...newIndustry, [event.target.name]: event.target.value });
+    setNewSubject({ ...newSubject, [event.target.name]: event.target.value });
   };
 
   const toBase64 = (file) =>
@@ -44,12 +45,12 @@ const AddModal = () => {
 
   const handleFileChange = async (event) => {
     const base64image = await toBase64(event.target.files[0]);
-    setNewIndustry({ ...newIndustry, image: base64image });
+    setNewSubject({ ...newSubject, image: base64image });
   };
 
   const closeDialog = () => {
-    setNewIndustry({
-      code: '',
+    setNewSubject({
+      name: '',
       description: '',
       image: '',
       status: 'PRIVATE',
@@ -62,7 +63,7 @@ const AddModal = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     if (currentId._id === 0) {
-      console.log('create subject>>>', newIndustry);
+      await dispatch(createSubject.createSubjectRequest(newSubject));
       await dispatch(
         showToast({
           message: 'Please wait! We are updating...',
@@ -93,9 +94,9 @@ const AddModal = () => {
             fullWidth
             variant="standard"
             autoFocus
-            label="Code"
-            name="code"
-            value={code}
+            label="Name"
+            name="name"
+            value={name}
             onChange={onChangeNewSubjectForm}
           />
           <TextField

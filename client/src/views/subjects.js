@@ -103,8 +103,17 @@ const Subjects = () => {
   }
 
   const columns = [
-    { field: 'code', headerName: 'Code', minWidth: 100, flex: 1 },
-    { field: 'name', headerName: 'Name', minWidth: 250, flex: 1 },
+    { field: 'name', headerName: 'Code', minWidth: 100, flex: 1 },
+    { field: 'description', headerName: 'Description', minWidth: 250, flex: 1 },
+    {
+      field: 'industryId',
+      headerName: 'Industry',
+      minWidth: 180,
+      flex: 1,
+      valueGetter: (param) => {
+        return `${param.value.name}`;
+      },
+    },
     {
       field: 'user',
       headerName: 'User Created',
