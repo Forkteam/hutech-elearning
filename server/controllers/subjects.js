@@ -7,7 +7,16 @@ import { CommentModel } from '../models/comment-model.js';
 
 export const getAllSubjects = async (_, res) => {
   try {
-    const subjects = await SubjectModel.find().populate('user', ['username']);
+    const subjects = await SubjectModel.find().populate([
+      {
+        path: 'user',
+        select: ['fullName']
+      },
+      {
+        path: 'industryId',
+        select: ['name']
+      }
+    ]);
     return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);

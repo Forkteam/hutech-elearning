@@ -40,7 +40,7 @@ const LoginForm = () => {
       <Typography component="h1" variant="h5">
         Đăng Nhập
       </Typography>
-      <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
+      <Box component="form" onSubmit={onSubmit} sx={{ mt: 1 }}>
         <TextField
           margin="normal"
           required

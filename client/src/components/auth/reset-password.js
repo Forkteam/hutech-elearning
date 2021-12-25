@@ -23,7 +23,6 @@ const ResetPassword = () => {
       </Typography>
       <Box
         component="form"
-        noValidate
         onSubmit={handleSubmit}
         sx={{ mt: 1, width: '-webkit-fill-available' }}
       >

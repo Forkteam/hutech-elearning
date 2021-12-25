@@ -1,52 +1,54 @@
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
-import { useTheme } from '@mui/material/styles';
+import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import queryString from 'query-string';
-import { forwardRef, useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { AuthContext } from '../../contexts/auth-context';
 import { hideModal, setCurrentId, showToast } from '../../redux/actions';
-import { currentId$, modal$ } from '../../redux/selectors';
-
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
+import { getIndustries } from '../../redux/actions/industries';
+import { currentId$, industries$, modal$ } from '../../redux/selectors';
+import Transition from '../overlays/transition';
 
 const AddModal = () => {
-  // const {
-  //   authState: {
-  //     user: { role },
-  //   },
-  // } = useContext(AuthContext);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const dispatch = useDispatch();
-  const location = useLocation();
-  const { userId: id } = queryString.parse(location.search);
   const modal = useSelector(modal$);
   const currentId = useSelector(currentId$);
-  const [newLecture, setNewLecture] = useState({
+  const industries = useSelector(industries$);
+  const [newIndustry, setNewIndustry] = useState({
     code: '',
     description: '',
     image: '',
     status: 'PRIVATE',
     industryId: '',
   });
-  const { code, description, image, status, industryId } = newLecture;
+  const { code, description, status, industryId } = newIndustry;
 
-  const onChangeNewLectureForm = (event) =>
-    setNewLecture({ ...newLecture, [event.target.name]: event.target.value });
+  useEffect(() => {
+    dispatch(getIndustries.getIndustriesRequest());
+  }, [dispatch]);
+
+  const onChangeNewSubjectForm = (event) => {
+    setNewIndustry({ ...newIndustry, [event.target.name]: event.target.value });
+  };
+
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+
+  const handleFileChange = async (event) => {
+    const base64image = await toBase64(event.target.files[0]);
+    setNewIndustry({ ...newIndustry, image: base64image });
+  };
 
   const closeDialog = () => {
-    setNewLecture({
+    setNewIndustry({
       code: '',
       description: '',
       image: '',
@@ -60,7 +62,7 @@ const AddModal = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     if (currentId._id === 0) {
-      console.log('create subject');
+      console.log('create subject>>>', newIndustry);
       await dispatch(
         showToast({
           message: 'Please wait! We are updating...',
@@ -80,33 +82,90 @@ const AddModal = () => {
   };
 
   return (
-    <Dialog
-      sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
-      TransitionComponent={Transition}
-      open={modal.show}
-      scroll="body"
-    >
+    <Dialog TransitionComponent={Transition} open={modal.show} scroll="body">
       <DialogTitle>CREATE NEW SUBJECT</DialogTitle>
       <DialogContent dividers>
-        <DialogContentText>
-          To subscribe to this website, please enter your email address here. We
-          will send updates occasionally.
-        </DialogContentText>
-        <TextField
-          margin="dense"
-          id="name"
-          label="Email Address"
-          type="email"
-          fullWidth
-          variant="standard"
-        />
+        <Box component="form" onSubmit={onSubmit}>
+          <TextField
+            margin="dense"
+            type="text"
+            required
+            fullWidth
+            variant="standard"
+            autoFocus
+            label="Code"
+            name="code"
+            value={code}
+            onChange={onChangeNewSubjectForm}
+          />
+          <TextField
+            margin="dense"
+            multiline
+            required
+            fullWidth
+            variant="standard"
+            label="Description"
+            name="description"
+            value={description}
+            onChange={onChangeNewSubjectForm}
+          />
+          <TextField
+            margin="dense"
+            required
+            fullWidth
+            variant="standard"
+            select
+            label="Status"
+            name="status"
+            value={status}
+            onChange={onChangeNewSubjectForm}
+          >
+            <MenuItem value={'PRIVATE'}>Private</MenuItem>
+            <MenuItem value={'PUBLIC'}>Public</MenuItem>
+          </TextField>
+          <TextField
+            margin="dense"
+            required
+            fullWidth
+            variant="standard"
+            select
+            label="Industry"
+            name="industryId"
+            value={industryId}
+            onChange={onChangeNewSubjectForm}
+            sx={{ marginBottom: '20px' }}
+          >
+            {industries.data.map((industry) => (
+              <MenuItem key={industry.id} value={industry.id}>
+                {industry.name}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            margin="dense"
+            type="file"
+            accept="image/*"
+            multiple={false}
+            required
+            fullWidth
+            variant="standard"
+            label="Image"
+            name="image"
+            onChange={handleFileChange}
+          />
+          <Button
+            fullWidth
+            type="submit"
+            variant="contained"
+            sx={{ mt: 3, mb: 1 }}
+          >
+            Ok
+          </Button>
+          <Button fullWidth onClick={closeDialog}>
+            Cancel
+          </Button>
+        </Box>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={closeDialog}>Cancel</Button>
-        <Button autoFocus onClick={onSubmit}>
-          Ok
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 };

@@ -21,7 +21,6 @@ export default function DetailForm() {
   return (
     <Box
       component="form"
-      noValidate
       autoComplete="off"
       sx={{
         position: 'relative',

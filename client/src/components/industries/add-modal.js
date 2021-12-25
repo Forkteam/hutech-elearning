@@ -3,17 +3,13 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
 import TextField from '@mui/material/TextField';
-import { forwardRef, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideModal, setCurrentId, showToast } from '../../redux/actions';
 import { createIndustry } from '../../redux/actions/industries';
 import { currentId$, modal$ } from '../../redux/selectors';
-
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
+import Transition from '../overlays/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();

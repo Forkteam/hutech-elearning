@@ -76,7 +76,7 @@ const RegisterForm = () => {
       <Typography component="h1" variant="h5">
         Đăng Ký
       </Typography>
-      <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
+      <Box component="form" onSubmit={onSubmit} sx={{ mt: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField

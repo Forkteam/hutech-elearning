@@ -102,7 +102,7 @@ const ActivateAccount = () => {
       <Typography component="h1" variant="h4">
         Kích Hoạt Tài Khoản
       </Typography>
-      <Box component="form" noValidate sx={{ mt: 1 }}>
+      <Box component="form" sx={{ mt: 1 }}>
         <Card sx={{ minWidth: 275 }}>{body}</Card>
         <Copyright sx={{ mt: 5 }} />
       </Box>
