@@ -103,12 +103,21 @@ const Subjects = () => {
   }
 
   const columns = [
-    { field: 'name', headerName: 'Code', minWidth: 100, flex: 1 },
+    { field: 'name', headerName: 'Name', minWidth: 180, flex: 1 },
     { field: 'description', headerName: 'Description', minWidth: 250, flex: 1 },
+    {
+      field: 'image',
+      headerName: 'Image',
+      width: 75,
+      editable: true,
+      renderCell: (params) => (
+        <img src={params.value} alt="img" style={{ width: '50px' }} />
+      ),
+    },
     {
       field: 'industryId',
       headerName: 'Industry',
-      minWidth: 180,
+      minWidth: 150,
       flex: 1,
       valueGetter: (param) => {
         return `${param.value.name}`;
@@ -117,7 +126,7 @@ const Subjects = () => {
     {
       field: 'user',
       headerName: 'User Created',
-      minWidth: 180,
+      minWidth: 140,
       flex: 1,
       valueGetter: (param) => {
         return `${param.value.fullName}`;
@@ -127,7 +136,7 @@ const Subjects = () => {
       field: 'createdAt',
       headerName: 'Date Created',
       type: 'date',
-      minWidth: 150,
+      minWidth: 140,
       flex: 1,
       valueGetter: (param) => {
         return `${moment(param.value).format('ll')}`;
@@ -137,7 +146,7 @@ const Subjects = () => {
       field: 'updatedAt',
       headerName: 'Last Updated',
       type: 'dateTime',
-      minWidth: 150,
+      minWidth: 120,
       flex: 1,
       valueGetter: (param) => {
         return `${moment(param.value).fromNow()}`;
@@ -147,7 +156,7 @@ const Subjects = () => {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      minWidth: 150,
+      minWidth: 120,
       flex: 1,
       cellClassName: 'actions',
       getActions: ({ _id }) => [

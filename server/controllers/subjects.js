@@ -70,14 +70,26 @@ export const createSubject = async (req, res) => {
     });
   try {
     const subjectInput = req.body;
-    const newSubject = new SubjectModel({
+    let subject = new SubjectModel({
       ...subjectInput,
       user: req.userId
     });
-    await newSubject.save();
-    return res
-      .status(200)
-      .json({ success: true, message: 'Create subject success', newSubject });
+    await subject.save();
+    subject = await subject.populate([
+      {
+        path: 'user',
+        select: ['fullName']
+      },
+      {
+        path: 'industryId',
+        select: ['name']
+      }
+    ]);
+    return res.status(200).json({
+      success: true,
+      message: 'Create subject success',
+      subject
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, message: 'Server error' });
