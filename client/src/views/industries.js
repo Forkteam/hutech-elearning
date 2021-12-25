@@ -1,36 +1,15 @@
-import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
-import Button from '@mui/material/Button';
-import {
-  DataGrid,
-  GridActionsCellItem,
-  GridToolbarContainer,
-  GridToolbarExport,
-  GridToolbarFilterButton,
-} from '@mui/x-data-grid';
-import { useCallback, useState, useEffect } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import { GridActionsCellItem } from '@mui/x-data-grid';
+import moment from 'moment';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AddModal from '../components/industries/add-modal';
-import Tooltip from '../components/overlays/tooltip';
+import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
 import { getIndustries } from '../redux/actions/industries';
-import { toast$, industries$ } from '../redux/selectors';
-import CustomNoRowsOverlay from '../components/overlays/NoRowsOverlay';
-import CircularProgress from '@mui/material/CircularProgress';
-import moment from 'moment';
-
-function EditToolbar({ setShowModal }) {
-  return (
-    <GridToolbarContainer>
-      <GridToolbarFilterButton />
-      <GridToolbarExport />
-      <Button color="primary" startIcon={<AddIcon />} onClick={setShowModal}>
-        Add record
-      </Button>
-    </GridToolbarContainer>
-  );
-}
+import { industries$, toast$ } from '../redux/selectors';
 
 const Industries = () => {
   const dispatch = useDispatch();
@@ -133,46 +112,15 @@ const Industries = () => {
   ];
 
   return (
-    <>
-      <AddModal />
-      <Tooltip toast={toast} />
-      <div
-        style={{
-          height: '85%',
-          width: '95%',
-          margin: '10px auto',
-          '& .actions': {
-            color: 'text.secondary',
-          },
-          '& .textPrimary': {
-            color: 'text.primary',
-          },
-        }}
-      >
-        <DataGrid
-          rows={industries.data}
-          columns={columns}
-          pageSize={rowsPerPage}
-          onPageSizeChange={(newPageSize) =>
-            handleChangeRowsPerPage(newPageSize)
-          }
-          rowsPerPageOptions={[7, 15, 30]}
-          pagination
-          editMode="row"
-          components={{
-            Toolbar: EditToolbar,
-            NoRowsOverlay: CustomNoRowsOverlay,
-          }}
-          componentsProps={{
-            toolbar: { setShowModal },
-          }}
-          sx={{
-            backgroundColor: 'white',
-            boxShadow: 3,
-          }}
-        />
-      </div>
-    </>
+    <DataTable
+      component={AddModal}
+      toast={toast}
+      data={industries.data}
+      columns={columns}
+      rowsPerPage={rowsPerPage}
+      handleChangeRowsPerPage={handleChangeRowsPerPage}
+      setShowModal={setShowModal}
+    />
   );
 };
 
