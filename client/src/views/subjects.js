@@ -1,27 +1,11 @@
-// import Button from '@mui/material/Button';
 import TocIcon from '@mui/icons-material/Toc';
 import WindowIcon from '@mui/icons-material/Window';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-// import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Pagination from '@mui/material/Pagination';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import Typography from '@mui/material/Typography';
-import { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
-// import AddCircleIcon from '@mui/icons-material/AddCircle';
-// import Tooltip from '@mui/material/Tooltip';
-// import IconButton from '@mui/material/IconButton';
-// import { useCallback } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { showModal } from '../redux/actions';
+import { useContext, useState } from 'react';
 import AddModal from '../components/subjects/add-modal';
+import DataCard from '../components/subjects/data-card';
 import { AuthContext } from '../contexts/auth-context';
 
 const items = [
@@ -68,125 +52,46 @@ const items = [
 ];
 
 const Subjects = () => {
-  // const dispatch = useDispatch();
-
-  // const setShowModal = useCallback(() => {
-  //   dispatch(showModal());
-  // }, [dispatch]);
   const {
     authState: { user },
   } = useContext(AuthContext);
-  const itemsPerPage = 4;
-  const [page, setPage] = useState(1);
-  const [noOfPages] = useState(Math.ceil(items.length / itemsPerPage));
   const [value, setValue] = useState(0);
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const handlePageChange = (event, value) => {
-    setPage(value);
-  };
-
   return (
     <>
-      {/* <Tooltip title="Create new subject">
-        <IconButton
-          aria-label="add"
-          size="large"
-          sx={{ width: 'fit-content', alignSelf: 'end' }}
-          onClick={setShowModal}
-        >
-          <AddCircleIcon />
-        </IconButton>
-      </Tooltip> */}
-      <Box sx={{ width: '100%' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs
-            value={value}
-            onChange={handleTabChange}
-            textColor="primary"
-            indicatorColor="primary"
-            aria-label="tabs"
-          >
-            <Tab
-              icon={<WindowIcon />}
-              iconPosition="start"
-              label="grid"
-              sx={{ minHeight: '50px' }}
-            />
-            <Tab
-              icon={<TocIcon />}
-              iconPosition="start"
-              label="table"
-              disabled={user?.role < 2}
-              sx={{ minHeight: '50px' }}
-            />
-          </Tabs>
-        </Box>
-      </Box>
       <AddModal />
-      {value === 0 && (
-        <>
-          <Container sx={{ py: 4 }} maxWidth="md">
-            <Grid container spacing={2}>
-              {items
-                .slice((page - 1) * itemsPerPage, page * itemsPerPage)
-                .map((item) => (
-                  <Grid item xs={12} sm={6} md={3} key={item.title}>
-                    <Link to="/login" component={CardActionArea}>
-                      <Card
-                        sx={{
-                          height: '100%',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          boxShadow: 3,
-                        }}
-                      >
-                        <CardMedia
-                          component="img"
-                          sx={{
-                            // 16:9
-                            pt: '10px',
-                          }}
-                          height="140"
-                          image={item.image}
-                          alt="random"
-                        />
-                        <CardContent sx={{ flexGrow: 1 }}>
-                          <Typography gutterBottom variant="h5" component="h5">
-                            {item.title}
-                          </Typography>
-                          <Typography>
-                            {item.description.slice(0, 100)}...
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  </Grid>
-                ))}
-            </Grid>
-          </Container>
-          <Box component="span">
-            <Pagination
-              count={noOfPages}
-              page={page}
-              onChange={handlePageChange}
-              defaultPage={1}
-              color="primary"
-              variant="outlined"
-              showFirstButton
-              showLastButton
-              sx={{
-                left: '50%',
-                transform: 'translateX(-50%)',
-                position: 'absolute',
-              }}
-            />
+      {user?.role > 1 && (
+        <Box sx={{ width: '100%' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs
+              value={value}
+              onChange={handleTabChange}
+              textColor="primary"
+              indicatorColor="primary"
+              aria-label="tabs"
+            >
+              <Tab
+                icon={<WindowIcon />}
+                iconPosition="start"
+                label="grid"
+                sx={{ minHeight: '50px' }}
+              />
+              <Tab
+                icon={<TocIcon />}
+                iconPosition="start"
+                label="table"
+                disabled={user?.role < 2}
+                sx={{ minHeight: '50px' }}
+              />
+            </Tabs>
           </Box>
-        </>
+        </Box>
       )}
+      {value === 0 && <DataCard items={items} />}
     </>
   );
 };
