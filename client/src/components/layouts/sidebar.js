@@ -53,7 +53,7 @@ const items = [
     title: 'Danh sách ngành học',
   },
   {
-    href: '/',
+    href: '/news',
     icon: <NewspaperIcon fontSize="small" />,
     title: 'Tin tức',
   },
