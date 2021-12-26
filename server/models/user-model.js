@@ -25,7 +25,6 @@ const schema = new mongoose.Schema(
     },
     code: {
       type: String,
-      unique: true,
       trim: true
     },
     fullName: String,
