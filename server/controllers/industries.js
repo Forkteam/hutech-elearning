@@ -31,7 +31,7 @@ export const createIndustry = async (req, res) => {
     industry = await industry.populate('user', ['fullName']);
     res
       .status(200)
-      .json({ success: true, message: 'Create industry success', industry });
+      .json({ success: true, message: 'Tạo ngành mới thành công!', industry });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Server error' });
@@ -57,11 +57,11 @@ export const updateIndustry = async (req, res) => {
     if (!industry)
       return res
         .status(404)
-        .json({ success: false, message: 'Industry not found' });
+        .json({ success: false, message: 'Không tìm thấy ngành' });
 
     res
       .status(200)
-      .json({ success: true, message: 'Update industry success', industry });
+      .json({ success: true, message: 'Cập nhật ngành thành công!', industry });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Server error' });
@@ -84,11 +84,11 @@ export const deleteIndustry = async (req, res) => {
     if (!industry)
       return res
         .status(404)
-        .json({ success: false, message: 'Industry not found' });
+        .json({ success: false, message: 'Không tìm thấy ngành' });
 
     res
       .status(200)
-      .json({ success: true, message: 'Delete industry success', industry });
+      .json({ success: true, message: 'Xoá thành công!', industry });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Server error' });

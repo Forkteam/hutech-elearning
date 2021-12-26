@@ -112,7 +112,7 @@ export const updateSubject = async (req, res) => {
     if (!updatedSubject)
       return res
         .status(404)
-        .json({ success: false, message: 'Subject not found' });
+        .json({ success: false, message: 'Không tìm thấy môn học!' });
 
     return res.status(200).json({
       success: true,
@@ -136,7 +136,7 @@ export const deleteSubject = async (req, res) => {
     if (!deletedSubject)
       return res
         .status(404)
-        .json({ success: false, message: 'Subject not found' });
+        .json({ success: false, message: 'Không tìm thấy môn học!' });
 
     const lectures = await LectureModel.find({ subjectId: id });
     let lectureIds = [];
@@ -218,7 +218,7 @@ export const addStudent = async (req, res) => {
     if (!updatedSubject)
       return res
         .status(404)
-        .json({ success: false, message: 'Subject not found' });
+        .json({ success: false, message: 'Không tìm thấy môn học!' });
     return res.status(200).json({
       success: true,
       message: 'Update student success',
@@ -252,7 +252,7 @@ export const removeStudent = async (req, res) => {
     if (!updatedSubject)
       return res
         .status(404)
-        .json({ success: false, message: 'Subject not found' });
+        .json({ success: false, message: 'Không tìm thấy môn học!' });
 
     return res.status(200).json({
       success: true,
