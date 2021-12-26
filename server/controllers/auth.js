@@ -92,6 +92,7 @@ export const activate = async (req, res) => {
 
     const { username, email, password, fullName } = user;
     const newUser = new UserModel({ username, email, password, fullName });
+    await newUser.save();
 
     const emailContent = welcomeMail();
     mailer(email, emailContent);
