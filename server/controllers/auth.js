@@ -90,8 +90,8 @@ export const activate = async (req, res) => {
         .status(404)
         .json({ success: false, message: 'User not found' });
 
-    const newUser = new UserModel(user);
-    await newUser.save();
+    const { username, email, password, fullName } = user;
+    const newUser = new UserModel({ username, email, password, fullName });
 
     const emailContent = welcomeMail();
     mailer(email, emailContent);
