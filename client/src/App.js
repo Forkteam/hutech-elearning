@@ -12,6 +12,7 @@ import Subjects from './views/subjects';
 import DetailForm from './views/detail-document';
 import News from './views/news';
 import Industries from './views/industries';
+import Admin from './views/admin';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
               component={DetailForm}
             />
             <ProtectedRoute exact path="/news" component={News} />
+            <ProtectedRoute exact path="/admin" component={Admin} />
             <ProtectedRoute
               exact
               path="/accordion"
