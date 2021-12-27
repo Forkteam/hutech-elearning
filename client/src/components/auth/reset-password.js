@@ -43,13 +43,13 @@ const ResetPassword = () => {
         if (password.length < 6) {
           setAlert({
             type: 'error',
-            message: "Password mustn't be less than 6 characters",
+            message: "Mật khẩu phải có ít nhất 6 ký tự.",
           });
           setTimeout(() => setAlert(null), 5000);
           return;
         }
         if (password !== confirmPassword) {
-          setAlert({ type: 'error', message: 'Password does not match' });
+          setAlert({ type: 'error', message: 'Mật khảu không đúng' });
           setTimeout(() => setAlert(null), 5000);
           return;
         }
@@ -80,7 +80,7 @@ const ResetPassword = () => {
           margin="normal"
           required
           fullWidth
-          label="Email của bạn"
+          label="Email"
           name="email"
           autoComplete="email"
           autoFocus

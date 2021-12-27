@@ -103,20 +103,20 @@ const Subjects = () => {
   }
 
   const columns = [
-    { field: 'name', headerName: 'Name', minWidth: 180, flex: 1 },
-    { field: 'description', headerName: 'Description', minWidth: 250, flex: 1 },
     {
       field: 'image',
-      headerName: 'Image',
+      headerName: '#',
       width: 75,
       editable: true,
       renderCell: (params) => (
         <img src={params.value} alt="img" style={{ width: '50px' }} />
-      ),
-    },
+        ),
+      },
+      { field: 'name', headerName: 'Tên môn học', minWidth: 100, flex: 1 },
+      // { field: 'description', headerName: 'Mô tả', minWidth: 250, flex: 1 },
     {
       field: 'industryId',
-      headerName: 'Industry',
+      headerName: 'Ngành',
       minWidth: 150,
       flex: 1,
       valueGetter: (param) => {
@@ -125,7 +125,7 @@ const Subjects = () => {
     },
     {
       field: 'user',
-      headerName: 'User Created',
+      headerName: 'Người tạo',
       minWidth: 140,
       flex: 1,
       valueGetter: (param) => {
@@ -134,9 +134,9 @@ const Subjects = () => {
     },
     {
       field: 'createdAt',
-      headerName: 'Date Created',
+      headerName: 'Ngày tạo',
       type: 'date',
-      minWidth: 140,
+      minWidth: 100,
       flex: 1,
       valueGetter: (param) => {
         return `${moment(param.value).format('ll')}`;
@@ -144,9 +144,9 @@ const Subjects = () => {
     },
     {
       field: 'updatedAt',
-      headerName: 'Last Updated',
+      headerName: 'Ngày cập nhật cuối',
       type: 'dateTime',
-      minWidth: 120,
+      minWidth: 100,
       flex: 1,
       valueGetter: (param) => {
         return `${moment(param.value).fromNow()}`;
@@ -155,8 +155,8 @@ const Subjects = () => {
     {
       field: 'actions',
       type: 'actions',
-      headerName: 'Actions',
-      minWidth: 120,
+      headerName: 'Thao tác',
+      minWidth: 75,
       flex: 1,
       cellClassName: 'actions',
       getActions: ({ _id }) => [

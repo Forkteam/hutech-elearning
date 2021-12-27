@@ -13,7 +13,7 @@ export const getUser = async (req, res) => {
     if (!user)
       return res
         .status(404)
-        .json({ success: false, message: 'User not found' });
+        .json({ success: false, message: 'Tên người dùng không tồn tại.' });
     res.status(200).json({ success: true, user });
   } catch (error) {
     console.log(error);
@@ -26,21 +26,21 @@ export const register = async (req, res) => {
   if (!username || !email || !password)
     return res
       .status(400)
-      .json({ success: false, message: 'One or more fields is empty' });
+      .json({ success: false, message: 'Vui lòng điền đầy đủ thông tin!' });
   if (username.includes(' '))
     return res
       .status(400)
-      .json({ success: false, message: 'Username must not have white space' });
+      .json({ success: false, message: 'Tên người dùng không được phép có khoảng trắng.' });
 
   try {
     const user = await UserModel.findOne({ username });
     if (user)
-      return res.status(400).json({ success: false, message: 'User exist' });
+      return res.status(400).json({ success: false, message: 'Tên người dùng đã tồn tại' });
     const userEmail = await UserModel.findOne({ email });
     if (userEmail)
       return res
         .status(400)
-        .json({ success: false, message: 'Email registered' });
+        .json({ success: false, message: 'Email đã được đăng ký.' });
     const verifyUserEmail = await VerifyUserModel.findOne({ email });
     if (verifyUserEmail) await VerifyUserModel.findOneAndDelete({ email });
 
@@ -64,10 +64,10 @@ export const register = async (req, res) => {
     );
     mailer(email, emailContent);
 
-    res.status(200).json({ success: true, message: 'Register success' });
+    res.status(200).json({ success: true, message: 'Đăng ký thành công!' });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Register fail' });
+    return res.status(500).json({ success: false, message: 'Đăng ký thất bại.' });
   }
 };
 
@@ -88,7 +88,7 @@ export const activate = async (req, res) => {
     if (!user)
       return res
         .status(404)
-        .json({ success: false, message: 'User not found' });
+        .json({ success: false, message: 'Người dùng không tồn tại.' });
 
     const { username, email, password, fullName } = user;
     const newUser = new UserModel({ username, email, password, fullName });
@@ -120,12 +120,12 @@ export const login = async (req, res) => {
     if (!user)
       return res
         .status(404)
-        .json({ success: false, message: 'User not found' });
+        .json({ success: false, message: 'Người dùng không tồn tại.' });
     const passwordValid = await argon2.verify(user.password, password);
     if (!passwordValid)
       return res
         .status(400)
-        .json({ success: false, message: 'Wrong password' });
+        .json({ success: false, message: 'Sai mật khẩu' });
 
     const accessToken = jwt.sign(
       { userId: user._id },
@@ -135,7 +135,7 @@ export const login = async (req, res) => {
     res.status(200).json({ success: true, accessToken });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Login fail' });
+    return res.status(500).json({ success: false, message: 'Đăng nhập thất bại.' });
   }
 };
 
@@ -149,7 +149,7 @@ export const sendMailResetPassword = async (req, res) => {
     if (!verifyUserEmail)
       return res
         .status(404)
-        .json({ success: false, message: 'Email not found' });
+        .json({ success: false, message: 'Không tìm thấy địa chỉ email' });
     const accessToken = jwt.sign(
       { userId: verifyUserEmail._id },
       process.env.ACCESS_TOKEN_SECRET,
@@ -160,10 +160,10 @@ export const sendMailResetPassword = async (req, res) => {
 
     const emailContent = resetPasswordMail(accessToken, verifyUserEmail._id);
     mailer(email, emailContent);
-    res.status(200).json({ success: true, message: 'Send mail success' });
+    res.status(200).json({ success: true, message: 'Đã gửi email xác nhận.' });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Send mail fail' });
+    return res.status(500).json({ success: false, message: 'Gửi email thất bại, hãy thử lại.' });
   }
 };
 
@@ -172,7 +172,7 @@ export const resetPassword = async (req, res) => {
   if (!token || !id || !password)
     return res
       .status(400)
-      .json({ success: false, message: 'One or more fields is empty' });
+      .json({ success: false, message: 'Vui lòng điền đày đủ thông tin!' });
 
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
@@ -189,15 +189,15 @@ export const resetPassword = async (req, res) => {
     if (!user)
       return res
         .status(404)
-        .json({ success: false, message: 'User not found' });
+        .json({ success: false, message: 'Người dùng không tồn tại.' });
 
     const emailContent = welcomeMail();
     mailer(user.email, emailContent);
-    res.status(200).json({ success: true, message: 'Reset password success' });
+    res.status(200).json({ success: true, message: 'Đặt lại mật khẩu thành công!' });
   } catch (error) {
     console.log(error);
     return res
       .status(500)
-      .json({ success: false, message: 'Reset password fail' });
+      .json({ success: false, message: 'Đặt lại mật khẩu thất bại, hãy thử lại!' });
   }
 };

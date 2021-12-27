@@ -55,11 +55,11 @@ const Industries = () => {
   // };
 
   const columns = [
-    { field: 'code', headerName: 'Code', minWidth: 100, flex: 1 },
-    { field: 'name', headerName: 'Name', minWidth: 250, flex: 1 },
+    { field: 'code', headerName: 'Mã Ngành', minWidth: 100, flex: 1 },
+    { field: 'name', headerName: 'Tên Ngành', minWidth: 250, flex: 1 },
     {
       field: 'user',
-      headerName: 'User Created',
+      headerName: 'Người tạo',
       minWidth: 180,
       flex: 1,
       valueGetter: (param) => {
@@ -68,7 +68,7 @@ const Industries = () => {
     },
     {
       field: 'createdAt',
-      headerName: 'Date Created',
+      headerName: 'Ngày tạo',
       type: 'date',
       minWidth: 150,
       flex: 1,
@@ -78,7 +78,7 @@ const Industries = () => {
     },
     {
       field: 'updatedAt',
-      headerName: 'Last Updated',
+      headerName: 'Ngày cập nhật cuối',
       type: 'dateTime',
       minWidth: 150,
       flex: 1,
@@ -89,7 +89,7 @@ const Industries = () => {
     {
       field: 'actions',
       type: 'actions',
-      headerName: 'Actions',
+      headerName: 'Thao tác',
       minWidth: 150,
       flex: 1,
       cellClassName: 'actions',

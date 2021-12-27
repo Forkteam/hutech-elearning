@@ -94,7 +94,7 @@ const AddModal = () => {
             fullWidth
             variant="standard"
             autoFocus
-            label="Name"
+            label="Tên môn học"
             name="name"
             value={name}
             onChange={onChangeNewSubjectForm}
@@ -105,7 +105,7 @@ const AddModal = () => {
             required
             fullWidth
             variant="standard"
-            label="Description"
+            label="Mô tả "
             name="description"
             value={description}
             onChange={onChangeNewSubjectForm}
@@ -116,13 +116,13 @@ const AddModal = () => {
             fullWidth
             variant="standard"
             select
-            label="Status"
+            label="Quyền truy cập"
             name="status"
             value={status}
             onChange={onChangeNewSubjectForm}
           >
-            <MenuItem value={'PRIVATE'}>Private</MenuItem>
-            <MenuItem value={'PUBLIC'}>Public</MenuItem>
+            <MenuItem value={'PRIVATE'}>Riêng tư</MenuItem>
+            <MenuItem value={'PUBLIC'}>Công khai</MenuItem>
           </TextField>
           <TextField
             margin="dense"
@@ -130,7 +130,7 @@ const AddModal = () => {
             fullWidth
             variant="standard"
             select
-            label="Industry"
+            label="Ngành"
             name="industryId"
             value={industryId}
             onChange={onChangeNewSubjectForm}

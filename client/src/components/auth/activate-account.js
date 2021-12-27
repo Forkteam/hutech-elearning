@@ -65,7 +65,7 @@ const ActivateAccount = () => {
                 sx={{ mt: 3, mb: 2 }}
               >
                 <Link className="text-white" to="/login">
-                  Đến trang đăng nhập
+                  Đến trang đăng nhập.
                 </Link>
               </Button>
             </CardActions>

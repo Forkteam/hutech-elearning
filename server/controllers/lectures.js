@@ -46,7 +46,7 @@ export const createLecture = async (req, res) => {
     ]);
     res
       .status(200)
-      .json({ success: true, message: 'Create lecture success', lecture });
+      .json({ success: true, message: 'Tạo mới tài liệu thành công!', lecture });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Server error' });
@@ -73,11 +73,11 @@ export const updateLecture = async (req, res) => {
     if (!lecture)
       return res
         .status(404)
-        .json({ success: false, message: 'Lecture not found' });
+        .json({ success: false, message: 'Không tìm thấy tài liệu!' });
 
     res
       .status(200)
-      .json({ success: true, message: 'Update lecture success', lecture });
+      .json({ success: true, message: 'Cập nhật tài liệu thành công!', lecture });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Server error' });
@@ -91,13 +91,13 @@ export const deleteLecture = async (req, res) => {
     if (!lecture)
       return res
         .status(404)
-        .json({ success: false, message: 'Lecture not found' });
+        .json({ success: false, message: 'Không tìm thấy tài liệu!' });
 
     await CommentModel.deleteMany({ lectureId: req.params.id });
 
     res
       .status(200)
-      .json({ success: true, message: 'Delete lecture success', lecture });
+      .json({ success: true, message: 'Xoá thành công!', lecture });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Server error' });

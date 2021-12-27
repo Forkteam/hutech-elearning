@@ -63,12 +63,12 @@ const AddModal = () => {
       scroll="body"
     >
       <DialogTitle>
-        {currentId._id === 0 ? 'CREATE NEW INDUSTRY' : 'EDIT INDUSTRY'}
+        {currentId._id === 0 ? 'THÊM' : 'CHỈNH SỬA'}
       </DialogTitle>
       <DialogContent dividers>
         <TextField
           margin="dense"
-          label="Code"
+          label="Mã ngành"
           type="text"
           name="code"
           required
@@ -79,7 +79,7 @@ const AddModal = () => {
         />
         <TextField
           margin="dense"
-          label="Name"
+          label="Tên ngành"
           type="text"
           name="name"
           required
