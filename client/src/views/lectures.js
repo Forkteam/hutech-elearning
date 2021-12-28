@@ -4,6 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import CircularProgress from '@mui/material/CircularProgress';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
+import 'moment/locale/vi';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -12,6 +13,7 @@ import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
 import { getLectures } from '../redux/actions/lectures';
 import { lectures$, toast$ } from '../redux/selectors';
+moment.locale('vi');
 
 const Lectures = () => {
   const dispatch = useDispatch();

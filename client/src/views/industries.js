@@ -3,6 +3,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import CircularProgress from '@mui/material/CircularProgress';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
+import 'moment/locale/vi';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AddModal from '../components/industries/add-modal';
@@ -10,6 +11,7 @@ import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
 import { getIndustries } from '../redux/actions/industries';
 import { industries$, toast$ } from '../redux/selectors';
+moment.locale('vi');
 
 const Industries = () => {
   const dispatch = useDispatch();

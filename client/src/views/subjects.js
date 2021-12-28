@@ -8,6 +8,7 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
+import 'moment/locale/vi';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -18,6 +19,7 @@ import { AuthContext } from '../contexts/auth-context';
 import { showModal } from '../redux/actions';
 import { getAllSubjects } from '../redux/actions/subjects';
 import { subjects$, toast$ } from '../redux/selectors';
+moment.locale('vi');
 
 const items = [
   {
