@@ -52,7 +52,7 @@ export const createUser = async (req, res) => {
     });
     await user.save();
 
-    user = await UserModel.findById(user._id).populate('user', ['username']);
+    user = await UserModel.findById(user._id).populate('user', ['fullName']);
     res
       .status(200)
       .json({ success: true, message: 'Create user success', user });
@@ -91,7 +91,7 @@ export const updateUser = async (req, res) => {
       { _id: req.params.id },
       { ...updateUser, user: req.userId },
       { new: true }
-    ).populate('user', ['username']);
+    ).populate('user', ['fullName']);
     if (!user)
       return res
         .status(404)

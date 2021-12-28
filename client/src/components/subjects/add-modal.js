@@ -63,8 +63,8 @@ const AddModal = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     if (currentId._id === 0) {
-      await dispatch(createSubject.createSubjectRequest(newSubject));
-      await dispatch(
+      dispatch(createSubject.createSubjectRequest(newSubject));
+      dispatch(
         showToast({
           message: 'Please wait! We are updating...',
           type: 'warning',
@@ -72,7 +72,7 @@ const AddModal = () => {
       );
     } else {
       console.log('update subject');
-      await dispatch(
+      dispatch(
         showToast({
           message: 'Please wait! We are updating...',
           type: 'warning',

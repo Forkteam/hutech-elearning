@@ -30,12 +30,17 @@ export const register = async (req, res) => {
   if (username.includes(' '))
     return res
       .status(400)
-      .json({ success: false, message: 'Tên người dùng không được phép có khoảng trắng.' });
+      .json({
+        success: false,
+        message: 'Tên người dùng không được phép có khoảng trắng.'
+      });
 
   try {
     const user = await UserModel.findOne({ username });
     if (user)
-      return res.status(400).json({ success: false, message: 'Tên người dùng đã tồn tại' });
+      return res
+        .status(400)
+        .json({ success: false, message: 'Tên người dùng đã tồn tại' });
     const userEmail = await UserModel.findOne({ email });
     if (userEmail)
       return res
@@ -67,7 +72,9 @@ export const register = async (req, res) => {
     res.status(200).json({ success: true, message: 'Đăng ký thành công!' });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Đăng ký thất bại.' });
+    return res
+      .status(500)
+      .json({ success: false, message: 'Đăng ký thất bại.' });
   }
 };
 
@@ -123,9 +130,7 @@ export const login = async (req, res) => {
         .json({ success: false, message: 'Người dùng không tồn tại.' });
     const passwordValid = await argon2.verify(user.password, password);
     if (!passwordValid)
-      return res
-        .status(400)
-        .json({ success: false, message: 'Sai mật khẩu' });
+      return res.status(400).json({ success: false, message: 'Sai mật khẩu' });
 
     const accessToken = jwt.sign(
       { userId: user._id },
@@ -135,7 +140,9 @@ export const login = async (req, res) => {
     res.status(200).json({ success: true, accessToken });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Đăng nhập thất bại.' });
+    return res
+      .status(500)
+      .json({ success: false, message: 'Đăng nhập thất bại.' });
   }
 };
 
@@ -163,7 +170,9 @@ export const sendMailResetPassword = async (req, res) => {
     res.status(200).json({ success: true, message: 'Đã gửi email xác nhận.' });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Gửi email thất bại, hãy thử lại.' });
+    return res
+      .status(500)
+      .json({ success: false, message: 'Gửi email thất bại, hãy thử lại.' });
   }
 };
 
@@ -193,11 +202,16 @@ export const resetPassword = async (req, res) => {
 
     const emailContent = welcomeMail();
     mailer(user.email, emailContent);
-    res.status(200).json({ success: true, message: 'Đặt lại mật khẩu thành công!' });
+    res
+      .status(200)
+      .json({ success: true, message: 'Đặt lại mật khẩu thành công!' });
   } catch (error) {
     console.log(error);
     return res
       .status(500)
-      .json({ success: false, message: 'Đặt lại mật khẩu thất bại, hãy thử lại!' });
+      .json({
+        success: false,
+        message: 'Đặt lại mật khẩu thất bại, hãy thử lại!'
+      });
   }
 };

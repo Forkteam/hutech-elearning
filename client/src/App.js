@@ -6,11 +6,11 @@ import Landing from './components/layouts/landing';
 import ProtectedRoute from './components/routings/protected-route';
 import AuthContextProvider from './contexts/auth-context';
 import { theme } from './theme';
-import SimpleAccordion from './views/accordion';
 import Auth from './views/auth';
 import Subjects from './views/subjects';
 import DetailForm from './views/detail-document';
-import News from './views/news';
+// import SimpleAccordion from './views/accordion';
+// import News from './views/news';
 import Industries from './views/industries';
 import Lectures from './views/lectures';
 
@@ -49,13 +49,13 @@ function App() {
               path="/detail-document"
               component={DetailForm}
             />
-            <ProtectedRoute exact path="/news" component={News} />
+            {/* <ProtectedRoute exact path="/news" component={News} />
             <ProtectedRoute
               exact
               path="/accordion"
               component={SimpleAccordion}
-            />
-            <Route path="/:somestring" component={Error} />
+            /> */}
+            <Route path="/:someString" component={Error} />
           </Switch>
         </Router>
       </AuthContextProvider>

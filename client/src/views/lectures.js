@@ -7,7 +7,7 @@ import moment from 'moment';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import AddModal from '../components/industries/add-modal';
+import AddModal from '../components/lectures/add-modal';
 import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
 import { getLectures } from '../redux/actions/lectures';
@@ -16,12 +16,12 @@ import { lectures$, toast$ } from '../redux/selectors';
 const Lectures = () => {
   const dispatch = useDispatch();
   const [rowsPerPage, setRowsPerPage] = useState(7);
-  const { id: classId } = useParams();
+  const { id: subjectId } = useParams();
   const toast = useSelector(toast$);
   const lectures = useSelector(lectures$);
 
   useEffect(() => {
-    dispatch(getLectures.getLecturesRequest(classId));
+    dispatch(getLectures.getLecturesRequest(subjectId));
   }, [dispatch]);
 
   const setShowModal = useCallback(() => {

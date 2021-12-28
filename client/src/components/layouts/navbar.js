@@ -27,7 +27,7 @@ export const Navbar = (props) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const {
     authState: {
-      user: { _id, username, role },
+      user: { username },
     },
     logoutUser,
   } = useContext(AuthContext);
