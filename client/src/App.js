@@ -43,15 +43,11 @@ function App() {
             />
             <ProtectedRoute exact path="/industries" component={Industries} />
             <ProtectedRoute exact path="/subjects" component={Subjects} />
+            <ProtectedRoute exact path="/subjects/:id" component={Lectures} />
             <ProtectedRoute
               exact
               path="/detail-document"
               component={DetailForm}
-            />
-            <ProtectedRoute
-              exact
-              path="/lectures"
-              component={Lectures}
             />
             <ProtectedRoute exact path="/news" component={News} />
             <ProtectedRoute

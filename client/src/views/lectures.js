@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -5,6 +6,7 @@ import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import AddModal from '../components/industries/add-modal';
 import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
@@ -14,11 +16,12 @@ import { lectures$, toast$ } from '../redux/selectors';
 const Lectures = () => {
   const dispatch = useDispatch();
   const [rowsPerPage, setRowsPerPage] = useState(7);
+  const { id: classId } = useParams();
   const toast = useSelector(toast$);
   const lectures = useSelector(lectures$);
 
   useEffect(() => {
-    dispatch(getLectures.getLecturesRequest());
+    dispatch(getLectures.getLecturesRequest(classId));
   }, [dispatch]);
 
   const setShowModal = useCallback(() => {
@@ -44,12 +47,12 @@ const Lectures = () => {
     );
   }
   const columns = [
-    { field: 'code', headerName: 'Mã Ngành', minWidth: 100, flex: 1 },
-    { field: 'name', headerName: 'Tên Ngành', minWidth: 250, flex: 1 },
+    { field: 'title', headerName: 'Tên', minWidth: 200, flex: 1 },
+    // { field: 'name', headerName: 'Tên Ngành', minWidth: 250, flex: 1 },
     {
       field: 'user',
       headerName: 'Người tạo',
-      minWidth: 180,
+      minWidth: 150,
       flex: 1,
       valueGetter: (param) => {
         return `${param.value.fullName}`;
@@ -67,7 +70,7 @@ const Lectures = () => {
     },
     {
       field: 'updatedAt',
-      headerName: 'Ngày cập nhật cuối',
+      headerName: 'Cập nhật lần cuối',
       type: 'dateTime',
       minWidth: 150,
       flex: 1,

@@ -78,7 +78,7 @@ const Industries = () => {
     },
     {
       field: 'updatedAt',
-      headerName: 'Ngày cập nhật cuối',
+      headerName: 'Cập nhật lần cuối',
       type: 'dateTime',
       minWidth: 150,
       flex: 1,

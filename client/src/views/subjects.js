@@ -10,6 +10,7 @@ import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import DataTable from '../components/overlays/data-table';
 import AddModal from '../components/subjects/add-modal';
 import DataCard from '../components/subjects/data-card';
@@ -110,10 +111,18 @@ const Subjects = () => {
       editable: true,
       renderCell: (params) => (
         <img src={params.value} alt="img" style={{ width: '50px' }} />
-        ),
-      },
-      { field: 'name', headerName: 'Tên môn học', minWidth: 100, flex: 1 },
-      // { field: 'description', headerName: 'Mô tả', minWidth: 250, flex: 1 },
+      ),
+    },
+    {
+      field: 'name',
+      headerName: 'Tên môn học',
+      minWidth: 100,
+      flex: 1,
+      renderCell: (params) => (
+        <Link to={`subjects/${params.id}`}>{params.value}</Link>
+      ),
+    },
+    // { field: 'description', headerName: 'Mô tả', minWidth: 250, flex: 1 },
     {
       field: 'industryId',
       headerName: 'Ngành',
@@ -144,7 +153,7 @@ const Subjects = () => {
     },
     {
       field: 'updatedAt',
-      headerName: 'Ngày cập nhật cuối',
+      headerName: 'Cập nhật lần cuối',
       type: 'dateTime',
       minWidth: 100,
       flex: 1,
