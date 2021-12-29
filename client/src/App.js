@@ -13,6 +13,7 @@ import DetailForm from './views/detail-document';
 // import News from './views/news';
 import Industries from './views/industries';
 import Lectures from './views/lectures';
+import Admins from './views/admins';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <ProtectedRoute exact path="/industries" component={Industries} />
             <ProtectedRoute exact path="/subjects" component={Subjects} />
             <ProtectedRoute exact path="/subjects/:id" component={Lectures} />
+            <ProtectedRoute exact path="/admins" component={Admins} />
             <ProtectedRoute
               exact
               path="/detail-document"

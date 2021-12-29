@@ -44,4 +44,9 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
+schema.set('toJSON', {
+  virtuals: true,
+  versionKey: false
+});
+
 export const UserModel = mongoose.model('users', schema);

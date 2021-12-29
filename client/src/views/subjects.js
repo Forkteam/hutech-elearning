@@ -150,7 +150,7 @@ const Subjects = () => {
       minWidth: 100,
       flex: 1,
       valueGetter: (param) => {
-        return `${moment(param.value).format('ll')}`;
+        return `${moment(param.value).format('l')}`;
       },
     },
     {

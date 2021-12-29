@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -6,21 +7,21 @@ import moment from 'moment';
 import 'moment/locale/vi';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AddModal from '../components/industries/add-modal';
+import AddModal from '../components/lectures/add-modal';
 import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
-import { getIndustries } from '../redux/actions/industries';
-import { industries$, toast$ } from '../redux/selectors';
+import { getUsers } from '../redux/actions/users';
+import { admins$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
-const Industries = () => {
+const Admins = () => {
   const dispatch = useDispatch();
   const [rowsPerPage, setRowsPerPage] = useState(7);
   const toast = useSelector(toast$);
-  const industries = useSelector(industries$);
+  const admins = useSelector(admins$);
 
   useEffect(() => {
-    dispatch(getIndustries.getIndustriesRequest());
+    dispatch(getUsers.getUsersRequest(2));
   }, [dispatch]);
 
   const setShowModal = useCallback(() => {
@@ -31,7 +32,7 @@ const Industries = () => {
     setRowsPerPage(newPageSize);
   };
 
-  if (industries.loading) {
+  if (admins.loading) {
     return (
       <div
         style={{
@@ -45,27 +46,35 @@ const Industries = () => {
       </div>
     );
   }
-
-  // const handleEditClick = (id) => (event) => {
-  //   event.stopPropagation();
-  //   apiRef.current.setRowMode(id, 'edit');
-  // };
-
-  // const handleDeleteClick = (id) => (event) => {
-  //   event.stopPropagation();
-  //   apiRef.current.updateRows([{ id, _action: 'delete' }]);
-  // };
-
   const columns = [
-    { field: 'code', headerName: 'Mã Ngành', minWidth: 100, flex: 1 },
-    { field: 'name', headerName: 'Tên Ngành', minWidth: 250, flex: 1 },
+    { field: 'fullName', headerName: 'Tên', minWidth: 180, flex: 1 },
+    { field: 'email', headerName: 'Email', minWidth: 200, flex: 1 },
+    {
+      field: 'role',
+      headerName: 'Role',
+      minWidth: 120,
+      flex: 1,
+      valueGetter: (param) => {
+        return param.value < 3 ? 'Admin' : 'Super admin';
+      },
+    },
+    {
+      field: 'birthday',
+      headerName: 'Ngày sinh',
+      type: 'dateTime',
+      minWidth: 100,
+      flex: 1,
+      valueGetter: (param) => {
+        return `${moment(param.value).format('l')}`;
+      },
+    },
     {
       field: 'user',
       headerName: 'Người tạo',
-      minWidth: 180,
+      minWidth: 140,
       flex: 1,
       valueGetter: (param) => {
-        return `${param.value.fullName}`;
+        return param.value?.fullName ? param.value.fullName : '';
       },
     },
     {
@@ -82,7 +91,7 @@ const Industries = () => {
       field: 'updatedAt',
       headerName: 'Cập nhật lần cuối',
       type: 'dateTime',
-      minWidth: 150,
+      minWidth: 140,
       flex: 1,
       valueGetter: (param) => {
         return `${moment(param.value).fromNow()}`;
@@ -92,7 +101,7 @@ const Industries = () => {
       field: 'actions',
       type: 'actions',
       headerName: 'Thao tác',
-      minWidth: 150,
+      minWidth: 100,
       flex: 1,
       cellClassName: 'actions',
       getActions: ({ _id }) => [
@@ -117,7 +126,7 @@ const Industries = () => {
     <DataTable
       component={AddModal}
       toast={toast}
-      data={industries.data}
+      data={admins.data}
       columns={columns}
       rowsPerPage={rowsPerPage}
       handleChangeRowsPerPage={handleChangeRowsPerPage}
@@ -126,4 +135,4 @@ const Industries = () => {
   );
 };
 
-export default Industries;
+export default Admins;

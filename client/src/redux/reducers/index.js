@@ -6,7 +6,6 @@ import modal from './constants/modal';
 import toast from './constants/toast';
 import currentId from './constants/currentId';
 import students from './students';
-import teachers from './teachers';
 import admins from './admins';
 
 export default combineReducers({
@@ -17,6 +16,5 @@ export default combineReducers({
   toast,
   currentId,
   students,
-  teachers,
   admins,
 });

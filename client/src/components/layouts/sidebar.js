@@ -6,7 +6,7 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SchoolIcon from '@mui/icons-material/School';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SubjectIcon from '@mui/icons-material/Subject';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+// import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import {
   Box,
@@ -38,15 +38,15 @@ const items = [
     title: 'Danh sách sinh viên',
   },
   {
-    href: '/',
+    href: '/admins',
     icon: <GroupIcon fontSize="small" />,
-    title: 'Danh sách giảng viên',
-  },
-  {
-    href: '/',
-    icon: <SupervisedUserCircleIcon fontSize="small" />,
     title: 'Danh sách admin',
   },
+  // {
+  //   href: '/',
+  //   icon: <SupervisedUserCircleIcon fontSize="small" />,
+  //   title: 'Danh sách admin',
+  // },
   {
     href: '/industries',
     icon: <ConstructionIcon fontSize="small" />,
