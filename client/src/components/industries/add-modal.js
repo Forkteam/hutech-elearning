@@ -36,8 +36,8 @@ const AddModal = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     if (currentId._id === 0) {
-      await dispatch(createIndustry.createIndustryRequest(newIndustry));
-      await dispatch(
+      dispatch(createIndustry.createIndustryRequest(newIndustry));
+      dispatch(
         showToast({
           message: 'Please wait! We are updating...',
           type: 'warning',
@@ -45,7 +45,7 @@ const AddModal = () => {
       );
     } else {
       console.log('update industry>>>', newIndustry);
-      await dispatch(
+      dispatch(
         showToast({
           message: 'Please wait! We are updating...',
           type: 'warning',
@@ -56,15 +56,8 @@ const AddModal = () => {
   };
 
   return (
-    <Dialog
-      sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
-      TransitionComponent={Transition}
-      open={modal.show}
-      scroll="body"
-    >
-      <DialogTitle>
-        {currentId._id === 0 ? 'THÊM' : 'CHỈNH SỬA'}
-      </DialogTitle>
+    <Dialog TransitionComponent={Transition} open={modal.show} scroll="body">
+      <DialogTitle>{currentId._id === 0 ? 'THÊM' : 'CHỈNH SỬA'}</DialogTitle>
       <DialogContent dividers>
         <TextField
           margin="dense"

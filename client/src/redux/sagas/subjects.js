@@ -25,7 +25,7 @@ export function* createSubjectSaga(action) {
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
-        type: response.data.success ? 'success' : 'danger',
+        type: response.data.success ? 'success' : 'error',
       })
     );
   } catch (error) {
@@ -41,7 +41,7 @@ export function* updateSubjectSaga(action) {
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
-        type: response.data.success ? 'success' : 'danger',
+        type: response.data.success ? 'success' : 'error',
       })
     );
   } catch (error) {
@@ -57,7 +57,7 @@ export function* deleteSubjectSaga(action) {
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
-        type: response.data.success ? 'success' : 'danger',
+        type: response.data.success ? 'success' : 'error',
       })
     );
   } catch (error) {

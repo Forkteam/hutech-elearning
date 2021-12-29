@@ -51,7 +51,7 @@ const RegisterForm = () => {
       return;
     }
     if (password !== confirmPassword) {
-      setAlert({ type: 'warning', message: 'Mật khẩu không hợp lệ' });
+      setAlert({ type: 'warning', message: 'Mật khẩu không trùng khớp' });
       setTimeout(() => setAlert(null), 5000);
       return;
     }

@@ -4,7 +4,7 @@ export const getComments = async (req, res) => {
   try {
     const comments = await CommentModel.find({
       lectureId: req.params.id
-    }).populate('user', ['username']);
+    }).populate('user', ['fullName']);
     res.status(200).json({ success: true, comments });
   } catch (error) {
     console.log(error);
@@ -27,7 +27,7 @@ export const createComment = async (req, res) => {
     });
     await comment.save();
 
-    comment = await comment.populate('user', ['username']);
+    comment = await comment.populate('user', ['fullName']);
     res
       .status(200)
       .json({ success: true, message: 'Create comment success', comment });
@@ -51,7 +51,7 @@ export const updateComment = async (req, res) => {
         user: req.userId
       },
       { new: true }
-    ).populate('user', ['username']);
+    ).populate('user', ['fullName']);
 
     if (!comment)
       return res

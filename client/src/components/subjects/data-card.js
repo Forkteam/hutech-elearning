@@ -10,10 +10,10 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const DataCard = ({ items }) => {
+const DataCard = ({ subjects }) => {
   const itemsPerPage = 4;
   const [page, setPage] = useState(1);
-  const [noOfPages] = useState(Math.ceil(items.length / itemsPerPage));
+  const [noOfPages] = useState(Math.ceil(subjects.length / itemsPerPage));
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -23,11 +23,11 @@ const DataCard = ({ items }) => {
     <>
       <Container sx={{ py: 4 }} maxWidth="md">
         <Grid container spacing={2}>
-          {items
+          {subjects
             .slice((page - 1) * itemsPerPage, page * itemsPerPage)
             .map((item) => (
-              <Grid item xs={12} sm={6} md={3} key={item.title}>
-                <Link to="/login" component={CardActionArea}>
+              <Grid item xs={12} sm={6} md={3} key={item.id}>
+                <Link to={`subjects/${item.id}`} component={CardActionArea}>
                   <Card
                     sx={{
                       height: '100%',
@@ -48,7 +48,7 @@ const DataCard = ({ items }) => {
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Typography gutterBottom variant="h5" component="h5">
-                        {item.title}
+                        {item.name}
                       </Typography>
                       <Typography>
                         {item.description.slice(0, 100)}...

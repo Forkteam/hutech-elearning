@@ -1,38 +1,33 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { hideModal, setCurrentId, showToast } from '../../redux/actions';
-import { getIndustries } from '../../redux/actions/industries';
-import { createSubject } from '../../redux/actions/subjects';
-import { currentId$, industries$, modal$ } from '../../redux/selectors';
+import { createLecture } from '../../redux/actions/lectures';
+import { currentId$, modal$ } from '../../redux/selectors';
 import Transition from '../overlays/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();
+  const { id: subjectId } = useParams();
   const modal = useSelector(modal$);
   const currentId = useSelector(currentId$);
-  const industries = useSelector(industries$);
-  const [newSubject, setNewSubject] = useState({
-    name: '',
+  const [newLecture, setNewLecture] = useState({
+    title: '',
     description: '',
-    image: '',
-    status: 'PRIVATE',
-    industryId: '',
+    url: '',
+    file: '',
   });
-  const { name, description, status, industryId } = newSubject;
+  const { title, description, url } = newLecture;
 
-  useEffect(() => {
-    dispatch(getIndustries.getIndustriesRequest());
-  }, [dispatch]);
-
-  const onChangeNewSubjectForm = (event) => {
-    setNewSubject({ ...newSubject, [event.target.name]: event.target.value });
+  const onChangeNewLectureForm = (event) => {
+    setNewLecture({ ...newLecture, [event.target.name]: event.target.value });
   };
 
   const toBase64 = (file) =>
@@ -44,17 +39,16 @@ const AddModal = () => {
     });
 
   const handleFileChange = async (event) => {
-    const base64image = await toBase64(event.target.files[0]);
-    setNewSubject({ ...newSubject, image: base64image });
+    const base64file = await toBase64(event.target.files[0]);
+    setNewLecture({ ...newLecture, file: base64file });
   };
 
   const closeDialog = () => {
-    setNewSubject({
-      name: '',
+    setNewLecture({
+      title: '',
       description: '',
-      image: '',
-      status: 'PRIVATE',
-      industryId: '',
+      url: '',
+      file: '',
     });
     dispatch(hideModal());
     if (currentId._id !== 0) dispatch(setCurrentId(0));
@@ -63,7 +57,13 @@ const AddModal = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     if (currentId._id === 0) {
-      dispatch(createSubject.createSubjectRequest(newSubject));
+      dispatch(
+        createLecture.createLectureRequest({
+          ...newLecture,
+          subjectId: subjectId,
+        })
+      );
+      console.log(newLecture);
       dispatch(
         showToast({
           message: 'Please wait! We are updating...',
@@ -71,7 +71,7 @@ const AddModal = () => {
         })
       );
     } else {
-      console.log('update subject');
+      console.log('update lecture');
       dispatch(
         showToast({
           message: 'Please wait! We are updating...',
@@ -84,7 +84,7 @@ const AddModal = () => {
 
   return (
     <Dialog TransitionComponent={Transition} open={modal.show} scroll="body">
-      <DialogTitle>CREATE NEW SUBJECT</DialogTitle>
+      <DialogTitle>CREATE NEW LECTURE</DialogTitle>
       <DialogContent dividers>
         <Box component="form" onSubmit={onSubmit}>
           <TextField
@@ -94,10 +94,10 @@ const AddModal = () => {
             fullWidth
             variant="standard"
             autoFocus
-            label="Tên môn học"
-            name="name"
-            value={name}
-            onChange={onChangeNewSubjectForm}
+            label="Title"
+            name="title"
+            value={title}
+            onChange={onChangeNewLectureForm}
           />
           <TextField
             margin="dense"
@@ -105,53 +105,32 @@ const AddModal = () => {
             required
             fullWidth
             variant="standard"
-            label="Mô tả "
+            label="Mô tả"
             name="description"
             value={description}
-            onChange={onChangeNewSubjectForm}
+            onChange={onChangeNewLectureForm}
           />
           <TextField
             margin="dense"
+            multiline
             required
             fullWidth
             variant="standard"
-            select
-            label="Quyền truy cập"
-            name="status"
-            value={status}
-            onChange={onChangeNewSubjectForm}
-          >
-            <MenuItem value={'PRIVATE'}>Riêng tư</MenuItem>
-            <MenuItem value={'PUBLIC'}>Công khai</MenuItem>
-          </TextField>
-          <TextField
-            margin="dense"
-            required
-            fullWidth
-            variant="standard"
-            select
-            label="Ngành"
-            name="industryId"
-            value={industryId}
-            onChange={onChangeNewSubjectForm}
-            sx={{ marginBottom: '20px' }}
-          >
-            {industries.data.map((industry) => (
-              <MenuItem key={industry.id} value={industry.id}>
-                {industry.name}
-              </MenuItem>
-            ))}
-          </TextField>
+            label="URL"
+            name="url"
+            value={url}
+            onChange={onChangeNewLectureForm}
+          />
           <TextField
             margin="dense"
             type="file"
-            accept="image/*"
+            accept="application/pdf"
             multiple={false}
             required
             fullWidth
             variant="standard"
-            label="Image"
-            name="image"
+            label="File PDF"
+            name="file"
             onChange={handleFileChange}
           />
           <Button

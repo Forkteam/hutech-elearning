@@ -28,12 +28,6 @@ export const INIT_STATE = {
     success: true,
     message: '',
   },
-  teachers: {
-    loading: false,
-    data: [],
-    success: true,
-    message: '',
-  },
   admins: {
     loading: false,
     data: [],

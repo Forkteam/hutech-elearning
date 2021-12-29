@@ -20,7 +20,7 @@ export function* createUserSaga(action) {
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
-        type: response.data.success ? 'success' : 'danger',
+        type: response.data.success ? 'success' : 'error',
       })
     );
   } catch (error) {
@@ -36,7 +36,7 @@ export function* updateUserSaga(action) {
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
-        type: response.data.success ? 'success' : 'danger',
+        type: response.data.success ? 'success' : 'error',
       })
     );
   } catch (error) {
@@ -52,7 +52,7 @@ export function* deleteUserSaga(action) {
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
-        type: response.data.success ? 'success' : 'danger',
+        type: response.data.success ? 'success' : 'error',
       })
     );
   } catch (error) {

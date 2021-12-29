@@ -6,12 +6,15 @@ import Landing from './components/layouts/landing';
 import ProtectedRoute from './components/routings/protected-route';
 import AuthContextProvider from './contexts/auth-context';
 import { theme } from './theme';
-import SimpleAccordion from './views/accordion';
 import Auth from './views/auth';
 import Subjects from './views/subjects';
 import DetailForm from './views/detail-document';
+// import SimpleAccordion from './views/accordion';
 import News from './views/news';
 import Industries from './views/industries';
+import Lectures from './views/lectures';
+import Admins from './views/admins';
+import Students from './views/students';
 
 function App() {
   return (
@@ -42,18 +45,21 @@ function App() {
             />
             <ProtectedRoute exact path="/industries" component={Industries} />
             <ProtectedRoute exact path="/subjects" component={Subjects} />
+            <ProtectedRoute exact path="/subjects/:id" component={Lectures} />
+            <ProtectedRoute exact path="/students" component={Students} />
+            <ProtectedRoute exact path="/admins" component={Admins} />
             <ProtectedRoute
               exact
               path="/detail-document"
               component={DetailForm}
             />
             <ProtectedRoute exact path="/news" component={News} />
-            <ProtectedRoute
+            {/* <ProtectedRoute
               exact
               path="/accordion"
               component={SimpleAccordion}
-            />
-            <Route path="/:somestring" component={Error} />
+            /> */}
+            <Route path="/:someString" component={Error} />
           </Switch>
         </Router>
       </AuthContextProvider>

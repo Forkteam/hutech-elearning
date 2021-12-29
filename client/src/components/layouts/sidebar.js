@@ -6,7 +6,7 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SchoolIcon from '@mui/icons-material/School';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SubjectIcon from '@mui/icons-material/Subject';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+// import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import {
   Box,
@@ -33,18 +33,13 @@ const items = [
     title: 'Môn học của bạn',
   },
   {
-    href: '/',
+    href: '/students',
     icon: <SchoolIcon fontSize="small" />,
-    title: 'Danh sách sinh viên',
+    title: 'Danh sách tài khoản',
   },
   {
-    href: '/',
+    href: '/admins',
     icon: <GroupIcon fontSize="small" />,
-    title: 'Danh sách giảng viên',
-  },
-  {
-    href: '/',
-    icon: <SupervisedUserCircleIcon fontSize="small" />,
     title: 'Danh sách admin',
   },
   {
@@ -113,22 +108,25 @@ export const Sidebar = (props) => {
                 <ListItem
                   sx={{
                     backgroundColor:
-                      location.pathname === item.href &&
-                      'rgba(255,255,255, 0.08)',
+                      location.pathname.split('/')[1] ===
+                        item.href.split('/')[1] && 'rgba(255,255,255, 0.08)',
                     borderRadius: 1,
                     color:
-                      location.pathname === item.href
+                      location.pathname.split('/')[1] ===
+                      item.href.split('/')[1]
                         ? 'secondary.main'
                         : 'neutral.300',
                     fontWeight:
-                      location.pathname === item.href && 'fontWeightBold',
+                      location.pathname.split('/')[1] ===
+                        item.href.split('/')[1] && 'fontWeightBold',
                     justifyContent: 'flex-start',
                     textAlign: 'left',
                     textTransform: 'none',
                     width: '100%',
                     '& .MuiButton-startIcon': {
                       color:
-                        location.pathname === item.href
+                        location.pathname.split('/')[1] ===
+                        item.href.split('/')[1]
                           ? 'secondary.main'
                           : 'neutral.400',
                     },

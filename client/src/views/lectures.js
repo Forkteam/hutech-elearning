@@ -1,26 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AddModal from '../components/industries/add-modal';
+import { useHistory, useParams } from 'react-router-dom';
+import AddModal from '../components/lectures/add-modal';
 import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
-import { getIndustries } from '../redux/actions/industries';
-import { industries$, toast$ } from '../redux/selectors';
+import { getLectures } from '../redux/actions/lectures';
+import { lectures$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
-const Industries = () => {
+const Lectures = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [rowsPerPage, setRowsPerPage] = useState(7);
+  const { id: subjectId } = useParams();
   const toast = useSelector(toast$);
-  const industries = useSelector(industries$);
+  const lectures = useSelector(lectures$);
 
   useEffect(() => {
-    dispatch(getIndustries.getIndustriesRequest());
+    dispatch(getLectures.getLecturesRequest(subjectId));
   }, [dispatch]);
 
   const setShowModal = useCallback(() => {
@@ -31,7 +36,7 @@ const Industries = () => {
     setRowsPerPage(newPageSize);
   };
 
-  if (industries.loading) {
+  if (lectures.loading) {
     return (
       <div
         style={{
@@ -45,24 +50,12 @@ const Industries = () => {
       </div>
     );
   }
-
-  // const handleEditClick = (id) => (event) => {
-  //   event.stopPropagation();
-  //   apiRef.current.setRowMode(id, 'edit');
-  // };
-
-  // const handleDeleteClick = (id) => (event) => {
-  //   event.stopPropagation();
-  //   apiRef.current.updateRows([{ id, _action: 'delete' }]);
-  // };
-
   const columns = [
-    { field: 'code', headerName: 'Mã Ngành', minWidth: 100, flex: 1 },
-    { field: 'name', headerName: 'Tên Ngành', minWidth: 250, flex: 1 },
+    { field: 'title', headerName: 'Tên', minWidth: 200, flex: 1 },
     {
       field: 'user',
       headerName: 'Người tạo',
-      minWidth: 180,
+      minWidth: 150,
       flex: 1,
       valueGetter: (param) => {
         return `${param.value.fullName}`;
@@ -114,16 +107,25 @@ const Industries = () => {
   ];
 
   return (
-    <DataTable
-      component={AddModal}
-      toast={toast}
-      data={industries.data}
-      columns={columns}
-      rowsPerPage={rowsPerPage}
-      handleChangeRowsPerPage={handleChangeRowsPerPage}
-      setShowModal={setShowModal}
-    />
+    <>
+      <Button
+        onClick={() => history.goBack()}
+        variant="body2"
+        sx={{ mt: 1, ml: 1, color: '#5048E5' }}
+      >
+        &lt; Trở về
+      </Button>
+      <DataTable
+        component={AddModal}
+        toast={toast}
+        data={lectures.data}
+        columns={columns}
+        rowsPerPage={rowsPerPage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
+        setShowModal={setShowModal}
+      />
+    </>
   );
 };
 
-export default Industries;
+export default Lectures;

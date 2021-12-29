@@ -28,7 +28,7 @@ export const getStudentSubjects = async (req, res) => {
   try {
     const subjects = await SubjectModel.find({
       studentIds: req.body.id
-    }).populate('user', ['username']);
+    }).populate('user', ['fullName']);
     return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);
@@ -108,7 +108,7 @@ export const updateSubject = async (req, res) => {
       { _id: id },
       subjectInput,
       { new: true }
-    ).populate('user', ['username']);
+    ).populate('user', ['fullName']);
     if (!updatedSubject)
       return res
         .status(404)
@@ -214,7 +214,7 @@ export const addStudent = async (req, res) => {
       { _id: id },
       { $addToSet: { studentIds: studentId } },
       { new: true }
-    ).populate('user', ['username']);
+    ).populate('user', ['fullName']);
     if (!updatedSubject)
       return res
         .status(404)
@@ -248,7 +248,7 @@ export const removeStudent = async (req, res) => {
       { _id: id },
       { $pull: { studentIds: studentId } },
       { new: true }
-    ).populate('user', ['username']);
+    ).populate('user', ['fullName']);
     if (!updatedSubject)
       return res
         .status(404)

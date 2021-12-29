@@ -25,6 +25,15 @@ export const updateSubject = (payload) =>
 export const deleteSubject = (payload) =>
   axios.delete(`${apiURL}/subjects/${payload}`);
 
+export const getLectures = (payload) =>
+  axios.get(`${apiURL}/lectures/${payload}`);
+export const createLecture = (payload) =>
+  axios.post(`${apiURL}/lectures`, payload);
+export const updateLecture = (payload) =>
+  axios.put(`${apiURL}/lectures/${payload._id}`, payload);
+export const deleteLecture = (payload) =>
+  axios.delete(`${apiURL}/lectures/${payload}`);
+
 export const getUsers = (payload) => axios.get(`${apiURL}/users/${payload}`);
 export const createUser = (payload) =>
   axios.post(`${apiURL}/users/${payload.role}`, payload);
