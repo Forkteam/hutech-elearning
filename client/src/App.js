@@ -13,6 +13,7 @@ import DetailForm from './views/detail-document';
 import News from './views/news';
 import Industries from './views/industries';
 import Lectures from './views/lectures';
+import Support from './views/support';
 
 function App() {
   return (
@@ -58,6 +59,11 @@ function App() {
               exact
               path="/accordion"
               component={SimpleAccordion}
+            />
+            <ProtectedRoute
+              exact
+              path="/support"
+              component={Support}
             />
             <Route path="/:somestring" component={Error} />
           </Switch>
