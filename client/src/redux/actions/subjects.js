@@ -10,6 +10,12 @@ export const getAllSubjects = createActions({
   getAllSubjectsFailure: (error) => error,
 });
 
+export const getSubjectDetail = createActions({
+  getSubjectDetailRequest: (payload) => payload,
+  getSubjectDetailSuccess: (payload) => payload,
+  getSubjectDetailFailure: (error) => error,
+});
+
 export const createSubject = createActions({
   createSubjectRequest: (payload) => payload,
   createSubjectSuccess: (payload) => payload,

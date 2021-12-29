@@ -51,10 +51,11 @@ export const getTeacherSubjects = async (req, res) => {
 
 export const getSubjectDetail = async (req, res) => {
   try {
-    const subjectDetail = await SubjectModel.findById(id).populate('user', [
-      'username'
-    ]);
-    return res.status(200).json({ success: true, subjectDetail });
+    const subject = await SubjectModel.findById(req.params.id).populate(
+      'user',
+      ['fullName']
+    );
+    return res.status(200).json({ success: true, subject });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, message: 'Server error' });

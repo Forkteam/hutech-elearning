@@ -2,6 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import * as api from '../../api';
 import {
   getAllSubjects,
+  getSubjectDetail,
   createSubject,
   updateSubject,
   deleteSubject,
@@ -15,6 +16,16 @@ export function* getAllSubjectsSaga(action) {
   } catch (error) {
     console.log(error);
     yield put(getAllSubjects.getAllSubjectsFailure(error));
+  }
+}
+
+export function* getSubjectDetailSaga(action) {
+  try {
+    const response = yield call(api.getSubjectDetail, action.payload);
+    yield put(getSubjectDetail.getSubjectDetailSuccess(response.data.subject));
+  } catch (error) {
+    console.log(error);
+    yield put(getSubjectDetail.getSubjectDetailFailure(error));
   }
 }
 

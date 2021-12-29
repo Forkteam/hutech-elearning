@@ -17,6 +17,7 @@ export const INIT_STATE = {
   subjects: {
     loading: false,
     data: [],
+    singleSubject: null,
   },
   lectures: {
     loading: false,

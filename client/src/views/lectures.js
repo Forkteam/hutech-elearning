@@ -2,7 +2,11 @@
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
@@ -13,7 +17,8 @@ import AddModal from '../components/lectures/add-modal';
 import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
 import { getLectures } from '../redux/actions/lectures';
-import { lectures$, toast$ } from '../redux/selectors';
+import { getSubjectDetail } from '../redux/actions/subjects';
+import { lectures$, subjects$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
 const Lectures = () => {
@@ -23,8 +28,10 @@ const Lectures = () => {
   const { id: subjectId } = useParams();
   const toast = useSelector(toast$);
   const lectures = useSelector(lectures$);
+  const subjects = useSelector(subjects$);
 
   useEffect(() => {
+    dispatch(getSubjectDetail.getSubjectDetailRequest(subjectId));
     dispatch(getLectures.getLecturesRequest(subjectId));
   }, [dispatch]);
 
@@ -36,7 +43,7 @@ const Lectures = () => {
     setRowsPerPage(newPageSize);
   };
 
-  if (lectures.loading) {
+  if (subjects.loading || lectures.loading) {
     return (
       <div
         style={{
@@ -115,6 +122,36 @@ const Lectures = () => {
       >
         &lt; Trở về
       </Button>
+      <Card
+        sx={{ margin: 'auto', display: 'flex', width: '95%', boxShadow: 3 }}
+      >
+        <CardMedia
+          component="img"
+          sx={{ width: 200, display: { xs: 'none', sm: 'block' } }}
+          image={subjects.singleSubject?.image ?? ''}
+          alt="subjects image"
+        />
+        <CardContent sx={{ flex: 1 }}>
+          <Typography component="h2" variant="h5">
+            {subjects.singleSubject?.name ?? ''}
+          </Typography>
+          <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
+            Ngày đăng:{' '}
+            {moment(subjects.singleSubject?.createdAt ?? '2001-01-21').format(
+              'l'
+            )}{' '}
+            - Cập nhật lần cuối{' '}
+            {moment(subjects.singleSubject?.updatedAt ?? '2001-01-21').format(
+              'l'
+            )}
+            <br />
+            Người tạo: {subjects.singleSubject?.user.fullName ?? 'Admin'}
+          </Typography>
+          <Typography variant="subtitle1" paragraph>
+            {subjects.singleSubject?.description ?? ''}
+          </Typography>
+        </CardContent>
+      </Card>
       <DataTable
         component={AddModal}
         toast={toast}

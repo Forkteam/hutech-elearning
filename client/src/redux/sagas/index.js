@@ -15,12 +15,14 @@ import {
 
 import {
   getAllSubjects,
+  getSubjectDetail,
   createSubject,
   updateSubject,
   deleteSubject,
 } from '../actions/subjects';
 import {
   getAllSubjectsSaga,
+  getSubjectDetailSaga,
   createSubjectSaga,
   updateSubjectSaga,
   deleteSubjectSaga,
@@ -54,6 +56,10 @@ function* mySaga() {
   yield takeLatest(deleteIndustry.deleteIndustryRequest, deleteIndustrySaga);
 
   yield takeLatest(getAllSubjects.getAllSubjectsRequest, getAllSubjectsSaga);
+  yield takeLatest(
+    getSubjectDetail.getSubjectDetailRequest,
+    getSubjectDetailSaga
+  );
   yield takeLatest(createSubject.createSubjectRequest, createSubjectSaga);
   yield takeLatest(updateSubject.updateSubjectRequest, updateSubjectSaga);
   yield takeLatest(deleteSubject.deleteSubjectRequest, deleteSubjectSaga);

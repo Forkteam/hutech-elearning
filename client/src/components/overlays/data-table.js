@@ -18,7 +18,6 @@ const DataTable = ({
       <Tooltip toast={toast} />
       <div
         style={{
-          height: '85%',
           width: '95%',
           margin: '10px auto',
           '& .actions': {
@@ -30,6 +29,7 @@ const DataTable = ({
         }}
       >
         <DataGrid
+          autoHeight
           rows={data}
           columns={columns}
           pageSize={rowsPerPage}
