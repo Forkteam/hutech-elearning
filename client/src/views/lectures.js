@@ -50,7 +50,6 @@ const Lectures = () => {
   }
   const columns = [
     { field: 'title', headerName: 'Tên', minWidth: 200, flex: 1 },
-    // { field: 'name', headerName: 'Tên Ngành', minWidth: 250, flex: 1 },
     {
       field: 'user',
       headerName: 'Người tạo',
