@@ -26,8 +26,8 @@ const DataCard = ({ subjects }) => {
           {subjects
             .slice((page - 1) * itemsPerPage, page * itemsPerPage)
             .map((item) => (
-              <Grid item xs={12} sm={6} md={3} key={item.title}>
-                <Link to="/login" component={CardActionArea}>
+              <Grid item xs={12} sm={6} md={3} key={item.id}>
+                <Link to={`subjects/${item.id}`} component={CardActionArea}>
                   <Card
                     sx={{
                       height: '100%',

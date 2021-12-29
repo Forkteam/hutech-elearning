@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import AddModal from '../components/lectures/add-modal';
 import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
@@ -17,6 +18,7 @@ moment.locale('vi');
 
 const Lectures = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [rowsPerPage, setRowsPerPage] = useState(7);
   const { id: subjectId } = useParams();
   const toast = useSelector(toast$);
@@ -105,15 +107,24 @@ const Lectures = () => {
   ];
 
   return (
-    <DataTable
-      component={AddModal}
-      toast={toast}
-      data={lectures.data}
-      columns={columns}
-      rowsPerPage={rowsPerPage}
-      handleChangeRowsPerPage={handleChangeRowsPerPage}
-      setShowModal={setShowModal}
-    />
+    <>
+      <Button
+        onClick={() => history.goBack()}
+        variant="body2"
+        sx={{ mt: 1, ml: 1, color: '#5048E5' }}
+      >
+        &lt; Trở về
+      </Button>
+      <DataTable
+        component={AddModal}
+        toast={toast}
+        data={lectures.data}
+        columns={columns}
+        rowsPerPage={rowsPerPage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
+        setShowModal={setShowModal}
+      />
+    </>
   );
 };
 

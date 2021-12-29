@@ -22,18 +22,16 @@ export const getUser = async (req, res) => {
 };
 
 export const register = async (req, res) => {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password)
+  const { username, email, password, fullName } = req.body;
+  if (!username || !email || !password || !fullName)
     return res
       .status(400)
       .json({ success: false, message: 'Vui lòng điền đầy đủ thông tin!' });
   if (username.includes(' '))
-    return res
-      .status(400)
-      .json({
-        success: false,
-        message: 'Tên người dùng không được phép có khoảng trắng.'
-      });
+    return res.status(400).json({
+      success: false,
+      message: 'Tên người dùng không được phép có khoảng trắng.'
+    });
 
   try {
     const user = await UserModel.findOne({ username });
@@ -53,6 +51,7 @@ export const register = async (req, res) => {
     const newUser = new VerifyUserModel({
       username,
       email,
+      fullName,
       password: hashedPassword
     });
     await newUser.save();
@@ -207,11 +206,9 @@ export const resetPassword = async (req, res) => {
       .json({ success: true, message: 'Đặt lại mật khẩu thành công!' });
   } catch (error) {
     console.log(error);
-    return res
-      .status(500)
-      .json({
-        success: false,
-        message: 'Đặt lại mật khẩu thất bại, hãy thử lại!'
-      });
+    return res.status(500).json({
+      success: false,
+      message: 'Đặt lại mật khẩu thất bại, hãy thử lại!'
+    });
   }
 };

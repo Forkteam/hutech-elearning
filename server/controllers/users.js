@@ -3,10 +3,10 @@ import { SubjectModel } from '../models/subject-model.js';
 import { UserModel } from '../models/user-model.js';
 
 export const getUsers = async (req, res) => {
-  const { role } = req.params.role;
+  const { role } = req.params;
   try {
     let users;
-    if (role < 2) {
+    if (role === '1') {
       users = await UserModel.find({ role }).populate('user', ['fullName']);
     } else {
       users = await UserModel.find({ role: { $in: [2, 3] } }).populate('user', [

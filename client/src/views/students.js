@@ -7,21 +7,21 @@ import moment from 'moment';
 import 'moment/locale/vi';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AddModal from '../components/lectures/add-modal';
+import AddModal from '../components/students/add-modal';
 import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
 import { getUsers } from '../redux/actions/users';
-import { admins$, toast$ } from '../redux/selectors';
+import { students$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
-const Admins = () => {
+const Students = () => {
   const dispatch = useDispatch();
   const [rowsPerPage, setRowsPerPage] = useState(7);
   const toast = useSelector(toast$);
-  const admins = useSelector(admins$);
+  const students = useSelector(students$);
 
   useEffect(() => {
-    dispatch(getUsers.getUsersRequest(2));
+    dispatch(getUsers.getUsersRequest(1));
   }, [dispatch]);
 
   const setShowModal = useCallback(() => {
@@ -32,7 +32,7 @@ const Admins = () => {
     setRowsPerPage(newPageSize);
   };
 
-  if (admins.loading) {
+  if (students.loading) {
     return (
       <div
         style={{
@@ -50,12 +50,12 @@ const Admins = () => {
     { field: 'fullName', headerName: 'Tên', minWidth: 180, flex: 1 },
     { field: 'email', headerName: 'Email', minWidth: 200, flex: 1 },
     {
-      field: 'role',
-      headerName: 'Role',
-      minWidth: 120,
+      field: 'isExternal',
+      headerName: 'isExternal',
+      minWidth: 100,
       flex: 1,
       valueGetter: (param) => {
-        return param.value < 3 ? 'Admin' : 'Super admin';
+        return param?.value ? 'true' : 'false';
       },
     },
     {
@@ -126,7 +126,7 @@ const Admins = () => {
     <DataTable
       component={AddModal}
       toast={toast}
-      data={admins.data}
+      data={students.data}
       columns={columns}
       rowsPerPage={rowsPerPage}
       handleChangeRowsPerPage={handleChangeRowsPerPage}
@@ -135,4 +135,4 @@ const Admins = () => {
   );
 };
 
-export default Admins;
+export default Students;
