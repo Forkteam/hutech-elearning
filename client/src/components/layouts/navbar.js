@@ -27,7 +27,7 @@ export const Navbar = (props) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const {
     authState: {
-      user: { username },
+      user: { username, avatar },
     },
     logoutUser,
   } = useContext(AuthContext);
@@ -85,7 +85,11 @@ export const Navbar = (props) => {
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar
                 alt={username}
-                src="https://images.unsplash.com/photo-1579353977828-2a4eab540b9a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
+                src={
+                  avatar
+                    ? avatar
+                    : 'https://images.unsplash.com/photo-1579353977828-2a4eab540b9a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80'
+                }
               />
             </IconButton>
           </Tooltip>
@@ -106,16 +110,16 @@ export const Navbar = (props) => {
             onClose={handleCloseUserMenu}
           >
             <MenuItem>
-              <Typography textAlign="center">Profile</Typography>
+              <Typography textAlign="center">Thông tin cá nhân</Typography>
             </MenuItem>
             <MenuItem>
-              <Typography textAlign="center">Account</Typography>
+              <Typography textAlign="center">Cài đặt</Typography>
             </MenuItem>
             <MenuItem>
-              <Typography textAlign="center">Dashboard</Typography>
+              <Typography textAlign="center">Hỗ trợ</Typography>
             </MenuItem>
             <MenuItem onClick={logout}>
-              <Typography textAlign="center">Logout</Typography>
+              <Typography textAlign="center">Đăng xuất</Typography>
             </MenuItem>
           </Menu>
         </Box>

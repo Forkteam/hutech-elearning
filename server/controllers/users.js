@@ -21,7 +21,7 @@ export const getUsers = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-  const { code, username, password } = req.body;
+  const { username, password } = req.body;
   if (!username || !password)
     return res
       .status(400)
@@ -33,11 +33,6 @@ export const createUser = async (req, res) => {
       return res
         .status(400)
         .json({ success: false, message: 'Username exist' });
-    if (code !== '') {
-      const validCode = await UserModel.findOne({ code });
-      if (validCode)
-        return res.status(400).json({ success: false, message: 'Code exist' });
-    }
     if (req.body.email) {
       const { email } = req.body;
       const validEmail = await UserModel.findOne({ email });
@@ -68,7 +63,7 @@ export const createUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-  const { code, username, email } = req.body;
+  const { username, email } = req.body;
   try {
     const validUser = await UserModel.findById(req.params.id);
     if (validUser.email !== email) {
@@ -83,12 +78,6 @@ export const updateUser = async (req, res) => {
         return res
           .status(400)
           .json({ success: false, message: 'Username registered' });
-    } else if (validUser.code !== code) {
-      const validCode = await UserModel.findOne({ code });
-      if (validCode)
-        return res
-          .status(400)
-          .json({ success: false, message: 'Code registered' });
     }
 
     const updateUser = req.body;

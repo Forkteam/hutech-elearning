@@ -56,12 +56,7 @@ const AddModal = () => {
   };
 
   return (
-    <Dialog
-      sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
-      TransitionComponent={Transition}
-      open={modal.show}
-      scroll="body"
-    >
+    <Dialog TransitionComponent={Transition} open={modal.show} scroll="body">
       <DialogTitle>{currentId._id === 0 ? 'THÊM' : 'CHỈNH SỬA'}</DialogTitle>
       <DialogContent dividers>
         <TextField

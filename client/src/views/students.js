@@ -7,7 +7,7 @@ import moment from 'moment';
 import 'moment/locale/vi';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AddModal from '../components/admins/add-modal';
+import AddModal from '../components/lectures/add-modal';
 import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
 import { getUsers } from '../redux/actions/users';
