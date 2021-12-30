@@ -98,7 +98,7 @@ export default function Landing() {
         <Subjects />
       </main>
       {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 1 }} component="footer">
+      <Box sx={{ bgcolor: 'background.paper', width:'100vw', position: 'absolute', bottom: 15, align:'center', p: 1 }} component="footer">
         <Typography variant="subtitle1" align="center" color="text.secondary">
           Môi trường học tập tiến bộ. <Copyright />
         </Typography>
