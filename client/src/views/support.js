@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 
 export default function UnderlineLink() {
   return (
-    <div style={{ width: '350px', margin: '25px auto' }}>
+    <div style={{ width: '90%', margin: '25px auto' }}>
       <Box style={{ border: '2px double Black', height: '440px' }}>
         <h1 style={{ class: 'font-weight-bold', textAlign: 'center' }}>
           FACEBOOK HUTECH

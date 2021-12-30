@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import LogoHutech from '../../assets/logo.png';
 import { AuthContext } from '../../contexts/auth-context';
 
@@ -112,11 +113,15 @@ export const Navbar = (props) => {
             <MenuItem>
               <Typography textAlign="center">Thông tin cá nhân</Typography>
             </MenuItem>
-            <MenuItem>
+            {/* <MenuItem>
               <Typography textAlign="center">Cài đặt</Typography>
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem>
-              <Typography textAlign="center">Hỗ trợ</Typography>
+              <Link to="/support">
+                <Typography textAlign="center" color="#121828">
+                  Hỗ trợ
+                </Typography>
+              </Link>
             </MenuItem>
             <MenuItem onClick={logout}>
               <Typography textAlign="center">Đăng xuất</Typography>
