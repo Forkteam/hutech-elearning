@@ -137,7 +137,7 @@ const Lectures = () => {
           component="img"
           sx={{ width: 200, display: { xs: 'none', sm: 'block' } }}
           image={subjects.singleSubject?.image ?? ''}
-          alt="subjects image"
+          alt={subjects.singleSubject?.name ?? 'subject'}
         />
         <CardContent sx={{ flex: 1 }}>
           <Typography component="h2" variant="h5">

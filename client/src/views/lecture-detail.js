@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import { getLectureDetail } from '../redux/actions/lectures';
 import { lectures$ } from '../redux/selectors';
+import Comments from '../components/lectures/comments';
 moment.locale('vi');
 
 const LectureDetail = () => {
@@ -92,6 +93,7 @@ const LectureDetail = () => {
           type="application/pdf"
           height="800px"
         />
+        <Comments />
       </Box>
     </>
   );
