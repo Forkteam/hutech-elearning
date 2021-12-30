@@ -1,6 +1,11 @@
 import { call, put } from 'redux-saga/effects';
 import * as api from '../../api';
-import { getLectures, createLecture, updateLecture, deleteLecture } from '../actions/lectures';
+import {
+  getLectures,
+  createLecture,
+  updateLecture,
+  deleteLecture,
+} from '../actions/lectures';
 import { showToast } from '../actions';
 
 export function* getLecturesSaga(action) {
@@ -20,7 +25,7 @@ export function* createLectureSaga(action) {
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
-        type: response.data.success ? 'success' : 'danger',
+        type: response.data.success ? 'success' : 'error',
       })
     );
   } catch (error) {
@@ -36,7 +41,7 @@ export function* updateLectureSaga(action) {
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
-        type: response.data.success ? 'success' : 'danger',
+        type: response.data.success ? 'success' : 'error',
       })
     );
   } catch (error) {
@@ -52,7 +57,7 @@ export function* deleteLectureSaga(action) {
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
-        type: response.data.success ? 'success' : 'danger',
+        type: response.data.success ? 'success' : 'error',
       })
     );
   } catch (error) {

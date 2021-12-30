@@ -30,6 +30,7 @@ const schema = new mongoose.Schema(
     fullName: String,
     avatar: String,
     birthday: Date,
+    isExternal: Boolean,
     subjectIds: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -43,5 +44,10 @@ const schema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+schema.set('toJSON', {
+  virtuals: true,
+  versionKey: false
+});
 
 export const UserModel = mongoose.model('users', schema);

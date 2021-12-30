@@ -3,11 +3,16 @@ import { SubjectModel } from '../models/subject-model.js';
 import { UserModel } from '../models/user-model.js';
 
 export const getUsers = async (req, res) => {
+  const { role } = req.params;
   try {
-    const users = await UserModel.find({ role: req.params.role }).populate(
-      'user',
-      ['username']
-    );
+    let users;
+    if (role === '1') {
+      users = await UserModel.find({ role }).populate('user', ['fullName']);
+    } else {
+      users = await UserModel.find({ role: { $in: [2, 3] } }).populate('user', [
+        'fullName'
+      ]);
+    }
     res.status(200).json({ success: true, users });
   } catch (error) {
     console.log(error);
@@ -16,7 +21,7 @@ export const getUsers = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-  const { code, username, password } = req.body;
+  const { username, password } = req.body;
   if (!username || !password)
     return res
       .status(400)
@@ -28,11 +33,6 @@ export const createUser = async (req, res) => {
       return res
         .status(400)
         .json({ success: false, message: 'Username exist' });
-    if (code !== '') {
-      const validCode = await UserModel.findOne({ code });
-      if (validCode)
-        return res.status(400).json({ success: false, message: 'Code exist' });
-    }
     if (req.body.email) {
       const { email } = req.body;
       const validEmail = await UserModel.findOne({ email });
@@ -52,7 +52,7 @@ export const createUser = async (req, res) => {
     });
     await user.save();
 
-    user = await UserModel.findById(user._id).populate('user', ['username']);
+    user = await UserModel.findById(user._id).populate('user', ['fullName']);
     res
       .status(200)
       .json({ success: true, message: 'Create user success', user });
@@ -63,7 +63,7 @@ export const createUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-  const { code, username, email } = req.body;
+  const { username, email } = req.body;
   try {
     const validUser = await UserModel.findById(req.params.id);
     if (validUser.email !== email) {
@@ -78,12 +78,6 @@ export const updateUser = async (req, res) => {
         return res
           .status(400)
           .json({ success: false, message: 'Username registered' });
-    } else if (validUser.code !== code) {
-      const validCode = await UserModel.findOne({ code });
-      if (validCode)
-        return res
-          .status(400)
-          .json({ success: false, message: 'Code registered' });
     }
 
     const updateUser = req.body;
@@ -91,7 +85,7 @@ export const updateUser = async (req, res) => {
       { _id: req.params.id },
       { ...updateUser, user: req.userId },
       { new: true }
-    ).populate('user', ['username']);
+    ).populate('user', ['fullName']);
     if (!user)
       return res
         .status(404)

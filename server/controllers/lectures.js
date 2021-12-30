@@ -9,7 +9,7 @@ export const getLectures = async (req, res) => {
   try {
     const lectures = await LectureModel.find({
       subjectId: req.params.id
-    }).populate('user', ['username']);
+    }).populate('user', ['fullName']);
     res.status(200).json({ success: true, lectures });
   } catch (error) {
     console.log(error);
@@ -33,20 +33,22 @@ export const createLecture = async (req, res) => {
 
     //send email to students in subject
     const subjectData = await SubjectModel.findById(subjectId);
-    const users = await UserModel.find({
-      _id: { $in: subjectData.studentIds }
-    });
-    const emailContent = notificationMail(lecture._id, lecture.subjectId);
-    users.map((user) => {
-      if (user.email) mailer(user.email, emailContent);
-    });
+    if (subjectData.studentIds) {
+      const users = await UserModel.find({
+        _id: { $in: subjectData.studentIds }
+      });
+      const emailContent = notificationMail(lecture._id, lecture.subjectId);
+      users.map((user) => {
+        if (user.email) mailer(user.email, emailContent);
+      });
+    }
 
-    lecture = await LectureModel.findById(lecture._id).populate('user', [
-      'username'
-    ]);
-    res
-      .status(200)
-      .json({ success: true, message: 'Tạo mới tài liệu thành công!', lecture });
+    lecture = await lecture.populate('user', ['fullName']);
+    res.status(200).json({
+      success: true,
+      message: 'Tạo tài liệu thành công!',
+      lecture
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Server error' });
@@ -68,16 +70,18 @@ export const updateLecture = async (req, res) => {
         url: url.startsWith('https://') ? url : `https://${url}`
       },
       { new: true }
-    ).populate('user', ['username']);
+    ).populate('user', ['fullName']);
 
     if (!lecture)
       return res
         .status(404)
         .json({ success: false, message: 'Không tìm thấy tài liệu!' });
 
-    res
-      .status(200)
-      .json({ success: true, message: 'Cập nhật tài liệu thành công!', lecture });
+    res.status(200).json({
+      success: true,
+      message: 'Cập nhật tài liệu thành công!',
+      lecture
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Server error' });

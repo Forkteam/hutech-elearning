@@ -2,6 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import * as api from '../../api';
 import {
   getAllSubjects,
+  getSubjectDetail,
   createSubject,
   updateSubject,
   deleteSubject,
@@ -18,6 +19,16 @@ export function* getAllSubjectsSaga(action) {
   }
 }
 
+export function* getSubjectDetailSaga(action) {
+  try {
+    const response = yield call(api.getSubjectDetail, action.payload);
+    yield put(getSubjectDetail.getSubjectDetailSuccess(response.data.subject));
+  } catch (error) {
+    console.log(error);
+    yield put(getSubjectDetail.getSubjectDetailFailure(error));
+  }
+}
+
 export function* createSubjectSaga(action) {
   try {
     const response = yield call(api.createSubject, action.payload);
@@ -25,7 +36,7 @@ export function* createSubjectSaga(action) {
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
-        type: response.data.success ? 'success' : 'danger',
+        type: response.data.success ? 'success' : 'error',
       })
     );
   } catch (error) {
@@ -41,7 +52,7 @@ export function* updateSubjectSaga(action) {
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
-        type: response.data.success ? 'success' : 'danger',
+        type: response.data.success ? 'success' : 'error',
       })
     );
   } catch (error) {
@@ -57,7 +68,7 @@ export function* deleteSubjectSaga(action) {
     yield put(
       showToast({
         message: response.data.message ? response.data.message : 'Server error',
-        type: response.data.success ? 'success' : 'danger',
+        type: response.data.success ? 'success' : 'error',
       })
     );
   } catch (error) {

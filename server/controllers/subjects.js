@@ -28,7 +28,7 @@ export const getStudentSubjects = async (req, res) => {
   try {
     const subjects = await SubjectModel.find({
       studentIds: req.body.id
-    }).populate('user', ['username']);
+    }).populate('user', ['fullName']);
     return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);
@@ -51,10 +51,11 @@ export const getTeacherSubjects = async (req, res) => {
 
 export const getSubjectDetail = async (req, res) => {
   try {
-    const subjectDetail = await SubjectModel.findById(id).populate('user', [
-      'username'
-    ]);
-    return res.status(200).json({ success: true, subjectDetail });
+    const subject = await SubjectModel.findById(req.params.id).populate(
+      'user',
+      ['fullName']
+    );
+    return res.status(200).json({ success: true, subject });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, message: 'Server error' });
@@ -108,7 +109,7 @@ export const updateSubject = async (req, res) => {
       { _id: id },
       subjectInput,
       { new: true }
-    ).populate('user', ['username']);
+    ).populate('user', ['fullName']);
     if (!updatedSubject)
       return res
         .status(404)
@@ -214,7 +215,7 @@ export const addStudent = async (req, res) => {
       { _id: id },
       { $addToSet: { studentIds: studentId } },
       { new: true }
-    ).populate('user', ['username']);
+    ).populate('user', ['fullName']);
     if (!updatedSubject)
       return res
         .status(404)
@@ -248,7 +249,7 @@ export const removeStudent = async (req, res) => {
       { _id: id },
       { $pull: { studentIds: studentId } },
       { new: true }
-    ).populate('user', ['username']);
+    ).populate('user', ['fullName']);
     if (!updatedSubject)
       return res
         .status(404)

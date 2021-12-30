@@ -17,18 +17,13 @@ export const INIT_STATE = {
   subjects: {
     loading: false,
     data: [],
+    singleSubject: null,
   },
   lectures: {
     loading: false,
     data: [],
   },
   students: {
-    loading: false,
-    data: [],
-    success: true,
-    message: '',
-  },
-  teachers: {
     loading: false,
     data: [],
     success: true,
