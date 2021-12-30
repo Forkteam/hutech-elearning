@@ -36,4 +36,10 @@ export const INIT_STATE = {
     success: true,
     message: '',
   },
+  comments: {
+    loading: false,
+    data: [],
+    success: true,
+    message: '',
+  },
 };

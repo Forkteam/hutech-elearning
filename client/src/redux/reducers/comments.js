@@ -1,23 +1,23 @@
 import { INIT_STATE } from './state';
 import {
   getType,
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
-} from '../actions/users';
+  getComments,
+  createComment,
+  updateComment,
+  deleteComment,
+} from '../actions/comments';
 
-export default function adminsReducers(state = INIT_STATE.admins, action) {
+export default function commentsReducers(state = INIT_STATE.comments, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case getType(getUsers.getUsersRequest()):
+    case getType(getComments.getCommentsRequest()):
       return {
         ...state,
         loading: true,
       };
 
-    case getType(getUsers.getUsersSuccess()):
+    case getType(getComments.getCommentsSuccess()):
       return {
         ...state,
         loading: false,
@@ -26,13 +26,13 @@ export default function adminsReducers(state = INIT_STATE.admins, action) {
         message: '',
       };
 
-    case getType(getUsers.getUsersFailure()):
+    case getType(getComments.getCommentsFailure()):
       return {
         ...state,
         loading: false,
       };
 
-    case getType(createUser.createUserSuccess()):
+    case getType(createComment.createCommentSuccess()):
       return {
         ...state,
         loading: false,
@@ -41,7 +41,7 @@ export default function adminsReducers(state = INIT_STATE.admins, action) {
         message: '',
       };
 
-    case getType(createUser.createUserFailure()):
+    case getType(createComment.createCommentFailure()):
       return {
         ...state,
         loading: false,
@@ -49,26 +49,26 @@ export default function adminsReducers(state = INIT_STATE.admins, action) {
         message: payload.message,
       };
 
-    case getType(updateUser.updateUserSuccess()):
+    case getType(updateComment.updateCommentSuccess()):
       return {
         ...state,
         loading: false,
         data: state.data
-          .filter((user) =>
-            user._id === payload._id && user.role !== payload.role
+          .filter((comment) =>
+            comment._id === payload._id && comment.role !== payload.role
               ? false
               : true
           )
-          .map((user) =>
-            user._id === payload._id && user.role === payload.role
+          .map((comment) =>
+            comment._id === payload._id && comment.role === payload.role
               ? payload
-              : user
+              : comment
           ),
         success: true,
         message: '',
       };
 
-    case getType(updateUser.updateUserFailure()):
+    case getType(updateComment.updateCommentFailure()):
       return {
         ...state,
         loading: false,
@@ -76,7 +76,7 @@ export default function adminsReducers(state = INIT_STATE.admins, action) {
         message: payload.message,
       };
 
-    case getType(deleteUser.deleteUserSuccess()):
+    case getType(deleteComment.deleteCommentSuccess()):
       return {
         ...state,
         loading: false,
@@ -85,7 +85,7 @@ export default function adminsReducers(state = INIT_STATE.admins, action) {
         message: '',
       };
 
-    case getType(deleteUser.deleteUserFailure()):
+    case getType(deleteComment.deleteCommentFailure()):
       return {
         ...state,
         loading: false,

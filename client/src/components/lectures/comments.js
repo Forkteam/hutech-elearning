@@ -35,6 +35,7 @@ export default function Comments() {
           Gửi bình luận
         </Button>
       </Box>
+      <Divider variant="inset" />
       <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
@@ -102,6 +103,7 @@ export default function Comments() {
           />
         </ListItem>
       </List>
+      <Divider variant="inset" />
     </>
   );
 }
