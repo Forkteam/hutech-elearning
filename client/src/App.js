@@ -16,6 +16,7 @@ import Lectures from './views/lectures';
 import Admins from './views/admins';
 import Students from './views/students';
 import Support from './views/support';
+import Personal from './views/personal';
 
 function App() {
   return (
@@ -49,12 +50,14 @@ function App() {
             <ProtectedRoute exact path="/subjects/:id" component={Lectures} />
             <ProtectedRoute exact path="/students" component={Students} />
             <ProtectedRoute exact path="/admins" component={Admins} />
+            
             <ProtectedRoute
               exact
               path="/detail-document"
               component={DetailForm}
             />
             <ProtectedRoute exact path="/news" component={News} />
+            <ProtectedRoute exact path="/personal" component={Personal} />
             <ProtectedRoute
               exact
               path="/support"
