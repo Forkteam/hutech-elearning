@@ -12,7 +12,6 @@ import Industries from './views/industries';
 import LectureDetail from './views/lecture-detail';
 import Lectures from './views/lectures';
 // import DetailForm from './views/detail-document';
-// import SimpleAccordion from './views/accordion';
 import News from './views/news';
 import Students from './views/students';
 import Subjects from './views/subjects';
@@ -61,11 +60,6 @@ function App() {
               exact
               path="/detail-document"
               component={DetailForm}
-            />
-            <ProtectedRoute
-              exact
-              path="/accordion"
-              component={SimpleAccordion}
             /> */}
             <Route path="/:someString" component={Error} />
           </Switch>

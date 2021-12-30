@@ -48,11 +48,12 @@ const Error = () => {
               variant="outlined"
               sx={{ m: 1 }}
             >
-              Support@TeamDoAn
+              Support@Nhóm 2 - 19DTHD4
             </Button>
-            <Link to="/">
-              <Button variant="outlined">Quay lại trang chủ</Button>
-            </Link>
+            <br />
+            <Button variant="outlined">
+              <Link to="/">Quay lại trang chủ</Link>
+            </Button>
           </CardContent>
         </CardActionArea>
       </Card>
