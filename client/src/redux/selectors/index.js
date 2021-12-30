@@ -7,3 +7,4 @@ export const currentId$ = (state) => state.currentId;
 export const students$ = (state) => state.students;
 export const teachers$ = (state) => state.teachers;
 export const admins$ = (state) => state.admins;
+export const users$ = (state) => state.users;
