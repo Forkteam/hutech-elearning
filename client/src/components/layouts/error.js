@@ -22,12 +22,13 @@ const Error = () => {
     >
       <Card
         sx={{
-          maxWidth: 345,
+          maxWidth: 500,
           textAlign: 'center',
           margin: 'auto',
           boxShadow: '0px 5px 14px rgb(100 116 139)',
           top: '50%',
           transform: 'translateY(50%)',
+          borderRadius: 4,
         }}
       >
         <CardActionArea>

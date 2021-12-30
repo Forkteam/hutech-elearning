@@ -12,7 +12,7 @@ import moment from 'moment';
 import 'moment/locale/vi';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import AddModal from '../components/lectures/add-modal';
 import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
@@ -58,7 +58,15 @@ const Lectures = () => {
     );
   }
   const columns = [
-    { field: 'title', headerName: 'Tên', minWidth: 200, flex: 1 },
+    {
+      field: 'title',
+      headerName: 'Tên',
+      minWidth: 200,
+      flex: 1,
+      renderCell: (params) => (
+        <Link to={`lectures/${params.id}`}>{params.value}</Link>
+      ),
+    },
     {
       field: 'user',
       headerName: 'Người tạo',

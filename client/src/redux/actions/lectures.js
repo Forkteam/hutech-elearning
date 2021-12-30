@@ -10,6 +10,12 @@ export const getLectures = createActions({
   getLecturesFailure: (error) => error,
 });
 
+export const getLectureDetail = createActions({
+  getLectureDetailRequest: (payload) => payload,
+  getLectureDetailSuccess: (payload) => payload,
+  getLectureDetailFailure: (error) => error,
+});
+
 export const createLecture = createActions({
   createLectureRequest: (payload) => payload,
   createLectureSuccess: (payload) => payload,

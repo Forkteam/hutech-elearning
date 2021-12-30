@@ -30,12 +30,14 @@ import {
 
 import {
   getLectures,
+  getLectureDetail,
   createLecture,
   updateLecture,
   deleteLecture,
 } from '../actions/lectures';
 import {
   getLecturesSaga,
+  getLectureDetailSaga,
   createLectureSaga,
   updateLectureSaga,
   deleteLectureSaga,
@@ -65,6 +67,10 @@ function* mySaga() {
   yield takeLatest(deleteSubject.deleteSubjectRequest, deleteSubjectSaga);
 
   yield takeLatest(getLectures.getLecturesRequest, getLecturesSaga);
+  yield takeLatest(
+    getLectureDetail.getLectureDetailRequest,
+    getLectureDetailSaga
+  );
   yield takeLatest(createLecture.createLectureRequest, createLectureSaga);
   yield takeLatest(updateLecture.updateLectureRequest, updateLectureSaga);
   yield takeLatest(deleteLecture.deleteLectureRequest, deleteLectureSaga);

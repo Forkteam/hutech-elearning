@@ -22,6 +22,7 @@ export const INIT_STATE = {
   lectures: {
     loading: false,
     data: [],
+    singleLecture: null,
   },
   students: {
     loading: false,

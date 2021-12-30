@@ -29,6 +29,8 @@ export const deleteSubject = (payload) =>
 
 export const getLectures = (payload) =>
   axios.get(`${apiURL}/lectures/${payload}`);
+export const getLectureDetail = (payload) =>
+  axios.get(`${apiURL}/lectures/lecture/${payload}`);
 export const createLecture = (payload) =>
   axios.post(`${apiURL}/lectures`, payload);
 export const updateLecture = (payload) =>

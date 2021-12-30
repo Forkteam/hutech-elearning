@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const DataCard = ({ subjects }) => {
-  const itemsPerPage = 4;
+  const itemsPerPage = 8;
   const [page, setPage] = useState(1);
   const [noOfPages] = useState(Math.ceil(subjects.length / itemsPerPage));
 
@@ -59,24 +59,24 @@ const DataCard = ({ subjects }) => {
               </Grid>
             ))}
         </Grid>
+        <Box component="div" style={{ padding: '10px', margin: '10px' }}>
+          <Pagination
+            count={noOfPages}
+            page={page}
+            onChange={handlePageChange}
+            defaultPage={1}
+            color="primary"
+            variant="outlined"
+            showFirstButton
+            showLastButton
+            sx={{
+              left: '50%',
+              transform: 'translateX(-50%)',
+              position: 'absolute',
+            }}
+          />
+        </Box>
       </Container>
-      <Box component="span">
-        <Pagination
-          count={noOfPages}
-          page={page}
-          onChange={handlePageChange}
-          defaultPage={1}
-          color="primary"
-          variant="outlined"
-          showFirstButton
-          showLastButton
-          sx={{
-            left: '50%',
-            transform: 'translateX(-50%)',
-            position: 'absolute',
-          }}
-        />
-      </Box>
     </>
   );
 };
