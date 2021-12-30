@@ -33,6 +33,11 @@ const items = [
     title: 'Môn học của bạn',
   },
   {
+    href: '/industries',
+    icon: <ConstructionIcon fontSize="small" />,
+    title: 'Danh sách ngành học',
+  },
+  {
     href: '/students',
     icon: <SchoolIcon fontSize="small" />,
     title: 'Danh sách tài khoản',
@@ -41,11 +46,6 @@ const items = [
     href: '/admins',
     icon: <GroupIcon fontSize="small" />,
     title: 'Danh sách admin',
-  },
-  {
-    href: '/industries',
-    icon: <ConstructionIcon fontSize="small" />,
-    title: 'Danh sách ngành học',
   },
   {
     href: '/news',
