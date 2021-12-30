@@ -61,7 +61,7 @@ export default function News() {
           </Box>
           <a href="/">
             <img
-              class="img-responsive"
+              className="img-responsive"
               alt="HUTECH và Công ty Cổ phần Quốc tế SEM ký kết hợp tác"
               src="https://file1.hutech.edu.vn/file/news/b5124141aecf18837e90e7470ce70e35.jpg"
             ></img>
@@ -219,9 +219,9 @@ export default function News() {
                   height="210"
                   src="https://www.youtube.com/embed/GE4IAgD40CA"
                   title="YouTube video player"
-                  frameborder="0"
+                  frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
+                  allowFullScreen
                 ></iframe>
                 <br></br>
                 <a href="/">
@@ -234,9 +234,9 @@ export default function News() {
                   height="210"
                   src="https://www.youtube.com/embed/L-PzpG0xVuE"
                   title="YouTube video player"
-                  frameborder="0"
+                  frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
+                  allowFullScreen
                 ></iframe>
                 <br></br>
                 <a href="/">Teaser Cuộc thi Thiết kế áo lớp 2022</a>

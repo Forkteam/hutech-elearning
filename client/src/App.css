@@ -66,6 +66,7 @@ a {
 }
 .News .Box3 {
   grid-row: 2/4;
+  padding-right: 20px;
 }
 .News .Box3 .video {
   display: grid;

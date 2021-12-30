@@ -48,9 +48,6 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
             <LayoutRoot>
               <Box
                 sx={{
-                  // display: 'flex',
-                  // flex: '1 1 auto',
-                  // flexDirection: 'column',
                   width: '100%',
                   height: '100vh',
                   bgcolor: '#f5f5f0',

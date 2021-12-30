@@ -4,8 +4,8 @@ import GroupIcon from '@mui/icons-material/Group';
 import HelpIcon from '@mui/icons-material/Help';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SchoolIcon from '@mui/icons-material/School';
-import SettingsIcon from '@mui/icons-material/Settings';
 import SubjectIcon from '@mui/icons-material/Subject';
+// import SettingsIcon from '@mui/icons-material/Settings';
 // import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import {
@@ -57,13 +57,13 @@ const items = [
     icon: <AccountBoxIcon fontSize="small" />,
     title: 'Thông tin cá nhân',
   },
+  // {
+  //   href: '/',
+  //   icon: <SettingsIcon fontSize="small" />,
+  //   title: 'Cài đặt',
+  // },
   {
-    href: '/',
-    icon: <SettingsIcon fontSize="small" />,
-    title: 'Cài đặt',
-  },
-  {
-    href: '/',
+    href: '/support',
     icon: <HelpIcon fontSize="small" />,
     title: 'Hỗ trợ',
   },
@@ -96,7 +96,7 @@ export const Sidebar = (props) => {
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item, index) => (
             <Fragment key={index}>
-              {index === 6 && (
+              {index === 5 && (
                 <Divider
                   sx={{
                     borderColor: '#2D3748',

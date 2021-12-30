@@ -1,60 +1,62 @@
-// import { useHistory } from 'react-router-dom';
-//import { Card, Button } from 'react-bootstrap';
-import { Button, Typography } from "@mui/material";
-import { Box, fontSize } from "@mui/system";
-import { Link } from "react-router-dom";
+import { CardActionArea } from '@mui/material';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 const Error = () => {
-  // let history = useHistory();
-     return (
-    <Box sx={{ 
-      width:'100vw',
-      height:'100vh',
-      background:'url(https://scr.vn/wp-content/uploads/2020/07/%E1%BA%A2nh-Galaxy-lung-linh-huy%E1%BB%81n-%E1%BA%A3o.jpg) no-repeat center / cover',
-      display:'flex',
-      fontSize:'100%',
-      }}>
-      <Box height='60%' width='50%' 
+  return (
+    <Paper
+      sx={{
+        position: 'absolute',
+        width: '-webkit-fill-available',
+        height: '100vh',
+        borderRadius: 0,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundImage: `url(http://lib.hutech.edu.vn/ImageSlideShow/BANNER%204.jpg)`,
+      }}
+    >
+      <Card
         sx={{
-          background:'rgba(126, 84, 201, 0.45)',
-          m:'auto',
-          position:'relative',
-          borderRadius:20,
-        }}>
-       <Typography align='center'>
-         <Typography marginTop="6vh" fontSize="4vw" fontWeight='600' color='rgba(255, 0, 0, 0.8)'>
-            404 : Error Page
-         </Typography>
-         <Typography fontSize="2.17vw" fontWeight='500' color='rgba(247, 242, 242, 0.7)'>
-           Không tìm thấy trang bạn muốn truy cập.
-         </Typography>
-         <Typography height="1vh" fontSize="1.8vw" fontWeight='500' color='rgba(247, 242, 242, 0.7)'>
-           <br/>Vui lòng thử lại hoặc liên hệ <Button sx={{ letterSpacing:4 ,display:'flex', fontSize:'1.5vw', fontWeight:'700' ,color:'rgba(220, 157, 30, 0.85)' }} href="https://youtu.be/PaBkXQhxwto">Support@TeamDoAn</Button>
-         </Typography>
-       </Typography>
-
-       <Box>
-       <Link to="/">
-            <Button sx={{ 
-              background:'rgba(6, 79, 224, 0.67)',
-              borderRadius:'20px', 
-              height:"11%",
-              width:"30%", 
-              position:'absolute', 
-              top:"78%",
-              bottom: "15%", 
-              left:'35%', 
-              right:'35%',
-              fontSize:'1.3vw',
-              }} variant="contained">
-              Quay lại trang chủ
-              </Button>
-          </Link>
-       </Box>
-
-      </Box>
-    </Box>
-    );
+          maxWidth: 345,
+          textAlign: 'center',
+          margin: 'auto',
+          boxShadow: '0px 5px 14px rgb(100 116 139)',
+          top: '50%',
+          transform: 'translateY(50%)',
+        }}
+      >
+        <CardActionArea>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div" color="red">
+              404 Page Not Found
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Không tìm thấy trang bạn muốn truy cập
+              <br />
+              Vui lòng kiểm tra lại hoặc liên hệ
+            </Typography>
+            <Button
+              href="https://fb.com/CrisAn.2001"
+              target="_blank"
+              color="error"
+              variant="outlined"
+              sx={{ m: 1 }}
+            >
+              Support@TeamDoAn
+            </Button>
+            <Link to="/">
+              <Button variant="outlined">Quay lại trang chủ</Button>
+            </Link>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Paper>
+  );
 };
 
 export default Error;
