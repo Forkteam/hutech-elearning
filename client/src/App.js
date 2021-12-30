@@ -15,6 +15,7 @@ import Industries from './views/industries';
 import Lectures from './views/lectures';
 import Admins from './views/admins';
 import Students from './views/students';
+import Support from './views/support';
 
 function App() {
   return (
@@ -54,6 +55,11 @@ function App() {
               component={DetailForm}
             />
             <ProtectedRoute exact path="/news" component={News} />
+            <ProtectedRoute
+              exact
+              path="/support"
+              component={Support}
+            />
             {/* <ProtectedRoute
               exact
               path="/accordion"
