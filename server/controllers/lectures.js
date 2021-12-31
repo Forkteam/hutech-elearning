@@ -45,9 +45,10 @@ export const createLecture = async (req, res) => {
 
   try {
     const newLecture = req.body;
+    let newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
     let lecture = new LectureModel({
       ...newLecture,
-      url: url.startsWith('https://') ? url : `https://${url}`,
+      url: newUrl,
       user: req.userId
     });
     await lecture.save();

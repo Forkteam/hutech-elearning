@@ -13,11 +13,13 @@ import { useParams } from 'react-router-dom';
 import { hideModal, setCurrentId, showToast } from '../../redux/actions';
 import { createLecture } from '../../redux/actions/lectures';
 import { currentId$, modal$ } from '../../redux/selectors';
+import AlertMessage from '../layouts/alert-message';
 import Transition from '../overlays/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();
   const { id: subjectId } = useParams();
+  const [alert, setAlert] = useState(null);
   const modal = useSelector(modal$);
   const currentId = useSelector(currentId$);
   const [newLecture, setNewLecture] = useState({
@@ -58,6 +60,14 @@ const AddModal = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    if (url.split('?v=')[0] !== 'https://www.youtube.com/watch') {
+      setAlert({
+        type: 'warning',
+        message: 'URL Youtube không hợp lệ',
+      });
+      setTimeout(() => setAlert(null), 5000);
+      return;
+    }
     if (currentId._id === 0) {
       dispatch(
         createLecture.createLectureRequest({
@@ -117,7 +127,8 @@ const AddModal = () => {
             required
             fullWidth
             variant="standard"
-            label="URL"
+            label="URL Youtube"
+            helperText="Phải có dạng như sau: https://www.youtube.com/watch?v=7KAT_94JHVU"
             name="url"
             value={url}
             onChange={onChangeNewLectureForm}
@@ -134,6 +145,7 @@ const AddModal = () => {
             name="file"
             onChange={handleFileChange}
           />
+          <AlertMessage info={alert} />
           <Button
             fullWidth
             type="submit"
