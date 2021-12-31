@@ -4,7 +4,9 @@ export const getComments = async (req, res) => {
   try {
     const comments = await CommentModel.find({
       lectureId: req.params.id
-    }).populate('user', ['fullName']);
+    })
+      .populate('user', ['fullName', 'avatar'])
+      .sort({ ['createdAt']: -1 });
     res.status(200).json({ success: true, comments });
   } catch (error) {
     console.log(error);
@@ -27,7 +29,7 @@ export const createComment = async (req, res) => {
     });
     await comment.save();
 
-    comment = await comment.populate('user', ['fullName']);
+    comment = await comment.populate('user', ['fullName', 'avatar']);
     res
       .status(200)
       .json({ success: true, message: 'Create comment success', comment });

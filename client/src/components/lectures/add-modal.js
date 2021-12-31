@@ -62,10 +62,9 @@ const AddModal = () => {
       dispatch(
         createLecture.createLectureRequest({
           ...newLecture,
-          subjectId: subjectId,
+          subjectId,
         })
       );
-      console.log(newLecture);
       dispatch(
         showToast({
           message: 'Please wait! We are updating...',

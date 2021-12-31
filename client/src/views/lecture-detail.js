@@ -4,7 +4,7 @@ import moment from 'moment';
 import 'moment/locale/vi';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import BackButton from '../components/layouts/back-button';
 import Comments from '../components/lectures/comments';
 import { getLectureDetail } from '../redux/actions/lectures';
@@ -13,12 +13,10 @@ moment.locale('vi');
 
 const LectureDetail = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const { id: lectureId } = useParams();
   const lectures = useSelector(lectures$);
 
   useEffect(() => {
-    console.log(location.pathname.split('/')[2]);
     dispatch(getLectureDetail.getLectureDetailRequest(lectureId));
   }, [dispatch]);
 
@@ -61,11 +59,11 @@ const LectureDetail = () => {
           <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
             Ngày đăng:{' '}
             {moment(lectures.singleLecture?.createdAt ?? '2001-01-21').format(
-              'l'
+              'lll'
             )}{' '}
             - Cập nhật lần cuối{' '}
             {moment(lectures.singleLecture?.updatedAt ?? '2001-01-21').format(
-              'l'
+              'lll'
             )}
             <br />
             Người tạo: {lectures.singleLecture?.user.fullName ?? 'Admin'}

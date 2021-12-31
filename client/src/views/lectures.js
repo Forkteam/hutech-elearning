@@ -141,11 +141,11 @@ const Lectures = () => {
           <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
             Ngày đăng:{' '}
             {moment(subjects.singleSubject?.createdAt ?? '2001-01-21').format(
-              'l'
+              'lll'
             )}{' '}
-            - Cập nhật lần cuối{' '}
+            - Cập nhật lần cuối:{' '}
             {moment(subjects.singleSubject?.updatedAt ?? '2001-01-21').format(
-              'l'
+              'lll'
             )}
             <br />
             Người tạo: {subjects.singleSubject?.user.fullName ?? 'Admin'}

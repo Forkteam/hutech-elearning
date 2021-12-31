@@ -36,7 +36,7 @@ export default function commentsReducers(state = INIT_STATE.comments, action) {
       return {
         ...state,
         loading: false,
-        data: [...state.data, payload],
+        data: [payload, ...state.data],
         success: true,
         message: '',
       };
