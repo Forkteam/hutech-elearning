@@ -12,7 +12,7 @@ import verifyToken from '../middleware/auth.js';
 const router = express.Router();
 
 router.get('/:role', verifyToken, authTeacher, getUsers);
-router.post('/:role', verifyToken, authAdmin, createUser);
+router.post('/:role', verifyToken, authTeacher, createUser);
 router.put('/:id', verifyToken, authAdmin, updateUser);
 router.delete('/:id', verifyToken, authAdmin, deleteUser);
 
