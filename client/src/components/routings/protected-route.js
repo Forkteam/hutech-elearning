@@ -22,7 +22,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   const {
     authState: { authLoading, isAuthenticated },
   } = useContext(AuthContext);
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   if (authLoading) {
     return (
@@ -49,7 +49,12 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
               <Box
                 sx={{
                   width: '100%',
-                  height: '100vh',
+                  height:
+                    location.pathname.split('/')[1] !== 'subjects' &&
+                    location.pathname.split('/')[2] !== 'lectures' &&
+                    location.pathname.split('/')[1] !== 'news'
+                      ? '100vh'
+                      : '100%',
                   bgcolor: '#f5f5f0',
                 }}
               >

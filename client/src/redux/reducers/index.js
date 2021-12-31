@@ -7,6 +7,7 @@ import toast from './constants/toast';
 import currentId from './constants/currentId';
 import students from './students';
 import admins from './admins';
+import comments from './comments';
 
 export default combineReducers({
   industries,
@@ -17,4 +18,5 @@ export default combineReducers({
   currentId,
   students,
   admins,
+  comments,
 });

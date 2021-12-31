@@ -6,3 +6,4 @@ export const toast$ = (state) => state.toast;
 export const currentId$ = (state) => state.currentId;
 export const students$ = (state) => state.students;
 export const admins$ = (state) => state.admins;
+export const comments$ = (state) => state.comments;

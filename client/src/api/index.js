@@ -29,6 +29,8 @@ export const deleteSubject = (payload) =>
 
 export const getLectures = (payload) =>
   axios.get(`${apiURL}/lectures/${payload}`);
+export const getLectureDetail = (payload) =>
+  axios.get(`${apiURL}/lectures/lecture/${payload}`);
 export const createLecture = (payload) =>
   axios.post(`${apiURL}/lectures`, payload);
 export const updateLecture = (payload) =>
@@ -43,3 +45,12 @@ export const updateUser = (payload) =>
   axios.put(`${apiURL}/users/${payload._id}`, payload);
 export const deleteUser = (payload) =>
   axios.delete(`${apiURL}/users/${payload}`);
+
+export const getComments = (payload) =>
+  axios.get(`${apiURL}/comments/${payload}`);
+export const createComment = (payload) =>
+  axios.post(`${apiURL}/comments`, payload);
+export const updateComment = (payload) =>
+  axios.put(`${apiURL}/comments/${payload._id}`, payload);
+export const deleteComment = (payload) =>
+  axios.delete(`${apiURL}/comments/${payload}`);

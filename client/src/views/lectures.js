@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -12,7 +11,8 @@ import moment from 'moment';
 import 'moment/locale/vi';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import BackButton from '../components/layouts/back-button';
 import AddModal from '../components/lectures/add-modal';
 import DataTable from '../components/overlays/data-table';
 import { showModal } from '../redux/actions';
@@ -23,7 +23,6 @@ moment.locale('vi');
 
 const Lectures = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const [rowsPerPage, setRowsPerPage] = useState(7);
   const { id: subjectId } = useParams();
   const toast = useSelector(toast$);
@@ -58,7 +57,15 @@ const Lectures = () => {
     );
   }
   const columns = [
-    { field: 'title', headerName: 'Tên', minWidth: 200, flex: 1 },
+    {
+      field: 'title',
+      headerName: 'Tên',
+      minWidth: 200,
+      flex: 1,
+      renderCell: (params) => (
+        <Link to={`lectures/${params.id}`}>{params.value}</Link>
+      ),
+    },
     {
       field: 'user',
       headerName: 'Người tạo',
@@ -115,13 +122,7 @@ const Lectures = () => {
 
   return (
     <>
-      <Button
-        onClick={() => history.goBack()}
-        variant="body2"
-        sx={{ mt: 1, ml: 1, color: '#5048E5' }}
-      >
-        &lt; Trở về
-      </Button>
+      <BackButton />
       <Card
         sx={{ margin: 'auto', display: 'flex', width: '95%', boxShadow: 3 }}
       >
@@ -129,7 +130,7 @@ const Lectures = () => {
           component="img"
           sx={{ width: 200, display: { xs: 'none', sm: 'block' } }}
           image={subjects.singleSubject?.image ?? ''}
-          alt="subjects image"
+          alt={subjects.singleSubject?.name ?? 'subject'}
         />
         <CardContent sx={{ flex: 1 }}>
           <Typography component="h2" variant="h5">

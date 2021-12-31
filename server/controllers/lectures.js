@@ -17,6 +17,27 @@ export const getLectures = async (req, res) => {
   }
 };
 
+export const getLectureDetail = async (req, res) => {
+  try {
+    const lecture = await LectureModel.findOne({
+      _id: req.params.lectureId
+    }).populate([
+      {
+        path: 'user',
+        select: ['fullName']
+      },
+      {
+        path: 'subjectId',
+        select: ['name']
+      }
+    ]);
+    res.status(200).json({ success: true, lecture });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
 export const createLecture = async (req, res) => {
   const { title, url, subjectId } = req.body;
   if (!title)

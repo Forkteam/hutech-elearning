@@ -1,5 +1,12 @@
 import { INIT_STATE } from './state';
-import { getType, getLectures, createLecture, updateLecture, deleteLecture } from '../actions/lectures';
+import {
+  getType,
+  getLectures,
+  getLectureDetail,
+  createLecture,
+  updateLecture,
+  deleteLecture,
+} from '../actions/lectures';
 
 export default function lecturesReducers(state = INIT_STATE.lectures, action) {
   const { type, payload } = action;
@@ -24,6 +31,13 @@ export default function lecturesReducers(state = INIT_STATE.lectures, action) {
         loading: false,
       };
 
+    case getType(getLectureDetail.getLectureDetailSuccess()):
+      return {
+        ...state,
+        oading: false,
+        singleLecture: payload,
+      };
+
     case getType(createLecture.createLectureSuccess()):
       return {
         ...state,
@@ -35,7 +49,9 @@ export default function lecturesReducers(state = INIT_STATE.lectures, action) {
       return {
         ...state,
         loading: false,
-        data: state.data.map((lecture) => (lecture._id === payload._id ? payload : lecture)),
+        data: state.data.map((lecture) =>
+          lecture._id === payload._id ? payload : lecture
+        ),
       };
 
     case getType(deleteLecture.deleteLectureSuccess()):

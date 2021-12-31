@@ -6,15 +6,14 @@ import Landing from './components/layouts/landing';
 import ProtectedRoute from './components/routings/protected-route';
 import AuthContextProvider from './contexts/auth-context';
 import { theme } from './theme';
-import Auth from './views/auth';
-import Subjects from './views/subjects';
-import DetailForm from './views/detail-document';
-// import SimpleAccordion from './views/accordion';
-import News from './views/news';
-import Industries from './views/industries';
-import Lectures from './views/lectures';
 import Admins from './views/admins';
+import Auth from './views/auth';
+import Industries from './views/industries';
+import LectureDetail from './views/lecture-detail';
+import Lectures from './views/lectures';
+import News from './views/news';
 import Students from './views/students';
+import Subjects from './views/subjects';
 import Support from './views/support';
 import Personal from './views/personal';
 
@@ -48,14 +47,13 @@ function App() {
             <ProtectedRoute exact path="/industries" component={Industries} />
             <ProtectedRoute exact path="/subjects" component={Subjects} />
             <ProtectedRoute exact path="/subjects/:id" component={Lectures} />
-            <ProtectedRoute exact path="/students" component={Students} />
-            <ProtectedRoute exact path="/admins" component={Admins} />
-            
             <ProtectedRoute
               exact
-              path="/detail-document"
-              component={DetailForm}
+              path="/subjects/lectures/:id"
+              component={LectureDetail}
             />
+            <ProtectedRoute exact path="/students" component={Students} />
+            <ProtectedRoute exact path="/admins" component={Admins} />
             <ProtectedRoute exact path="/news" component={News} />
             <ProtectedRoute exact path="/personal" component={Personal} />
             <ProtectedRoute
@@ -63,11 +61,7 @@ function App() {
               path="/support"
               component={Support}
             />
-            {/* <ProtectedRoute
-              exact
-              path="/accordion"
-              component={SimpleAccordion}
-            /> */}
+            <ProtectedRoute exact path="/support" component={Support} />
             <Route path="/:someString" component={Error} />
           </Switch>
         </Router>

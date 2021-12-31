@@ -30,12 +30,14 @@ import {
 
 import {
   getLectures,
+  getLectureDetail,
   createLecture,
   updateLecture,
   deleteLecture,
 } from '../actions/lectures';
 import {
   getLecturesSaga,
+  getLectureDetailSaga,
   createLectureSaga,
   updateLectureSaga,
   deleteLectureSaga,
@@ -48,6 +50,19 @@ import {
   updateUserSaga,
   deleteUserSaga,
 } from './users';
+
+import {
+  getComments,
+  createComment,
+  updateComment,
+  deleteComment,
+} from '../actions/comments';
+import {
+  getCommentsSaga,
+  createCommentSaga,
+  updateCommentSaga,
+  deleteCommentSaga,
+} from './comments';
 
 function* mySaga() {
   yield takeLatest(getIndustries.getIndustriesRequest, getIndustriesSaga);
@@ -65,6 +80,10 @@ function* mySaga() {
   yield takeLatest(deleteSubject.deleteSubjectRequest, deleteSubjectSaga);
 
   yield takeLatest(getLectures.getLecturesRequest, getLecturesSaga);
+  yield takeLatest(
+    getLectureDetail.getLectureDetailRequest,
+    getLectureDetailSaga
+  );
   yield takeLatest(createLecture.createLectureRequest, createLectureSaga);
   yield takeLatest(updateLecture.updateLectureRequest, updateLectureSaga);
   yield takeLatest(deleteLecture.deleteLectureRequest, deleteLectureSaga);
@@ -73,6 +92,11 @@ function* mySaga() {
   yield takeLatest(createUser.createUserRequest, createUserSaga);
   yield takeLatest(updateUser.updateUserRequest, updateUserSaga);
   yield takeLatest(deleteUser.deleteUserRequest, deleteUserSaga);
+
+  yield takeLatest(getComments.getCommentsRequest, getCommentsSaga);
+  yield takeLatest(createComment.createCommentRequest, createCommentSaga);
+  yield takeLatest(updateComment.updateCommentRequest, updateCommentSaga);
+  yield takeLatest(deleteComment.deleteCommentRequest, deleteCommentSaga);
 }
 
 export default mySaga;

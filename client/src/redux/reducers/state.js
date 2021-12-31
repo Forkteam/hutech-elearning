@@ -22,6 +22,7 @@ export const INIT_STATE = {
   lectures: {
     loading: false,
     data: [],
+    singleLecture: null,
   },
   students: {
     loading: false,
@@ -30,6 +31,12 @@ export const INIT_STATE = {
     message: '',
   },
   admins: {
+    loading: false,
+    data: [],
+    success: true,
+    message: '',
+  },
+  comments: {
     loading: false,
     data: [],
     success: true,
