@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Button, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import moment from 'moment';
 import 'moment/locale/vi';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import BackButton from '../components/layouts/back-button';
+import Comments from '../components/lectures/comments';
 import { getLectureDetail } from '../redux/actions/lectures';
 import { lectures$ } from '../redux/selectors';
-import Comments from '../components/lectures/comments';
 moment.locale('vi');
 
 const LectureDetail = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const location = useLocation();
   const { id: lectureId } = useParams();
   const lectures = useSelector(lectures$);
@@ -39,13 +39,7 @@ const LectureDetail = () => {
 
   return (
     <>
-      <Button
-        onClick={() => history.goBack()}
-        variant="body2"
-        sx={{ mt: 1, ml: 1, color: '#5048E5' }}
-      >
-        &lt; Trở về
-      </Button>
+      <BackButton />
       <Box
         sx={{
           boxShadow: 3,
