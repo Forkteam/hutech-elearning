@@ -1,14 +1,9 @@
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import { Link } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Copyright from '../layouts/copyright';
+import { Link, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth-context';
 import AlertMessage from '../layouts/alert-message';
+import Copyright from '../layouts/copyright';
 
 const RegisterForm = () => {
   const { registerUser } = useContext(AuthContext);

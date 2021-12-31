@@ -1,9 +1,11 @@
-import { CardActionArea } from '@mui/material';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  Paper,
+  Typography,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const Error = () => {

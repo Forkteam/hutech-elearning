@@ -2,7 +2,7 @@ import MovieIcon from '@mui/icons-material/Movie';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SquareIcon from '@mui/icons-material/Square';
 import StarsIcon from '@mui/icons-material/Stars';
-import Avatar from '@mui/material/Avatar';
+import { Avatar } from '@mui/material';
 import MuiGrid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';

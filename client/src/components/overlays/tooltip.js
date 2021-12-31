@@ -1,5 +1,5 @@
+import { Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
 import { useDispatch } from 'react-redux';
 import { hideToast } from '../../redux/actions';
 

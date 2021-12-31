@@ -1,13 +1,13 @@
 import { call, put } from 'redux-saga/effects';
 import * as api from '../../api';
+import { showToast } from '../actions';
 import {
+  createSubject,
+  deleteSubject,
   getAllSubjects,
   getSubjectDetail,
-  createSubject,
   updateSubject,
-  deleteSubject,
 } from '../actions/subjects';
-import { showToast } from '../actions';
 
 export function* getAllSubjectsSaga(action) {
   try {

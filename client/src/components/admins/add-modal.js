@@ -1,16 +1,18 @@
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideModal, setCurrentId, showToast } from '../../redux/actions';
 import { createUser } from '../../redux/actions/users';
 import { currentId$, modal$ } from '../../redux/selectors';
-import Transition from '../overlays/transition';
 import AlertMessage from '../layouts/alert-message';
+import Transition from '../overlays/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();

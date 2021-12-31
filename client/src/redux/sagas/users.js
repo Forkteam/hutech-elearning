@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import * as api from '../../api';
-import { getUsers, createUser, updateUser, deleteUser } from '../actions/users';
 import { showToast } from '../actions';
+import { createUser, deleteUser, getUsers, updateUser } from '../actions/users';
 
 export function* getUsersSaga(action) {
   try {

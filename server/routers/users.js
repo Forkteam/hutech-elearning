@@ -1,13 +1,13 @@
 import express from 'express';
 import {
-  getUsers,
   createUser,
-  updateUser,
-  deleteUser
+  deleteUser,
+  getUsers,
+  updateUser
 } from '../controllers/users.js';
-import verifyToken from '../middleware/auth.js';
 import authAdmin from '../middleware/auth-admin.js';
 import authTeacher from '../middleware/auth-teacher.js';
+import verifyToken from '../middleware/auth.js';
 
 const router = express.Router();
 

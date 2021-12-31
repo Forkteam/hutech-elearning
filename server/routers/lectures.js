@@ -1,13 +1,13 @@
 import express from 'express';
 import {
-  getLectures,
-  getLectureDetail,
   createLecture,
-  updateLecture,
-  deleteLecture
+  deleteLecture,
+  getLectureDetail,
+  getLectures,
+  updateLecture
 } from '../controllers/lectures.js';
-import verifyToken from '../middleware/auth.js';
 import authTeacher from '../middleware/auth-teacher.js';
+import verifyToken from '../middleware/auth.js';
 
 const router = express.Router();
 

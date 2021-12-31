@@ -1,5 +1,5 @@
-import { INIT_STATE } from '../state';
 import { getType, setCurrentId } from '../../actions';
+import { INIT_STATE } from '../state';
 
 export default function toastReducers(state = INIT_STATE.currentId, action) {
   switch (action.type) {

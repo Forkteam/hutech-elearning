@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
-import CircularProgress from '@mui/material/CircularProgress';
+import { CircularProgress } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AddModal from '../components/students/add-modal';
 import DataTable from '../components/overlays/data-table';
+import AddModal from '../components/students/add-modal';
 import { showModal } from '../redux/actions';
 import { getUsers } from '../redux/actions/users';
 import { students$, toast$ } from '../redux/selectors';

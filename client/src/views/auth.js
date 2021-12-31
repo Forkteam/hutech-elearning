@@ -1,10 +1,12 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import Paper from '@mui/material/Paper';
+import {
+  Avatar,
+  Box,
+  CircularProgress,
+  Container,
+  CssBaseline,
+  Paper,
+} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import queryString from 'query-string';
 import { useContext } from 'react';

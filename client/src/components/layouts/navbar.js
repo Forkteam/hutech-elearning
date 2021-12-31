@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import MenuIcon from '@mui/icons-material/Menu';
-// import SearchIcon from '@mui/icons-material/Search';
 import {
   AppBar,
   Avatar,
@@ -111,11 +110,12 @@ export const Navbar = (props) => {
             onClose={handleCloseUserMenu}
           >
             <MenuItem>
-              <Typography textAlign="center">Thông tin cá nhân</Typography>
+              <Link to="/personal">
+                <Typography textAlign="center" color="#121828">
+                  Thông tin cá nhân
+                </Typography>
+              </Link>
             </MenuItem>
-            {/* <MenuItem>
-              <Typography textAlign="center">Cài đặt</Typography>
-            </MenuItem> */}
             <MenuItem>
               <Link to="/support">
                 <Typography textAlign="center" color="#121828">

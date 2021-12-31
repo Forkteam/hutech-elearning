@@ -1,11 +1,11 @@
-import { INIT_STATE } from './state';
 import {
-  getType,
-  getComments,
   createComment,
-  updateComment,
   deleteComment,
+  getComments,
+  getType,
+  updateComment,
 } from '../actions/comments';
+import { INIT_STATE } from './state';
 
 export default function commentsReducers(state = INIT_STATE.comments, action) {
   const { type, payload } = action;

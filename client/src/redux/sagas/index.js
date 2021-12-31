@@ -1,68 +1,63 @@
 import { takeLatest } from 'redux-saga/effects';
-
 import {
-  getIndustries,
-  createIndustry,
-  updateIndustry,
-  deleteIndustry,
-} from '../actions/industries';
-import {
-  getIndustriesSaga,
-  createIndustrySaga,
-  updateIndustrySaga,
-  deleteIndustrySaga,
-} from './industries';
-
-import {
-  getAllSubjects,
-  getSubjectDetail,
-  createSubject,
-  updateSubject,
-  deleteSubject,
-} from '../actions/subjects';
-import {
-  getAllSubjectsSaga,
-  getSubjectDetailSaga,
-  createSubjectSaga,
-  updateSubjectSaga,
-  deleteSubjectSaga,
-} from './subjects';
-
-import {
-  getLectures,
-  getLectureDetail,
-  createLecture,
-  updateLecture,
-  deleteLecture,
-} from '../actions/lectures';
-import {
-  getLecturesSaga,
-  getLectureDetailSaga,
-  createLectureSaga,
-  updateLectureSaga,
-  deleteLectureSaga,
-} from './lectures';
-
-import { getUsers, createUser, updateUser, deleteUser } from '../actions/users';
-import {
-  getUsersSaga,
-  createUserSaga,
-  updateUserSaga,
-  deleteUserSaga,
-} from './users';
-
-import {
-  getComments,
   createComment,
-  updateComment,
   deleteComment,
+  getComments,
+  updateComment,
 } from '../actions/comments';
 import {
-  getCommentsSaga,
+  createIndustry,
+  deleteIndustry,
+  getIndustries,
+  updateIndustry,
+} from '../actions/industries';
+import {
+  createLecture,
+  deleteLecture,
+  getLectureDetail,
+  getLectures,
+  updateLecture,
+} from '../actions/lectures';
+import {
+  createSubject,
+  deleteSubject,
+  getAllSubjects,
+  getSubjectDetail,
+  updateSubject,
+} from '../actions/subjects';
+import { createUser, deleteUser, getUsers, updateUser } from '../actions/users';
+import {
   createCommentSaga,
-  updateCommentSaga,
   deleteCommentSaga,
+  getCommentsSaga,
+  updateCommentSaga,
 } from './comments';
+import {
+  createIndustrySaga,
+  deleteIndustrySaga,
+  getIndustriesSaga,
+  updateIndustrySaga,
+} from './industries';
+import {
+  createLectureSaga,
+  deleteLectureSaga,
+  getLectureDetailSaga,
+  getLecturesSaga,
+  updateLectureSaga,
+} from './lectures';
+import {
+  createSubjectSaga,
+  deleteSubjectSaga,
+  getAllSubjectsSaga,
+  getSubjectDetailSaga,
+  updateSubjectSaga,
+} from './subjects';
+import {
+  createUserSaga,
+  deleteUserSaga,
+  getUsersSaga,
+  updateUserSaga,
+} from './users';
 
 function* mySaga() {
   yield takeLatest(getIndustries.getIndustriesRequest, getIndustriesSaga);

@@ -1,12 +1,12 @@
 import { call, put } from 'redux-saga/effects';
 import * as api from '../../api';
-import {
-  getComments,
-  createComment,
-  updateComment,
-  deleteComment,
-} from '../actions/comments';
 import { showToast } from '../actions';
+import {
+  createComment,
+  deleteComment,
+  getComments,
+  updateComment,
+} from '../actions/comments';
 
 export function* getCommentsSaga(action) {
   try {

@@ -1,13 +1,11 @@
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import BookIcon from '@mui/icons-material/Book';
+import ConstructionIcon from '@mui/icons-material/Construction';
 import GroupIcon from '@mui/icons-material/Group';
 import HelpIcon from '@mui/icons-material/Help';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SchoolIcon from '@mui/icons-material/School';
 import SubjectIcon from '@mui/icons-material/Subject';
-// import SettingsIcon from '@mui/icons-material/Settings';
-// import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-import ConstructionIcon from '@mui/icons-material/Construction';
 import {
   Box,
   Divider,
@@ -18,8 +16,8 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
 import { Fragment } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const items = [
   {
@@ -57,11 +55,6 @@ const items = [
     icon: <AccountBoxIcon fontSize="small" />,
     title: 'Thông tin cá nhân',
   },
-  // {
-  //   href: '/',
-  //   icon: <SettingsIcon fontSize="small" />,
-  //   title: 'Cài đặt',
-  // },
   {
     href: '/support',
     icon: <HelpIcon fontSize="small" />,

@@ -1,11 +1,11 @@
-import { INIT_STATE } from './state';
 import {
-  getType,
-  getIndustries,
   createIndustry,
-  updateIndustry,
   deleteIndustry,
+  getIndustries,
+  getType,
+  updateIndustry,
 } from '../actions/industries';
+import { INIT_STATE } from './state';
 
 export default function industriesReducers(
   state = INIT_STATE.industries,

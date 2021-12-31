@@ -1,12 +1,12 @@
-import { INIT_STATE } from './state';
 import {
-  getType,
+  createSubject,
+  deleteSubject,
   getAllSubjects,
   getSubjectDetail,
-  createSubject,
+  getType,
   updateSubject,
-  deleteSubject,
 } from '../actions/subjects';
+import { INIT_STATE } from './state';
 
 export default function subjectsReducers(state = INIT_STATE.subjects, action) {
   const { type, payload } = action;

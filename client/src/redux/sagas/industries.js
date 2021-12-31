@@ -1,12 +1,12 @@
 import { call, put } from 'redux-saga/effects';
 import * as api from '../../api';
-import {
-  getIndustries,
-  createIndustry,
-  updateIndustry,
-  deleteIndustry,
-} from '../actions/industries';
 import { showToast } from '../actions';
+import {
+  createIndustry,
+  deleteIndustry,
+  getIndustries,
+  updateIndustry,
+} from '../actions/industries';
 
 export function* getIndustriesSaga(action) {
   try {

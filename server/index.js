@@ -1,12 +1,12 @@
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import cors from 'cors';
 import connectDB from './database/index.js';
 import auth from './routers/auth.js';
-import industries from './routers/industries.js';
-import subjects from './routers/subjects.js';
-import lectures from './routers/lectures.js';
 import comments from './routers/comments.js';
+import industries from './routers/industries.js';
+import lectures from './routers/lectures.js';
+import subjects from './routers/subjects.js';
 import users from './routers/users.js';
 dotenv.config();
 

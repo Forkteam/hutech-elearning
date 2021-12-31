@@ -1,12 +1,12 @@
-import { INIT_STATE } from './state';
 import {
-  getType,
-  getLectures,
-  getLectureDetail,
   createLecture,
-  updateLecture,
   deleteLecture,
+  getLectureDetail,
+  getLectures,
+  getType,
+  updateLecture,
 } from '../actions/lectures';
+import { INIT_STATE } from './state';
 
 export default function lecturesReducers(state = INIT_STATE.lectures, action) {
   const { type, payload } = action;

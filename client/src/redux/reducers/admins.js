@@ -1,11 +1,11 @@
-import { INIT_STATE } from './state';
 import {
+  createUser,
+  deleteUser,
   getType,
   getUsers,
-  createUser,
   updateUser,
-  deleteUser,
 } from '../actions/users';
+import { INIT_STATE } from './state';
 
 export default function adminsReducers(state = INIT_STATE.admins, action) {
   const { type, payload } = action;

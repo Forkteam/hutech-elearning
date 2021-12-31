@@ -1,7 +1,7 @@
 import {
   Avatar,
-  Button,
   Box,
+  Button,
   Divider,
   List,
   ListItem,
@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Fragment } from 'react';
 
-export default function Comments() {
+const Comments = () => {
   return (
     <>
       <Typography variant="h6" component="h6" sx={{ mt: 4, mb: 1, ml: 4 }}>
@@ -106,4 +106,6 @@ export default function Comments() {
       <Divider variant="inset" />
     </>
   );
-}
+};
+
+export default Comments;

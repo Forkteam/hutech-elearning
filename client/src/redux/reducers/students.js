@@ -1,5 +1,11 @@
+import {
+  createUser,
+  deleteUser,
+  getType,
+  getUsers,
+  updateUser,
+} from '../actions/users';
 import { INIT_STATE } from './state';
-import { getType, getUsers, createUser, updateUser, deleteUser } from '../actions/users';
 
 export default function studentsReducers(state = INIT_STATE.students, action) {
   const { type, payload } = action;
@@ -48,8 +54,16 @@ export default function studentsReducers(state = INIT_STATE.students, action) {
         ...state,
         loading: false,
         data: state.data
-          .filter((student) => (student._id === payload._id && student.role !== payload.role ? false : true))
-          .map((student) => (student._id === payload._id && student.role === payload.role ? payload : student)),
+          .filter((student) =>
+            student._id === payload._id && student.role !== payload.role
+              ? false
+              : true
+          )
+          .map((student) =>
+            student._id === payload._id && student.role === payload.role
+              ? payload
+              : student
+          ),
         success: true,
         message: '',
       };

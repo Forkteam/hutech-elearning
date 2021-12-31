@@ -1,9 +1,9 @@
 import mailer from '../mailer/index.js';
 import notificationMail from '../mailer/notification-mail.js';
-import { SubjectModel } from '../models/subject-model.js';
-import { LectureModel } from '../models/lecture-model.js';
-import { UserModel } from '../models/user-model.js';
 import { CommentModel } from '../models/comment-model.js';
+import { LectureModel } from '../models/lecture-model.js';
+import { SubjectModel } from '../models/subject-model.js';
+import { UserModel } from '../models/user-model.js';
 
 export const getLectures = async (req, res) => {
   try {
