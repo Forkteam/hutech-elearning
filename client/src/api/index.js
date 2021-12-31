@@ -22,6 +22,10 @@ export const getSubjectDetail = (payload) =>
   axios.get(`${apiURL}/subjects/${payload}`);
 export const createSubject = (payload) =>
   axios.post(`${apiURL}/subjects`, payload);
+export const subscribeSubject = (payload) =>
+  axios.post(`${apiURL}/subjects/${payload}/add-student`);
+export const unsubscribeSubject = (payload) =>
+  axios.post(`${apiURL}/subjects/${payload}/remove-student`);
 export const updateSubject = (payload) =>
   axios.put(`${apiURL}/subjects/${payload._id}`, payload);
 export const deleteSubject = (payload) =>

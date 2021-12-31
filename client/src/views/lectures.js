@@ -17,6 +17,7 @@ import { Link, useParams } from 'react-router-dom';
 import BackButton from '../components/layouts/back-button';
 import AddModal from '../components/lectures/add-modal';
 import DataTable from '../components/overlays/data-table';
+import SubscribeButton from '../components/subjects/subscribe-button';
 import { showModal } from '../redux/actions';
 import { getLectures } from '../redux/actions/lectures';
 import { getSubjectDetail } from '../redux/actions/subjects';
@@ -124,7 +125,10 @@ const Lectures = () => {
 
   return (
     <>
-      <BackButton />
+      <div className="jc-sb flex">
+        <BackButton />
+        <SubscribeButton subjectId={subjectId} />
+      </div>
       <Card
         sx={{ margin: 'auto', display: 'flex', width: '95%', boxShadow: 3 }}
       >

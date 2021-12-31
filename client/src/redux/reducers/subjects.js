@@ -4,6 +4,8 @@ import {
   getAllSubjects,
   getSubjectDetail,
   getType,
+  subscribeSubject,
+  unsubscribeSubject,
   updateSubject,
 } from '../actions/subjects';
 import { INIT_STATE } from './state';
@@ -43,6 +45,20 @@ export default function subjectsReducers(state = INIT_STATE.subjects, action) {
         ...state,
         loading: false,
         data: [...state.data, payload],
+      };
+
+    case getType(subscribeSubject.subscribeSubjectSuccess()):
+      return {
+        ...state,
+        loading: false,
+        singleSubject: payload,
+      };
+
+    case getType(unsubscribeSubject.unsubscribeSubjectSuccess()):
+      return {
+        ...state,
+        loading: false,
+        singleSubject: payload,
       };
 
     case getType(updateSubject.updateSubjectSuccess()):

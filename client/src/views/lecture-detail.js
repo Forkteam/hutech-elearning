@@ -7,13 +7,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import BackButton from '../components/layouts/back-button';
 import Comments from '../components/lectures/comments';
+import Tooltip from '../components/overlays/tooltip';
 import { getLectureDetail } from '../redux/actions/lectures';
-import { lectures$ } from '../redux/selectors';
+import { lectures$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
 const LectureDetail = () => {
   const dispatch = useDispatch();
   const { id: lectureId } = useParams();
+  const toast = useSelector(toast$);
   const lectures = useSelector(lectures$);
 
   useEffect(() => {
@@ -37,6 +39,7 @@ const LectureDetail = () => {
 
   return (
     <>
+      <Tooltip toast={toast} />
       <BackButton />
       <Box
         sx={{

@@ -47,6 +47,9 @@ a {
 .jc-sb {
   justify-content: space-between;
 }
+.flex {
+  display: flex;
+}
 
 .News a {
   color: black;

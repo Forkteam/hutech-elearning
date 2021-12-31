@@ -6,6 +6,8 @@ import {
   deleteSubject,
   getAllSubjects,
   getSubjectDetail,
+  subscribeSubject,
+  unsubscribeSubject,
   updateSubject,
 } from '../actions/subjects';
 
@@ -42,6 +44,42 @@ export function* createSubjectSaga(action) {
   } catch (error) {
     console.log(error);
     yield put(createSubject.createSubjectFailure(error));
+  }
+}
+
+export function* subscribeSubjectSaga(action) {
+  try {
+    const response = yield call(api.subscribeSubject, action.payload);
+    yield put(
+      subscribeSubject.subscribeSubjectSuccess(response.data.updatedSubject)
+    );
+    yield put(
+      showToast({
+        message: response.data.message ? response.data.message : 'Server error',
+        type: response.data.success ? 'success' : 'error',
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    yield put(subscribeSubject.subscribeSubjectFailure(error));
+  }
+}
+
+export function* unsubscribeSubjectSaga(action) {
+  try {
+    const response = yield call(api.unsubscribeSubject, action.payload);
+    yield put(
+      unsubscribeSubject.unsubscribeSubjectSuccess(response.data.updatedSubject)
+    );
+    yield put(
+      showToast({
+        message: response.data.message ? response.data.message : 'Server error',
+        type: response.data.success ? 'success' : 'error',
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    yield put(unsubscribeSubject.unsubscribeSubjectFailure(error));
   }
 }
 

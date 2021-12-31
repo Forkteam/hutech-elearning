@@ -1,9 +1,6 @@
-import mailer from '../mailer/index.js';
-import inviteStudent from '../mailer/invite-mail.js';
 import { CommentModel } from '../models/comment-model.js';
 import { LectureModel } from '../models/lecture-model.js';
 import { SubjectModel } from '../models/subject-model.js';
-import { UserModel } from '../models/user-model.js';
 
 export const getAllSubjects = async (_, res) => {
   try {
@@ -51,10 +48,17 @@ export const getTeacherSubjects = async (req, res) => {
 
 export const getSubjectDetail = async (req, res) => {
   try {
-    const subject = await SubjectModel.findById(req.params.id).populate(
-      'user',
-      ['fullName']
-    );
+    let subject = await SubjectModel.findById(req.params.id).populate('user', [
+      'fullName'
+    ]);
+    let checkSubscribe = new Promise((resolve, _) => {
+      subject.studentIds.forEach((item) => {
+        if (item.toString() === req.userId) resolve(true);
+      });
+      resolve(false);
+    });
+    const isSubscribe = await checkSubscribe;
+    subject = { ...subject._doc, isSubscribe };
     return res.status(200).json({ success: true, subject });
   } catch (error) {
     console.log(error);
@@ -160,69 +164,21 @@ export const deleteSubject = async (req, res) => {
   }
 };
 
-export const inviteStudentJoinSubject = async (req, res) => {
-  const { studentId, id } = req.body;
-  if (!studentId || !id)
-    return res
-      .status(400)
-      .json({ success: false, message: 'One or more fields is empty' });
-
-  try {
-    const user = await UserModel.findById(studentId);
-    if (!user)
-      return res
-        .status(404)
-        .json({ success: false, message: 'Student not found' });
-    if (!user.email)
-      return res
-        .status(404)
-        .json({ success: false, message: "Student doesn't have email!" });
-
-    const inviteToken = jwt.sign(
-      { userId: user._id },
-      process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '1d' }
-    );
-    const emailContent = inviteStudent(inviteToken, id, user._id);
-    mailer(user.email, emailContent);
-    return res
-      .status(200)
-      .json({ success: true, message: 'Invite student success' });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ success: false, message: 'Server error' });
-  }
-};
-
 export const addStudent = async (req, res) => {
-  const { token, studentId, id } = req.body;
-  if (!token || !studentId || !id)
-    return res
-      .status(400)
-      .json({ success: false, message: 'One or more fields is empty' });
-
   try {
-    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    if (decoded.userId !== studentId)
-      return res.status(401).json({ success: false, message: 'Invalid token' });
-    const user = await UserModel.findById(studentId);
-    if (!user)
-      return res
-        .status(404)
-        .json({ success: false, message: 'Student not found' });
-
-    const updatedSubject = await SubjectModel.findOneAndUpdate(
-      { _id: id },
-      { $addToSet: { studentIds: studentId } },
+    let updatedSubject = await SubjectModel.findOneAndUpdate(
+      { _id: req.params.id },
+      { $addToSet: { studentIds: req.userId } },
       { new: true }
     ).populate('user', ['fullName']);
     if (!updatedSubject)
       return res
         .status(404)
         .json({ success: false, message: 'Không tìm thấy môn học!' });
+    updatedSubject = { ...updatedSubject._doc, isSubscribe: true };
     return res.status(200).json({
       success: true,
-      message: 'Update student success',
+      message: 'Subscribe success',
       updatedSubject
     });
   } catch (error) {
@@ -232,32 +188,20 @@ export const addStudent = async (req, res) => {
 };
 
 export const removeStudent = async (req, res) => {
-  const { studentId, id } = req.body;
-  if (!studentId || !id)
-    return res
-      .status(400)
-      .json({ success: false, message: 'One or more fields is empty' });
-
   try {
-    const user = await UserModel.findById(studentId);
-    if (!user)
-      return res
-        .status(404)
-        .json({ success: false, message: 'Student not found' });
-
-    const updatedSubject = await SubjectModel.findOneAndUpdate(
-      { _id: id },
-      { $pull: { studentIds: studentId } },
+    let updatedSubject = await SubjectModel.findOneAndUpdate(
+      { _id: req.params.id },
+      { $pull: { studentIds: req.userId } },
       { new: true }
     ).populate('user', ['fullName']);
     if (!updatedSubject)
       return res
         .status(404)
         .json({ success: false, message: 'Không tìm thấy môn học!' });
-
+    updatedSubject = { ...updatedSubject._doc, isSubscribe: false };
     return res.status(200).json({
       success: true,
-      message: 'Remove student success',
+      message: 'Unsubscribe success',
       updatedSubject
     });
   } catch (error) {

@@ -22,6 +22,18 @@ export const createSubject = createActions({
   createSubjectFailure: (error) => error,
 });
 
+export const subscribeSubject = createActions({
+  subscribeSubjectRequest: (payload) => payload,
+  subscribeSubjectSuccess: (payload) => payload,
+  subscribeSubjectFailure: (error) => error,
+});
+
+export const unsubscribeSubject = createActions({
+  unsubscribeSubjectRequest: (payload) => payload,
+  unsubscribeSubjectSuccess: (payload) => payload,
+  unsubscribeSubjectFailure: (error) => error,
+});
+
 export const updateSubject = createActions({
   updateSubjectRequest: (payload) => payload,
   updateSubjectSuccess: (payload) => payload,
