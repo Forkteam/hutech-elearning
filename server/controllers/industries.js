@@ -9,7 +9,7 @@ export const getIndustries = async (req, res) => {
     res.status(200).json({ success: true, industries });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -18,7 +18,7 @@ export const createIndustry = async (req, res) => {
   if (!code || !name)
     return res
       .status(400)
-      .json({ success: false, message: 'Missing code or name' });
+      .json({ success: false, message: 'Mã khoa hoặc tên khoa bị bỏ trống.' });
 
   try {
     const newIndustry = req.body;
@@ -34,14 +34,14 @@ export const createIndustry = async (req, res) => {
       .json({ success: true, message: 'Tạo ngành mới thành công!', industry });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
 export const updateIndustry = async (req, res) => {
   const { name } = req.body;
   if (!name)
-    return res.status(400).json({ success: false, message: 'Missing name' });
+    return res.status(400).json({ success: false, message: 'Tên khoa bị trống.' });
 
   try {
     const updateIndustry = req.body;
@@ -64,7 +64,7 @@ export const updateIndustry = async (req, res) => {
       .json({ success: true, message: 'Cập nhật ngành thành công!', industry });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -74,7 +74,7 @@ export const deleteIndustry = async (req, res) => {
     if (subject)
       return res.status(400).json({
         success: false,
-        message: 'You have some subject in this industry'
+        message: 'Không thể xoá vì đã tồn tại môn học.'
       });
 
     const industry = await IndustryModel.findOneAndDelete({
@@ -91,6 +91,6 @@ export const deleteIndustry = async (req, res) => {
       .json({ success: true, message: 'Xoá thành công!', industry });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };

@@ -10,7 +10,7 @@ export const getComments = async (req, res) => {
     res.status(200).json({ success: true, comments });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -19,7 +19,7 @@ export const createComment = async (req, res) => {
   if (!content || !lectureId)
     return res
       .status(400)
-      .json({ success: false, message: 'Missing content or lectureId' });
+      .json({ success: false, message: 'Thiếu nội dung bình luận hoặc mã tài liệu' });
 
   try {
     const newComment = req.body;
@@ -32,17 +32,17 @@ export const createComment = async (req, res) => {
     comment = await comment.populate('user', ['fullName', 'avatar']);
     res
       .status(200)
-      .json({ success: true, message: 'Create comment success', comment });
+      .json({ success: true, message: 'Bình luận đã được đăng.', comment });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
 export const updateComment = async (req, res) => {
   const { content } = req.body;
   if (!content)
-    return res.status(400).json({ success: false, message: 'Missing content' });
+    return res.status(400).json({ success: false, message: 'Thiếu nội dung bình luận.' });
 
   try {
     const updateComment = req.body;
@@ -58,14 +58,14 @@ export const updateComment = async (req, res) => {
     if (!comment)
       return res
         .status(404)
-        .json({ success: false, message: 'Comment not found' });
+        .json({ success: false, message: 'Không tìm thấy bình luận.' });
 
     res
       .status(200)
-      .json({ success: true, message: 'Update comment success', comment });
+      .json({ success: true, message: 'Cập nhật bình luận thành công!', comment });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -76,13 +76,13 @@ export const deleteComment = async (req, res) => {
     if (!comment)
       return res
         .status(404)
-        .json({ success: false, message: 'Comment not found' });
+        .json({ success: false, message: 'Không tìm tháy bình luận' });
 
     res
       .status(200)
-      .json({ success: true, message: 'Delete comment success', comment });
+      .json({ success: true, message: 'Xoá bình luận thành công!', comment });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };

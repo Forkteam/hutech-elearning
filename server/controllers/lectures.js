@@ -13,7 +13,7 @@ export const getLectures = async (req, res) => {
     res.status(200).json({ success: true, lectures });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -34,14 +34,14 @@ export const getLectureDetail = async (req, res) => {
     res.status(200).json({ success: true, lecture });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
 export const createLecture = async (req, res) => {
   const { title, url, subjectId } = req.body;
   if (!title)
-    return res.status(400).json({ success: false, message: 'Missing title' });
+    return res.status(400).json({ success: false, message: 'Tiêu đề tài liệu đã bị bỏ trống.' });
 
   try {
     const newLecture = req.body;
@@ -73,14 +73,14 @@ export const createLecture = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
 export const updateLecture = async (req, res) => {
   const { title, url } = req.body;
   if (!title)
-    return res.status(400).json({ success: false, message: 'Missing title' });
+    return res.status(400).json({ success: false, message: 'Tiêu đề tài liệu đã bị bỏ trống.' });
 
   try {
     const updateLecture = req.body;
@@ -106,7 +106,7 @@ export const updateLecture = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -126,6 +126,6 @@ export const deleteLecture = async (req, res) => {
       .json({ success: true, message: 'Xoá thành công!', lecture });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
