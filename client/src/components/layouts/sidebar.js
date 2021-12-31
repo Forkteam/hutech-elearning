@@ -53,7 +53,7 @@ const items = [
     title: 'Tin tức',
   },
   {
-    href: '/',
+    href: '/personal',
     icon: <AccountBoxIcon fontSize="small" />,
     title: 'Thông tin cá nhân',
   },

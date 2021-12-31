@@ -12,10 +12,10 @@ import Industries from './views/industries';
 import LectureDetail from './views/lecture-detail';
 import Lectures from './views/lectures';
 import News from './views/news';
+import Personal from './views/personal';
 import Students from './views/students';
 import Subjects from './views/subjects';
 import Support from './views/support';
-import Personal from './views/personal';
 
 function App() {
   return (
@@ -56,11 +56,6 @@ function App() {
             <ProtectedRoute exact path="/admins" component={Admins} />
             <ProtectedRoute exact path="/news" component={News} />
             <ProtectedRoute exact path="/personal" component={Personal} />
-            <ProtectedRoute
-              exact
-              path="/support"
-              component={Support}
-            />
             <ProtectedRoute exact path="/support" component={Support} />
             <Route path="/:someString" component={Error} />
           </Switch>
