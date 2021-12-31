@@ -6,16 +6,31 @@ import {
   Stack,
   Toolbar,
   Typography,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActionArea,
 } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import LogoHutech from '../../assets/logo.png';
-import Subjects from '../../views/subjects';
+import { landing$ } from '../../redux/selectors';
+import { getPublicSubjects } from '../../redux/actions/landing';
 import Copyright from './copyright';
 
 const theme = createTheme();
 
 export default function Landing() {
+  const landing = useSelector(landing$);
+  const dispatch = useDispatch(getPublicSubjects);
+
+  useEffect(() => {
+    dispatch(getPublicSubjects.getPublicSubjectsRequest());
+  }, [dispatch]);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -97,15 +112,46 @@ export default function Landing() {
             </Stack>
           </Container>
         </Box>
-        <Subjects />
+        <Container sx={{ py: 4 }} maxWidth="md">
+          <Grid container spacing={2}>
+            {landing.data.map((item) => (
+              <Grid item xs={12} sm={6} md={4} key={item.id}>
+                <Link to={`subjects/${item.id}`} component={CardActionArea}>
+                  <Card
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      boxShadow: 3,
+                    }}
+                  >
+                    <CardMedia
+                      component="img"
+                      sx={{ pt: '10px' }}
+                      height="140"
+                      image={item.image}
+                      alt="random"
+                    />
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      <Typography gutterBottom variant="h5" component="h5">
+                        {item.name}
+                      </Typography>
+                      <Typography>
+                        {item.description.slice(0, 100)}...
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
       </main>
-      {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 1 }} component="footer">
         <Typography variant="subtitle1" align="center" color="text.secondary">
           Môi trường học tập tiến bộ. <Copyright />
         </Typography>
       </Box>
-      {/* End footer */}
     </ThemeProvider>
   );
 }

@@ -42,4 +42,8 @@ export const INIT_STATE = {
     success: true,
     message: '',
   },
+  landing: {
+    loading: false,
+    data: [],
+  },
 };

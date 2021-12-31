@@ -1,6 +1,17 @@
 import { CommentModel } from '../models/comment-model.js';
 import { LectureModel } from '../models/lecture-model.js';
 import { SubjectModel } from '../models/subject-model.js';
+import { PUBLIC } from '../enums/status.js';
+
+export const getPublicSubjects = async (_, res) => {
+  try {
+    const subjects = await SubjectModel.find({ status: PUBLIC });
+    return res.status(200).json({ success: true, subjects });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
 
 export const getAllSubjects = async (_, res) => {
   try {

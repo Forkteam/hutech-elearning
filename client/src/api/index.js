@@ -58,3 +58,6 @@ export const updateComment = (payload) =>
   axios.put(`${apiURL}/comments/${payload._id}`, payload);
 export const deleteComment = (payload) =>
   axios.delete(`${apiURL}/comments/${payload}`);
+
+export const getPublicSubjects = (payload) =>
+  axios.get(`${apiURL}/subjects/public-subjects`, payload);

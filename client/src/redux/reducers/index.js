@@ -8,6 +8,7 @@ import industries from './industries';
 import lectures from './lectures';
 import students from './students';
 import subjects from './subjects';
+import landing from './landing';
 
 export default combineReducers({
   industries,
@@ -19,4 +20,5 @@ export default combineReducers({
   students,
   admins,
   comments,
+  landing,
 });

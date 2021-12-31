@@ -5,6 +5,7 @@ import {
   getComments,
   updateComment,
 } from '../actions/comments';
+import { getPublicSubjects } from '../actions/landing';
 import {
   createIndustry,
   deleteIndustry,
@@ -62,6 +63,7 @@ import {
   getUsersSaga,
   updateUserSaga,
 } from './users';
+import { getPublicSubjectsSaga } from './landing';
 
 function* mySaga() {
   yield takeLatest(getIndustries.getIndustriesRequest, getIndustriesSaga);
@@ -104,6 +106,11 @@ function* mySaga() {
   yield takeLatest(createComment.createCommentRequest, createCommentSaga);
   yield takeLatest(updateComment.updateCommentRequest, updateCommentSaga);
   yield takeLatest(deleteComment.deleteCommentRequest, deleteCommentSaga);
+
+  yield takeLatest(
+    getPublicSubjects.getPublicSubjectsRequest,
+    getPublicSubjectsSaga
+  );
 }
 
 export default mySaga;
