@@ -14,10 +14,10 @@ export const deleteIndustry = (payload) =>
 
 export const getAllSubjects = (payload) =>
   axios.get(`${apiURL}/subjects/all-subjects`, payload);
-// export const getStudentSubjects = (payload) =>
-//   axios.get(`${apiURL}/subjects/student-subjects`, payload);
-// export const getTeacherSubjects = (payload) =>
-//   axios.get(`${apiURL}/subjects/teacher-subjects`, payload);
+export const getStudentSubjects = (payload) =>
+  axios.get(`${apiURL}/subjects/student-subjects/${payload}`, payload);
+export const getTeacherSubjects = (payload) =>
+  axios.get(`${apiURL}/subjects/teacher-subjects/${payload}`, payload);
 export const getSubjectDetail = (payload) =>
   axios.get(`${apiURL}/subjects/${payload}`);
 export const createSubject = (payload) =>

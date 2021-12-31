@@ -9,6 +9,8 @@ import {
   subscribeSubject,
   unsubscribeSubject,
   updateSubject,
+  getStudentSubjects,
+  getTeacherSubjects,
 } from '../actions/subjects';
 
 export function* getAllSubjectsSaga(action) {
@@ -18,6 +20,30 @@ export function* getAllSubjectsSaga(action) {
   } catch (error) {
     console.log(error);
     yield put(getAllSubjects.getAllSubjectsFailure(error));
+  }
+}
+
+export function* getStudentSubjectsSaga(action) {
+  try {
+    const response = yield call(api.getStudentSubjects, action.payload);
+    yield put(
+      getStudentSubjects.getStudentSubjectsSuccess(response.data.subjects)
+    );
+  } catch (error) {
+    console.log(error);
+    yield put(getStudentSubjects.getStudentSubjectsFailure(error));
+  }
+}
+
+export function* getTeacherSubjectsSaga(action) {
+  try {
+    const response = yield call(api.getTeacherSubjects, action.payload);
+    yield put(
+      getTeacherSubjects.getTeacherSubjectsSuccess(response.data.subjects)
+    );
+  } catch (error) {
+    console.log(error);
+    yield put(getTeacherSubjects.getTeacherSubjectsFailure(error));
   }
 }
 

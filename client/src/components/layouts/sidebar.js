@@ -26,7 +26,7 @@ const items = [
     title: 'Danh sách môn học',
   },
   {
-    href: '/',
+    href: '/user-subjects',
     icon: <BookIcon fontSize="small" />,
     title: 'Môn học của bạn',
   },

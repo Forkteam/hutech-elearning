@@ -16,6 +16,7 @@ import Personal from './views/personal';
 import Students from './views/students';
 import Subjects from './views/subjects';
 import Support from './views/support';
+import UserSubjects from './views/user-subjects';
 
 function App() {
   return (
@@ -46,6 +47,11 @@ function App() {
             />
             <ProtectedRoute exact path="/industries" component={Industries} />
             <ProtectedRoute exact path="/subjects" component={Subjects} />
+            <ProtectedRoute
+              exact
+              path="/user-subjects"
+              component={UserSubjects}
+            />
             <ProtectedRoute exact path="/subjects/:id" component={Lectures} />
             <ProtectedRoute
               exact

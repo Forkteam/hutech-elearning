@@ -35,8 +35,17 @@ export const getAllSubjects = async (_, res) => {
 export const getStudentSubjects = async (req, res) => {
   try {
     const subjects = await SubjectModel.find({
-      studentIds: req.body.id
-    }).populate('user', ['fullName']);
+      studentIds: req.params.id
+    }).populate([
+      {
+        path: 'user',
+        select: ['fullName']
+      },
+      {
+        path: 'industryId',
+        select: ['name']
+      }
+    ]);
     return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);
@@ -46,10 +55,16 @@ export const getStudentSubjects = async (req, res) => {
 
 export const getTeacherSubjects = async (req, res) => {
   try {
-    const subjects = await SubjectModel.find({ user: req.body.id }).populate(
-      'user',
-      ['username']
-    );
+    const subjects = await SubjectModel.find({ user: req.params.id }).populate([
+      {
+        path: 'user',
+        select: ['fullName']
+      },
+      {
+        path: 'industryId',
+        select: ['name']
+      }
+    ]);
     return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);

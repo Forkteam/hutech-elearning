@@ -27,6 +27,8 @@ import {
   subscribeSubject,
   unsubscribeSubject,
   updateSubject,
+  getTeacherSubjects,
+  getStudentSubjects,
 } from '../actions/subjects';
 import { createUser, deleteUser, getUsers, updateUser } from '../actions/users';
 import {
@@ -56,6 +58,8 @@ import {
   subscribeSubjectSaga,
   unsubscribeSubjectSaga,
   updateSubjectSaga,
+  getStudentSubjectsSaga,
+  getTeacherSubjectsSaga,
 } from './subjects';
 import {
   createUserSaga,
@@ -72,6 +76,14 @@ function* mySaga() {
   yield takeLatest(deleteIndustry.deleteIndustryRequest, deleteIndustrySaga);
 
   yield takeLatest(getAllSubjects.getAllSubjectsRequest, getAllSubjectsSaga);
+  yield takeLatest(
+    getStudentSubjects.getStudentSubjectsRequest,
+    getStudentSubjectsSaga
+  );
+  yield takeLatest(
+    getTeacherSubjects.getTeacherSubjectsRequest,
+    getTeacherSubjectsSaga
+  );
   yield takeLatest(
     getSubjectDetail.getSubjectDetailRequest,
     getSubjectDetailSaga

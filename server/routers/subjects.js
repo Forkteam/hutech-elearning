@@ -18,8 +18,8 @@ const router = express.Router();
 
 router.get('/public-subjects', getPublicSubjects);
 router.get('/all-subjects', verifyToken, getAllSubjects);
-router.get('/student-subjects', verifyToken, getStudentSubjects);
-router.get('/teacher-subjects', verifyToken, getTeacherSubjects);
+router.get('/student-subjects/:id', verifyToken, getStudentSubjects);
+router.get('/teacher-subjects/:id', verifyToken, getTeacherSubjects);
 router.get('/:id', verifyToken, getSubjectDetail);
 router.post('/', verifyToken, authTeacher, createSubject);
 router.put('/:id', verifyToken, authTeacher, updateSubject);
