@@ -25,21 +25,21 @@ export const createUser = async (req, res) => {
   if (!username || !password)
     return res
       .status(400)
-      .json({ success: false, message: 'One or more fields is empty' });
+      .json({ success: false, message: 'Vui lòng điền đầy đủ thông tin.' });
 
   try {
     const validUsername = await UserModel.findOne({ username });
     if (validUsername)
       return res
         .status(400)
-        .json({ success: false, message: 'Username exist' });
+        .json({ success: false, message: 'Tên người dùng đã tồn tại.' });
     if (req.body.email) {
       const { email } = req.body;
       const validEmail = await UserModel.findOne({ email });
       if (validEmail)
         return res
           .status(400)
-          .json({ success: false, message: 'Email registered' });
+          .json({ success: false, message: 'Email này đã được đăng ký trước đó.' });
     }
 
     const newUser = req.body;
@@ -55,10 +55,10 @@ export const createUser = async (req, res) => {
     user = await UserModel.findById(user._id).populate('user', ['fullName']);
     res
       .status(200)
-      .json({ success: true, message: 'Create user success', user });
+      .json({ success: true, message: 'Tạo tài khoản thành công', user });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -71,13 +71,13 @@ export const updateUser = async (req, res) => {
       if (validEmail)
         return res
           .status(400)
-          .json({ success: false, message: 'Email registered' });
+          .json({ success: false, message: 'Email này đã được đăng ký trước đó.' });
     } else if (validUser.username !== username) {
       const validUsername = await UserModel.findOne({ username });
       if (validUsername)
         return res
           .status(400)
-          .json({ success: false, message: 'Username registered' });
+          .json({ success: false, message: 'Tên người dùng đã được đăng ký trước đó.' });
     }
 
     const updateUser = req.body;
@@ -89,13 +89,13 @@ export const updateUser = async (req, res) => {
     if (!user)
       return res
         .status(404)
-        .json({ success: false, message: 'User not found' });
+        .json({ success: false, message: 'Không tìm thấy người dùng.' });
     res
       .status(200)
-      .json({ success: true, message: 'Update user success', user });
+      .json({ success: true, message: 'Cập nhật người dùng thành công.!', user });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -106,7 +106,7 @@ export const deleteUser = async (req, res) => {
     if (!user)
       return res
         .status(404)
-        .json({ success: false, message: 'User not found' });
+        .json({ success: false, message: 'Không tìm thấy người dùng.' });
 
     await SubjectModel.updateMany(
       { studentIds: id },
@@ -115,9 +115,9 @@ export const deleteUser = async (req, res) => {
     );
     res
       .status(200)
-      .json({ success: true, message: 'Delete user success', user });
+      .json({ success: true, message: 'Xoá người dùng thành công.!', user });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };

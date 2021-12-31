@@ -9,7 +9,7 @@ export const getPublicSubjects = async (_, res) => {
     return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    return res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -28,7 +28,7 @@ export const getAllSubjects = async (_, res) => {
     return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    return res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -40,7 +40,7 @@ export const getStudentSubjects = async (req, res) => {
     return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    return res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -53,7 +53,7 @@ export const getTeacherSubjects = async (req, res) => {
     return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    return res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -73,7 +73,7 @@ export const getSubjectDetail = async (req, res) => {
     return res.status(200).json({ success: true, subject });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    return res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -103,12 +103,12 @@ export const createSubject = async (req, res) => {
     ]);
     return res.status(200).json({
       success: true,
-      message: 'Create subject success',
+      message: 'Thêm môn học thành công.!',
       subject
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    return res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -117,7 +117,7 @@ export const updateSubject = async (req, res) => {
   if (!name || !description || !image)
     return res
       .status(400)
-      .json({ success: false, message: 'Missing name/description/image' });
+      .json({ success: false, message: 'Vui lòng điền đầy đủ thông tin.' });
   try {
     const subjectInput = req.body;
     const updatedSubject = await SubjectModel.findOneAndUpdate(
@@ -132,12 +132,12 @@ export const updateSubject = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: 'Update subject success',
+      message: 'Cập nhật môn học thành công.!',
       updatedSubject
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    return res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -145,7 +145,7 @@ export const deleteSubject = async (req, res) => {
   if (!id)
     return res
       .status(400)
-      .json({ success: false, message: 'Missing subject id' });
+      .json({ success: false, message: 'Mã môn học đã bị bỏ trống.' });
 
   try {
     const deletedSubject = await SubjectModel.findOneAndDelete({ _id: id });
@@ -166,12 +166,12 @@ export const deleteSubject = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: 'Delete subject success',
+      message: 'Xoá môn học thành công.!',
       deletedSubject
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    return res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -189,12 +189,12 @@ export const addStudent = async (req, res) => {
     updatedSubject = { ...updatedSubject._doc, isSubscribe: true };
     return res.status(200).json({
       success: true,
-      message: 'Subscribe success',
+      message: 'Đăng ký thành công.!',
       updatedSubject
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    return res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -212,11 +212,11 @@ export const removeStudent = async (req, res) => {
     updatedSubject = { ...updatedSubject._doc, isSubscribe: false };
     return res.status(200).json({
       success: true,
-      message: 'Unsubscribe success',
+      message: 'Huỳ đăng ký thành công.!',
       updatedSubject
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    return res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
