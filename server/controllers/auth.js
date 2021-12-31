@@ -17,7 +17,7 @@ export const getUser = async (req, res) => {
     res.status(200).json({ success: true, user });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Get user fail' });
+    return res.status(500).json({ success: false, message: 'Lấy thông tin thất bại.' });
   }
 };
 
@@ -82,14 +82,14 @@ export const activate = async (req, res) => {
   if (!token || !id)
     return res
       .status(400)
-      .json({ success: false, message: 'Missing token or ID' });
+      .json({ success: false, message: 'Thiếu token hoặc ID' });
 
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     if (decoded.userId !== id)
       return res
         .status(400)
-        .json({ success: false, message: 'Token or ID invalid' });
+        .json({ success: false, message: 'Token hoặc ID không hợp lệ.' });
     const user = await VerifyUserModel.findOne({ _id: id });
     if (!user)
       return res
@@ -103,12 +103,12 @@ export const activate = async (req, res) => {
     const emailContent = welcomeMail();
     mailer(email, emailContent);
     await VerifyUserModel.findOneAndDelete({ _id: id });
-    res.status(200).json({ success: true, message: 'Activate success' });
+    res.status(200).json({ success: true, message: 'Kích hoạt tài khoản thành công!' });
   } catch (error) {
     console.log(error);
     return res
       .status(500)
-      .json({ success: false, message: 'Token invalid or expire' });
+      .json({ success: false, message: 'Token không hợp lệ hoặc đã hết hạn.' });
   }
 };
 
@@ -117,7 +117,7 @@ export const login = async (req, res) => {
   if (!username || !password)
     return res
       .status(400)
-      .json({ success: false, message: 'Missing username or password' });
+      .json({ success: false, message: 'Thiếu tên người dùng hoặc mật khẩu.' });
 
   try {
     const user = await UserModel.findOne(
@@ -148,7 +148,7 @@ export const login = async (req, res) => {
 export const sendMailResetPassword = async (req, res) => {
   const { email } = req.body;
   if (!email)
-    return res.status(400).json({ success: false, message: 'Missing email' });
+    return res.status(400).json({ success: false, message: 'Vui lòng điền địa chỉ email!' });
 
   try {
     const verifyUserEmail = await UserModel.findOne({ email });
@@ -187,7 +187,7 @@ export const resetPassword = async (req, res) => {
     if (decoded.userId !== id)
       return res
         .status(400)
-        .json({ success: false, message: 'Token invalid or expire' });
+        .json({ success: false, message: 'Token không hợp lệ hoặc đã hết hạn.' });
     const hashedPassword = await argon2.hash(password);
     const user = await UserModel.findOneAndUpdate(
       { _id: id },
