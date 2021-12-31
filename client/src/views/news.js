@@ -1,51 +1,47 @@
+import {
+    Box,
+    Button,
+    Container,
+    CssBaseline,
+    Stack,
+    Toolbar,
+    Typography,
+    Grid,
+    Card,
+    CardMedia,
+    CardContent,
+    CardActionArea,
+  } from '@mui/material';
+import { Link } from 'react-router-dom';
 import MovieIcon from '@mui/icons-material/Movie';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
+import { Avatar } from '@mui/material';
 import SquareIcon from '@mui/icons-material/Square';
 import StarsIcon from '@mui/icons-material/Stars';
-import { Avatar } from '@mui/material';
-import MuiGrid from '@mui/material/Grid';
-import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import { Box } from '@mui/system';
-import * as React from 'react';
-
-const Grid = styled(MuiGrid)(({ theme }) => ({
-  width: '100%',
-  ...theme.typography.body2,
-  '& [role="separator"]': {
-    margin: theme.spacing(0, 2),
-  },
-}));
-
-export default function News() {
-  return (
-    <div>
-      <Typography
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+const News=() => {
+    return (
+    <>
+        <Typography
         sx={{
-          margin: 2,
+          textAlign:'center',
           fontSize: 50,
           fontFamily: 'Arial',
+          backgroundColor:'#CAC7C7',
+          width:'94%',
+          transform: "translate(-50%, 0);",
+          marginLeft:'50%',
+          borderRadius:'10px',
+          marginTop:'40px'
         }}
       >
         Tin Tức
       </Typography>
-
-      <div className="News">
-        <Box
-          className="Box1"
-          sx={{
-            display: 'grid',
-            boxShadow: 3,
-            marginBottom: 1,
-            paddingLeft: 2,
-            paddingTop: 1,
-            paddingBottom: 1,
-            borderRadius: 2,
-            flexDirection: 'row',
-            alignItems: 'center',
-            background: 'White',
-          }}
-        >
+    <Container sx={{ py: 4 }} maxWidth="md">
+    <Grid container spacing={2}>
+        <Grid item xs={12} sm={6} md={6}>
+          <Link to={`subjects`} component={CardActionArea}>
+            <Card>
+        <Box>
           <Box className="title">
             <Avatar sx={{ bgcolor: 'Red', marginRight: 2 }}>
               <NewspaperIcon />
@@ -89,7 +85,6 @@ export default function News() {
             SEM, mở ra nhiều cơ hội học tập và việc làm cho sinh viên ngành Ngôn
             ngữ Anh HUTECH trong thời gian tới.
           </Grid>
-
           <Grid
             sx={{
               marginLeft: 2,
@@ -114,21 +109,7 @@ export default function News() {
             <hr></hr>
           </Grid>
         </Box>
-        <Box
-          className="Box2"
-          sx={{
-            boxShadow: 3,
-            marginBottom: 1,
-            paddingLeft: 2,
-            paddingTop: 1,
-            paddingBottom: 1,
-            borderRadius: 2,
-            flexDirection: 'row',
-            alignItems: 'center',
-            background: 'White',
-          }}
-        >
-          <Box className="title">
+        <Box className="title">
             <Avatar sx={{ bgcolor: 'Red', marginRight: 2 }}>
               <StarsIcon />
             </Avatar>
@@ -180,71 +161,63 @@ export default function News() {
             </a>
             <hr></hr>
           </Grid>
-        </Box>
-        <Box
-          className="Box3"
-          sx={{
-            marginBottom: 1,
-            paddingLeft: 2,
-            paddingTop: 1,
-            paddingBottom: 1,
-            borderRadius: 2,
-            flexDirection: 'row',
-            alignItems: 'center',
-            background: 'White',
-          }}
-        >
-          <Box className="title">
-            <Avatar sx={{ bgcolor: 'Red', marginRight: 2 }}>
-              <MovieIcon />
-            </Avatar>
-            <Typography
+            </Card>
+          </Link>
+        </Grid>
+        <Grid item xs={12} sm={6} md={6}>
+          <Link to={`subjects`} component={CardActionArea}>
+            <Card
               sx={{
-                fontSize: 19,
-                fontFamily: 'Arial',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                boxShadow: 3,
               }}
             >
-              MEDIA
-            </Typography>
-          </Box>
-          <Grid
-            sx={{
-              marginLeft: 2,
-            }}
-          >
-            <div className="video">
+                <Box className="title">
+                <Avatar sx={{ bgcolor: 'Red', marginRight: 2 }}>
+                <MovieIcon />
+                </Avatar>
+                <Typography
+                sx={{
+                    fontSize: 19,
+                    fontFamily: 'Arial',
+                }}
+                >
+                MEDIA
+                </Typography>
+                </Box>
               <div>
                 <iframe
-                  width="396"
-                  height="210"
-                  src="https://www.youtube.com/embed/GE4IAgD40CA"
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-                <br></br>
-                <a href="/">
-                  [15' hiểu ngành] Tập 2: Khám phá ngành Công nghệ thông tin
-                </a>
-              </div>
-              <div>
-                <iframe
-                  width="396"
-                  height="210"
+                  width="100%"
+                  height="275"
                   src="https://www.youtube.com/embed/L-PzpG0xVuE"
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
-                <br></br>
-                <a href="/">Teaser Cuộc thi Thiết kế áo lớp 2022</a>
               </div>
-            </div>
-          </Grid>
-        </Box>
-      </div>
-    </div>
-  );
+              <a href="/" style={{margin:"5%"}}>Teaser Cuộc thi Thiết kế áo lớp 2022</a>
+              <div className="video">
+                <div>
+                    <iframe
+                    width="100%"
+                    height="275"
+                    src="https://www.youtube.com/embed/GE4IAgD40CA"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    ></iframe> 
+                </div>
+              </div>
+              <a href="/" style={{margin:"5%"}}>[15' hiểu ngành] Tập 2: Khám phá ngành Công nghệ thông tin</a>
+            </Card>
+          </Link>
+        </Grid>
+    </Grid>
+  </Container></>
+  )
 }
+export default News
