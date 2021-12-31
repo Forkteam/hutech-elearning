@@ -1,4 +1,5 @@
 import { DataGrid } from '@mui/x-data-grid';
+import { useLocation } from 'react-router-dom';
 import CustomNoRowsOverlay from './no-rows';
 import EditToolbar from './toolbar';
 import Tooltip from './tooltip';
@@ -12,12 +13,19 @@ const DataTable = ({
   handleChangeRowsPerPage,
   setShowModal,
 }) => {
+  const location = useLocation();
   return (
     <>
       <AddModal />
       <Tooltip toast={toast} />
       <div
         style={{
+          paddingBottom:
+            (location.pathname.split('/')[1] !== 'subjects' &&
+              location.pathname.split('/')[1] !== 'news') ||
+            location.pathname.split('/')[2] !== 'lectures'
+              ? '0px'
+              : '150px',
           height: '530px',
           width: '95%',
           margin: '10px auto',

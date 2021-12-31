@@ -64,7 +64,7 @@ const Subjects = () => {
       field: 'image',
       headerName: '#',
       width: 75,
-      editable: true,
+      filterable: false,
       renderCell: (params) => (
         <img src={params.value} alt="img" style={{ width: '50px' }} />
       ),
