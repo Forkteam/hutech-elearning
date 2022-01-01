@@ -148,7 +148,7 @@ const UserSubjects = () => {
       flex: 1,
       cellClassName: 'actions',
       getActions: ({ id }) =>
-        user?.role > 2
+        user?.role > 1
           ? [
               <GridActionsCellItem
                 icon={<EditIcon />}

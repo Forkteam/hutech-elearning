@@ -41,7 +41,7 @@ const News = () => {
                     Tin HUTECH
                   </Typography>
                 </Box>
-                <a href="/">
+                <a href="https://www.hutech.edu.vn/homepage/tin-tuc/tin-hutech/14598873-hutech-va-cong-ty-co-phan-quoc-te-sem-ky-ket-hop-tac">
                   <img
                     className="img-responsive"
                     alt="HUTECH và Công ty Cổ phần Quốc tế SEM ký kết hợp tác"
@@ -77,7 +77,7 @@ const News = () => {
                   }}
                 >
                   <hr></hr>
-                  <a href="/">
+                  <a href="https://www.hutech.edu.vn/homepage/tin-tuc/tin-hutech/14598871-sinh-vien-hutech-danh-gia-ren-luyen-ca-nhan-va-cap-nhat-thong-tin-ngoai-tru-tu-03012022">
                     <Typography>
                       <SquareIcon sx={{ fontSize: 10, marginRight: 2 }} />
                       Sinh viên HUTECH đánh giá rèn luyện cá nhân và cập nhật
@@ -85,7 +85,7 @@ const News = () => {
                     </Typography>
                   </a>
                   <hr></hr>
-                  <a href="/">
+                  <a href="https://www.hutech.edu.vn/homepage/tin-tuc/tin-hutech/14598868-hutech-startup-wings-buoc-dem-vung-chac-de-sinh-vien-den-voi-cac-san-choi-khoi-nghiep-toan-quoc">
                     <Typography>
                       <SquareIcon sx={{ fontSize: 10, marginRight: 2 }} />{' '}
                       HUTECH Startup Wings - bước đệm vững chắc để sinh viên đến
@@ -113,7 +113,7 @@ const News = () => {
                   marginLeft: 2,
                 }}
               >
-                <a href="/">
+                <a href="https://www.hutech.edu.vn/tuyensinh/tin-tuc/tin-tuyen-sinh/14598540-hutech-thong-bao-tuyen-sinh-trinh-do-thac-si-nam-2021-dot-2-voi-13-chuyen-nganh">
                   <Typography>
                     <SquareIcon sx={{ fontSize: 10, marginRight: 2 }} />
                     Tuyển sinh Đào tạo trình độ Thạc sĩ năm 2021 - Đợt 2{' '}
@@ -124,7 +124,7 @@ const News = () => {
                   </Typography>
                 </a>
                 <hr></hr>
-                <a href="/">
+                <a href="https://www.hutech.edu.vn/tuyensinh/tien-si/thong-bao-tuyen-sinh">
                   <Typography>
                     <SquareIcon sx={{ fontSize: 10, marginRight: 2 }} />
                     Tuyển sinh Đào tạo trình độ Tiến sĩ năm 2021 - Đợt 1{' '}
@@ -135,7 +135,7 @@ const News = () => {
                   </Typography>
                 </a>
                 <hr></hr>
-                <a href="/">
+                <a href="https://tuyendung.hutech.edu.vn/tuyendung/Default.aspx">
                   <Typography>
                     <SquareIcon sx={{ fontSize: 10, marginRight: 2 }} />
                     Thông tin tuyển dụng{' '}
@@ -182,7 +182,10 @@ const News = () => {
                   allowFullScreen
                 ></iframe>
               </div>
-              <a href="/" style={{ margin: '5%' }}>
+              <a
+                href="https://www.youtube.com/watch?v=L-PzpG0xVuE"
+                style={{ margin: '5%' }}
+              >
                 Teaser Cuộc thi Thiết kế áo lớp 2022
               </a>
               <div className="video">
@@ -198,7 +201,10 @@ const News = () => {
                   ></iframe>
                 </div>
               </div>
-              <a href="/" style={{ margin: '5%' }}>
+              <a
+                href="https://www.youtube.com/watch?v=GE4IAgD40CA"
+                style={{ margin: '5%' }}
+              >
                 [15' hiểu ngành] Tập 2: Khám phá ngành Công nghệ thông tin
               </a>
             </Card>
