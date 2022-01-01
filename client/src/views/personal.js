@@ -1,11 +1,7 @@
 import { Box } from '@mui/system';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-
 import TextField from '@mui/material/TextField';
-
-//
-
 
 export default function Personal() {
 
@@ -54,7 +50,7 @@ export default function Personal() {
               </h4>
             </legend>
             <div className='textField'>
-              <TextField id="filled-basic" label="Họ và tên đệm*:" variant="filled" value ="Nguyễn Văn" sx={{paddingRight: 2,paddingBottom:2}} />
+              <TextField id="filled-basic" label="Họ và tên đệm*:" variant="filled" value ="Nguyễn Văn" sx={{paddingRight: 2,paddingBottom:2}}/>
               <TextField id="filled-basic" label="Tên*:" variant="filled" value ="Chuẩn" sx={{paddingRight: 2,paddingBottom:2}}/>
               <TextField id="filled-basic" label="Ngày sinh*:" variant="filled" sx={{paddingRight: 2,paddingBottom:2}}/>
               <TextField id="filled-basic" label="Email*:" variant="filled" value ="nguyenvanchuan13012001@gmail.com" sx={{paddingRight: 2,paddingBottom:2}}/>

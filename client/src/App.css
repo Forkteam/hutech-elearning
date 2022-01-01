@@ -82,7 +82,7 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: rgba(248, 1, 1, 0.781);
+  background-color: rgba(228, 225, 225, 0.781);
   width: 100%;
   border-radius: 4px;
   padding: 7px;
