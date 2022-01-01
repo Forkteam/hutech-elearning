@@ -24,7 +24,7 @@ export default function Personal() {
       <div className="div4">
         <Typography>
           <div className="row">
-            <Box>
+            <Box className = "box1">
             <h4><div className="col-md-6" sx ={{ }}> 
               Mã số sinh viên:{' '}
               <span className="font-weight-bold">1911064729</span> 
@@ -52,11 +52,41 @@ export default function Personal() {
               </h4>
             </legend>
             <div className='textField'>
-              <TextField id="filled-basic" label="Họ và tên đệm*:" variant="filled" value ="Nguyễn Văn" sx={{paddingRight: 2,paddingBottom:2}}/>
-              <TextField id="filled-basic" label="Tên*:" variant="filled" value ="Chuẩn" sx={{paddingRight: 2,paddingBottom:2}}/>
-              <TextField id="filled-basic" label="Ngày sinh*:" variant="filled" sx={{paddingRight: 2,paddingBottom:2}}/>
-              <TextField id="filled-basic" label="Email*:" variant="filled" value ="nguyenvanchuan13012001@gmail.com" sx={{paddingRight: 2,paddingBottom:2}}/>
-              <TextField id="filled-basic" label="Điện thoại*:" variant="filled" value ="0865562385" sx={{paddingRight: 2,paddingBottom:2}}/>
+              <TextField
+                required
+                id="outlined-required"
+                label="Họ và tên đệm"
+                defaultValue="Nguyễn Văn"
+                sx={{paddingRight: 2,paddingBottom:2}}
+              />
+              <TextField
+                required
+                id="outlined-required"
+                label="Tên"
+                defaultValue="Chuẩn"
+                sx={{paddingRight: 2,paddingBottom:2}}
+              />
+              <TextField
+                required
+                id="outlined-required"
+                label="Ngày sinh"
+                defaultValue="13/01/2001"
+                sx={{paddingRight: 2,paddingBottom:2}}
+              />
+              <TextField
+                required
+                id="outlined-required"
+                label="Email"
+                defaultValue="nguyenvanchuan13012001@gmail.com"
+                sx={{paddingRight: 2,paddingBottom:2}}
+              />
+              <TextField
+                required
+                id="outlined-required"
+                label="Điện thoại"
+                defaultValue="0865562385"
+                sx={{paddingRight: 2,paddingBottom:2}}
+              />
             </div>
           </fieldset>
           <div _ngcontent-c9="" class="cus_neo_div ng-star-inserted">
