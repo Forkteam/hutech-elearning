@@ -61,3 +61,5 @@ export const deleteComment = (payload) =>
 
 export const getPublicSubjects = (payload) =>
   axios.get(`${apiURL}/subjects/public-subjects`, payload);
+export const getAllPublicSubjects = (payload) =>
+  axios.get(`${apiURL}/subjects/all-public-subjects`, payload);

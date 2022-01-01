@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import TocIcon from '@mui/icons-material/Toc';
@@ -15,7 +16,11 @@ import AddModal from '../components/subjects/add-modal';
 import DataCard from '../components/subjects/data-card';
 import { AuthContext } from '../contexts/auth-context';
 import { setCurrentId, showModal } from '../redux/actions';
-import { deleteSubject, getAllSubjects } from '../redux/actions/subjects';
+import {
+  deleteSubject,
+  getAllSubjects,
+  getAllPublicSubjects,
+} from '../redux/actions/subjects';
 import { subjects$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
@@ -32,7 +37,9 @@ const Subjects = () => {
   const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
-    dispatch(getAllSubjects.getAllSubjectsRequest());
+    if (user?.isExternal)
+      dispatch(getAllPublicSubjects.getAllPublicSubjectsRequest());
+    else dispatch(getAllSubjects.getAllSubjectsRequest());
   }, [dispatch]);
 
   const handleTabChange = (event, newValue) => {
@@ -148,54 +155,53 @@ const Subjects = () => {
       minWidth: 75,
       flex: 1,
       cellClassName: 'actions',
-      getActions: ({ id }) => [
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          label="Edit"
-          className="textPrimary"
-          onClick={handleEditClick(id)}
-          color="inherit"
-        />,
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          onClick={handleDeleteClick(id)}
-          color="inherit"
-        />,
-      ],
+      getActions: ({ id }) =>
+        user?.role > 2
+          ? [
+              <GridActionsCellItem
+                icon={<EditIcon />}
+                label="Edit"
+                className="textPrimary"
+                onClick={handleEditClick(id)}
+                color="inherit"
+              />,
+              <GridActionsCellItem
+                icon={<DeleteIcon />}
+                label="Delete"
+                onClick={handleDeleteClick(id)}
+                color="inherit"
+              />,
+            ]
+          : [],
     },
   ];
 
   return (
     <>
-      <AddModal />
-      {user?.role > 1 && (
-        <Box sx={{ width: '100%' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs
-              value={value}
-              onChange={handleTabChange}
-              textColor="primary"
-              indicatorColor="primary"
-              aria-label="tabs"
-            >
-              <Tab
-                icon={<WindowIcon />}
-                iconPosition="start"
-                label="grid"
-                sx={{ minHeight: '50px' }}
-              />
-              <Tab
-                icon={<TocIcon />}
-                iconPosition="start"
-                label="table"
-                disabled={user?.role < 2}
-                sx={{ minHeight: '50px' }}
-              />
-            </Tabs>
-          </Box>
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs
+            value={value}
+            onChange={handleTabChange}
+            textColor="primary"
+            indicatorColor="primary"
+            aria-label="tabs"
+          >
+            <Tab
+              icon={<WindowIcon />}
+              iconPosition="start"
+              label="grid"
+              sx={{ minHeight: '50px' }}
+            />
+            <Tab
+              icon={<TocIcon />}
+              iconPosition="start"
+              label="table"
+              sx={{ minHeight: '50px' }}
+            />
+          </Tabs>
         </Box>
-      )}
+      </Box>
       {value === 0 && <DataCard subjects={subjects.data} />}
       {value === 1 && (
         <>

@@ -10,6 +10,12 @@ export const getAllSubjects = createActions({
   getAllSubjectsFailure: (error) => error,
 });
 
+export const getAllPublicSubjects = createActions({
+  getAllPublicSubjectsRequest: (payload) => payload,
+  getAllPublicSubjectsSuccess: (payload) => payload,
+  getAllPublicSubjectsFailure: (error) => error,
+});
+
 export const getStudentSubjects = createActions({
   getStudentSubjectsRequest: (payload) => payload,
   getStudentSubjectsSuccess: (payload) => payload,

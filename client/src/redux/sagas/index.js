@@ -29,6 +29,7 @@ import {
   updateSubject,
   getTeacherSubjects,
   getStudentSubjects,
+  getAllPublicSubjects,
 } from '../actions/subjects';
 import { createUser, deleteUser, getUsers, updateUser } from '../actions/users';
 import {
@@ -60,6 +61,7 @@ import {
   updateSubjectSaga,
   getStudentSubjectsSaga,
   getTeacherSubjectsSaga,
+  getAllPublicSubjectsSaga,
 } from './subjects';
 import {
   createUserSaga,
@@ -76,6 +78,10 @@ function* mySaga() {
   yield takeLatest(deleteIndustry.deleteIndustryRequest, deleteIndustrySaga);
 
   yield takeLatest(getAllSubjects.getAllSubjectsRequest, getAllSubjectsSaga);
+  yield takeLatest(
+    getAllPublicSubjects.getAllPublicSubjectsRequest,
+    getAllPublicSubjectsSaga
+  );
   yield takeLatest(
     getStudentSubjects.getStudentSubjectsRequest,
     getStudentSubjectsSaga

@@ -4,7 +4,7 @@ import { CircularProgress } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AddModal from '../components/industries/add-modal';
 import DataTable from '../components/overlays/data-table';
@@ -12,6 +12,7 @@ import DeleteButton from '../components/overlays/delete-button';
 import { setCurrentId, showModal } from '../redux/actions';
 import { deleteIndustry, getIndustries } from '../redux/actions/industries';
 import { industries$, toast$ } from '../redux/selectors';
+import { AuthContext } from '../contexts/auth-context';
 moment.locale('vi');
 
 const Industries = () => {
@@ -21,6 +22,9 @@ const Industries = () => {
   const industries = useSelector(industries$);
   const [open, setOpen] = useState(false);
   const [selectedId, setSelectedId] = useState('');
+  const {
+    authState: { user },
+  } = useContext(AuthContext);
 
   useEffect(() => {
     dispatch(getIndustries.getIndustriesRequest());
@@ -110,21 +114,24 @@ const Industries = () => {
       minWidth: 150,
       flex: 1,
       cellClassName: 'actions',
-      getActions: ({ id }) => [
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          label="Edit"
-          className="textPrimary"
-          onClick={handleEditClick(id)}
-          color="inherit"
-        />,
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          onClick={handleDeleteClick(id)}
-          color="inherit"
-        />,
-      ],
+      getActions: ({ id }) =>
+        user?.role > 1
+          ? [
+              <GridActionsCellItem
+                icon={<EditIcon />}
+                label="Edit"
+                className="textPrimary"
+                onClick={handleEditClick(id)}
+                color="inherit"
+              />,
+              <GridActionsCellItem
+                icon={<DeleteIcon />}
+                label="Delete"
+                onClick={handleDeleteClick(id)}
+                color="inherit"
+              />,
+            ]
+          : [],
     },
   ];
 

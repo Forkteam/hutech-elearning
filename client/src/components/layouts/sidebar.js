@@ -101,41 +101,88 @@ export const Sidebar = (props) => {
                   }}
                 />
               )}
-              <Link to={item.href}>
-                <ListItem
-                  sx={{
-                    backgroundColor:
-                      location.pathname.split('/')[1] ===
-                        item.href.split('/')[1] && 'rgba(255,255,255, 0.08)',
-                    borderRadius: 1,
-                    color:
-                      location.pathname.split('/')[1] ===
-                      item.href.split('/')[1]
-                        ? 'secondary.main'
-                        : 'neutral.300',
-                    fontWeight:
-                      location.pathname.split('/')[1] ===
-                        item.href.split('/')[1] && 'fontWeightBold',
-                    justifyContent: 'flex-start',
-                    textAlign: 'left',
-                    textTransform: 'none',
-                    width: '100%',
-                    '& .MuiButton-startIcon': {
+              {index === 4 || index === 3 ? (
+                user?.role > 1 ? (
+                  <Link to={item.href}>
+                    <ListItem
+                      sx={{
+                        backgroundColor:
+                          location.pathname.split('/')[1] ===
+                            item.href.split('/')[1] &&
+                          'rgba(255,255,255, 0.08)',
+                        borderRadius: 1,
+                        color:
+                          location.pathname.split('/')[1] ===
+                          item.href.split('/')[1]
+                            ? 'secondary.main'
+                            : 'neutral.300',
+                        fontWeight:
+                          location.pathname.split('/')[1] ===
+                            item.href.split('/')[1] && 'fontWeightBold',
+                        justifyContent: 'flex-start',
+                        textAlign: 'left',
+                        textTransform: 'none',
+                        width: '100%',
+                        '& .MuiButton-startIcon': {
+                          color:
+                            location.pathname.split('/')[1] ===
+                            item.href.split('/')[1]
+                              ? 'secondary.main'
+                              : 'neutral.400',
+                        },
+                        '&:hover': {
+                          backgroundColor: 'rgba(255,255,255, 0.08)',
+                        },
+                      }}
+                    >
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText sx={{ flexGrow: 1 }}>
+                        {item.title}
+                      </ListItemText>
+                    </ListItem>
+                  </Link>
+                ) : (
+                  <></>
+                )
+              ) : (
+                <Link to={item.href}>
+                  <ListItem
+                    sx={{
+                      backgroundColor:
+                        location.pathname.split('/')[1] ===
+                          item.href.split('/')[1] && 'rgba(255,255,255, 0.08)',
+                      borderRadius: 1,
                       color:
                         location.pathname.split('/')[1] ===
                         item.href.split('/')[1]
                           ? 'secondary.main'
-                          : 'neutral.400',
-                    },
-                    '&:hover': {
-                      backgroundColor: 'rgba(255,255,255, 0.08)',
-                    },
-                  }}
-                >
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText sx={{ flexGrow: 1 }}>{item.title}</ListItemText>
-                </ListItem>
-              </Link>
+                          : 'neutral.300',
+                      fontWeight:
+                        location.pathname.split('/')[1] ===
+                          item.href.split('/')[1] && 'fontWeightBold',
+                      justifyContent: 'flex-start',
+                      textAlign: 'left',
+                      textTransform: 'none',
+                      width: '100%',
+                      '& .MuiButton-startIcon': {
+                        color:
+                          location.pathname.split('/')[1] ===
+                          item.href.split('/')[1]
+                            ? 'secondary.main'
+                            : 'neutral.400',
+                      },
+                      '&:hover': {
+                        backgroundColor: 'rgba(255,255,255, 0.08)',
+                      },
+                    }}
+                  >
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText sx={{ flexGrow: 1 }}>
+                      {item.title}
+                    </ListItemText>
+                  </ListItem>
+                </Link>
+              )}
             </Fragment>
           ))}
         </Box>

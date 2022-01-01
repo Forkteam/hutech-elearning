@@ -9,6 +9,7 @@ import {
   updateSubject,
   getTeacherSubjects,
   getStudentSubjects,
+  getAllPublicSubjects,
 } from '../actions/subjects';
 import { INIT_STATE } from './state';
 
@@ -33,6 +34,19 @@ export default function subjectsReducers(state = INIT_STATE.subjects, action) {
       return {
         ...state,
         loading: false,
+      };
+
+    case getType(getAllPublicSubjects.getAllPublicSubjectsRequest()):
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case getType(getAllPublicSubjects.getAllPublicSubjectsSuccess()):
+      return {
+        ...state,
+        loading: false,
+        data: payload,
       };
 
     case getType(getTeacherSubjects.getTeacherSubjectsSuccess()):

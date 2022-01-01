@@ -17,11 +17,12 @@ import {
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentId, showToast } from '../../redux/actions';
 import { createComment, getComments } from '../../redux/actions/comments';
 import { comments$, currentId$ } from '../../redux/selectors';
+import { AuthContext } from '../../contexts/auth-context';
 moment.locale('vi');
 
 const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
@@ -33,6 +34,9 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
     lectureId: '',
   });
   const { content } = newComment;
+  const {
+    authState: { user },
+  } = useContext(AuthContext);
 
   useEffect(() => {
     dispatch(getComments.getCommentsRequest(lectureId));
@@ -148,26 +152,32 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
       <Typography variant="h6" component="h6" sx={{ mt: 4, mb: 1, ml: 4 }}>
         Bình luận
       </Typography>
-      <Box
-        component="form"
-        onSubmit={onSubmit}
-        sx={{ width: '98%', m: 'auto' }}
-      >
-        <TextField
-          margin="dense"
-          multiline
-          rows={4}
-          required
-          fullWidth
-          label="Đừng ngại để lại bình luận"
-          name="content"
-          value={content}
-          onChange={onChangeNewCommentForm}
-        />
-        <Button type="submit" variant="outlined" sx={{ mb: 2, float: 'right' }}>
-          Gửi bình luận
-        </Button>
-      </Box>
+      {!user?.isExternal && (
+        <Box
+          component="form"
+          onSubmit={onSubmit}
+          sx={{ width: '98%', m: 'auto' }}
+        >
+          <TextField
+            margin="dense"
+            multiline
+            rows={4}
+            required
+            fullWidth
+            label="Đừng ngại để lại bình luận"
+            name="content"
+            value={content}
+            onChange={onChangeNewCommentForm}
+          />
+          <Button
+            type="submit"
+            variant="outlined"
+            sx={{ mb: 2, float: 'right' }}
+          >
+            Gửi bình luận
+          </Button>
+        </Box>
+      )}
       <Divider variant="inset" />
       <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
         {commentsComponent}

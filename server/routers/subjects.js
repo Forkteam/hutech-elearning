@@ -9,7 +9,8 @@ import {
   getTeacherSubjects,
   removeStudent,
   updateSubject,
-  getPublicSubjects
+  getPublicSubjects,
+  getAllPublicSubjects
 } from '../controllers/subjects.js';
 import authTeacher from '../middleware/auth-teacher.js';
 import verifyToken from '../middleware/auth.js';
@@ -17,6 +18,7 @@ import verifyToken from '../middleware/auth.js';
 const router = express.Router();
 
 router.get('/public-subjects', getPublicSubjects);
+router.get('/all-public-subjects', getAllPublicSubjects);
 router.get('/all-subjects', verifyToken, getAllSubjects);
 router.get('/student-subjects/:id', verifyToken, getStudentSubjects);
 router.get('/teacher-subjects/:id', verifyToken, getTeacherSubjects);

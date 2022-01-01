@@ -5,7 +5,7 @@ import { CircularProgress } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DataTable from '../components/overlays/data-table';
 import DeleteButton from '../components/overlays/delete-button';
@@ -13,6 +13,8 @@ import AddModal from '../components/students/add-modal';
 import { setCurrentId, showModal } from '../redux/actions';
 import { deleteUser, getUsers } from '../redux/actions/users';
 import { students$, toast$ } from '../redux/selectors';
+import { Redirect } from 'react-router-dom';
+import { AuthContext } from '../contexts/auth-context';
 moment.locale('vi');
 
 const Students = () => {
@@ -22,6 +24,9 @@ const Students = () => {
   const students = useSelector(students$);
   const [open, setOpen] = useState(false);
   const [selectedId, setSelectedId] = useState('');
+  const {
+    authState: { user },
+  } = useContext(AuthContext);
 
   useEffect(() => {
     dispatch(getUsers.getUsersRequest(1));
@@ -35,6 +40,9 @@ const Students = () => {
     setRowsPerPage(newPageSize);
   };
 
+  if (user?.role < 2) {
+    return <Redirect to="/404" />;
+  }
   if (students.loading) {
     return (
       <div
@@ -147,21 +155,24 @@ const Students = () => {
       minWidth: 100,
       flex: 1,
       cellClassName: 'actions',
-      getActions: ({ id }) => [
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          label="Edit"
-          className="textPrimary"
-          onClick={handleEditClick(id)}
-          color="inherit"
-        />,
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          onClick={handleDeleteClick(id)}
-          color="inherit"
-        />,
-      ],
+      getActions: ({ id }) =>
+        user?.role > 2
+          ? [
+              <GridActionsCellItem
+                icon={<EditIcon />}
+                label="Edit"
+                className="textPrimary"
+                onClick={handleEditClick(id)}
+                color="inherit"
+              />,
+              <GridActionsCellItem
+                icon={<DeleteIcon />}
+                label="Delete"
+                onClick={handleDeleteClick(id)}
+                color="inherit"
+              />,
+            ]
+          : [],
     },
   ];
 

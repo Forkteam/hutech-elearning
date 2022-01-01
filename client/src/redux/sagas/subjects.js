@@ -11,6 +11,7 @@ import {
   subscribeSubject,
   unsubscribeSubject,
   updateSubject,
+  getAllPublicSubjects,
 } from '../actions/subjects';
 
 export function* getAllSubjectsSaga(action) {
@@ -28,6 +29,28 @@ export function* getAllSubjectsSaga(action) {
       })
     );
     yield put(getAllSubjects.getAllSubjectsFailure(error.response.data));
+  }
+}
+
+export function* getAllPublicSubjectsSaga(action) {
+  try {
+    const response = yield call(api.getAllPublicSubjects, action.payload);
+    yield put(
+      getAllPublicSubjects.getAllPublicSubjectsSuccess(response.data.subjects)
+    );
+  } catch (error) {
+    console.log(error);
+    yield put(
+      showToast({
+        message: error.response.data.message
+          ? error.response.data.message
+          : 'Server error',
+        type: error.response.data.success ? 'error' : 'error',
+      })
+    );
+    yield put(
+      getAllPublicSubjects.getAllPublicSubjectsFailure(error.response.data)
+    );
   }
 }
 

@@ -137,6 +137,8 @@ const AddModal = () => {
         })
       );
     }
+    dispatch(hideModal());
+    if (currentId.id !== 0) dispatch(setCurrentId(0));
   };
 
   return (
@@ -208,7 +210,6 @@ const AddModal = () => {
             type="file"
             accept="image/*"
             multiple={false}
-            required
             fullWidth
             variant="standard"
             label="Ảnh"

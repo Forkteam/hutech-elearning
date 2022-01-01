@@ -13,6 +13,16 @@ export const getPublicSubjects = async (_, res) => {
   }
 };
 
+export const getAllPublicSubjects = async (_, res) => {
+  try {
+    const subjects = await SubjectModel.find({ status: PUBLIC });
+    return res.status(200).json({ success: true, subjects });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
+  }
+};
+
 export const getAllSubjects = async (_, res) => {
   try {
     const subjects = await SubjectModel.find().populate([
@@ -128,7 +138,7 @@ export const createSubject = async (req, res) => {
 };
 
 export const updateSubject = async (req, res) => {
-  const { name, description, image } = req.body;
+  const { name, description, image, id } = req.body;
   if (!name || !description || !image)
     return res
       .status(400)
