@@ -102,9 +102,12 @@ const Students = () => {
     { field: 'code', headerName: 'Mã sinh viên', minWidth: 140, flex: 1 },
     {
       field: 'isExternal',
-      headerName: 'isExternal',
+      headerName: 'Loại',
       minWidth: 100,
       flex: 1,
+      valueGetter: (param) => {
+        return param.value ? 'Khách' : 'Sinh viên';
+      },
     },
     {
       field: 'birthday',
