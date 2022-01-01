@@ -30,7 +30,7 @@ const schema = new mongoose.Schema(
     fullName: String,
     avatar: String,
     birthday: Date,
-    isExternal: Boolean,
+    isExternal: { type: Boolean, default: false },
     subjectIds: [
       {
         type: mongoose.Schema.Types.ObjectId,

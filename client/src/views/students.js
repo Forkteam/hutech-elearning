@@ -105,9 +105,6 @@ const Students = () => {
       headerName: 'isExternal',
       minWidth: 100,
       flex: 1,
-      valueGetter: (param) => {
-        return param?.value ? 'true' : 'false';
-      },
     },
     {
       field: 'birthday',

@@ -99,7 +99,13 @@ export const activate = async (req, res) => {
         .json({ success: false, message: 'Người dùng không tồn tại.' });
 
     const { username, email, password, fullName } = user;
-    const newUser = new UserModel({ username, email, password, fullName });
+    const newUser = new UserModel({
+      username,
+      email,
+      password,
+      fullName,
+      isExternal: true
+    });
     await newUser.save();
 
     const emailContent = welcomeMail();
@@ -191,12 +197,10 @@ export const resetPassword = async (req, res) => {
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     if (decoded.userId !== id)
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: 'Token không hợp lệ hoặc đã hết hạn.'
-        });
+      return res.status(400).json({
+        success: false,
+        message: 'Token không hợp lệ hoặc đã hết hạn.'
+      });
     const hashedPassword = await argon2.hash(password);
     const user = await UserModel.findOneAndUpdate(
       { _id: id },

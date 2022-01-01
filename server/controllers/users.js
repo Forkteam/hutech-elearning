@@ -28,14 +28,18 @@ export const createUser = async (req, res) => {
       .json({ success: false, message: 'Vui lòng điền đầy đủ thông tin.' });
 
   try {
-    const validUsername = await UserModel.findOne({ username });
+    const validUsername = await UserModel.findOne({
+      $and: [{ _id: { $ne: req.params.id } }, { username }]
+    });
     if (validUsername)
       return res
         .status(400)
         .json({ success: false, message: 'Tên người dùng đã tồn tại.' });
     if (req.body.email) {
       const { email } = req.body;
-      const validEmail = await UserModel.findOne({ email });
+      const validEmail = await UserModel.findOne({
+        $and: [{ _id: { $ne: req.params.id } }, { email }]
+      });
       if (validEmail)
         return res.status(400).json({
           success: false,
