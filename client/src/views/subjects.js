@@ -140,7 +140,7 @@ const Subjects = () => {
     },
     {
       field: 'updatedAt',
-      headerName: 'Cập nhật lần cuối',
+      headerName: 'Lần cuối cập nhật',
       type: 'dateTime',
       minWidth: 100,
       flex: 1,

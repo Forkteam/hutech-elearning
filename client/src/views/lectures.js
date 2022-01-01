@@ -92,7 +92,7 @@ const Lectures = () => {
   const columns = [
     {
       field: 'title',
-      headerName: 'Tên',
+      headerName: 'Bài học',
       minWidth: 200,
       flex: 1,
       renderCell: (params) => (
@@ -120,7 +120,7 @@ const Lectures = () => {
     },
     {
       field: 'updatedAt',
-      headerName: 'Cập nhật lần cuối',
+      headerName: 'Lần cuối cập nhật',
       type: 'dateTime',
       minWidth: 150,
       flex: 1,
@@ -180,7 +180,7 @@ const Lectures = () => {
             {moment(subjects.singleSubject?.createdAt ?? '2001-01-21').format(
               'lll'
             )}{' '}
-            - Cập nhật lần cuối:{' '}
+            - Lần cuối cập nhật:{' '}
             {moment(subjects.singleSubject?.updatedAt ?? '2001-01-21').format(
               'lll'
             )}

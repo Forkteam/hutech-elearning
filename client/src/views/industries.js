@@ -99,7 +99,7 @@ const Industries = () => {
     },
     {
       field: 'updatedAt',
-      headerName: 'Cập nhật lần cuối',
+      headerName: 'Lần cuối cập nhật',
       type: 'dateTime',
       minWidth: 150,
       flex: 1,
