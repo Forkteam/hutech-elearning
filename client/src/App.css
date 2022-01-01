@@ -95,7 +95,7 @@ a {
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 10px;
   height: auto;
-  background-color: rgba(211, 211, 211, 0.555);
+  background-color: rgb(211, 211, 211);
 }
 .personal .div1 {
   margin: 20px;
@@ -113,8 +113,7 @@ a {
   margin: 10px 0 0 10px;
   background: rgba(157, 253, 157, 0.678);
   justify-content: center;
-  padding-left: 20px;
-  padding-top: 20px;
+  padding: 20px;
   font-family: Arial, Helvetica, sans-serif;
   color: green;
   border-radius: 10px;
