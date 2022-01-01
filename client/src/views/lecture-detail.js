@@ -101,7 +101,7 @@ const LectureDetail = () => {
             {moment(lectures.singleLecture?.createdAt ?? '2001-01-21').format(
               'lll'
             )}{' '}
-            - Cập nhật lần cuối{' '}
+            - Lần cuối cập nhật{' '}
             {moment(lectures.singleLecture?.updatedAt ?? '2001-01-21').format(
               'lll'
             )}
