@@ -199,7 +199,7 @@ export function* unsubscribeSubjectSaga(action) {
 export function* updateSubjectSaga(action) {
   try {
     const response = yield call(api.updateSubject, action.payload);
-    yield put(updateSubject.updateSubjectSuccess(response.data.subject));
+    yield put(updateSubject.updateSubjectSuccess(response.data.updatedSubject));
     yield put(hideModal());
     yield put(setCurrentId(0));
     yield put(
@@ -225,7 +225,7 @@ export function* updateSubjectSaga(action) {
 export function* deleteSubjectSaga(action) {
   try {
     const response = yield call(api.deleteSubject, action.payload);
-    yield put(deleteSubject.deleteSubjectSuccess(response.data.subject));
+    yield put(deleteSubject.deleteSubjectSuccess(response.data.deletedSubject));
     yield put(hideModal());
     yield put(setCurrentId(0));
     yield put(

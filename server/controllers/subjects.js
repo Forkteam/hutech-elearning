@@ -5,7 +5,7 @@ import { PUBLIC } from '../enums/status.js';
 
 export const getPublicSubjects = async (_, res) => {
   try {
-    const subjects = await SubjectModel.find({ status: PUBLIC }).limit(8);
+    const subjects = await SubjectModel.find({ status: PUBLIC }).limit(9);
     return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);
