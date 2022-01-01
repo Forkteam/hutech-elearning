@@ -64,6 +64,9 @@ a {
   grid-row: 1/4;
   padding-right: 20px;
 }
+.News .Box2 {
+  padding-right: 20px;
+}
 .News .Box3 {
   grid-row: 2/4;
   padding-right: 20px;
@@ -137,7 +140,6 @@ a {
 }
 .personal .div4 fieldset{
   border-radius: 10px;
-  
 }
 .personal .div4 .cus_neo_div {
   position: fixed;

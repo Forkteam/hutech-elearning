@@ -24,6 +24,7 @@ export default function Personal() {
       <div className="div4">
         <Typography>
           <div className="row">
+            <Box>
             <h4><div className="col-md-6" sx ={{ }}> 
               Mã số sinh viên:{' '}
               <span className="font-weight-bold">1911064729</span> 
@@ -42,6 +43,7 @@ export default function Personal() {
               Email: <span>nguyenvanchuan13012001@gmail.com</span>
             </div>
             </h4>
+            </Box>
           </div>
           <fieldset>
             <legend>
