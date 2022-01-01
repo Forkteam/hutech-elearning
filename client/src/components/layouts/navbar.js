@@ -81,7 +81,7 @@ export const Navbar = (props) => {
           </IconButton>
         </Tooltip> */}
         <Box>
-          <Tooltip title="Open settings">
+          <Tooltip title="Mở cài đặt">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar
                 alt={username}

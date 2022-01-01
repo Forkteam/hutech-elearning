@@ -119,7 +119,7 @@ const Comments = () => {
       commentsComponent = (
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
           <Typography variant="body1" color="text.primary">
-            Chua co binh luan
+            Chưa có bình luận
           </Typography>
         </div>
       );
