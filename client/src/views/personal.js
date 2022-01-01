@@ -1,4 +1,10 @@
 import { Box } from '@mui/system';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+
+import TextField from '@mui/material/TextField';
+
+//
 
 export default function Personal() {
   return (
@@ -18,79 +24,45 @@ export default function Personal() {
         </Box>
       </div>
       <div className="div4">
-        <div className="row ng-star-inserted"></div>
-        <section className="col-md-9 jarviswidget jarviswidget-sortable jarviswidget-color-blueDark pr-2">
-          <div className="widget-body">
-            <form
-              className="form-horizontal ng-untouched ng-pristine ng-valid"
-              noValidate=""
-            >
-              <div className="row">
-                <div className="col-md-6">
-                  Mã số sinh viên:{' '}
-                  <span className="font-weight-bold">1911064729</span>
-                </div>
-                <div className="col-md-6">
-                  Họ tên:{' '}
-                  <span className="font-weight-bold">Nguyễn Văn Chuẩn</span>
-                </div>
-              </div>
-
-              <div className="row mt-2">
-                <div className="col-md-6">
-                  Ngày sinh: <span>13-01-2001</span>
-                </div>
-              </div>
-
-              <div className="row mt-4">
-                <fieldset>
-                  <legend>
-                    <h6 className="font-weight-bold ml-3 my-0">
-                      THÔNG TIN SINH VIÊN
-                    </h6>
-                  </legend>
-                  <div className="col-md-12">
-                    <div className="row form-group">
-                      <div className="row form-group">
-                        <div className="col-md-2">
-                          <label className="control-label">
-                            Email
-                            <span className="text-danger">(*)</span>:{' '}
-                          </label>
-                        </div>
-                        <div className="col-md-4">
-                          <input
-                            className="form-control ng-untouched ng-pristine ng-valid"
-                            name="email"
-                            type="text"
-                          ></input>
-                        </div>
-                        <div className="col-md-2"></div>
-                        <div className="col-md-4"></div>
-                      </div>
-
-                      <div className="row form-group">
-                        <div className="col-md-2">
-                          <label className="control-label">
-                            Điện thoại
-                            <span className="text-danger">(*)</span>:{' '}
-                          </label>
-                        </div>
-                        <div className="col-md-4">
-                          <input
-                            className="form-control ng-untouched ng-pristine ng-valid"
-                            name="dien_thoai"
-                            type="text"
-                          ></input>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-            </form>
+        <Typography>
+          <div className="row">
+            <h4><div className="col-md-6" sx ={{ }}> 
+              Mã số sinh viên:{' '}
+              <span className="font-weight-bold">1911064729</span> 
+            </div>
+            <div className="col-md-6">
+              Họ tên:{' '}
+              <span className="font-weight-bold">Nguyễn Văn Chuẩn</span>
+            </div>
+            <div className="col-md-6">
+              Ngày sinh: <span>13-01-2001</span>
+            </div>
+            <div className="col-md-6">
+              Điện thoại: <span>0865562385</span>
+            </div>
+            <div className="col-md-6">
+              Email: <span>nguyenvanchuan13012001@gmail.com</span>
+            </div>
+            </h4>
           </div>
-        </section>
+          <fieldset>
+            <legend>
+              <h4 className="font-weight-bold ml-3 my-0">
+                THÔNG TIN SINH VIÊN
+              </h4>
+            </legend>
+            <div className='textField'>
+              <TextField id="filled-basic" label="Họ và tên đệm*:" variant="filled" sx={{paddingRight: 2,paddingBottom:2}} />
+              <TextField id="filled-basic" label="Tên*:" variant="filled" sx={{paddingRight: 2,paddingBottom:2}}/>
+              <TextField id="filled-basic" label="Ngày sinh*:" variant="filled" sx={{paddingRight: 2,paddingBottom:2}}/>
+              <TextField id="filled-basic" label="Email*:" variant="filled" sx={{paddingRight: 2,paddingBottom:2}}/>
+              <TextField id="filled-basic" label="Điện thoại*:" variant="filled" sx={{paddingRight: 2,paddingBottom:2}}/>
+            </div>
+          </fieldset>
+          <div _ngcontent-c9="" class="cus_neo_div ng-star-inserted">
+            <button _ngcontent-c9="" class="btn btn-primary" type="button" sx ={{background: 'rgba(23, 102, 171, 0.49)'}}>Lưu thông tin</button>
+          </div>
+        </Typography>
       </div>
     </div>
   );
