@@ -50,10 +50,14 @@ const DataCard = ({ subjects }) => {
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Typography gutterBottom variant="h5" component="h5">
-                        {item.name}
+                        {item.name.length > 14
+                          ? `${item.name.slice(0, 14)}...`
+                          : item.name}
                       </Typography>
                       <Typography>
-                        {item.description.slice(0, 100)}...
+                        {item.description.length > 100
+                          ? `${item.description.slice(0, 100)}...`
+                          : item.description}
                       </Typography>
                     </CardContent>
                   </Card>

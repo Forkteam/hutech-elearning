@@ -22,6 +22,7 @@ import Transition from '../overlays/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();
+  const [alert, setAlert] = useState(null);
   const modal = useSelector(modal$);
   const currentId = useSelector(currentId$);
   const industries = useSelector(industries$);
@@ -49,7 +50,7 @@ const AddModal = () => {
         name: '',
       });
     }
-  }, [currentId.id, dispatch]);
+  }, [currentId, dispatch]);
 
   const onChangeNewIndustryForm = (event) =>
     setNewIndustry({ ...newIndustry, [event.target.name]: event.target.value });
@@ -65,6 +66,15 @@ const AddModal = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    if (!code || !name) {
+      setAlert({
+        type: 'warning',
+        message: 'Mã ngành hoặc tên ngành bị bỏ trống.',
+      });
+      setTimeout(() => setAlert(null), 5000);
+      return;
+    }
+    setAlert(null);
     if (currentId.id === 0) {
       dispatch(createIndustry.createIndustryRequest(newIndustry));
       dispatch(
@@ -93,7 +103,8 @@ const AddModal = () => {
     <Dialog TransitionComponent={Transition} open={modal.show} scroll="body">
       <DialogTitle>{currentId.id === 0 ? 'THÊM' : 'CHỈNH SỬA'}</DialogTitle>
       <DialogContent dividers>
-        <AlertMessage info={toast} />
+        {alert && <AlertMessage info={alert} />}
+        {!alert && <AlertMessage info={toast} />}
         <TextField
           margin="dense"
           label="Mã ngành"

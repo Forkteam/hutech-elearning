@@ -8,8 +8,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AddModal from '../components/industries/add-modal';
 import DataTable from '../components/overlays/data-table';
-import { showModal, setCurrentId } from '../redux/actions';
-import { getIndustries, deleteIndustry } from '../redux/actions/industries';
+import DeleteButton from '../components/overlays/delete-button';
+import { setCurrentId, showModal } from '../redux/actions';
+import { deleteIndustry, getIndustries } from '../redux/actions/industries';
 import { industries$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
@@ -18,6 +19,8 @@ const Industries = () => {
   const [rowsPerPage, setRowsPerPage] = useState(7);
   const toast = useSelector(toast$);
   const industries = useSelector(industries$);
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
     dispatch(getIndustries.getIndustriesRequest());
@@ -53,7 +56,19 @@ const Industries = () => {
 
   const handleDeleteClick = (id) => (event) => {
     event.stopPropagation();
+    setSelectedId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setSelectedId('');
+    setOpen(false);
+  };
+
+  const handleAgree = (id) => {
     dispatch(deleteIndustry.deleteIndustryRequest(id));
+    setSelectedId('');
+    setOpen(false);
   };
 
   const columns = [
@@ -114,15 +129,23 @@ const Industries = () => {
   ];
 
   return (
-    <DataTable
-      component={AddModal}
-      toast={toast}
-      data={industries.data}
-      columns={columns}
-      rowsPerPage={rowsPerPage}
-      handleChangeRowsPerPage={handleChangeRowsPerPage}
-      setShowModal={setShowModal}
-    />
+    <>
+      <DeleteButton
+        open={open}
+        id={selectedId}
+        handleClose={handleClose}
+        handleAgree={handleAgree}
+      />
+      <DataTable
+        component={AddModal}
+        toast={toast}
+        data={industries.data}
+        columns={columns}
+        rowsPerPage={rowsPerPage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
+        setShowModal={setShowModal}
+      />
+    </>
   );
 };
 

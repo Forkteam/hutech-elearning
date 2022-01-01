@@ -73,13 +73,10 @@ export const Navbar = (props) => {
         >
           <MenuIcon fontSize="small" />
         </IconButton>
-        <img alt="HUTECH" src={LogoHutech} width="150px" />
+        <Link to="/">
+          <img alt="HUTECH" src={LogoHutech} width="150px" />
+        </Link>
         <Box sx={{ flexGrow: 1 }} />
-        {/* <Tooltip title="Search">
-          <IconButton sx={{ mr: 1 }}>
-            <SearchIcon fontSize="small" />
-          </IconButton>
-        </Tooltip> */}
         <Box>
           <Tooltip title="Mở cài đặt">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

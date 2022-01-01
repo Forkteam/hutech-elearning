@@ -16,16 +16,17 @@ export const getIndustries = async (req, res) => {
 export const createIndustry = async (req, res) => {
   const { code, name } = req.body;
   if (!code || !name)
-    return res
-      .status(400)
-      .json({ success: false, message: 'Mã khoa hoặc tên khoa bị bỏ trống.' });
+    return res.status(400).json({
+      success: false,
+      message: 'Mã ngành hoặc tên ngành bị bỏ trống.'
+    });
 
   try {
     const industryCodeExisted = await IndustryModel.findOne({ code });
     if (industryCodeExisted)
       return res
         .status(400)
-        .json({ success: false, message: 'Mã khoa đã tồn tại.' });
+        .json({ success: false, message: 'Mã ngành đã tồn tại.' });
 
     const newIndustry = req.body;
     let industry = new IndustryModel({
@@ -47,9 +48,10 @@ export const createIndustry = async (req, res) => {
 export const updateIndustry = async (req, res) => {
   const { code, name } = req.body;
   if (!code || !name)
-    return res
-      .status(400)
-      .json({ success: false, message: 'Mã khoa hoặc tên khoa bị bỏ trống.' });
+    return res.status(400).json({
+      success: false,
+      message: 'Mã ngành hoặc tên ngành bị bỏ trống.'
+    });
 
   try {
     const industryCodeExisted = await IndustryModel.findOne({
@@ -58,7 +60,7 @@ export const updateIndustry = async (req, res) => {
     if (industryCodeExisted)
       return res
         .status(400)
-        .json({ success: false, message: 'Mã khoa đã tồn tại.' });
+        .json({ success: false, message: 'Mã ngành đã tồn tại.' });
 
     const updateIndustry = req.body;
     const industry = await IndustryModel.findOneAndUpdate(

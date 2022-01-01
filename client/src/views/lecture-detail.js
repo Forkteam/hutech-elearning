@@ -2,12 +2,17 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
 import moment from 'moment';
 import 'moment/locale/vi';
-import { useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { AuthContext } from '../contexts/auth-context';
 import BackButton from '../components/layouts/back-button';
+import CommentModal from '../components/lectures/comment-modal';
 import Comments from '../components/lectures/comments';
+import DeleteButton from '../components/overlays/delete-button';
 import Tooltip from '../components/overlays/tooltip';
+import { setCurrentId } from '../redux/actions';
+import { deleteComment } from '../redux/actions/comments';
 import { getLectureDetail } from '../redux/actions/lectures';
 import { lectures$, toast$ } from '../redux/selectors';
 moment.locale('vi');
@@ -17,10 +22,35 @@ const LectureDetail = () => {
   const { id: lectureId } = useParams();
   const toast = useSelector(toast$);
   const lectures = useSelector(lectures$);
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState('');
+  const {
+    authState: { user },
+  } = useContext(AuthContext);
 
   useEffect(() => {
     dispatch(getLectureDetail.getLectureDetailRequest(lectureId));
   }, [dispatch]);
+
+  const handleEditClick = (id) => {
+    dispatch(setCurrentId(id));
+  };
+
+  const handleDeleteClick = (id) => {
+    setSelectedId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setSelectedId('');
+    setOpen(false);
+  };
+
+  const handleAgree = (id) => {
+    dispatch(deleteComment.deleteCommentRequest(id));
+    setSelectedId('');
+    setOpen(false);
+  };
 
   if (lectures.loading) {
     return (
@@ -39,6 +69,13 @@ const LectureDetail = () => {
 
   return (
     <>
+      <DeleteButton
+        open={open}
+        id={selectedId}
+        handleClose={handleClose}
+        handleAgree={handleAgree}
+      />
+      <CommentModal lectureId={lectureId} />
       <Tooltip toast={toast} />
       <BackButton />
       <Box
@@ -88,7 +125,12 @@ const LectureDetail = () => {
           type="application/pdf"
           height="800px"
         />
-        <Comments />
+        <Comments
+          role={user.role}
+          lectureId={lectureId}
+          handleEditClick={handleEditClick}
+          handleDeleteClick={handleDeleteClick}
+        />
       </Box>
     </>
   );

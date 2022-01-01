@@ -14,6 +14,14 @@ export function* getIndustriesSaga(action) {
     yield put(getIndustries.getIndustriesSuccess(response.data.industries));
   } catch (error) {
     console.log(error);
+    yield put(
+      showToast({
+        message: error.response.data.message
+          ? error.response.data.message
+          : 'Server error',
+        type: error.response.data.success ? 'error' : 'error',
+      })
+    );
     yield put(getIndustries.getIndustriesFailure(error.response.data));
   }
 }

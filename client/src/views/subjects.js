@@ -10,11 +10,12 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DataTable from '../components/overlays/data-table';
+import DeleteButton from '../components/overlays/delete-button';
 import AddModal from '../components/subjects/add-modal';
 import DataCard from '../components/subjects/data-card';
 import { AuthContext } from '../contexts/auth-context';
-import { showModal } from '../redux/actions';
-import { getAllSubjects } from '../redux/actions/subjects';
+import { setCurrentId, showModal } from '../redux/actions';
+import { deleteSubject, getAllSubjects } from '../redux/actions/subjects';
 import { subjects$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
@@ -27,6 +28,8 @@ const Subjects = () => {
   const {
     authState: { user },
   } = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
     dispatch(getAllSubjects.getAllSubjectsRequest());
@@ -59,6 +62,28 @@ const Subjects = () => {
     );
   }
 
+  const handleEditClick = (id) => (event) => {
+    event.stopPropagation();
+    dispatch(setCurrentId(id));
+  };
+
+  const handleDeleteClick = (id) => (event) => {
+    event.stopPropagation();
+    setSelectedId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setSelectedId('');
+    setOpen(false);
+  };
+
+  const handleAgree = (id) => {
+    dispatch(deleteSubject.deleteSubjectRequest(id));
+    setSelectedId('');
+    setOpen(false);
+  };
+
   const columns = [
     {
       field: 'image',
@@ -78,7 +103,6 @@ const Subjects = () => {
         <Link to={`subjects/${params.id}`}>{params.value}</Link>
       ),
     },
-    // { field: 'description', headerName: 'Mô tả', minWidth: 250, flex: 1 },
     {
       field: 'industryId',
       headerName: 'Ngành',
@@ -129,11 +153,13 @@ const Subjects = () => {
           icon={<EditIcon />}
           label="Edit"
           className="textPrimary"
+          onClick={handleEditClick(id)}
           color="inherit"
         />,
         <GridActionsCellItem
           icon={<DeleteIcon />}
           label="Delete"
+          onClick={handleDeleteClick(id)}
           color="inherit"
         />,
       ],
@@ -172,15 +198,23 @@ const Subjects = () => {
       )}
       {value === 0 && <DataCard subjects={subjects.data} />}
       {value === 1 && (
-        <DataTable
-          component={AddModal}
-          toast={toast}
-          data={subjects.data}
-          columns={columns}
-          rowsPerPage={rowsPerPage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-          setShowModal={setShowModal}
-        />
+        <>
+          <DeleteButton
+            open={open}
+            id={selectedId}
+            handleClose={handleClose}
+            handleAgree={handleAgree}
+          />
+          <DataTable
+            component={AddModal}
+            toast={toast}
+            data={subjects.data}
+            columns={columns}
+            rowsPerPage={rowsPerPage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+            setShowModal={setShowModal}
+          />
+        </>
       )}
     </>
   );

@@ -17,12 +17,10 @@ export const getComments = async (req, res) => {
 export const createComment = async (req, res) => {
   const { content, lectureId } = req.body;
   if (!content || !lectureId)
-    return res
-      .status(400)
-      .json({
-        success: false,
-        message: 'Thiếu nội dung bình luận hoặc mã tài liệu'
-      });
+    return res.status(400).json({
+      success: false,
+      message: 'Thiếu nội dung bình luận hoặc mã tài liệu'
+    });
 
   try {
     const newComment = req.body;
@@ -55,20 +53,18 @@ export const updateComment = async (req, res) => {
       { _id: req.params.id },
       updateComment,
       { new: true }
-    ).populate('user', ['fullName']);
+    ).populate('user', ['fullName', 'avatar']);
 
     if (!comment)
       return res
         .status(404)
         .json({ success: false, message: 'Không tìm thấy bình luận.' });
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: 'Cập nhật bình luận thành công!',
-        comment
-      });
+    res.status(200).json({
+      success: true,
+      message: 'Cập nhật bình luận thành công!',
+      comment
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });

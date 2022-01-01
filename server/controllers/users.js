@@ -37,17 +37,15 @@ export const createUser = async (req, res) => {
       const { email } = req.body;
       const validEmail = await UserModel.findOne({ email });
       if (validEmail)
-        return res
-          .status(400)
-          .json({
-            success: false,
-            message: 'Email này đã được đăng ký trước đó.'
-          });
+        return res.status(400).json({
+          success: false,
+          message: 'Email này đã được đăng ký trước đó.'
+        });
     }
 
     const newUser = req.body;
     const hashedPassword = await argon2.hash(password);
-    var user = new UserModel({
+    let user = new UserModel({
       ...newUser,
       password: hashedPassword,
       role: req.params.role,
@@ -55,7 +53,7 @@ export const createUser = async (req, res) => {
     });
     await user.save();
 
-    user = await UserModel.findById(user._id).populate('user', ['fullName']);
+    user = await user.populate('user', ['fullName']);
     res
       .status(200)
       .json({ success: true, message: 'Tạo tài khoản thành công', user });
@@ -68,44 +66,39 @@ export const createUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   const { username, email } = req.body;
   try {
-    const validUser = await UserModel.findById(req.params.id);
-    if (validUser.email !== email) {
-      const validEmail = await UserModel.findOne({ email });
-      if (validEmail)
-        return res
-          .status(400)
-          .json({
-            success: false,
-            message: 'Email này đã được đăng ký trước đó.'
-          });
-    } else if (validUser.username !== username) {
-      const validUsername = await UserModel.findOne({ username });
-      if (validUsername)
-        return res
-          .status(400)
-          .json({
-            success: false,
-            message: 'Tên người dùng đã được đăng ký trước đó.'
-          });
-    }
+    const validEmail = await UserModel.findOne({
+      $and: [{ _id: { $ne: req.params.id } }, { email }]
+    });
+    if (validEmail)
+      return res.status(400).json({
+        success: false,
+        message: 'Email này đã được đăng ký trước đó.'
+      });
+    const validUsername = await UserModel.findOne({
+      $and: [{ _id: { $ne: req.params.id } }, { username }]
+    });
+    if (validUsername)
+      return res.status(400).json({
+        success: false,
+        message: 'Tên người dùng đã được đăng ký trước đó.'
+      });
+    const validUser = await UserModel.findOne({ _id: req.params.id });
+    if (!validUser)
+      return res
+        .status(404)
+        .json({ success: false, message: 'Không tìm thấy người dùng.' });
 
     const updateUser = req.body;
     const user = await UserModel.findOneAndUpdate(
       { _id: req.params.id },
       updateUser,
-      { new: true }
+      { new: true, omitUndefined: true }
     ).populate('user', ['fullName']);
-    if (!user)
-      return res
-        .status(404)
-        .json({ success: false, message: 'Không tìm thấy người dùng.' });
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: 'Cập nhật người dùng thành công.!',
-        user
-      });
+    res.status(200).json({
+      success: true,
+      message: 'Cập nhật người dùng thành công.!',
+      user
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });

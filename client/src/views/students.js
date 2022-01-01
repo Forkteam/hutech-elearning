@@ -8,9 +8,10 @@ import 'moment/locale/vi';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DataTable from '../components/overlays/data-table';
+import DeleteButton from '../components/overlays/delete-button';
 import AddModal from '../components/students/add-modal';
-import { showModal } from '../redux/actions';
-import { getUsers } from '../redux/actions/users';
+import { setCurrentId, showModal } from '../redux/actions';
+import { deleteUser, getUsers } from '../redux/actions/users';
 import { students$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
@@ -19,6 +20,8 @@ const Students = () => {
   const [rowsPerPage, setRowsPerPage] = useState(7);
   const toast = useSelector(toast$);
   const students = useSelector(students$);
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
     dispatch(getUsers.getUsersRequest(1));
@@ -46,9 +49,49 @@ const Students = () => {
       </div>
     );
   }
+
+  const handleEditClick = (id) => (event) => {
+    event.stopPropagation();
+    dispatch(setCurrentId(id));
+  };
+
+  const handleDeleteClick = (id) => (event) => {
+    event.stopPropagation();
+    setSelectedId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setSelectedId('');
+    setOpen(false);
+  };
+
+  const handleAgree = (id) => {
+    dispatch(deleteUser.deleteUserRequest(id));
+    setSelectedId('');
+    setOpen(false);
+  };
+
   const columns = [
+    {
+      field: 'avatar',
+      headerName: '#',
+      width: 65,
+      filterable: false,
+      renderCell: (params) => (
+        <img
+          src={
+            params.value ||
+            'https://images.unsplash.com/photo-1579353977828-2a4eab540b9a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80'
+          }
+          alt="img"
+          style={{ width: '40px' }}
+        />
+      ),
+    },
     { field: 'fullName', headerName: 'Tên', minWidth: 180, flex: 1 },
     { field: 'email', headerName: 'Email', minWidth: 200, flex: 1 },
+    { field: 'code', headerName: 'Mã sinh viên', minWidth: 140, flex: 1 },
     {
       field: 'isExternal',
       headerName: 'isExternal',
@@ -109,13 +152,13 @@ const Students = () => {
           icon={<EditIcon />}
           label="Edit"
           className="textPrimary"
-          //onClick={handleEditClick(id)}
+          onClick={handleEditClick(id)}
           color="inherit"
         />,
         <GridActionsCellItem
           icon={<DeleteIcon />}
           label="Delete"
-          //onClick={handleDeleteClick(id)}
+          onClick={handleDeleteClick(id)}
           color="inherit"
         />,
       ],
@@ -123,15 +166,23 @@ const Students = () => {
   ];
 
   return (
-    <DataTable
-      component={AddModal}
-      toast={toast}
-      data={students.data}
-      columns={columns}
-      rowsPerPage={rowsPerPage}
-      handleChangeRowsPerPage={handleChangeRowsPerPage}
-      setShowModal={setShowModal}
-    />
+    <>
+      <DeleteButton
+        open={open}
+        id={selectedId}
+        handleClose={handleClose}
+        handleAgree={handleAgree}
+      />
+      <DataTable
+        component={AddModal}
+        toast={toast}
+        data={students.data}
+        columns={columns}
+        rowsPerPage={rowsPerPage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
+        setShowModal={setShowModal}
+      />
+    </>
   );
 };
 

@@ -17,9 +17,10 @@ import { Link, useParams } from 'react-router-dom';
 import BackButton from '../components/layouts/back-button';
 import AddModal from '../components/lectures/add-modal';
 import DataTable from '../components/overlays/data-table';
+import DeleteButton from '../components/overlays/delete-button';
 import SubscribeButton from '../components/subjects/subscribe-button';
-import { showModal } from '../redux/actions';
-import { getLectures } from '../redux/actions/lectures';
+import { setCurrentId, showModal } from '../redux/actions';
+import { deleteLecture, getLectures } from '../redux/actions/lectures';
 import { getSubjectDetail } from '../redux/actions/subjects';
 import { lectures$, subjects$, toast$ } from '../redux/selectors';
 moment.locale('vi');
@@ -31,6 +32,8 @@ const Lectures = () => {
   const toast = useSelector(toast$);
   const lectures = useSelector(lectures$);
   const subjects = useSelector(subjects$);
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
     dispatch(getSubjectDetail.getSubjectDetailRequest(subjectId));
@@ -59,6 +62,29 @@ const Lectures = () => {
       </div>
     );
   }
+
+  const handleEditClick = (id) => (event) => {
+    event.stopPropagation();
+    dispatch(setCurrentId(id));
+  };
+
+  const handleDeleteClick = (id) => (event) => {
+    event.stopPropagation();
+    setSelectedId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setSelectedId('');
+    setOpen(false);
+  };
+
+  const handleAgree = (id) => {
+    dispatch(deleteLecture.deleteLectureRequest(id));
+    setSelectedId('');
+    setOpen(false);
+  };
+
   const columns = [
     {
       field: 'title',
@@ -110,13 +136,13 @@ const Lectures = () => {
           icon={<EditIcon />}
           label="Edit"
           className="textPrimary"
-          //onClick={handleEditClick(id)}
+          onClick={handleEditClick(id)}
           color="inherit"
         />,
         <GridActionsCellItem
           icon={<DeleteIcon />}
           label="Delete"
-          //onClick={handleDeleteClick(id)}
+          onClick={handleDeleteClick(id)}
           color="inherit"
         />,
       ],
@@ -159,6 +185,12 @@ const Lectures = () => {
           </Typography>
         </CardContent>
       </Card>
+      <DeleteButton
+        open={open}
+        id={selectedId}
+        handleClose={handleClose}
+        handleAgree={handleAgree}
+      />
       <DataTable
         component={AddModal}
         toast={toast}

@@ -55,7 +55,7 @@ export default function UnderlineLink() {
           </li>
           <li>
             <a
-              href="https://www.facebook.com/khoacddt.hutech.3"
+              href="https://www.facebook.com/ngànhcddt.hutech.3"
               target="_blank"
               rel="noreferrer"
             >
@@ -100,7 +100,7 @@ export default function UnderlineLink() {
           </li>
           <li>
             <a
-              href="https://www.facebook.com/hutech.khoacodientu/"
+              href="https://www.facebook.com/hutech.ngànhcodientu/"
               target="_blank"
               rel="noreferrer"
             >
@@ -118,7 +118,7 @@ export default function UnderlineLink() {
           </li>
           <li>
             <a
-              href="https://www.facebook.com/khoaxaydung.hutech"
+              href="https://www.facebook.com/ngànhxaydung.hutech"
               target="_blank"
               rel="noreferrer"
             >

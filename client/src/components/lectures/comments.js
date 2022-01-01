@@ -1,8 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import EditIcon from '@mui/icons-material/Edit';
 import {
   Avatar,
   Box,
   Button,
+  CircularProgress,
   Divider,
   List,
   ListItem,
@@ -10,21 +13,19 @@ import {
   ListItemText,
   TextField,
   Typography,
-  CircularProgress,
 } from '@mui/material';
-import { Fragment, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { setCurrentId, showToast } from '../../redux/actions';
-import { createComment, getComments } from '../../redux/actions/comments';
-import { currentId$, comments$ } from '../../redux/selectors';
+import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
+import { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentId, showToast } from '../../redux/actions';
+import { createComment, getComments } from '../../redux/actions/comments';
+import { comments$, currentId$ } from '../../redux/selectors';
 moment.locale('vi');
 
-const Comments = () => {
+const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
   const dispatch = useDispatch();
-  const { id: lectureId } = useParams();
   const currentId = useSelector(currentId$);
   const comments = useSelector(comments$);
   const [newComment, setNewComment] = useState({
@@ -111,6 +112,23 @@ const Comments = () => {
                 </Fragment>
               }
             />
+            {role > 1 && (
+              <>
+                <GridActionsCellItem
+                  icon={<EditIcon />}
+                  label="Edit"
+                  className="textPrimary"
+                  onClick={() => handleEditClick(item.id)}
+                  color="inherit"
+                />
+                <GridActionsCellItem
+                  icon={<DeleteIcon />}
+                  label="Delete"
+                  onClick={() => handleDeleteClick(item.id)}
+                  color="inherit"
+                />
+              </>
+            )}
           </ListItem>
           <Divider variant="inset" component="li" />
         </Fragment>

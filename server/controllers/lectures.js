@@ -39,11 +39,12 @@ export const getLectureDetail = async (req, res) => {
 };
 
 export const createLecture = async (req, res) => {
-  const { title, url, subjectId } = req.body;
-  if (!title)
-    return res
-      .status(400)
-      .json({ success: false, message: 'Tiêu đề tài liệu đã bị bỏ trống.' });
+  const { title, url, subjectId, file } = req.body;
+  if (!title || !file)
+    return res.status(400).json({
+      success: false,
+      message: 'Tiêu đề hoặc file tài liệu đã bị bỏ trống.'
+    });
 
   try {
     const newLecture = req.body;
@@ -51,7 +52,7 @@ export const createLecture = async (req, res) => {
     if (url !== undefined) {
       newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
     } else {
-      newUrl = 'https://www.youtube.com/embed/';
+      newUrl = 'https://www.youtube.com/embed/sk0VynhUKVQ';
     }
     let lecture = new LectureModel({
       ...newLecture,
@@ -95,9 +96,10 @@ export const updateLecture = async (req, res) => {
     const updateLecture = req.body;
     let newUrl;
     if (url !== undefined) {
-      newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
+      if (url.split('/')[3] === 'embed') newUrl = url;
+      else newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
     } else {
-      newUrl = 'https://www.youtube.com/embed/';
+      newUrl = 'https://www.youtube.com/embed/sk0VynhUKVQ';
     }
     const lecture = await LectureModel.findOneAndUpdate(
       { _id: req.params.id },
@@ -105,7 +107,7 @@ export const updateLecture = async (req, res) => {
         ...updateLecture,
         url: newUrl
       },
-      { new: true }
+      { new: true, omitUndefined: true }
     ).populate('user', ['fullName']);
 
     if (!lecture)

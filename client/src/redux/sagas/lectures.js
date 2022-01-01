@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import * as api from '../../api';
-import { showToast } from '../actions';
+import { hideModal, setCurrentId, showToast } from '../actions';
 import {
   createLecture,
   deleteLecture,
@@ -15,6 +15,14 @@ export function* getLecturesSaga(action) {
     yield put(getLectures.getLecturesSuccess(response.data.lectures));
   } catch (error) {
     console.log(error);
+    yield put(
+      showToast({
+        message: error.response.data.message
+          ? error.response.data.message
+          : 'Server error',
+        type: error.response.data.success ? 'error' : 'error',
+      })
+    );
     yield put(getLectures.getLecturesFailure(error.response.data));
   }
 }
@@ -25,6 +33,14 @@ export function* getLectureDetailSaga(action) {
     yield put(getLectureDetail.getLectureDetailSuccess(response.data.lecture));
   } catch (error) {
     console.log(error);
+    yield put(
+      showToast({
+        message: error.response.data.message
+          ? error.response.data.message
+          : 'Server error',
+        type: error.response.data.success ? 'error' : 'error',
+      })
+    );
     yield put(getLectureDetail.getLectureDetailFailure(error.response.data));
   }
 }
@@ -32,6 +48,8 @@ export function* getLectureDetailSaga(action) {
 export function* createLectureSaga(action) {
   try {
     const response = yield call(api.createLecture, action.payload);
+    yield put(hideModal());
+    yield put(setCurrentId(0));
     yield put(createLecture.createLectureSuccess(response.data.lecture));
     yield put(
       showToast({
@@ -41,6 +59,14 @@ export function* createLectureSaga(action) {
     );
   } catch (error) {
     console.log(error);
+    yield put(
+      showToast({
+        message: error.response.data.message
+          ? error.response.data.message
+          : 'Server error',
+        type: error.response.data.success ? 'error' : 'error',
+      })
+    );
     yield put(createLecture.createLectureFailure(error.response.data));
   }
 }
@@ -48,6 +74,8 @@ export function* createLectureSaga(action) {
 export function* updateLectureSaga(action) {
   try {
     const response = yield call(api.updateLecture, action.payload);
+    yield put(hideModal());
+    yield put(setCurrentId(0));
     yield put(updateLecture.updateLectureSuccess(response.data.lecture));
     yield put(
       showToast({
@@ -57,6 +85,14 @@ export function* updateLectureSaga(action) {
     );
   } catch (error) {
     console.log(error);
+    yield put(
+      showToast({
+        message: error.response.data.message
+          ? error.response.data.message
+          : 'Server error',
+        type: error.response.data.success ? 'error' : 'error',
+      })
+    );
     yield put(updateLecture.updateLectureFailure(error.response.data));
   }
 }
@@ -64,6 +100,8 @@ export function* updateLectureSaga(action) {
 export function* deleteLectureSaga(action) {
   try {
     const response = yield call(api.deleteLecture, action.payload);
+    yield put(hideModal());
+    yield put(setCurrentId(0));
     yield put(deleteLecture.deleteLectureSuccess(response.data.lecture));
     yield put(
       showToast({
@@ -73,6 +111,14 @@ export function* deleteLectureSaga(action) {
     );
   } catch (error) {
     console.log(error);
+    yield put(
+      showToast({
+        message: error.response.data.message
+          ? error.response.data.message
+          : 'Server error',
+        type: error.response.data.success ? 'error' : 'error',
+      })
+    );
     yield put(deleteLecture.deleteLectureFailure(error.response.data));
   }
 }

@@ -16,51 +16,9 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
-const items = [
-  {
-    href: '/subjects',
-    icon: <SubjectIcon fontSize="small" />,
-    title: 'Danh sách môn học',
-  },
-  {
-    href: '/user-subjects',
-    icon: <BookIcon fontSize="small" />,
-    title: 'Môn học của bạn',
-  },
-  {
-    href: '/industries',
-    icon: <ConstructionIcon fontSize="small" />,
-    title: 'Danh sách ngành học',
-  },
-  {
-    href: '/students',
-    icon: <SchoolIcon fontSize="small" />,
-    title: 'Danh sách tài khoản',
-  },
-  {
-    href: '/admins',
-    icon: <GroupIcon fontSize="small" />,
-    title: 'Danh sách admin',
-  },
-  {
-    href: '/news',
-    icon: <NewspaperIcon fontSize="small" />,
-    title: 'Tin tức',
-  },
-  {
-    href: '/personal',
-    icon: <AccountBoxIcon fontSize="small" />,
-    title: 'Thông tin cá nhân',
-  },
-  {
-    href: '/support',
-    icon: <HelpIcon fontSize="small" />,
-    title: 'Hỗ trợ',
-  },
-];
+import { AuthContext } from '../../contexts/auth-context';
 
 export const Sidebar = (props) => {
   const { open, onClose } = props;
@@ -69,6 +27,52 @@ export const Sidebar = (props) => {
     defaultMatches: true,
     noSsr: false,
   });
+  const {
+    authState: { user },
+  } = useContext(AuthContext);
+
+  const items = [
+    {
+      href: '/subjects',
+      icon: <SubjectIcon fontSize="small" />,
+      title: 'Danh sách môn học',
+    },
+    {
+      href: '/user-subjects',
+      icon: <BookIcon fontSize="small" />,
+      title: user?.role < 2 ? 'Môn học đã lưu' : 'Môn học đã tạo',
+    },
+    {
+      href: '/industries',
+      icon: <ConstructionIcon fontSize="small" />,
+      title: 'Danh sách ngành học',
+    },
+    {
+      href: '/students',
+      icon: <SchoolIcon fontSize="small" />,
+      title: 'Danh sách tài khoản',
+    },
+    {
+      href: '/admins',
+      icon: <GroupIcon fontSize="small" />,
+      title: 'Danh sách admin',
+    },
+    {
+      href: '/news',
+      icon: <NewspaperIcon fontSize="small" />,
+      title: 'Tin tức',
+    },
+    {
+      href: '/personal',
+      icon: <AccountBoxIcon fontSize="small" />,
+      title: 'Thông tin cá nhân',
+    },
+    {
+      href: '/support',
+      icon: <HelpIcon fontSize="small" />,
+      title: 'Hỗ trợ',
+    },
+  ];
 
   const content = (
     <>

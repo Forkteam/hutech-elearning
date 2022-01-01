@@ -9,10 +9,12 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DataTable from '../components/overlays/data-table';
+import DeleteButton from '../components/overlays/delete-button';
 import AddModal from '../components/subjects/add-modal';
 import { AuthContext } from '../contexts/auth-context';
-import { showModal } from '../redux/actions';
+import { setCurrentId, showModal } from '../redux/actions';
 import {
+  deleteSubject,
   getStudentSubjects,
   getTeacherSubjects,
 } from '../redux/actions/subjects';
@@ -27,6 +29,8 @@ const UserSubjects = () => {
   const {
     authState: { user },
   } = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
     if (user?.role < 2)
@@ -56,6 +60,28 @@ const UserSubjects = () => {
       </div>
     );
   }
+
+  const handleEditClick = (id) => (event) => {
+    event.stopPropagation();
+    dispatch(setCurrentId(id));
+  };
+
+  const handleDeleteClick = (id) => (event) => {
+    event.stopPropagation();
+    setSelectedId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setSelectedId('');
+    setOpen(false);
+  };
+
+  const handleAgree = (id) => {
+    dispatch(deleteSubject.deleteSubjectRequest(id));
+    setSelectedId('');
+    setOpen(false);
+  };
 
   const columns = [
     {
@@ -126,11 +152,13 @@ const UserSubjects = () => {
           icon={<EditIcon />}
           label="Edit"
           className="textPrimary"
+          onClick={handleEditClick(id)}
           color="inherit"
         />,
         <GridActionsCellItem
           icon={<DeleteIcon />}
           label="Delete"
+          onClick={handleDeleteClick(id)}
           color="inherit"
         />,
       ],
@@ -139,7 +167,12 @@ const UserSubjects = () => {
 
   return (
     <>
-      <AddModal />
+      <DeleteButton
+        open={open}
+        id={selectedId}
+        handleClose={handleClose}
+        handleAgree={handleAgree}
+      />
       <DataTable
         component={AddModal}
         toast={toast}

@@ -7,12 +7,17 @@ import {
   DialogTitle,
   TextField,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { hideModal, setCurrentId, showToast } from '../../redux/actions';
-import { createLecture } from '../../redux/actions/lectures';
-import { currentId$, modal$, toast$ } from '../../redux/selectors';
+import {
+  hideModal,
+  setCurrentId,
+  showModal,
+  showToast,
+} from '../../redux/actions';
+import { createLecture, updateLecture } from '../../redux/actions/lectures';
+import { currentId$, lectures$, modal$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
 import Transition from '../overlays/transition';
 
@@ -22,6 +27,7 @@ const AddModal = () => {
   const [alert, setAlert] = useState(null);
   const modal = useSelector(modal$);
   const toast = useSelector(toast$);
+  const lectures = useSelector(lectures$);
   const currentId = useSelector(currentId$);
   const [newLecture, setNewLecture] = useState({
     title: '',
@@ -30,6 +36,29 @@ const AddModal = () => {
     file: '',
   });
   const { title, description, url } = newLecture;
+  const currentLecture =
+    currentId.id !== 0
+      ? lectures.data.find((lecture) => lecture.id === currentId.id)
+      : null;
+
+  useEffect(() => {
+    if (currentId.id !== 0) {
+      setNewLecture({
+        title: currentLecture.title,
+        description: currentLecture.description,
+        url: currentLecture.url,
+        file: currentLecture.file,
+      });
+      dispatch(showModal());
+    } else {
+      setNewLecture({
+        title: '',
+        description: '',
+        url: '',
+        file: '',
+      });
+    }
+  }, [currentId, dispatch]);
 
   const onChangeNewLectureForm = (event) => {
     setNewLecture({ ...newLecture, [event.target.name]: event.target.value });
@@ -61,7 +90,18 @@ const AddModal = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (url.split('?v=')[0] !== 'https://www.youtube.com/watch') {
+    if (!title) {
+      setAlert({
+        type: 'warning',
+        message: 'Tiêu đề không được bỏ trống',
+      });
+      setTimeout(() => setAlert(null), 5000);
+      return;
+    }
+    if (
+      url.split('?v=')[0] !== 'https://www.youtube.com/watch' &&
+      url.split('/')[3] !== 'embed'
+    ) {
       setAlert({
         type: 'warning',
         message: 'URL Youtube không hợp lệ',
@@ -69,6 +109,7 @@ const AddModal = () => {
       setTimeout(() => setAlert(null), 5000);
       return;
     }
+    setAlert(null);
     if (currentId.id === 0) {
       dispatch(
         createLecture.createLectureRequest({
@@ -83,7 +124,12 @@ const AddModal = () => {
         })
       );
     } else {
-      console.log('update lecture');
+      dispatch(
+        updateLecture.updateLectureRequest({
+          id: currentId.id,
+          ...newLecture,
+        })
+      );
       dispatch(
         showToast({
           message: 'Please wait! We are updating...',
@@ -95,7 +141,7 @@ const AddModal = () => {
 
   return (
     <Dialog TransitionComponent={Transition} open={modal.show} scroll="body">
-      <DialogTitle>CREATE NEW LECTURE</DialogTitle>
+      <DialogTitle>{currentId.id === 0 ? 'THÊM' : 'CHỈNH SỬA'}</DialogTitle>
       <DialogContent dividers>
         <Box component="form" onSubmit={onSubmit}>
           {alert && <AlertMessage info={alert} />}
@@ -115,7 +161,6 @@ const AddModal = () => {
           <TextField
             margin="dense"
             multiline
-            required
             fullWidth
             variant="standard"
             label="Mô tả"
@@ -126,11 +171,10 @@ const AddModal = () => {
           <TextField
             margin="dense"
             multiline
-            required
             fullWidth
             variant="standard"
             label="URL Youtube"
-            helperText="Phải có dạng như sau: https://www.youtube.com/watch?v=7KAT_94JHVU"
+            helperText="Phải có dạng như sau: https://www.youtube.com/watch?v=sk0VynhUKVQ hoặc https://www.youtube.com/embed/sk0VynhUKVQ"
             name="url"
             value={url}
             onChange={onChangeNewLectureForm}
@@ -140,10 +184,10 @@ const AddModal = () => {
             type="file"
             accept="application/pdf"
             multiple={false}
-            required
             fullWidth
             variant="standard"
             label="File PDF"
+            helperText="Chỉ chấp nhận file PDF (dưới 5mb)"
             name="file"
             onChange={handleFileChange}
           />
