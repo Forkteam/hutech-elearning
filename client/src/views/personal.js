@@ -6,7 +6,9 @@ import TextField from '@mui/material/TextField';
 
 //
 
+
 export default function Personal() {
+
   return (
     <div className="personal">
       <div className="div1">
@@ -52,11 +54,11 @@ export default function Personal() {
               </h4>
             </legend>
             <div className='textField'>
-              <TextField id="filled-basic" label="Họ và tên đệm*:" variant="filled" sx={{paddingRight: 2,paddingBottom:2}} />
-              <TextField id="filled-basic" label="Tên*:" variant="filled" sx={{paddingRight: 2,paddingBottom:2}}/>
+              <TextField id="filled-basic" label="Họ và tên đệm*:" variant="filled" value ="Nguyễn Văn" sx={{paddingRight: 2,paddingBottom:2}} />
+              <TextField id="filled-basic" label="Tên*:" variant="filled" value ="Chuẩn" sx={{paddingRight: 2,paddingBottom:2}}/>
               <TextField id="filled-basic" label="Ngày sinh*:" variant="filled" sx={{paddingRight: 2,paddingBottom:2}}/>
-              <TextField id="filled-basic" label="Email*:" variant="filled" sx={{paddingRight: 2,paddingBottom:2}}/>
-              <TextField id="filled-basic" label="Điện thoại*:" variant="filled" sx={{paddingRight: 2,paddingBottom:2}}/>
+              <TextField id="filled-basic" label="Email*:" variant="filled" value ="nguyenvanchuan13012001@gmail.com" sx={{paddingRight: 2,paddingBottom:2}}/>
+              <TextField id="filled-basic" label="Điện thoại*:" variant="filled" value ="0865562385" sx={{paddingRight: 2,paddingBottom:2}}/>
             </div>
           </fieldset>
           <div _ngcontent-c9="" class="cus_neo_div ng-star-inserted">
