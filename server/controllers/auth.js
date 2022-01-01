@@ -17,7 +17,9 @@ export const getUser = async (req, res) => {
     res.status(200).json({ success: true, user });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, message: 'Lấy thông tin thất bại.' });
+    return res
+      .status(500)
+      .json({ success: false, message: 'Lấy thông tin thất bại.' });
   }
 };
 
@@ -103,7 +105,9 @@ export const activate = async (req, res) => {
     const emailContent = welcomeMail();
     mailer(email, emailContent);
     await VerifyUserModel.findOneAndDelete({ _id: id });
-    res.status(200).json({ success: true, message: 'Kích hoạt tài khoản thành công!' });
+    res
+      .status(200)
+      .json({ success: true, message: 'Kích hoạt tài khoản thành công!' });
   } catch (error) {
     console.log(error);
     return res
@@ -148,7 +152,9 @@ export const login = async (req, res) => {
 export const sendMailResetPassword = async (req, res) => {
   const { email } = req.body;
   if (!email)
-    return res.status(400).json({ success: false, message: 'Vui lòng điền địa chỉ email!' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Vui lòng điền địa chỉ email!' });
 
   try {
     const verifyUserEmail = await UserModel.findOne({ email });
@@ -187,7 +193,10 @@ export const resetPassword = async (req, res) => {
     if (decoded.userId !== id)
       return res
         .status(400)
-        .json({ success: false, message: 'Token không hợp lệ hoặc đã hết hạn.' });
+        .json({
+          success: false,
+          message: 'Token không hợp lệ hoặc đã hết hạn.'
+        });
     const hashedPassword = await argon2.hash(password);
     const user = await UserModel.findOneAndUpdate(
       { _id: id },

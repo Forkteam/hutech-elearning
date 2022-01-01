@@ -22,8 +22,6 @@ export default function studentsReducers(state = INIT_STATE.students, action) {
         ...state,
         loading: false,
         data: payload,
-        success: true,
-        message: '',
       };
 
     case getType(getUsers.getUsersFailure()):
@@ -37,16 +35,12 @@ export default function studentsReducers(state = INIT_STATE.students, action) {
         ...state,
         loading: false,
         data: [...state.data, payload],
-        success: true,
-        message: '',
       };
 
     case getType(createUser.createUserFailure()):
       return {
         ...state,
         loading: false,
-        success: payload.success,
-        message: payload.message,
       };
 
     case getType(updateUser.updateUserSuccess()):
@@ -55,42 +49,34 @@ export default function studentsReducers(state = INIT_STATE.students, action) {
         loading: false,
         data: state.data
           .filter((student) =>
-            student._id === payload._id && student.role !== payload.role
+            student.id === payload.id && student.role !== payload.role
               ? false
               : true
           )
           .map((student) =>
-            student._id === payload._id && student.role === payload.role
+            student.id === payload.id && student.role === payload.role
               ? payload
               : student
           ),
-        success: true,
-        message: '',
       };
 
     case getType(updateUser.updateUserFailure()):
       return {
         ...state,
         loading: false,
-        success: payload.success,
-        message: payload.message,
       };
 
     case getType(deleteUser.deleteUserSuccess()):
       return {
         ...state,
         loading: false,
-        data: state.data.filter((post) => post._id !== payload._id),
-        success: true,
-        message: '',
+        data: state.data.filter((post) => post.id !== payload.id),
       };
 
     case getType(deleteUser.deleteUserFailure()):
       return {
         ...state,
         loading: false,
-        success: payload.success,
-        message: payload.message,
       };
 
     default:

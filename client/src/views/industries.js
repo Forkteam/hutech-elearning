@@ -8,8 +8,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AddModal from '../components/industries/add-modal';
 import DataTable from '../components/overlays/data-table';
-import { showModal } from '../redux/actions';
-import { getIndustries } from '../redux/actions/industries';
+import { showModal, setCurrentId } from '../redux/actions';
+import { getIndustries, deleteIndustry } from '../redux/actions/industries';
 import { industries$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
@@ -46,15 +46,15 @@ const Industries = () => {
     );
   }
 
-  // const handleEditClick = (id) => (event) => {
-  //   event.stopPropagation();
-  //   apiRef.current.setRowMode(id, 'edit');
-  // };
+  const handleEditClick = (id) => (event) => {
+    event.stopPropagation();
+    dispatch(setCurrentId(id));
+  };
 
-  // const handleDeleteClick = (id) => (event) => {
-  //   event.stopPropagation();
-  //   apiRef.current.updateRows([{ id, _action: 'delete' }]);
-  // };
+  const handleDeleteClick = (id) => (event) => {
+    event.stopPropagation();
+    dispatch(deleteIndustry.deleteIndustryRequest(id));
+  };
 
   const columns = [
     { field: 'code', headerName: 'Mã Ngành', minWidth: 100, flex: 1 },
@@ -95,18 +95,18 @@ const Industries = () => {
       minWidth: 150,
       flex: 1,
       cellClassName: 'actions',
-      getActions: ({ _id }) => [
+      getActions: ({ id }) => [
         <GridActionsCellItem
           icon={<EditIcon />}
           label="Edit"
           className="textPrimary"
-          //onClick={handleEditClick(_id)}
+          onClick={handleEditClick(id)}
           color="inherit"
         />,
         <GridActionsCellItem
           icon={<DeleteIcon />}
           label="Delete"
-          //onClick={handleDeleteClick(_id)}
+          onClick={handleDeleteClick(id)}
           color="inherit"
         />,
       ],

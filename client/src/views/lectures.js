@@ -105,18 +105,18 @@ const Lectures = () => {
       minWidth: 150,
       flex: 1,
       cellClassName: 'actions',
-      getActions: ({ _id }) => [
+      getActions: ({ id }) => [
         <GridActionsCellItem
           icon={<EditIcon />}
           label="Edit"
           className="textPrimary"
-          //onClick={handleEditClick(_id)}
+          //onClick={handleEditClick(id)}
           color="inherit"
         />,
         <GridActionsCellItem
           icon={<DeleteIcon />}
           label="Delete"
-          //onClick={handleDeleteClick(_id)}
+          //onClick={handleDeleteClick(id)}
           color="inherit"
         />,
       ],

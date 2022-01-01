@@ -12,13 +12,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { hideModal, setCurrentId, showToast } from '../../redux/actions';
 import { getIndustries } from '../../redux/actions/industries';
 import { createSubject } from '../../redux/actions/subjects';
-import { currentId$, industries$, modal$ } from '../../redux/selectors';
+import { currentId$, industries$, modal$, toast$ } from '../../redux/selectors';
+import AlertMessage from '../layouts/alert-message';
 import Transition from '../overlays/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();
   const modal = useSelector(modal$);
   const currentId = useSelector(currentId$);
+  const toast = useSelector(toast$);
   const industries = useSelector(industries$);
   const [newSubject, setNewSubject] = useState({
     name: '',
@@ -59,12 +61,12 @@ const AddModal = () => {
       industryId: '',
     });
     dispatch(hideModal());
-    if (currentId._id !== 0) dispatch(setCurrentId(0));
+    if (currentId.id !== 0) dispatch(setCurrentId(0));
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (currentId._id === 0) {
+    if (currentId.id === 0) {
       dispatch(createSubject.createSubjectRequest(newSubject));
       dispatch(
         showToast({
@@ -81,7 +83,6 @@ const AddModal = () => {
         })
       );
     }
-    closeDialog();
   };
 
   return (
@@ -89,6 +90,7 @@ const AddModal = () => {
       <DialogTitle>CREATE NEW SUBJECT</DialogTitle>
       <DialogContent dividers>
         <Box component="form" onSubmit={onSubmit}>
+          <AlertMessage info={toast} />
           <TextField
             margin="dense"
             type="text"

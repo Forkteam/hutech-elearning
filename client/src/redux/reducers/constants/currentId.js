@@ -6,7 +6,7 @@ export default function toastReducers(state = INIT_STATE.currentId, action) {
     case getType(setCurrentId()):
       return {
         ...state,
-        _id: action.payload,
+        id: action.payload,
       };
 
     default:

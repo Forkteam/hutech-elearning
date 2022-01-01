@@ -72,6 +72,7 @@ const RegisterForm = () => {
         Đăng Ký
       </Typography>
       <Box component="form" onSubmit={onSubmit} sx={{ mt: 1 }}>
+        <AlertMessage info={alert} />
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -139,7 +140,6 @@ const RegisterForm = () => {
           onChange={onChangeRegisterForm}
           value={confirmPassword}
         />
-        <AlertMessage info={alert} />
         <Button
           type="submit"
           fullWidth

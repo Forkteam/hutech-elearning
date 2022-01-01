@@ -8,7 +8,7 @@ export const getIndustries = (payload) =>
 export const createIndustry = (payload) =>
   axios.post(`${apiURL}/industries`, payload);
 export const updateIndustry = (payload) =>
-  axios.put(`${apiURL}/industries/${payload._id}`, payload);
+  axios.put(`${apiURL}/industries/${payload.id}`, payload);
 export const deleteIndustry = (payload) =>
   axios.delete(`${apiURL}/industries/${payload}`);
 
@@ -27,7 +27,7 @@ export const subscribeSubject = (payload) =>
 export const unsubscribeSubject = (payload) =>
   axios.post(`${apiURL}/subjects/${payload}/remove-student`);
 export const updateSubject = (payload) =>
-  axios.put(`${apiURL}/subjects/${payload._id}`, payload);
+  axios.put(`${apiURL}/subjects/${payload.id}`, payload);
 export const deleteSubject = (payload) =>
   axios.delete(`${apiURL}/subjects/${payload}`);
 
@@ -38,7 +38,7 @@ export const getLectureDetail = (payload) =>
 export const createLecture = (payload) =>
   axios.post(`${apiURL}/lectures`, payload);
 export const updateLecture = (payload) =>
-  axios.put(`${apiURL}/lectures/${payload._id}`, payload);
+  axios.put(`${apiURL}/lectures/${payload.id}`, payload);
 export const deleteLecture = (payload) =>
   axios.delete(`${apiURL}/lectures/${payload}`);
 
@@ -46,7 +46,7 @@ export const getUsers = (payload) => axios.get(`${apiURL}/users/${payload}`);
 export const createUser = (payload) =>
   axios.post(`${apiURL}/users/${payload.role}`, payload);
 export const updateUser = (payload) =>
-  axios.put(`${apiURL}/users/${payload._id}`, payload);
+  axios.put(`${apiURL}/users/${payload.id}`, payload);
 export const deleteUser = (payload) =>
   axios.delete(`${apiURL}/users/${payload}`);
 
@@ -55,7 +55,7 @@ export const getComments = (payload) =>
 export const createComment = (payload) =>
   axios.post(`${apiURL}/comments`, payload);
 export const updateComment = (payload) =>
-  axios.put(`${apiURL}/comments/${payload._id}`, payload);
+  axios.put(`${apiURL}/comments/${payload.id}`, payload);
 export const deleteComment = (payload) =>
   axios.delete(`${apiURL}/comments/${payload}`);
 

@@ -37,6 +37,7 @@ const LoginForm = () => {
         Đăng Nhập
       </Typography>
       <Box component="form" onSubmit={onSubmit} sx={{ mt: 1 }}>
+        <AlertMessage info={alert} />
         <TextField
           margin="normal"
           required
@@ -59,7 +60,6 @@ const LoginForm = () => {
           onChange={onChangeLoginForm}
           value={password}
         />
-        <AlertMessage info={alert} />
         <Button
           type="submit"
           fullWidth

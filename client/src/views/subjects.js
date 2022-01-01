@@ -124,7 +124,7 @@ const Subjects = () => {
       minWidth: 75,
       flex: 1,
       cellClassName: 'actions',
-      getActions: ({ _id }) => [
+      getActions: ({ id }) => [
         <GridActionsCellItem
           icon={<EditIcon />}
           label="Edit"

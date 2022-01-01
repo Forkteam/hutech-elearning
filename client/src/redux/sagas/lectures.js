@@ -15,7 +15,7 @@ export function* getLecturesSaga(action) {
     yield put(getLectures.getLecturesSuccess(response.data.lectures));
   } catch (error) {
     console.log(error);
-    yield put(getLectures.getLecturesFailure(error));
+    yield put(getLectures.getLecturesFailure(error.response.data));
   }
 }
 
@@ -25,7 +25,7 @@ export function* getLectureDetailSaga(action) {
     yield put(getLectureDetail.getLectureDetailSuccess(response.data.lecture));
   } catch (error) {
     console.log(error);
-    yield put(getLectureDetail.getLectureDetailFailure(error));
+    yield put(getLectureDetail.getLectureDetailFailure(error.response.data));
   }
 }
 
@@ -41,7 +41,7 @@ export function* createLectureSaga(action) {
     );
   } catch (error) {
     console.log(error);
-    yield put(createLecture.createLectureFailure(error));
+    yield put(createLecture.createLectureFailure(error.response.data));
   }
 }
 
@@ -57,7 +57,7 @@ export function* updateLectureSaga(action) {
     );
   } catch (error) {
     console.log(error);
-    yield put(updateLecture.updateLectureFailure(error));
+    yield put(updateLecture.updateLectureFailure(error.response.data));
   }
 }
 
@@ -73,6 +73,6 @@ export function* deleteLectureSaga(action) {
     );
   } catch (error) {
     console.log(error);
-    yield put(deleteLecture.deleteLectureFailure(error));
+    yield put(deleteLecture.deleteLectureFailure(error.response.data));
   }
 }

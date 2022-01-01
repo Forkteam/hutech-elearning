@@ -43,7 +43,7 @@ const Comments = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (currentId._id === 0) {
+    if (currentId.id === 0) {
       dispatch(
         createComment.createCommentRequest({
           ...newComment,
@@ -69,7 +69,7 @@ const Comments = () => {
       content: '',
       lectureId: '',
     });
-    if (currentId._id !== 0) dispatch(setCurrentId(0));
+    if (currentId.id !== 0) dispatch(setCurrentId(0));
   };
 
   let commentsComponent;
@@ -87,7 +87,7 @@ const Comments = () => {
   } else {
     if (comments.data.length !== 0)
       commentsComponent = comments.data.map((item) => (
-        <Fragment key={item._id}>
+        <Fragment key={item.id}>
           <ListItem alignItems="flex-start">
             <ListItemAvatar>
               <Avatar

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Button,
   Dialog,
@@ -6,22 +7,49 @@ import {
   DialogTitle,
   TextField,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideModal, setCurrentId, showToast } from '../../redux/actions';
-import { createIndustry } from '../../redux/actions/industries';
-import { currentId$, modal$ } from '../../redux/selectors';
+import {
+  hideModal,
+  setCurrentId,
+  showModal,
+  showToast,
+} from '../../redux/actions';
+import { createIndustry, updateIndustry } from '../../redux/actions/industries';
+import { currentId$, industries$, modal$, toast$ } from '../../redux/selectors';
+import AlertMessage from '../layouts/alert-message';
 import Transition from '../overlays/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();
   const modal = useSelector(modal$);
   const currentId = useSelector(currentId$);
+  const industries = useSelector(industries$);
+  const toast = useSelector(toast$);
   const [newIndustry, setNewIndustry] = useState({
     code: '',
     name: '',
   });
   const { code, name } = newIndustry;
+  const currentIndustry =
+    currentId.id !== 0
+      ? industries.data.find((lecture) => lecture.id === currentId.id)
+      : null;
+
+  useEffect(() => {
+    if (currentId.id !== 0) {
+      setNewIndustry({
+        code: currentIndustry?.code,
+        name: currentIndustry?.name,
+      });
+      dispatch(showModal());
+    } else {
+      setNewIndustry({
+        code: '',
+        name: '',
+      });
+    }
+  }, [currentId.id, dispatch]);
 
   const onChangeNewIndustryForm = (event) =>
     setNewIndustry({ ...newIndustry, [event.target.name]: event.target.value });
@@ -32,12 +60,12 @@ const AddModal = () => {
       name: '',
     });
     dispatch(hideModal());
-    if (currentId._id !== 0) dispatch(setCurrentId(0));
+    if (currentId.id !== 0) dispatch(setCurrentId(0));
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (currentId._id === 0) {
+    if (currentId.id === 0) {
       dispatch(createIndustry.createIndustryRequest(newIndustry));
       dispatch(
         showToast({
@@ -46,7 +74,12 @@ const AddModal = () => {
         })
       );
     } else {
-      console.log('update industry>>>', newIndustry);
+      dispatch(
+        updateIndustry.updateIndustryRequest({
+          id: currentId.id,
+          ...newIndustry,
+        })
+      );
       dispatch(
         showToast({
           message: 'Please wait! We are updating...',
@@ -54,13 +87,13 @@ const AddModal = () => {
         })
       );
     }
-    closeDialog();
   };
 
   return (
     <Dialog TransitionComponent={Transition} open={modal.show} scroll="body">
-      <DialogTitle>{currentId._id === 0 ? 'THÊM' : 'CHỈNH SỬA'}</DialogTitle>
+      <DialogTitle>{currentId.id === 0 ? 'THÊM' : 'CHỈNH SỬA'}</DialogTitle>
       <DialogContent dividers>
+        <AlertMessage info={toast} />
         <TextField
           margin="dense"
           label="Mã ngành"

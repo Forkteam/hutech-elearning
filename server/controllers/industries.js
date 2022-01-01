@@ -21,6 +21,12 @@ export const createIndustry = async (req, res) => {
       .json({ success: false, message: 'Mã khoa hoặc tên khoa bị bỏ trống.' });
 
   try {
+    const industryCodeExisted = await IndustryModel.findOne({ code });
+    if (industryCodeExisted)
+      return res
+        .status(400)
+        .json({ success: false, message: 'Mã khoa đã tồn tại.' });
+
     const newIndustry = req.body;
     let industry = new IndustryModel({
       ...newIndustry,
@@ -39,18 +45,25 @@ export const createIndustry = async (req, res) => {
 };
 
 export const updateIndustry = async (req, res) => {
-  const { name } = req.body;
-  if (!name)
-    return res.status(400).json({ success: false, message: 'Tên khoa bị trống.' });
+  const { code, name } = req.body;
+  if (!code || !name)
+    return res
+      .status(400)
+      .json({ success: false, message: 'Mã khoa hoặc tên khoa bị bỏ trống.' });
 
   try {
+    const industryCodeExisted = await IndustryModel.findOne({
+      $and: [{ _id: { $ne: req.params.id } }, { code }]
+    });
+    if (industryCodeExisted)
+      return res
+        .status(400)
+        .json({ success: false, message: 'Mã khoa đã tồn tại.' });
+
     const updateIndustry = req.body;
     const industry = await IndustryModel.findOneAndUpdate(
       { _id: req.params.id },
-      {
-        ...updateIndustry,
-        user: req.userId
-      },
+      updateIndustry,
       { new: true }
     ).populate('user', ['fullName']);
 

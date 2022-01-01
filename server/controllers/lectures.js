@@ -41,11 +41,18 @@ export const getLectureDetail = async (req, res) => {
 export const createLecture = async (req, res) => {
   const { title, url, subjectId } = req.body;
   if (!title)
-    return res.status(400).json({ success: false, message: 'Tiêu đề tài liệu đã bị bỏ trống.' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Tiêu đề tài liệu đã bị bỏ trống.' });
 
   try {
     const newLecture = req.body;
-    let newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
+    let newUrl;
+    if (url !== undefined) {
+      newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
+    } else {
+      newUrl = 'https://www.youtube.com/embed/';
+    }
     let lecture = new LectureModel({
       ...newLecture,
       url: newUrl,
@@ -80,16 +87,23 @@ export const createLecture = async (req, res) => {
 export const updateLecture = async (req, res) => {
   const { title, url } = req.body;
   if (!title)
-    return res.status(400).json({ success: false, message: 'Tiêu đề tài liệu đã bị bỏ trống.' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Tiêu đề tài liệu đã bị bỏ trống.' });
 
   try {
     const updateLecture = req.body;
+    let newUrl;
+    if (url !== undefined) {
+      newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
+    } else {
+      newUrl = 'https://www.youtube.com/embed/';
+    }
     const lecture = await LectureModel.findOneAndUpdate(
       { _id: req.params.id },
       {
         ...updateLecture,
-        user: req.userId,
-        url: url.startsWith('https://') ? url : `https://${url}`
+        url: newUrl
       },
       { new: true }
     ).populate('user', ['fullName']);

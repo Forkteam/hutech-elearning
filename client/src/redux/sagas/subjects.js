@@ -19,7 +19,7 @@ export function* getAllSubjectsSaga(action) {
     yield put(getAllSubjects.getAllSubjectsSuccess(response.data.subjects));
   } catch (error) {
     console.log(error);
-    yield put(getAllSubjects.getAllSubjectsFailure(error));
+    yield put(getAllSubjects.getAllSubjectsFailure(error.response.data));
   }
 }
 
@@ -31,7 +31,9 @@ export function* getStudentSubjectsSaga(action) {
     );
   } catch (error) {
     console.log(error);
-    yield put(getStudentSubjects.getStudentSubjectsFailure(error));
+    yield put(
+      getStudentSubjects.getStudentSubjectsFailure(error.response.data)
+    );
   }
 }
 
@@ -43,7 +45,9 @@ export function* getTeacherSubjectsSaga(action) {
     );
   } catch (error) {
     console.log(error);
-    yield put(getTeacherSubjects.getTeacherSubjectsFailure(error));
+    yield put(
+      getTeacherSubjects.getTeacherSubjectsFailure(error.response.data)
+    );
   }
 }
 
@@ -53,7 +57,7 @@ export function* getSubjectDetailSaga(action) {
     yield put(getSubjectDetail.getSubjectDetailSuccess(response.data.subject));
   } catch (error) {
     console.log(error);
-    yield put(getSubjectDetail.getSubjectDetailFailure(error));
+    yield put(getSubjectDetail.getSubjectDetailFailure(error.response.data));
   }
 }
 
@@ -69,7 +73,7 @@ export function* createSubjectSaga(action) {
     );
   } catch (error) {
     console.log(error);
-    yield put(createSubject.createSubjectFailure(error));
+    yield put(createSubject.createSubjectFailure(error.response.data));
   }
 }
 
@@ -87,7 +91,7 @@ export function* subscribeSubjectSaga(action) {
     );
   } catch (error) {
     console.log(error);
-    yield put(subscribeSubject.subscribeSubjectFailure(error));
+    yield put(subscribeSubject.subscribeSubjectFailure(error.response.data));
   }
 }
 
@@ -105,7 +109,9 @@ export function* unsubscribeSubjectSaga(action) {
     );
   } catch (error) {
     console.log(error);
-    yield put(unsubscribeSubject.unsubscribeSubjectFailure(error));
+    yield put(
+      unsubscribeSubject.unsubscribeSubjectFailure(error.response.data)
+    );
   }
 }
 
@@ -121,7 +127,7 @@ export function* updateSubjectSaga(action) {
     );
   } catch (error) {
     console.log(error);
-    yield put(updateSubject.updateSubjectFailure(error));
+    yield put(updateSubject.updateSubjectFailure(error.response.data));
   }
 }
 
@@ -137,6 +143,6 @@ export function* deleteSubjectSaga(action) {
     );
   } catch (error) {
     console.log(error);
-    yield put(deleteSubject.deleteSubjectFailure(error));
+    yield put(deleteSubject.deleteSubjectFailure(error.response.data));
   }
 }

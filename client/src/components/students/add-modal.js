@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideModal, setCurrentId, showToast } from '../../redux/actions';
 import { createUser } from '../../redux/actions/users';
-import { currentId$, modal$ } from '../../redux/selectors';
+import { currentId$, modal$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
 import Transition from '../overlays/transition';
 
@@ -18,6 +18,7 @@ const AddModal = () => {
   const dispatch = useDispatch();
   const [alert, setAlert] = useState(null);
   const modal = useSelector(modal$);
+  const toast = useSelector(toast$);
   const currentId = useSelector(currentId$);
   const [newStudent, setNewStudent] = useState({
     fullName: '',
@@ -41,12 +42,12 @@ const AddModal = () => {
       confirmPassword: '',
     });
     dispatch(hideModal());
-    if (currentId._id !== 0) dispatch(setCurrentId(0));
+    if (currentId.id !== 0) dispatch(setCurrentId(0));
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (currentId._id === 0) {
+    if (currentId.id === 0) {
       if (username.includes(' ')) {
         setAlert({
           type: 'warning',
@@ -84,13 +85,14 @@ const AddModal = () => {
         })
       );
     }
-    closeDialog();
   };
 
   return (
     <Dialog TransitionComponent={Transition} open={modal.show} scroll="paper">
-      <DialogTitle>{currentId._id === 0 ? 'THÊM' : 'CHỈNH SỬA'}</DialogTitle>
+      <DialogTitle>{currentId.id === 0 ? 'THÊM' : 'CHỈNH SỬA'}</DialogTitle>
       <DialogContent dividers>
+        {alert && <AlertMessage info={alert} />}
+        {!alert && <AlertMessage info={toast} />}
         <TextField
           required
           fullWidth
@@ -138,7 +140,6 @@ const AddModal = () => {
           onChange={onChangeNewStudentForm}
           value={confirmPassword}
         />
-        <AlertMessage info={alert} />
       </DialogContent>
       <DialogActions>
         <Button onClick={closeDialog}>Cancel</Button>

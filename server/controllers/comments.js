@@ -19,7 +19,10 @@ export const createComment = async (req, res) => {
   if (!content || !lectureId)
     return res
       .status(400)
-      .json({ success: false, message: 'Thiếu nội dung bình luận hoặc mã tài liệu' });
+      .json({
+        success: false,
+        message: 'Thiếu nội dung bình luận hoặc mã tài liệu'
+      });
 
   try {
     const newComment = req.body;
@@ -42,16 +45,15 @@ export const createComment = async (req, res) => {
 export const updateComment = async (req, res) => {
   const { content } = req.body;
   if (!content)
-    return res.status(400).json({ success: false, message: 'Thiếu nội dung bình luận.' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Thiếu nội dung bình luận.' });
 
   try {
     const updateComment = req.body;
     const comment = await CommentModel.findOneAndUpdate(
       { _id: req.params.id },
-      {
-        ...updateComment,
-        user: req.userId
-      },
+      updateComment,
       { new: true }
     ).populate('user', ['fullName']);
 
@@ -62,7 +64,11 @@ export const updateComment = async (req, res) => {
 
     res
       .status(200)
-      .json({ success: true, message: 'Cập nhật bình luận thành công!', comment });
+      .json({
+        success: true,
+        message: 'Cập nhật bình luận thành công!',
+        comment
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });

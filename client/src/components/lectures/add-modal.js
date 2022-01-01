@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { hideModal, setCurrentId, showToast } from '../../redux/actions';
 import { createLecture } from '../../redux/actions/lectures';
-import { currentId$, modal$ } from '../../redux/selectors';
+import { currentId$, modal$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
 import Transition from '../overlays/transition';
 
@@ -21,6 +21,7 @@ const AddModal = () => {
   const { id: subjectId } = useParams();
   const [alert, setAlert] = useState(null);
   const modal = useSelector(modal$);
+  const toast = useSelector(toast$);
   const currentId = useSelector(currentId$);
   const [newLecture, setNewLecture] = useState({
     title: '',
@@ -55,7 +56,7 @@ const AddModal = () => {
       file: '',
     });
     dispatch(hideModal());
-    if (currentId._id !== 0) dispatch(setCurrentId(0));
+    if (currentId.id !== 0) dispatch(setCurrentId(0));
   };
 
   const onSubmit = async (event) => {
@@ -68,7 +69,7 @@ const AddModal = () => {
       setTimeout(() => setAlert(null), 5000);
       return;
     }
-    if (currentId._id === 0) {
+    if (currentId.id === 0) {
       dispatch(
         createLecture.createLectureRequest({
           ...newLecture,
@@ -90,7 +91,6 @@ const AddModal = () => {
         })
       );
     }
-    closeDialog();
   };
 
   return (
@@ -98,6 +98,8 @@ const AddModal = () => {
       <DialogTitle>CREATE NEW LECTURE</DialogTitle>
       <DialogContent dividers>
         <Box component="form" onSubmit={onSubmit}>
+          {alert && <AlertMessage info={alert} />}
+          {!alert && <AlertMessage info={toast} />}
           <TextField
             margin="dense"
             type="text"
@@ -145,7 +147,6 @@ const AddModal = () => {
             name="file"
             onChange={handleFileChange}
           />
-          <AlertMessage info={alert} />
           <Button
             fullWidth
             type="submit"

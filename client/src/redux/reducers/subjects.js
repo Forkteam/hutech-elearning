@@ -82,7 +82,7 @@ export default function subjectsReducers(state = INIT_STATE.subjects, action) {
         ...state,
         loading: false,
         data: state.data.map((subject) =>
-          subject._id === payload._id ? payload : subject
+          subject.id === payload.id ? payload : subject
         ),
       };
 
@@ -90,7 +90,7 @@ export default function subjectsReducers(state = INIT_STATE.subjects, action) {
       return {
         ...state,
         loading: false,
-        data: state.data.filter((subject) => subject._id !== payload._id),
+        data: state.data.filter((subject) => subject.id !== payload.id),
       };
 
     default:
