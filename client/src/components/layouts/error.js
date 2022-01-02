@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
+import Image from '../../assets/banner.jpg';
 
 const Error = () => {
   return (
@@ -19,7 +20,7 @@ const Error = () => {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        backgroundImage: `url(http://lib.hutech.edu.vn/ImageSlideShow/BANNER%204.jpg)`,
+        backgroundImage: `url(${Image})`,
       }}
     >
       <Card

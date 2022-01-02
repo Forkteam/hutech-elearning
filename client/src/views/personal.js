@@ -185,7 +185,7 @@ export default function Personal() {
               </div>
               <fieldset>
                 <legend>
-                  <h4>THÔNG TIN {user?.role < 2 ? 'SINH' : 'NHÂN'} VIÊN</h4>
+                  <h4>THÔNG TIN CÁ NHÂN</h4>
                 </legend>
                 <div>
                   {alert && <AlertMessage info={alert} />}
