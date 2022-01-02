@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get('/:role', verifyToken, authTeacher, getUsers);
 router.post('/:role', verifyToken, authTeacher, createUser);
-router.put('/:id', verifyToken, authTeacher, updateUser);
+router.put('/:id', verifyToken, updateUser);
 router.delete('/:id', verifyToken, authTeacher, deleteUser);
 
 export default router;

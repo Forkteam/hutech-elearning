@@ -16,7 +16,16 @@ export const getPublicSubjects = async (_, res) => {
 
 export const getAllPublicSubjects = async (_, res) => {
   try {
-    const subjects = await SubjectModel.find({ status: PUBLIC });
+    const subjects = await SubjectModel.find({ status: PUBLIC }).populate([
+      {
+        path: 'user',
+        select: ['fullName']
+      },
+      {
+        path: 'industryId',
+        select: ['name']
+      }
+    ]);
     return res.status(200).json({ success: true, subjects });
   } catch (error) {
     console.log(error);
@@ -85,8 +94,15 @@ export const getTeacherSubjects = async (req, res) => {
 
 export const getSubjectDetail = async (req, res) => {
   try {
-    let subject = await SubjectModel.findById(req.params.id).populate('user', [
-      'fullName'
+    let subject = await SubjectModel.findById(req.params.id).populate([
+      {
+        path: 'user',
+        select: ['fullName']
+      },
+      {
+        path: 'industryId',
+        select: ['name']
+      }
     ]);
     let checkSubscribe = new Promise((resolve, _) => {
       subject.studentIds.forEach((item) => {
@@ -150,7 +166,16 @@ export const updateSubject = async (req, res) => {
       { _id: id },
       subjectInput,
       { new: true, omitUndefined: true }
-    ).populate('user', ['fullName']);
+    ).populate([
+      {
+        path: 'user',
+        select: ['fullName']
+      },
+      {
+        path: 'industryId',
+        select: ['name']
+      }
+    ]);
     if (!updatedSubject)
       return res
         .status(404)
@@ -207,7 +232,16 @@ export const addStudent = async (req, res) => {
       { _id: req.params.id },
       { $addToSet: { studentIds: req.userId } },
       { new: true }
-    ).populate('user', ['fullName']);
+    ).populate([
+      {
+        path: 'user',
+        select: ['fullName']
+      },
+      {
+        path: 'industryId',
+        select: ['name']
+      }
+    ]);
     if (!updatedSubject)
       return res
         .status(404)
@@ -230,7 +264,16 @@ export const removeStudent = async (req, res) => {
       { _id: req.params.id },
       { $pull: { studentIds: req.userId } },
       { new: true }
-    ).populate('user', ['fullName']);
+    ).populate([
+      {
+        path: 'user',
+        select: ['fullName']
+      },
+      {
+        path: 'industryId',
+        select: ['name']
+      }
+    ]);
     if (!updatedSubject)
       return res
         .status(404)
