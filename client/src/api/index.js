@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 export const apiURL =
-  process.env.NODE_ENV !== 'production' ? 'http://localhost:5050' : '';
+  process.env.NODE_ENV !== 'production'
+    ? 'http://localhost:5050'
+    : 'https://hutech-elearning-nhom2-19dthd4.herokuapp.com';
 
 export const getIndustries = (payload) =>
   axios.get(`${apiURL}/industries`, payload);
