@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { CommentModel } from '../models/comment-model.js';
 import { LectureModel } from '../models/lecture-model.js';
 import { SubjectModel } from '../models/subject-model.js';
@@ -144,7 +145,7 @@ export const updateSubject = async (req, res) => {
       .status(400)
       .json({ success: false, message: 'Vui lòng điền đầy đủ thông tin.' });
   try {
-    const subjectInput = req.body;
+    const subjectInput = _.pickBy(req.body, _.identity);
     const updatedSubject = await SubjectModel.findOneAndUpdate(
       { _id: id },
       subjectInput,

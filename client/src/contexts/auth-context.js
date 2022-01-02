@@ -125,6 +125,7 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const authContextData = {
+    loadUser,
     loginUser,
     registerUser,
     logoutUser,

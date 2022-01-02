@@ -1,4 +1,5 @@
 import argon2 from 'argon2';
+import _ from 'lodash';
 import { SubjectModel } from '../models/subject-model.js';
 import { UserModel } from '../models/user-model.js';
 
@@ -91,8 +92,7 @@ export const updateUser = async (req, res) => {
       return res
         .status(404)
         .json({ success: false, message: 'Không tìm thấy người dùng.' });
-
-    const updateUser = req.body;
+    const updateUser = _.pickBy(req.body, _.identity);
     const user = await UserModel.findOneAndUpdate(
       { _id: req.params.id },
       updateUser,

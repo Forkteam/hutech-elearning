@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import mailer from '../mailer/index.js';
 import notificationMail from '../mailer/notification-mail.js';
 import { CommentModel } from '../models/comment-model.js';
@@ -93,7 +94,7 @@ export const updateLecture = async (req, res) => {
       .json({ success: false, message: 'Tiêu đề tài liệu đã bị bỏ trống.' });
 
   try {
-    const updateLecture = req.body;
+    const updateLecture = _.pickBy(req.body, _.identity);
     let newUrl;
     if (url !== undefined) {
       if (url.split('/')[3] === 'embed') newUrl = url;
