@@ -6,11 +6,14 @@ const authTeacher = async (req, res, next) => {
     if (user.role < 2)
       return res
         .status(403)
-        .json({ success: false, message: 'Teacher resources access denied.' });
+        .json({
+          success: false,
+          message: 'Quyền truy cập tài nguyên quản trị viên bị từ chối.'
+        });
     next();
   } catch (error) {
     console.log(error);
-    return res.status(403).json({ success: false, message: 'Server error' });
+    return res.status(403).json({ success: false, message: 'Lỗi máy chủ' });
   }
 };
 

@@ -24,7 +24,7 @@ export function* getAllSubjectsSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -44,7 +44,7 @@ export function* getAllPublicSubjectsSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -66,7 +66,7 @@ export function* getStudentSubjectsSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -88,7 +88,7 @@ export function* getTeacherSubjectsSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -108,7 +108,7 @@ export function* getSubjectDetailSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -124,7 +124,7 @@ export function* createSubjectSaga(action) {
     yield put(setCurrentId(0));
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -134,7 +134,7 @@ export function* createSubjectSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -150,7 +150,7 @@ export function* subscribeSubjectSaga(action) {
     );
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -160,7 +160,7 @@ export function* subscribeSubjectSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -176,7 +176,7 @@ export function* unsubscribeSubjectSaga(action) {
     );
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -186,7 +186,7 @@ export function* unsubscribeSubjectSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -204,7 +204,7 @@ export function* updateSubjectSaga(action) {
     yield put(setCurrentId(0));
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -214,7 +214,7 @@ export function* updateSubjectSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -230,7 +230,7 @@ export function* deleteSubjectSaga(action) {
     yield put(setCurrentId(0));
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -240,7 +240,7 @@ export function* deleteSubjectSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );

@@ -18,7 +18,7 @@ export function* getCommentsSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -34,7 +34,7 @@ export function* createCommentSaga(action) {
     yield put(createComment.createCommentSuccess(response.data.comment));
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -44,7 +44,7 @@ export function* createCommentSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -60,7 +60,7 @@ export function* updateCommentSaga(action) {
     yield put(updateComment.updateCommentSuccess(response.data.comment));
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -70,7 +70,7 @@ export function* updateCommentSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -86,7 +86,7 @@ export function* deleteCommentSaga(action) {
     yield put(deleteComment.deleteCommentSuccess(response.data.comment));
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -96,7 +96,7 @@ export function* deleteCommentSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );

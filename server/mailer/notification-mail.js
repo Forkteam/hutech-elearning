@@ -1,16 +1,16 @@
-const notificationMail = (lectureId, subjectId) => {
+const notificationMail = (lectureId) => {
   const emailContent = {
-    subject: 'HUTECH E-LEARNING ✔',
+    subject: 'Bài học mới HUTECH E-LEARNING ✔',
     html: `
       <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
-        <h2 style="text-align: center; text-transform: uppercase;color: teal;">New Lesson</h2>
-        <p>Teacher just posted a new lesson. Click the link to learn:
+        <h2 style="text-align: center; text-transform: uppercase;color: teal;">Bài học mới</h2>
+        <p>Thầy vừa đăng bài mới. Nhấp vào liên kết để tìm hiểu:
         </p>
-        <a href='${process.env.CLIENT_URL}/lectures?subjectId=${subjectId}&lectureId=${lectureId}' style="background: crimson; text-decoration: none; color: white; padding: 10px 20px; margin: 10px 0; display: inline-block;">
-          LEARN
+        <a href='${process.env.CLIENT_URL}/subjects/lectures/${lectureId}' style="background: crimson; text-decoration: none; color: white; padding: 10px 20px; margin: 10px 0; display: inline-block;">
+          TÌM HIỂU
         </a>
-        <p>If the button doesn't work, you can also click on the link below:</p>
-        <div>${process.env.CLIENT_URL}/lectures?subjectId=${subjectId}&lectureId=${lectureId}</div>
+        <p>Nếu nút không hoạt động, bạn cũng có thể nhấp vào liên kết bên dưới:</p>
+        <div>${process.env.CLIENT_URL}/subjects/lectures/${lectureId}</div>
       </div>
     `
   };

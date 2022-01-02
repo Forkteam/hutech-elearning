@@ -3,7 +3,6 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SquareIcon from '@mui/icons-material/Square';
 import StarsIcon from '@mui/icons-material/Stars';
 import { Avatar, Box, Card, Container, Grid, Typography } from '@mui/material';
-// import { Link } from 'react-router-dom';
 
 const News = () => {
   return (

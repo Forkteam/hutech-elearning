@@ -19,7 +19,7 @@ export function* getLecturesSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -37,7 +37,7 @@ export function* getLectureDetailSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -53,7 +53,7 @@ export function* createLectureSaga(action) {
     yield put(createLecture.createLectureSuccess(response.data.lecture));
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -63,7 +63,7 @@ export function* createLectureSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -79,7 +79,7 @@ export function* updateLectureSaga(action) {
     yield put(updateLecture.updateLectureSuccess(response.data.lecture));
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -89,7 +89,7 @@ export function* updateLectureSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -105,7 +105,7 @@ export function* deleteLectureSaga(action) {
     yield put(deleteLecture.deleteLectureSuccess(response.data.lecture));
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -115,7 +115,7 @@ export function* deleteLectureSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );

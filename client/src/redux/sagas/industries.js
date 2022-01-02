@@ -18,7 +18,7 @@ export function* getIndustriesSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -34,7 +34,7 @@ export function* createIndustrySaga(action) {
     yield put(setCurrentId(0));
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -44,7 +44,7 @@ export function* createIndustrySaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -60,7 +60,7 @@ export function* updateIndustrySaga(action) {
     yield put(setCurrentId(0));
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -70,7 +70,7 @@ export function* updateIndustrySaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
@@ -86,7 +86,7 @@ export function* deleteIndustrySaga(action) {
     yield put(setCurrentId(0));
     yield put(
       showToast({
-        message: response.data.message ? response.data.message : 'Server error',
+        message: response.data.message ? response.data.message : 'Lỗi máy chủ',
         type: response.data.success ? 'success' : 'error',
       })
     );
@@ -96,7 +96,7 @@ export function* deleteIndustrySaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );

@@ -67,7 +67,7 @@ export const createLecture = async (req, res) => {
       const users = await UserModel.find({
         _id: { $in: subjectData.studentIds }
       });
-      const emailContent = notificationMail(lecture._id, lecture.subjectId);
+      const emailContent = notificationMail(lecture._id);
       users.map((user) => {
         if (user.email) mailer(user.email, emailContent);
       });

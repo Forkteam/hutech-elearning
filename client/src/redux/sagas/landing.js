@@ -15,7 +15,7 @@ export function* getPublicSubjectsSaga(action) {
       showToast({
         message: error.response.data.message
           ? error.response.data.message
-          : 'Server error',
+          : 'Lỗi máy chủ',
         type: error.response.data.success ? 'error' : 'error',
       })
     );
