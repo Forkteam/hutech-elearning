@@ -94,7 +94,7 @@ export const updateLecture = async (req, res) => {
       .json({ success: false, message: 'Tiêu đề tài liệu đã bị bỏ trống.' });
 
   try {
-    const updateLecture = _.pickBy(req.body, _.identity);
+    const updateLecture = _.omitBy(req.body, _.isNil);
     let newUrl;
     if (url !== undefined) {
       if (url.split('/')[3] === 'embed') newUrl = url;

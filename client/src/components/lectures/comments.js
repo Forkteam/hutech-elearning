@@ -152,7 +152,7 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
       <Typography variant="h6" component="h6" sx={{ mt: 4, mb: 1, ml: 4 }}>
         Bình luận
       </Typography>
-      {!user?.isExternal && (
+      {(!user?.isExternal || user?.role > 1) && (
         <Box
           component="form"
           onSubmit={onSubmit}

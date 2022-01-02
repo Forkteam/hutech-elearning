@@ -161,7 +161,7 @@ export const updateSubject = async (req, res) => {
       .status(400)
       .json({ success: false, message: 'Vui lòng điền đầy đủ thông tin.' });
   try {
-    const subjectInput = _.pickBy(req.body, _.identity);
+    const subjectInput = _.omitBy(req.body, _.isNil);
     const updatedSubject = await SubjectModel.findOneAndUpdate(
       { _id: id },
       subjectInput,

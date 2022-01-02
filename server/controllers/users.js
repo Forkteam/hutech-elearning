@@ -96,7 +96,7 @@ export const updateUser = async (req, res) => {
       return res
         .status(404)
         .json({ success: false, message: 'Không tìm thấy người dùng.' });
-    const updateUser = _.pickBy(req.body, _.identity);
+    const updateUser = _.omitBy(req.body, _.isNil);
     const user = await UserModel.findOneAndUpdate(
       { _id: req.params.id },
       updateUser,

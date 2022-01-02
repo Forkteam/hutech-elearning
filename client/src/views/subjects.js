@@ -37,7 +37,7 @@ const Subjects = () => {
   const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
-    if (user?.isExternal)
+    if (user?.isExternal && user?.role < 2)
       dispatch(getAllPublicSubjects.getAllPublicSubjectsRequest());
     else dispatch(getAllSubjects.getAllSubjectsRequest());
   }, [dispatch]);

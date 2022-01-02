@@ -49,12 +49,10 @@ export default function adminsReducers(state = INIT_STATE.admins, action) {
         loading: false,
         data: state.data
           .filter((user) =>
-            user.id === payload.id && user.role !== payload.role ? false : true
+            user.id === payload.id && payload.role < 2 ? false : true
           )
           .map((user) =>
-            user.id === payload.id && user.role === payload.role
-              ? payload
-              : user
+            user.id === payload.id && payload.role > 1 ? payload : user
           ),
       };
 

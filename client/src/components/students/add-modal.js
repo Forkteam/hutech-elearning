@@ -7,11 +7,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  MenuItem,
   TextField,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthContext } from '../../contexts/auth-context';
 import {
   hideModal,
   setCurrentId,
@@ -30,6 +32,9 @@ const AddModal = () => {
   const toast = useSelector(toast$);
   const students = useSelector(students$);
   const currentId = useSelector(currentId$);
+  const {
+    authState: { user },
+  } = useContext(AuthContext);
   const [newStudent, setNewStudent] = useState({
     fullName: '',
     username: '',
@@ -39,6 +44,8 @@ const AddModal = () => {
     avatar: '',
     password: '',
     confirmPassword: '',
+    isExternal: false,
+    role: 1,
   });
   const {
     fullName,
@@ -49,6 +56,8 @@ const AddModal = () => {
     password,
     confirmPassword,
     avatar,
+    isExternal,
+    role,
   } = newStudent;
 
   const onChangeNewStudentForm = (event) =>
@@ -71,6 +80,8 @@ const AddModal = () => {
         code: currentStudent.code,
         birthday: currentStudent.birthday,
         avatar: currentStudent.avatar,
+        isExternal: currentStudent.isExternal,
+        role: 1,
       });
       dispatch(showModal());
     } else {
@@ -83,6 +94,8 @@ const AddModal = () => {
         avatar: '',
         password: '',
         confirmPassword: '',
+        isExternal: false,
+        role: 1,
       });
     }
   }, [currentId, dispatch]);
@@ -110,6 +123,8 @@ const AddModal = () => {
       avatar: '',
       password: '',
       confirmPassword: '',
+      isExternal: false,
+      role: 1,
     });
     dispatch(hideModal());
     if (currentId.id !== 0) dispatch(setCurrentId(0));
@@ -186,6 +201,8 @@ const AddModal = () => {
           code,
           birthday,
           avatar,
+          isExternal,
+          role,
         })
       );
       dispatch(
@@ -266,6 +283,19 @@ const AddModal = () => {
               onChange={onChangeNewStudentForm}
               value={code}
             />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              select
+              label="Loại"
+              name="isExternal"
+              onChange={onChangeNewStudentForm}
+              value={isExternal}
+            >
+              <MenuItem value={false}>Sinh viên</MenuItem>
+              <MenuItem value={true}>Khách</MenuItem>
+            </TextField>
             <DatePicker
               label="Ngày sinh"
               value={birthday}
@@ -286,6 +316,20 @@ const AddModal = () => {
               name="avatar"
               onChange={handleFileChange}
             />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              select
+              label="Quyền"
+              name="role"
+              onChange={onChangeNewStudentForm}
+              value={role}
+            >
+              <MenuItem value={1}>Sinh viên</MenuItem>
+              <MenuItem value={2}>Admin</MenuItem>
+              {user?.role > 2 && <MenuItem value={3}>Super admin</MenuItem>}
+            </TextField>
           </>
         )}
       </DialogContent>

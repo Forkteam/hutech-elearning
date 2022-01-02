@@ -8,8 +8,9 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
+  MenuItem,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import {
@@ -22,6 +23,7 @@ import { createUser, updateUser } from '../../redux/actions/users';
 import { admins$, currentId$, modal$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
 import Transition from '../overlays/transition';
+import { AuthContext } from '../../contexts/auth-context';
 
 const AddModal = () => {
   const dispatch = useDispatch();
@@ -30,6 +32,9 @@ const AddModal = () => {
   const toast = useSelector(toast$);
   const admins = useSelector(admins$);
   const currentId = useSelector(currentId$);
+  const {
+    authState: { user },
+  } = useContext(AuthContext);
   const [newAdmin, setNewAdmin] = useState({
     fullName: '',
     username: '',
@@ -39,6 +44,7 @@ const AddModal = () => {
     avatar: '',
     password: '',
     confirmPassword: '',
+    role: 1,
   });
   const {
     fullName,
@@ -48,6 +54,7 @@ const AddModal = () => {
     birthday,
     password,
     confirmPassword,
+    role,
   } = newAdmin;
   const currentAdmin =
     currentId.id !== 0
@@ -63,6 +70,7 @@ const AddModal = () => {
         code: currentAdmin.code,
         birthday: currentAdmin.birthday,
         avatar: currentAdmin.avatar,
+        role: currentAdmin.role,
       });
       dispatch(showModal());
     } else {
@@ -75,6 +83,7 @@ const AddModal = () => {
         avatar: '',
         password: '',
         confirmPassword: '',
+        role: 1,
       });
     }
   }, [currentId, dispatch]);
@@ -108,6 +117,7 @@ const AddModal = () => {
       avatar: '',
       password: '',
       confirmPassword: '',
+      role: 1,
     });
     dispatch(hideModal());
     if (currentId.id !== 0) dispatch(setCurrentId(0));
@@ -272,6 +282,20 @@ const AddModal = () => {
               name="avatar"
               onChange={handleFileChange}
             />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              select
+              label="Quyền"
+              name="role"
+              onChange={onChangeNewAdminForm}
+              value={role}
+            >
+              <MenuItem value={1}>Sinh viên</MenuItem>
+              <MenuItem value={2}>Admin</MenuItem>
+              {user?.role > 2 && <MenuItem value={3}>Super admin</MenuItem>}
+            </TextField>
           </>
         )}
       </DialogContent>
