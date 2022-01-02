@@ -16,6 +16,7 @@ import LoginForm from '../components/auth/login-form';
 import RegisterForm from '../components/auth/register-form';
 import ResetPassword from '../components/auth/reset-password';
 import { AuthContext } from '../contexts/auth-context';
+import Image from '../assets/banner.jpg';
 
 const theme = createTheme();
 
@@ -69,7 +70,7 @@ const Auth = ({ authRoute }) => {
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
-            backgroundImage: `url(http://lib.hutech.edu.vn/ImageSlideShow/BANNER%204.jpg)`,
+            backgroundImage: `url(${Image})`,
           }}
         >
           <Container component="main" maxWidth="sm">
