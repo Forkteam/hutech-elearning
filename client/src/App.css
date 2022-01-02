@@ -36,3 +36,121 @@
     transform: rotate(360deg);
   }
 }
+
+a {
+  text-decoration: none;
+  color: #1976d2;
+}
+.text-white {
+  color: #fff;
+}
+.jc-sb {
+  justify-content: space-between;
+}
+.flex {
+  display: flex;
+}
+
+.News a {
+  color: black;
+}
+.img-responsive {
+  width: 100%;
+}
+.News {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+.News .Box1 {
+  grid-row: 1/4;
+  padding-right: 20px;
+}
+.News .Box2 {
+  padding-right: 20px;
+}
+.News .Box3 {
+  grid-row: 2/4;
+  padding-right: 20px;
+}
+.News .Box3 .video {
+  display: grid;
+  margin-top: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 3px;
+}
+.News .Box3 .video a {
+  font-size: 18px;
+  font-family: Tahoma;
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba(228, 225, 225, 0.781);
+  width: 100%;
+  border-radius: 4px;
+  padding: 7px;
+  margin-bottom: 3px;
+}
+
+.personal {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 0.2fr;
+  grid-gap: 10px;
+  height: auto;
+  background-color: rgb(211, 211, 211);
+}
+.personal .div1 {
+  margin: 20px;
+  grid-row: 1/3;
+}
+.personal .div1 img {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  padding: 5px;
+  box-shadow: 0 5px 4px rgba(0, 0, 0, 0.4);
+}
+.personal .div2 {
+  grid-row: 3/4;
+  margin: auto 10px;
+  background: rgba(157, 253, 157, 0.678);
+  justify-content: center;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: green;
+  border-radius: 10px;
+  line-height: 30px;
+}
+.personal .div4 {
+  grid-column: 2/5;
+  grid-row: 1/9;
+  border-radius: 10px;
+  margin: 10px auto;
+  background-color: rgb(255, 255, 255);
+  padding: 25px 20px;
+}
+.personal .div4 .row {
+  background: rgba(197, 197, 197, 0.507);
+  padding: 10px;
+  border-radius: 10px;
+  line-height: 30px;
+  box-shadow: 0 5px 4px rgba(0, 0, 0, 0.4);
+}
+.personal .div4 fieldset {
+  border-radius: 10px;
+}
+.personal .div4 .cus_neo_div {
+  position: fixed;
+  bottom: 15px;
+  z-index: 1000;
+  background-color: rgba(23, 102, 171, 0.49);
+  padding: 3px 10px;
+  border: 1px solid #cdcdcd;
+  -webkit-box-shadow: 1px 2px 3px;
+  box-shadow: 1px 2px 3px;
+  right: calc(100% - 96vw);
+}
