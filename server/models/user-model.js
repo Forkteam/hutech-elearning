@@ -31,12 +31,6 @@ const schema = new mongoose.Schema(
     avatar: String,
     birthday: Date,
     isExternal: { type: Boolean, default: false },
-    subjectIds: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'subjects'
-      }
-    ],
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users'

@@ -4,7 +4,6 @@ import DatePicker from '@mui/lab/DatePicker';
 import { Grid, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import moment from 'moment';
-import 'moment/locale/vi';
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AlertMessage from '../components/layouts/alert-message';
@@ -13,7 +12,6 @@ import { showToast } from '../redux/actions';
 import { updateUser } from '../redux/actions/users';
 import { toast$ } from '../redux/selectors';
 import Tooltip from '../components/overlays/tooltip';
-moment.locale('vi');
 
 export default function Personal() {
   const dispatch = useDispatch();

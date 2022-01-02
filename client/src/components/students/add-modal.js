@@ -12,7 +12,6 @@ import {
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import 'moment/locale/vi';
 import {
   hideModal,
   setCurrentId,
@@ -23,7 +22,6 @@ import { createUser, updateUser } from '../../redux/actions/users';
 import { currentId$, modal$, students$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
 import Transition from '../overlays/transition';
-moment.locale('vi');
 
 const AddModal = () => {
   const dispatch = useDispatch();
