@@ -26,7 +26,7 @@ cd server
 npm install
 ```
 
-## Server setup
+## Client setup
 
 ```
 cd client
