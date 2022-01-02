@@ -190,13 +190,13 @@ const Subjects = () => {
             <Tab
               icon={<WindowIcon />}
               iconPosition="start"
-              label="grid"
+              label="dạng lưới"
               sx={{ minHeight: '50px' }}
             />
             <Tab
               icon={<TocIcon />}
               iconPosition="start"
-              label="table"
+              label="dạng bảng"
               sx={{ minHeight: '50px' }}
             />
           </Tabs>
