@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable react-hooks/exhaustive-deps */
+import DatePicker from '@mui/lab/DatePicker';
 import {
   Button,
   Dialog,
@@ -10,6 +11,8 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import 'moment/locale/vi';
 import {
   hideModal,
   setCurrentId,
@@ -20,6 +23,7 @@ import { createUser, updateUser } from '../../redux/actions/users';
 import { currentId$, modal$, students$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
 import Transition from '../overlays/transition';
+moment.locale('vi');
 
 const AddModal = () => {
   const dispatch = useDispatch();
@@ -51,6 +55,9 @@ const AddModal = () => {
 
   const onChangeNewStudentForm = (event) =>
     setNewStudent({ ...newStudent, [event.target.name]: event.target.value });
+
+  const onChangeDate = (value) =>
+    setNewStudent({ ...newStudent, birthday: moment(value).utc() });
 
   const currentStudent =
     currentId.id !== 0
@@ -261,14 +268,13 @@ const AddModal = () => {
               onChange={onChangeNewStudentForm}
               value={code}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
+            <DatePicker
               label="Ngày sinh"
-              name="birthday"
-              onChange={onChangeNewStudentForm}
               value={birthday}
+              onChange={onChangeDate}
+              renderInput={(params) => (
+                <TextField {...params} margin="normal" required fullWidth />
+              )}
             />
             <TextField
               margin="dense"

@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable react-hooks/exhaustive-deps */
+import DatePicker from '@mui/lab/DatePicker';
 import { Grid, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import moment from 'moment';
@@ -63,6 +64,9 @@ export default function Personal() {
 
   const onChangeData = (event) =>
     setData({ ...data, [event.target.name]: event.target.value });
+
+  const onChangeDate = (value) =>
+    setData({ ...data, birthday: moment(value).utc() });
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -197,14 +201,18 @@ export default function Personal() {
                     value={fullName}
                     sx={{ mb: 4 }}
                   />
-                  <TextField
-                    required
-                    fullWidth
+                  <DatePicker
                     label="Ngày sinh"
-                    onChange={onChangeData}
-                    name="birthday"
                     value={birthday}
-                    sx={{ mb: 4 }}
+                    onChange={onChangeDate}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        sx={{ mb: 4 }}
+                        required
+                        fullWidth
+                      />
+                    )}
                   />
                   <TextField
                     required

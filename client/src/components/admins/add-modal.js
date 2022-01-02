@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable react-hooks/exhaustive-deps */
+import DatePicker from '@mui/lab/DatePicker';
 import {
   Button,
   Dialog,
@@ -10,6 +11,8 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import 'moment/locale/vi';
 import {
   hideModal,
   setCurrentId,
@@ -20,6 +23,7 @@ import { createUser, updateUser } from '../../redux/actions/users';
 import { admins$, currentId$, modal$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
 import Transition from '../overlays/transition';
+moment.locale('vi');
 
 const AddModal = () => {
   const dispatch = useDispatch();
@@ -79,6 +83,9 @@ const AddModal = () => {
 
   const onChangeNewAdminForm = (event) =>
     setNewAdmin({ ...newAdmin, [event.target.name]: event.target.value });
+
+  const onChangeDate = (value) =>
+    setNewAdmin({ ...newAdmin, birthday: moment(value).utc() });
 
   const toBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -246,14 +253,13 @@ const AddModal = () => {
               onChange={onChangeNewAdminForm}
               value={code}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
+            <DatePicker
               label="Ngày sinh"
-              name="birthday"
-              onChange={onChangeNewAdminForm}
               value={birthday}
+              onChange={onChangeDate}
+              renderInput={(params) => (
+                <TextField {...params} margin="normal" required fullWidth />
+              )}
             />
             <TextField
               margin="dense"
