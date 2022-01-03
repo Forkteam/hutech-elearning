@@ -84,7 +84,7 @@ const CommentModal = ({ lectureId }) => {
     );
     dispatch(
       showToast({
-        message: 'Please wait! We are updating...',
+        message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
         type: 'warning',
       })
     );

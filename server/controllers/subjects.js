@@ -193,6 +193,7 @@ export const updateSubject = async (req, res) => {
 };
 
 export const deleteSubject = async (req, res) => {
+  const { id } = req.params;
   if (!id)
     return res
       .status(400)

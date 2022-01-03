@@ -57,7 +57,7 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
       );
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
@@ -65,7 +65,7 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
       console.log('update comment');
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
