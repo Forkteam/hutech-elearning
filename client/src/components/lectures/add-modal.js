@@ -100,7 +100,8 @@ const AddModal = () => {
     }
     if (
       url.split('?v=')[0] !== 'https://www.youtube.com/watch' &&
-      url.split('/')[3] !== 'embed'
+      url.split('/')[3] !== 'embed' &&
+      url !== ''
     ) {
       setAlert({
         type: 'warning',
@@ -153,7 +154,7 @@ const AddModal = () => {
             fullWidth
             variant="standard"
             autoFocus
-            label="Title"
+            label="Tiêu đề"
             name="title"
             value={title}
             onChange={onChangeNewLectureForm}

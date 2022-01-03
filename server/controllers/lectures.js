@@ -50,8 +50,11 @@ export const createLecture = async (req, res) => {
   try {
     const newLecture = req.body;
     let newUrl;
-    if (url !== undefined) {
-      newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
+    if (url !== undefined || url !== '') {
+      if (url.split('?v=')[0] === 'https://www.youtube.com/watch')
+        newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
+      else if (url.split('/')[3] === 'embed') newUrl = url;
+      else newUrl = 'https://www.youtube.com/embed/sk0VynhUKVQ';
     } else {
       newUrl = 'https://www.youtube.com/embed/sk0VynhUKVQ';
     }
@@ -96,9 +99,11 @@ export const updateLecture = async (req, res) => {
   try {
     const updateLecture = _.omitBy(req.body, _.isNil);
     let newUrl;
-    if (url !== undefined) {
-      if (url.split('/')[3] === 'embed') newUrl = url;
-      else newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
+    if (url !== undefined || url !== '') {
+      if (url.split('?v=')[0] === 'https://www.youtube.com/watch')
+        newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
+      else if (url.split('/')[3] === 'embed') newUrl = url;
+      else newUrl = 'https://www.youtube.com/embed/sk0VynhUKVQ';
     } else {
       newUrl = 'https://www.youtube.com/embed/sk0VynhUKVQ';
     }
