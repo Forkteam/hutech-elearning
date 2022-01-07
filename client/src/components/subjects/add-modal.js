@@ -157,7 +157,7 @@ const AddModal = () => {
             fullWidth
             variant="standard"
             autoFocus
-            label="Tên môn học"
+            label="Tên tài liệu"
             name="name"
             value={name}
             onChange={onChangeNewSubjectForm}
@@ -193,7 +193,7 @@ const AddModal = () => {
             fullWidth
             variant="standard"
             select
-            label="Ngành"
+            label="Lĩnh vực"
             name="industryId"
             value={industryId}
             onChange={onChangeNewSubjectForm}

@@ -69,7 +69,7 @@ const AddModal = () => {
     if (!code || !name) {
       setAlert({
         type: 'warning',
-        message: 'Mã ngành hoặc tên ngành bị bỏ trống.',
+        message: 'Mã lĩnh vực hoặc tên lĩnh vực bị bỏ trống.',
       });
       setTimeout(() => setAlert(null), 5000);
       return;
@@ -107,7 +107,7 @@ const AddModal = () => {
         {!alert && <AlertMessage info={toast} />}
         <TextField
           margin="dense"
-          label="Mã ngành"
+          label="Mã lĩnh vực"
           type="text"
           name="code"
           required
@@ -118,7 +118,7 @@ const AddModal = () => {
         />
         <TextField
           margin="dense"
-          label="Tên ngành"
+          label="Tên lĩnh vực"
           type="text"
           name="name"
           required

@@ -76,8 +76,8 @@ const Industries = () => {
   };
 
   const columns = [
-    { field: 'code', headerName: 'Mã Ngành', minWidth: 100, flex: 1 },
-    { field: 'name', headerName: 'Tên Ngành', minWidth: 250, flex: 1 },
+    { field: 'code', headerName: 'Mã Lĩnh vực', minWidth: 100, flex: 1 },
+    { field: 'name', headerName: 'Tên Lĩnh vực', minWidth: 250, flex: 1 },
     {
       field: 'user',
       headerName: 'Người tạo',

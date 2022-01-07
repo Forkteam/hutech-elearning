@@ -94,6 +94,7 @@ const Subjects = () => {
   const columns = [
     {
       field: 'image',
+      disableExport: true,
       headerName: '#',
       width: 75,
       filterable: false,
@@ -103,7 +104,7 @@ const Subjects = () => {
     },
     {
       field: 'name',
-      headerName: 'Tên môn học',
+      headerName: 'Tên tài liệu',
       minWidth: 100,
       flex: 1,
       renderCell: (params) => (
@@ -112,7 +113,7 @@ const Subjects = () => {
     },
     {
       field: 'industryId',
-      headerName: 'Ngành',
+      headerName: 'Lĩnh vực',
       minWidth: 150,
       flex: 1,
       valueGetter: (param) => {

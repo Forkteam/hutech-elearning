@@ -83,6 +83,7 @@ const Admins = () => {
   const columns = [
     {
       field: 'avatar',
+      disableExport: true,
       headerName: '#',
       width: 65,
       filterable: false,

@@ -35,17 +35,17 @@ export const Sidebar = (props) => {
     {
       href: '/subjects',
       icon: <SubjectIcon fontSize="small" />,
-      title: 'Danh sách môn học',
+      title: 'Danh sách tài liệu',
     },
     {
       href: '/user-subjects',
       icon: <BookIcon fontSize="small" />,
-      title: user?.role < 2 ? 'Môn học đã lưu' : 'Môn học đã tạo',
+      title: user?.role < 2 ? 'Tài liệu yêu thích' : 'Tài liệu đã tạo',
     },
     {
       href: '/industries',
       icon: <ConstructionIcon fontSize="small" />,
-      title: 'Danh sách ngành học',
+      title: 'Danh sách lĩnh vực',
     },
     {
       href: '/students',
