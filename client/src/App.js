@@ -20,6 +20,7 @@ import Students from './views/students';
 import Subjects from './views/subjects';
 import Support from './views/support';
 import UserSubjects from './views/user-subjects';
+import About from './views/about';
 
 function App() {
   return (
@@ -76,6 +77,7 @@ function App() {
                 <ProtectedRoute exact path="/news" component={News} />
                 <ProtectedRoute exact path="/personal" component={Personal} />
                 <ProtectedRoute exact path="/support" component={Support} />
+                <ProtectedRoute exact path="/about" component={About} />
                 <Route path="/:someString" component={Error} />
               </Switch>
             </Router>
