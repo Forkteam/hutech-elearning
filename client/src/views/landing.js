@@ -1,13 +1,8 @@
 import {
   Box,
   Button,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
   Container,
   CssBaseline,
-  Grid,
   Stack,
   Toolbar,
   Typography,
@@ -17,13 +12,15 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LogoHutech from '../assets/logo.png';
+import About from '../components/landing/about';
+import Home from '../components/landing/home';
 import Copyright from '../components/layouts/copyright';
 import { getPublicSubjects } from '../redux/actions/landing';
 import { landing$ } from '../redux/selectors';
 
 const theme = createTheme();
 
-export default function Landing() {
+export default function Landing({ route }) {
   const landing = useSelector(landing$);
   const dispatch = useDispatch(getPublicSubjects);
 
@@ -56,7 +53,6 @@ export default function Landing() {
         </Link>
       </Toolbar>
       <main style={{ backgroundColor: '#f5f5f0' }}>
-        {/* Hero unit */}
         <Box
           sx={{
             position: 'relative',
@@ -112,40 +108,8 @@ export default function Landing() {
             </Stack>
           </Container>
         </Box>
-        <Container sx={{ py: 4 }} maxWidth="md">
-          <Grid container spacing={2}>
-            {landing.data.map((item) => (
-              <Grid item xs={12} sm={6} md={4} key={item.id}>
-                <Link to={`subjects/${item.id}`} component={CardActionArea}>
-                  <Card
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      boxShadow: 3,
-                    }}
-                  >
-                    <CardMedia
-                      component="img"
-                      sx={{ pt: '10px' }}
-                      height="140"
-                      image={item.image}
-                      alt="random"
-                    />
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography gutterBottom variant="h5" component="h5">
-                        {item.name}
-                      </Typography>
-                      <Typography>
-                        {item.description.slice(0, 100)}...
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
+        {route === 'home' && <Home landings={landing.data} />}
+        {route === 'about' && <About />}
       </main>
       <Box sx={{ bgcolor: 'background.paper', p: 1 }} component="footer">
         <Typography variant="subtitle1" align="center" color="text.secondary">
