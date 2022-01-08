@@ -1,8 +1,8 @@
 import { DataGrid } from '@mui/x-data-grid';
 import { useLocation } from 'react-router-dom';
+import Tooltip from '../layouts/tooltip';
 import CustomNoRowsOverlay from './no-rows';
 import EditToolbar from './toolbar';
-import Tooltip from './tooltip';
 
 const DataTable = ({
   component: AddModal,

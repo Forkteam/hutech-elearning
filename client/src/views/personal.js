@@ -6,12 +6,12 @@ import { Box } from '@mui/system';
 import moment from 'moment';
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Tooltip from '../components/layouts/tooltip';
 import AlertMessage from '../components/layouts/alert-message';
 import { AuthContext } from '../contexts/auth-context';
 import { showToast } from '../redux/actions';
 import { updateUser } from '../redux/actions/users';
 import { toast$ } from '../redux/selectors';
-import Tooltip from '../components/overlays/tooltip';
 
 export default function Personal() {
   const dispatch = useDispatch();

@@ -18,7 +18,7 @@ import {
 import { createIndustry, updateIndustry } from '../../redux/actions/industries';
 import { currentId$, industries$, modal$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
-import Transition from '../overlays/transition';
+import Transition from '../layouts/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();

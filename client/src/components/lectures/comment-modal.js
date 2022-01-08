@@ -19,7 +19,7 @@ import {
 import { updateComment } from '../../redux/actions/comments';
 import { comments$, currentId$, modal$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
-import Transition from '../overlays/transition';
+import Transition from '../layouts/transition';
 
 const CommentModal = ({ lectureId }) => {
   const dispatch = useDispatch();

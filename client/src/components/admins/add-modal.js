@@ -22,7 +22,7 @@ import {
 import { createUser, updateUser } from '../../redux/actions/users';
 import { admins$, currentId$, modal$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
-import Transition from '../overlays/transition';
+import Transition from '../layouts/transition';
 import { AuthContext } from '../../contexts/auth-context';
 
 const AddModal = () => {

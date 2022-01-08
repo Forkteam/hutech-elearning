@@ -13,7 +13,7 @@ import {
   unsubscribeSubject,
 } from '../../redux/actions/subjects';
 import { subjects$ } from '../../redux/selectors';
-import Transition from '../overlays/transition';
+import Transition from '../layouts/transition';
 
 const SubscribeButton = ({ subjectId }) => {
   const subjects = useSelector(subjects$);

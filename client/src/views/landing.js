@@ -1,25 +1,25 @@
 import {
   Box,
   Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
   Container,
   CssBaseline,
+  Grid,
   Stack,
   Toolbar,
   Typography,
-  Grid,
-  Card,
-  CardMedia,
-  CardContent,
-  CardActionArea,
 } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import LogoHutech from '../../assets/logo.png';
-import { landing$ } from '../../redux/selectors';
-import { getPublicSubjects } from '../../redux/actions/landing';
-import Copyright from './copyright';
+import LogoHutech from '../assets/logo.png';
+import Copyright from '../components/layouts/copyright';
+import { getPublicSubjects } from '../redux/actions/landing';
+import { landing$ } from '../redux/selectors';
 
 const theme = createTheme();
 
