@@ -1,7 +1,8 @@
-import { Typography } from "@mui/material";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-export default function contact() {
+import { Typography } from '@mui/material';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+
+export default function Contact() {
   return (
     <div className="Contact">
       <Typography>
@@ -17,15 +18,15 @@ export default function contact() {
           <div className="TextInput">
             <div className="Name">
               <p>Họ và tên</p>
-              <input placeholder="Nhập tên của bạn"></input>
+              <input placeholder="Tên của bạn"></input>
             </div>
             <div className="Email">
               <p>Email</p>
-              <input placeholder="Nhập email của bạn"></input>
+              <input placeholder="Email của bạn"></input>
             </div>
             <div className="Phone">
               <p>Số điện thoại</p>
-              <input placeholder="Nhập số điện thoại của bạn(Không bắt buộc)"></input>
+              <input placeholder="Số điện thoại của bạn (Không bắt buộc)"></input>
             </div>
             <div className="Content">
               <p>Nội dung</p>
@@ -40,12 +41,20 @@ export default function contact() {
           </div>
           <div className="Information">
             <div className="icon">
-              <a href="#">
+              <a
+                href="https://www.facebook.com/hutechuniversity"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <div className="Facebook">
                   <FacebookIcon />
                 </div>
               </a>
-              <a href="#">
+              <a
+                href="https://www.youtube.com/c/HUTECHChannel"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <div className="Youtube">
                   <YouTubeIcon />
                 </div>
@@ -54,7 +63,10 @@ export default function contact() {
             <div className="ContactInfo">
               <div className="Address">
                 <p>Địa chỉ</p>
-                <span>475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM</span>
+                <span>
+                  Khu Công nghệ cao TP.HCM (SHTP), P.Long Thạnh Mỹ, TP.Thủ Đức,
+                  TP.HCM
+                </span>
               </div>
               <div className="ContactEmail">
                 <p>Email</p>
@@ -62,10 +74,13 @@ export default function contact() {
               </div>
               <div className="PhoneNumber">
                 <p>Số điện thoại</p>
-                <span>0865562385</span>
+                <span>(028) 5445 7777 - Fax: (028) 5445 4444</span>
               </div>
               <div className="imgInformation">
-                <img src="https://fullstack.edu.vn/assets/icon/contact.png"></img>
+                <img
+                  src="https://fullstack.edu.vn/assets/icon/contact.png"
+                  alt="information"
+                ></img>
               </div>
             </div>
           </div>

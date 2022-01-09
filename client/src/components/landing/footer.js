@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import Facebook from '../../assets/fb.png';
-import Youtube from '../../assets/youtube.png';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 
 export default function Footer() {
   return (
@@ -60,7 +60,7 @@ export default function Footer() {
                 component="li"
                 sx={{ py: 0.2, display: 'inline-flex', alignItems: 'center' }}
               >
-                <img src={Facebook} alt="Facebook" />
+                <FacebookIcon sx={{ color: ' #1976d2c9', zoom: '1.5' }} />
                 <Link
                   to={{ pathname: 'https://www.facebook.com/hutechuniversity' }}
                   className="footer"
@@ -74,7 +74,7 @@ export default function Footer() {
                 component="li"
                 sx={{ py: 0.2, display: 'inline-flex', alignItems: 'center' }}
               >
-                <img src={Youtube} alt="Youtube" />
+                <YouTubeIcon sx={{ color: ' #e21313c9', zoom: '1.5' }} />
                 <Link
                   to={{ pathname: 'https://www.youtube.com/c/HUTECHChannel' }}
                   className="footer"

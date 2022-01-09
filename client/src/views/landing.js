@@ -17,6 +17,7 @@ import Footer from '../components/landing/footer';
 import Home from '../components/landing/home';
 import { getPublicSubjects } from '../redux/actions/landing';
 import { landing$ } from '../redux/selectors';
+import Contact from '../components/landing/contact';
 
 const theme = createTheme();
 
@@ -110,6 +111,7 @@ export default function Landing({ route }) {
         </Box>
         {route === 'home' && <Home landing={landing} />}
         {route === 'about' && <About />}
+        {route === 'contact' && <Contact />}
       </main>
       <Footer />
     </ThemeProvider>

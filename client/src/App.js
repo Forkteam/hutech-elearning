@@ -20,7 +20,6 @@ import Students from './views/students';
 import Subjects from './views/subjects';
 import Support from './views/support';
 import UserSubjects from './views/user-subjects';
-import Contact from './views/contact';
 
 function App() {
   return (
@@ -40,7 +39,11 @@ function App() {
                   path="/about"
                   render={(props) => <Landing {...props} route="about" />}
                 />
-<ProtectedRoute exact path="/contact" component={Contact} />
+                <Route
+                  exact
+                  path="/contact"
+                  render={(props) => <Landing {...props} route="contact" />}
+                />
                 <Route
                   exact
                   path="/login"
