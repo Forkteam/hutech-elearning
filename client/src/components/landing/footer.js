@@ -50,7 +50,7 @@ export default function Footer() {
               gutterBottom
               sx={{ color: '#daf1ff' }}
             >
-              Liên kết với chúng tôi
+              Kết nối với chúng tôi
             </Typography>
             <Box
               component="ul"

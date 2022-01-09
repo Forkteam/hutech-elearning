@@ -1,8 +1,16 @@
-import { CardActionArea, Container, Grid } from '@mui/material';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+} from '@mui/material';
+import Huynh from '../../assets/huynh.jpg';
+import An from '../../assets/an.jpg';
+import Tung from '../../assets/tung.jpg';
+import Chuan from '../../assets/chuan.jpg';
 
 export default function About() {
   return (
@@ -155,9 +163,9 @@ export default function About() {
               <CardActionArea>
                 <CardMedia
                   component="img"
-                  height="200"
-                  image="https://anhdep123.com/35-hinh-anh-con-vet-dep-va-dang-yeu-nhat/con-vet-dang-bay-2/"
-                  alt="green iguana"
+                  height="300"
+                  image={Huynh}
+                  alt="Phù Nhựt Huỳnh"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -187,9 +195,9 @@ export default function About() {
               <CardActionArea>
                 <CardMedia
                   component="img"
-                  height="200"
-                  image="https://anhdep123.com/35-hinh-anh-con-vet-dep-va-dang-yeu-nhat/con-vet-dang-bay-2/"
-                  alt="green iguana"
+                  height="300"
+                  image={An}
+                  alt="Dương Quốc An"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -219,9 +227,9 @@ export default function About() {
               <CardActionArea>
                 <CardMedia
                   component="img"
-                  height="200"
-                  image="https://anhdep123.com/35-hinh-anh-con-vet-dep-va-dang-yeu-nhat/con-vet-dang-bay-2/"
-                  alt="green iguana"
+                  height="300"
+                  image={Chuan}
+                  alt="Nguyễn Văn Chuẩn"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -250,9 +258,9 @@ export default function About() {
               <CardActionArea>
                 <CardMedia
                   component="img"
-                  height="200"
-                  image="https://anhdep123.com/35-hinh-anh-con-vet-dep-va-dang-yeu-nhat/con-vet-dang-bay-2/"
-                  alt="green iguana"
+                  height="300"
+                  image={Tung}
+                  alt="Lê Huỳnh Phương Tùng"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
