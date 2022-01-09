@@ -34,7 +34,7 @@ export default function Contact() {
             </div>
             <br></br>
             <div className="Button">
-              <button className="sendButtun">
+              <button>
                 <span>Gửi đi</span>
               </button>
             </div>
@@ -80,7 +80,7 @@ export default function Contact() {
                 <img
                   src="https://fullstack.edu.vn/assets/icon/contact.png"
                   alt="information"
-                ></img>
+                />
               </div>
             </div>
           </div>
