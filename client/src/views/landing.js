@@ -13,8 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LogoHutech from '../assets/logo.png';
 import About from '../components/landing/about';
+import Footer from '../components/landing/footer';
 import Home from '../components/landing/home';
-import Copyright from '../components/layouts/copyright';
 import { getPublicSubjects } from '../redux/actions/landing';
 import { landing$ } from '../redux/selectors';
 
@@ -108,14 +108,10 @@ export default function Landing({ route }) {
             </Stack>
           </Container>
         </Box>
-        {route === 'home' && <Home landings={landing.data} />}
+        {route === 'home' && <Home landing={landing} />}
         {route === 'about' && <About />}
       </main>
-      <Box sx={{ bgcolor: 'background.paper', p: 1 }} component="footer">
-        <Typography variant="subtitle1" align="center" color="text.secondary">
-          Môi trường học tập tiến bộ. <Copyright />
-        </Typography>
-      </Box>
+      <Footer />
     </ThemeProvider>
   );
 }

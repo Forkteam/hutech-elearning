@@ -6,14 +6,22 @@ import {
   Container,
   Grid,
   Typography,
+  CircularProgress,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const Home = ({ landings }) => {
-  return (
-    <Container sx={{ py: 4 }} maxWidth="md">
-      <Grid container spacing={2}>
-        {landings.map((item) => (
+const Home = ({ landing }) => {
+  let body;
+  if (landing.loading) {
+    body = (
+      <div style={{ margin: 'auto' }}>
+        <CircularProgress />
+      </div>
+    );
+  } else {
+    body = (
+      <>
+        {landing.data.map((item) => (
           <Grid item xs={12} sm={6} md={4} key={item.id}>
             <Link to={`subjects/${item.id}`} component={CardActionArea}>
               <Card
@@ -41,6 +49,14 @@ const Home = ({ landings }) => {
             </Link>
           </Grid>
         ))}
+      </>
+    );
+  }
+
+  return (
+    <Container sx={{ py: 6 }} maxWidth="md">
+      <Grid container spacing={2}>
+        {body}
       </Grid>
     </Container>
   );

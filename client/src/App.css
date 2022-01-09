@@ -50,6 +50,12 @@ a {
 .flex {
   display: flex;
 }
+.footer {
+  text-transform: capitalize;
+}
+.footer:hover {
+  text-decoration: underline;
+}
 
 .News a {
   color: black;
