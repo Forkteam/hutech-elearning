@@ -14,7 +14,7 @@ const schema = new mongoose.Schema(
       type: String,
       default: ''
     },
-    file: String,
+    file: { type: String, required: true },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users'

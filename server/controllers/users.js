@@ -1,4 +1,9 @@
 import argon2 from 'argon2';
+import fs from 'fs';
+import _ from 'lodash';
+import Excel from 'exceljs';
+import path from 'path';
+import xlsx from 'xlsx';
 import { SubjectModel } from '../models/subject-model.js';
 import { UserModel } from '../models/user-model.js';
 
@@ -25,26 +30,31 @@ export const createUser = async (req, res) => {
   if (!username || !password)
     return res
       .status(400)
-      .json({ success: false, message: 'One or more fields is empty' });
+      .json({ success: false, message: 'Vui lòng điền đầy đủ thông tin.' });
 
   try {
-    const validUsername = await UserModel.findOne({ username });
+    const validUsername = await UserModel.findOne({
+      $and: [{ _id: { $ne: req.params.id } }, { username }]
+    });
     if (validUsername)
       return res
         .status(400)
-        .json({ success: false, message: 'Username exist' });
+        .json({ success: false, message: 'Tên người dùng đã tồn tại.' });
     if (req.body.email) {
       const { email } = req.body;
-      const validEmail = await UserModel.findOne({ email });
+      const validEmail = await UserModel.findOne({
+        $and: [{ _id: { $ne: req.params.id } }, { email }]
+      });
       if (validEmail)
-        return res
-          .status(400)
-          .json({ success: false, message: 'Email registered' });
+        return res.status(400).json({
+          success: false,
+          message: 'Email này đã được đăng ký trước đó.'
+        });
     }
 
     const newUser = req.body;
     const hashedPassword = await argon2.hash(password);
-    var user = new UserModel({
+    let user = new UserModel({
       ...newUser,
       password: hashedPassword,
       role: req.params.role,
@@ -52,50 +62,54 @@ export const createUser = async (req, res) => {
     });
     await user.save();
 
-    user = await UserModel.findById(user._id).populate('user', ['fullName']);
+    user = await user.populate('user', ['fullName']);
     res
       .status(200)
-      .json({ success: true, message: 'Create user success', user });
+      .json({ success: true, message: 'Tạo tài khoản thành công', user });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
 export const updateUser = async (req, res) => {
   const { username, email } = req.body;
   try {
-    const validUser = await UserModel.findById(req.params.id);
-    if (validUser.email !== email) {
-      const validEmail = await UserModel.findOne({ email });
-      if (validEmail)
-        return res
-          .status(400)
-          .json({ success: false, message: 'Email registered' });
-    } else if (validUser.username !== username) {
-      const validUsername = await UserModel.findOne({ username });
-      if (validUsername)
-        return res
-          .status(400)
-          .json({ success: false, message: 'Username registered' });
-    }
-
-    const updateUser = req.body;
-    const user = await UserModel.findOneAndUpdate(
-      { _id: req.params.id },
-      { ...updateUser, user: req.userId },
-      { new: true }
-    ).populate('user', ['fullName']);
-    if (!user)
+    const validEmail = await UserModel.findOne({
+      $and: [{ _id: { $ne: req.params.id } }, { email }]
+    });
+    if (validEmail)
+      return res.status(400).json({
+        success: false,
+        message: 'Email này đã được đăng ký trước đó.'
+      });
+    const validUsername = await UserModel.findOne({
+      $and: [{ _id: { $ne: req.params.id } }, { username }]
+    });
+    if (validUsername)
+      return res.status(400).json({
+        success: false,
+        message: 'Tên người dùng đã được đăng ký trước đó.'
+      });
+    const validUser = await UserModel.findOne({ _id: req.params.id });
+    if (!validUser)
       return res
         .status(404)
-        .json({ success: false, message: 'User not found' });
-    res
-      .status(200)
-      .json({ success: true, message: 'Update user success', user });
+        .json({ success: false, message: 'Không tìm thấy người dùng.' });
+    const updateUser = _.omitBy(req.body, _.isNil);
+    const user = await UserModel.findOneAndUpdate(
+      { _id: req.params.id },
+      updateUser,
+      { new: true, omitUndefined: true }
+    ).populate('user', ['fullName']);
+    res.status(200).json({
+      success: true,
+      message: 'Cập nhật người dùng thành công.!',
+      user
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -106,7 +120,7 @@ export const deleteUser = async (req, res) => {
     if (!user)
       return res
         .status(404)
-        .json({ success: false, message: 'User not found' });
+        .json({ success: false, message: 'Không tìm thấy người dùng.' });
 
     await SubjectModel.updateMany(
       { studentIds: id },
@@ -115,9 +129,77 @@ export const deleteUser = async (req, res) => {
     );
     res
       .status(200)
-      .json({ success: true, message: 'Delete user success', user });
+      .json({ success: true, message: 'Xoá người dùng thành công.!', user });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
+  }
+};
+
+export const parseImportExcel = async (req, res) => {
+  if (!req.file)
+    return res
+      .status(400)
+      .json({ success: false, message: 'Vui lòng nhập đầy đủ thông tin!' });
+
+  try {
+    const workbook = xlsx.readFile(req.file.path);
+    const json = xlsx.utils.sheet_to_json(
+      workbook.Sheets[workbook.SheetNames[0]]
+    );
+    await fs.promises.unlink(req.file.path);
+    let flag = null;
+    await Promise.all(
+      json.map(async (item) => {
+        const { code, email, username } = item;
+        const validUsername = await UserModel.findOne({ username });
+        const validCode = await UserModel.findOne({ code });
+        const validEmail = await UserModel.findOne({ email });
+
+        if (!code || !email || !username) flag = json.indexOf(item);
+        else if (validUsername) flag = json.indexOf(item);
+        else if (validCode) flag = json.indexOf(item);
+        else if (validEmail) flag = json.indexOf(item);
+      })
+    );
+    if (flag !== null)
+      return res.status(400).json({
+        success: false,
+        message: `Tài khoản số ${
+          flag + 1
+        } bị trùng dữ liệu đã có trong CSDL. Vui lòng kiểm tra lại file excel !`
+      });
+
+    const jsonHashed = await Promise.all(
+      json.map(async (item) => ({
+        ...item,
+        password: await argon2.hash(item.password.toString())
+      }))
+    );
+    const users = await UserModel.insertMany(jsonHashed);
+    res.status(200).json({
+      success: true,
+      message: 'Nhập danh sách sinh viên thành công',
+      users
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
+  }
+};
+
+export const exportExcelTemplate = async (_, res) => {
+  try {
+    var workbook = new Excel.Workbook();
+    const filepath = path.join(
+      path.resolve(),
+      './uploads/student-template.xlsx'
+    );
+    await workbook.xlsx.readFile(filepath).then(function () {
+      res.status(200).download(filepath);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };

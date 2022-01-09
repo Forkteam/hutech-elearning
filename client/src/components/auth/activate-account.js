@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+} from '@mui/material';
 import queryString from 'query-string';
 import { useContext, useEffect, useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth-context';
 import Copyright from '../layouts/copyright';
 

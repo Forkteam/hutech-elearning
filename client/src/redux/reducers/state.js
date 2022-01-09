@@ -8,7 +8,7 @@ export const INIT_STATE = {
     type: 'success',
   },
   currentId: {
-    _id: 0,
+    id: 0,
   },
   industries: {
     loading: false,
@@ -27,19 +27,17 @@ export const INIT_STATE = {
   students: {
     loading: false,
     data: [],
-    success: true,
-    message: '',
   },
   admins: {
     loading: false,
     data: [],
-    success: true,
-    message: '',
   },
   comments: {
     loading: false,
     data: [],
-    success: true,
-    message: '',
+  },
+  landing: {
+    loading: false,
+    data: [],
   },
 };

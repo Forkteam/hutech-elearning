@@ -1,68 +1,75 @@
 import { takeLatest } from 'redux-saga/effects';
-
 import {
-  getIndustries,
+  createComment,
+  deleteComment,
+  getComments,
+  updateComment,
+} from '../actions/comments';
+import { getPublicSubjects } from '../actions/landing';
+import {
   createIndustry,
-  updateIndustry,
   deleteIndustry,
+  getIndustries,
+  updateIndustry,
 } from '../actions/industries';
 import {
-  getIndustriesSaga,
-  createIndustrySaga,
-  updateIndustrySaga,
-  deleteIndustrySaga,
-} from './industries';
-
-import {
-  getAllSubjects,
-  getSubjectDetail,
-  createSubject,
-  updateSubject,
-  deleteSubject,
-} from '../actions/subjects';
-import {
-  getAllSubjectsSaga,
-  getSubjectDetailSaga,
-  createSubjectSaga,
-  updateSubjectSaga,
-  deleteSubjectSaga,
-} from './subjects';
-
-import {
-  getLectures,
-  getLectureDetail,
   createLecture,
-  updateLecture,
   deleteLecture,
+  getLectureDetail,
+  getLectures,
+  updateLecture,
 } from '../actions/lectures';
 import {
-  getLecturesSaga,
-  getLectureDetailSaga,
-  createLectureSaga,
-  updateLectureSaga,
-  deleteLectureSaga,
-} from './lectures';
-
-import { getUsers, createUser, updateUser, deleteUser } from '../actions/users';
+  createSubject,
+  deleteSubject,
+  getAllSubjects,
+  getSubjectDetail,
+  subscribeSubject,
+  unsubscribeSubject,
+  updateSubject,
+  getTeacherSubjects,
+  getStudentSubjects,
+  getAllPublicSubjects,
+} from '../actions/subjects';
+import { createUser, deleteUser, getUsers, updateUser } from '../actions/users';
 import {
-  getUsersSaga,
-  createUserSaga,
-  updateUserSaga,
-  deleteUserSaga,
-} from './users';
-
-import {
-  getComments,
-  createComment,
-  updateComment,
-  deleteComment,
-} from '../actions/comments';
-import {
-  getCommentsSaga,
   createCommentSaga,
-  updateCommentSaga,
   deleteCommentSaga,
+  getCommentsSaga,
+  updateCommentSaga,
 } from './comments';
+import {
+  createIndustrySaga,
+  deleteIndustrySaga,
+  getIndustriesSaga,
+  updateIndustrySaga,
+} from './industries';
+import {
+  createLectureSaga,
+  deleteLectureSaga,
+  getLectureDetailSaga,
+  getLecturesSaga,
+  updateLectureSaga,
+} from './lectures';
+import {
+  createSubjectSaga,
+  deleteSubjectSaga,
+  getAllSubjectsSaga,
+  getSubjectDetailSaga,
+  subscribeSubjectSaga,
+  unsubscribeSubjectSaga,
+  updateSubjectSaga,
+  getStudentSubjectsSaga,
+  getTeacherSubjectsSaga,
+  getAllPublicSubjectsSaga,
+} from './subjects';
+import {
+  createUserSaga,
+  deleteUserSaga,
+  getUsersSaga,
+  updateUserSaga,
+} from './users';
+import { getPublicSubjectsSaga } from './landing';
 
 function* mySaga() {
   yield takeLatest(getIndustries.getIndustriesRequest, getIndustriesSaga);
@@ -72,10 +79,30 @@ function* mySaga() {
 
   yield takeLatest(getAllSubjects.getAllSubjectsRequest, getAllSubjectsSaga);
   yield takeLatest(
+    getAllPublicSubjects.getAllPublicSubjectsRequest,
+    getAllPublicSubjectsSaga
+  );
+  yield takeLatest(
+    getStudentSubjects.getStudentSubjectsRequest,
+    getStudentSubjectsSaga
+  );
+  yield takeLatest(
+    getTeacherSubjects.getTeacherSubjectsRequest,
+    getTeacherSubjectsSaga
+  );
+  yield takeLatest(
     getSubjectDetail.getSubjectDetailRequest,
     getSubjectDetailSaga
   );
   yield takeLatest(createSubject.createSubjectRequest, createSubjectSaga);
+  yield takeLatest(
+    subscribeSubject.subscribeSubjectRequest,
+    subscribeSubjectSaga
+  );
+  yield takeLatest(
+    unsubscribeSubject.unsubscribeSubjectRequest,
+    unsubscribeSubjectSaga
+  );
   yield takeLatest(updateSubject.updateSubjectRequest, updateSubjectSaga);
   yield takeLatest(deleteSubject.deleteSubjectRequest, deleteSubjectSaga);
 
@@ -97,6 +124,11 @@ function* mySaga() {
   yield takeLatest(createComment.createCommentRequest, createCommentSaga);
   yield takeLatest(updateComment.updateCommentRequest, updateCommentSaga);
   yield takeLatest(deleteComment.deleteCommentRequest, deleteCommentSaga);
+
+  yield takeLatest(
+    getPublicSubjects.getPublicSubjectsRequest,
+    getPublicSubjectsSaga
+  );
 }
 
 export default mySaga;

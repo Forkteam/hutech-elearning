@@ -1,11 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import TocIcon from '@mui/icons-material/Toc';
 import WindowIcon from '@mui/icons-material/Window';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
+import { Box, CircularProgress, Tab, Tabs } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
@@ -13,11 +11,16 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DataTable from '../components/overlays/data-table';
+import DeleteButton from '../components/overlays/delete-button';
 import AddModal from '../components/subjects/add-modal';
 import DataCard from '../components/subjects/data-card';
 import { AuthContext } from '../contexts/auth-context';
-import { showModal } from '../redux/actions';
-import { getAllSubjects } from '../redux/actions/subjects';
+import { setCurrentId, showModal } from '../redux/actions';
+import {
+  deleteSubject,
+  getAllSubjects,
+  getAllPublicSubjects,
+} from '../redux/actions/subjects';
 import { subjects$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
@@ -30,9 +33,13 @@ const Subjects = () => {
   const {
     authState: { user },
   } = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
-    dispatch(getAllSubjects.getAllSubjectsRequest());
+    if (user?.isExternal && user?.role < 2)
+      dispatch(getAllPublicSubjects.getAllPublicSubjectsRequest());
+    else dispatch(getAllSubjects.getAllSubjectsRequest());
   }, [dispatch]);
 
   const handleTabChange = (event, newValue) => {
@@ -62,29 +69,51 @@ const Subjects = () => {
     );
   }
 
+  const handleEditClick = (id) => (event) => {
+    event.stopPropagation();
+    dispatch(setCurrentId(id));
+  };
+
+  const handleDeleteClick = (id) => (event) => {
+    event.stopPropagation();
+    setSelectedId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setSelectedId('');
+    setOpen(false);
+  };
+
+  const handleAgree = (id) => {
+    dispatch(deleteSubject.deleteSubjectRequest(id));
+    setSelectedId('');
+    setOpen(false);
+  };
+
   const columns = [
     {
       field: 'image',
+      disableExport: true,
       headerName: '#',
       width: 75,
-      editable: true,
+      filterable: false,
       renderCell: (params) => (
         <img src={params.value} alt="img" style={{ width: '50px' }} />
       ),
     },
     {
       field: 'name',
-      headerName: 'Tên môn học',
+      headerName: 'Tên tài liệu',
       minWidth: 100,
       flex: 1,
       renderCell: (params) => (
         <Link to={`subjects/${params.id}`}>{params.value}</Link>
       ),
     },
-    // { field: 'description', headerName: 'Mô tả', minWidth: 250, flex: 1 },
     {
       field: 'industryId',
-      headerName: 'Ngành',
+      headerName: 'Lĩnh vực',
       minWidth: 150,
       flex: 1,
       valueGetter: (param) => {
@@ -112,7 +141,7 @@ const Subjects = () => {
     },
     {
       field: 'updatedAt',
-      headerName: 'Cập nhật lần cuối',
+      headerName: 'Lần cuối cập nhật',
       type: 'dateTime',
       minWidth: 100,
       flex: 1,
@@ -127,63 +156,72 @@ const Subjects = () => {
       minWidth: 75,
       flex: 1,
       cellClassName: 'actions',
-      getActions: ({ _id }) => [
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          label="Edit"
-          className="textPrimary"
-          color="inherit"
-        />,
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          color="inherit"
-        />,
-      ],
+      getActions: ({ id }) =>
+        user?.role > 1
+          ? [
+              <GridActionsCellItem
+                icon={<EditIcon />}
+                label="Edit"
+                className="textPrimary"
+                onClick={handleEditClick(id)}
+                color="inherit"
+              />,
+              <GridActionsCellItem
+                icon={<DeleteIcon />}
+                label="Delete"
+                onClick={handleDeleteClick(id)}
+                color="inherit"
+              />,
+            ]
+          : [],
     },
   ];
 
   return (
     <>
-      <AddModal />
-      {user?.role > 1 && (
-        <Box sx={{ width: '100%' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs
-              value={value}
-              onChange={handleTabChange}
-              textColor="primary"
-              indicatorColor="primary"
-              aria-label="tabs"
-            >
-              <Tab
-                icon={<WindowIcon />}
-                iconPosition="start"
-                label="grid"
-                sx={{ minHeight: '50px' }}
-              />
-              <Tab
-                icon={<TocIcon />}
-                iconPosition="start"
-                label="table"
-                disabled={user?.role < 2}
-                sx={{ minHeight: '50px' }}
-              />
-            </Tabs>
-          </Box>
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs
+            value={value}
+            onChange={handleTabChange}
+            textColor="primary"
+            indicatorColor="primary"
+            aria-label="tabs"
+          >
+            <Tab
+              icon={<WindowIcon />}
+              iconPosition="start"
+              label="dạng lưới"
+              sx={{ minHeight: '50px' }}
+            />
+            <Tab
+              icon={<TocIcon />}
+              iconPosition="start"
+              label="dạng bảng"
+              sx={{ minHeight: '50px' }}
+            />
+          </Tabs>
         </Box>
-      )}
+      </Box>
       {value === 0 && <DataCard subjects={subjects.data} />}
       {value === 1 && (
-        <DataTable
-          component={AddModal}
-          toast={toast}
-          data={subjects.data}
-          columns={columns}
-          rowsPerPage={rowsPerPage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-          setShowModal={setShowModal}
-        />
+        <>
+          <DeleteButton
+            open={open}
+            id={selectedId}
+            handleClose={handleClose}
+            handleAgree={handleAgree}
+          />
+          <DataTable
+            component={AddModal}
+            toast={toast}
+            data={subjects.data}
+            columns={columns}
+            rowsPerPage={rowsPerPage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+            setShowModal={setShowModal}
+          />
+        </>
       )}
     </>
   );

@@ -1,12 +1,14 @@
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Pagination from '@mui/material/Pagination';
-import Typography from '@mui/material/Typography';
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Pagination,
+  Typography,
+} from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -48,10 +50,14 @@ const DataCard = ({ subjects }) => {
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Typography gutterBottom variant="h5" component="h5">
-                        {item.name}
+                        {item.name.length > 14
+                          ? `${item.name.slice(0, 14)}...`
+                          : item.name}
                       </Typography>
                       <Typography>
-                        {item.description.slice(0, 100)}...
+                        {item.description.length > 100
+                          ? `${item.description.slice(0, 100)}...`
+                          : item.description}
                       </Typography>
                     </CardContent>
                   </Card>

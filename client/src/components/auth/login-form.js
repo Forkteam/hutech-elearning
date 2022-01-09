@@ -1,8 +1,4 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth-context';
@@ -41,6 +37,7 @@ const LoginForm = () => {
         Đăng Nhập
       </Typography>
       <Box component="form" onSubmit={onSubmit} sx={{ mt: 1 }}>
+        <AlertMessage info={alert} />
         <TextField
           margin="normal"
           required
@@ -63,7 +60,6 @@ const LoginForm = () => {
           onChange={onChangeLoginForm}
           value={password}
         />
-        <AlertMessage info={alert} />
         <Button
           type="submit"
           fullWidth

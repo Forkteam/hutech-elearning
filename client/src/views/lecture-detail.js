@@ -2,25 +2,55 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
 import moment from 'moment';
 import 'moment/locale/vi';
-import { useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import Tooltip from '../components/layouts/tooltip';
 import BackButton from '../components/layouts/back-button';
+import CommentModal from '../components/lectures/comment-modal';
 import Comments from '../components/lectures/comments';
+import DeleteButton from '../components/overlays/delete-button';
+import { AuthContext } from '../contexts/auth-context';
+import { setCurrentId } from '../redux/actions';
+import { deleteComment } from '../redux/actions/comments';
 import { getLectureDetail } from '../redux/actions/lectures';
-import { lectures$ } from '../redux/selectors';
+import { lectures$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
 const LectureDetail = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const { id: lectureId } = useParams();
+  const toast = useSelector(toast$);
   const lectures = useSelector(lectures$);
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState('');
+  const {
+    authState: { user },
+  } = useContext(AuthContext);
 
   useEffect(() => {
-    console.log(location.pathname.split('/')[2]);
     dispatch(getLectureDetail.getLectureDetailRequest(lectureId));
   }, [dispatch]);
+
+  const handleEditClick = (id) => {
+    dispatch(setCurrentId(id));
+  };
+
+  const handleDeleteClick = (id) => {
+    setSelectedId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setSelectedId('');
+    setOpen(false);
+  };
+
+  const handleAgree = (id) => {
+    dispatch(deleteComment.deleteCommentRequest(id));
+    setSelectedId('');
+    setOpen(false);
+  };
 
   if (lectures.loading) {
     return (
@@ -39,6 +69,14 @@ const LectureDetail = () => {
 
   return (
     <>
+      <DeleteButton
+        open={open}
+        id={selectedId}
+        handleClose={handleClose}
+        handleAgree={handleAgree}
+      />
+      <CommentModal lectureId={lectureId} />
+      <Tooltip toast={toast} />
       <BackButton />
       <Box
         sx={{
@@ -61,11 +99,11 @@ const LectureDetail = () => {
           <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
             Ngày đăng:{' '}
             {moment(lectures.singleLecture?.createdAt ?? '2001-01-21').format(
-              'l'
+              'lll'
             )}{' '}
-            - Cập nhật lần cuối{' '}
+            - Lần cuối cập nhật{' '}
             {moment(lectures.singleLecture?.updatedAt ?? '2001-01-21').format(
-              'l'
+              'lll'
             )}
             <br />
             Người tạo: {lectures.singleLecture?.user.fullName ?? 'Admin'}
@@ -87,7 +125,12 @@ const LectureDetail = () => {
           type="application/pdf"
           height="800px"
         />
-        <Comments />
+        <Comments
+          role={user.role}
+          lectureId={lectureId}
+          handleEditClick={handleEditClick}
+          handleDeleteClick={handleDeleteClick}
+        />
       </Box>
     </>
   );

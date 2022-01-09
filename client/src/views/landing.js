@@ -1,19 +1,33 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import Stack from '@mui/material/Stack';
+import {
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Stack,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import LogoHutech from '../../assets/logo.png';
-import Subjects from '../../views/subjects';
-import Copyright from './copyright';
+import LogoHutech from '../assets/logo.png';
+import About from '../components/landing/about';
+import Footer from '../components/landing/footer';
+import Home from '../components/landing/home';
+import { getPublicSubjects } from '../redux/actions/landing';
+import { landing$ } from '../redux/selectors';
 
 const theme = createTheme();
 
-export default function Landing() {
+export default function Landing({ route }) {
+  const landing = useSelector(landing$);
+  const dispatch = useDispatch(getPublicSubjects);
+
+  useEffect(() => {
+    dispatch(getPublicSubjects.getPublicSubjectsRequest());
+  }, [dispatch]);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -39,7 +53,6 @@ export default function Landing() {
         </Link>
       </Toolbar>
       <main style={{ backgroundColor: '#f5f5f0' }}>
-        {/* Hero unit */}
         <Box
           sx={{
             position: 'relative',
@@ -95,15 +108,10 @@ export default function Landing() {
             </Stack>
           </Container>
         </Box>
-        <Subjects />
+        {route === 'home' && <Home landing={landing} />}
+        {route === 'about' && <About />}
       </main>
-      {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 1 }} component="footer">
-        <Typography variant="subtitle1" align="center" color="text.secondary">
-          Môi trường học tập tiến bộ. <Copyright />
-        </Typography>
-      </Box>
-      {/* End footer */}
+      <Footer />
     </ThemeProvider>
   );
 }

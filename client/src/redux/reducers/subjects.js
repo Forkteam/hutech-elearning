@@ -1,12 +1,17 @@
-import { INIT_STATE } from './state';
 import {
-  getType,
+  createSubject,
+  deleteSubject,
   getAllSubjects,
   getSubjectDetail,
-  createSubject,
+  getType,
+  subscribeSubject,
+  unsubscribeSubject,
   updateSubject,
-  deleteSubject,
+  getTeacherSubjects,
+  getStudentSubjects,
+  getAllPublicSubjects,
 } from '../actions/subjects';
+import { INIT_STATE } from './state';
 
 export default function subjectsReducers(state = INIT_STATE.subjects, action) {
   const { type, payload } = action;
@@ -31,6 +36,33 @@ export default function subjectsReducers(state = INIT_STATE.subjects, action) {
         loading: false,
       };
 
+    case getType(getAllPublicSubjects.getAllPublicSubjectsRequest()):
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case getType(getAllPublicSubjects.getAllPublicSubjectsSuccess()):
+      return {
+        ...state,
+        loading: false,
+        data: payload,
+      };
+
+    case getType(getTeacherSubjects.getTeacherSubjectsSuccess()):
+      return {
+        ...state,
+        loading: false,
+        data: payload,
+      };
+
+    case getType(getStudentSubjects.getStudentSubjectsSuccess()):
+      return {
+        ...state,
+        loading: false,
+        data: payload,
+      };
+
     case getType(getSubjectDetail.getSubjectDetailSuccess()):
       return {
         ...state,
@@ -45,12 +77,26 @@ export default function subjectsReducers(state = INIT_STATE.subjects, action) {
         data: [...state.data, payload],
       };
 
+    case getType(subscribeSubject.subscribeSubjectSuccess()):
+      return {
+        ...state,
+        loading: false,
+        singleSubject: payload,
+      };
+
+    case getType(unsubscribeSubject.unsubscribeSubjectSuccess()):
+      return {
+        ...state,
+        loading: false,
+        singleSubject: payload,
+      };
+
     case getType(updateSubject.updateSubjectSuccess()):
       return {
         ...state,
         loading: false,
         data: state.data.map((subject) =>
-          subject._id === payload._id ? payload : subject
+          subject.id === payload.id ? payload : subject
         ),
       };
 
@@ -58,7 +104,7 @@ export default function subjectsReducers(state = INIT_STATE.subjects, action) {
       return {
         ...state,
         loading: false,
-        data: state.data.filter((subject) => subject._id !== payload._id),
+        data: state.data.filter((subject) => subject.id !== payload.id),
       };
 
     default:

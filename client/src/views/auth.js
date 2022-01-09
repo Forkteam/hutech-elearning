@@ -1,10 +1,12 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import Paper from '@mui/material/Paper';
+import {
+  Avatar,
+  Box,
+  CircularProgress,
+  Container,
+  CssBaseline,
+  Paper,
+} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import queryString from 'query-string';
 import { useContext } from 'react';
@@ -14,6 +16,7 @@ import LoginForm from '../components/auth/login-form';
 import RegisterForm from '../components/auth/register-form';
 import ResetPassword from '../components/auth/reset-password';
 import { AuthContext } from '../contexts/auth-context';
+import Image from '../assets/banner.jpg';
 
 const theme = createTheme();
 
@@ -67,7 +70,7 @@ const Auth = ({ authRoute }) => {
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
-            backgroundImage: `url(http://lib.hutech.edu.vn/ImageSlideShow/BANNER%204.jpg)`,
+            backgroundImage: `url(${Image})`,
           }}
         >
           <Container component="main" maxWidth="sm">

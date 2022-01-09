@@ -1,13 +1,11 @@
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import BookIcon from '@mui/icons-material/Book';
+import ConstructionIcon from '@mui/icons-material/Construction';
 import GroupIcon from '@mui/icons-material/Group';
 import HelpIcon from '@mui/icons-material/Help';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SchoolIcon from '@mui/icons-material/School';
 import SubjectIcon from '@mui/icons-material/Subject';
-// import SettingsIcon from '@mui/icons-material/Settings';
-// import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-import ConstructionIcon from '@mui/icons-material/Construction';
 import {
   Box,
   Divider,
@@ -18,56 +16,9 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import PropTypes from 'prop-types';
+import { Fragment, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Fragment } from 'react';
-
-const items = [
-  {
-    href: '/subjects',
-    icon: <SubjectIcon fontSize="small" />,
-    title: 'Danh sách môn học',
-  },
-  {
-    href: '/',
-    icon: <BookIcon fontSize="small" />,
-    title: 'Môn học của bạn',
-  },
-  {
-    href: '/industries',
-    icon: <ConstructionIcon fontSize="small" />,
-    title: 'Danh sách ngành học',
-  },
-  {
-    href: '/students',
-    icon: <SchoolIcon fontSize="small" />,
-    title: 'Danh sách tài khoản',
-  },
-  {
-    href: '/admins',
-    icon: <GroupIcon fontSize="small" />,
-    title: 'Danh sách admin',
-  },
-  {
-    href: '/news',
-    icon: <NewspaperIcon fontSize="small" />,
-    title: 'Tin tức',
-  },
-  {
-    href: '/personal',
-    icon: <AccountBoxIcon fontSize="small" />,
-    title: 'Thông tin cá nhân',
-  },
-  // {
-  //   href: '/',
-  //   icon: <SettingsIcon fontSize="small" />,
-  //   title: 'Cài đặt',
-  // },
-  {
-    href: '/support',
-    icon: <HelpIcon fontSize="small" />,
-    title: 'Hỗ trợ',
-  },
-];
+import { AuthContext } from '../../contexts/auth-context';
 
 export const Sidebar = (props) => {
   const { open, onClose } = props;
@@ -76,6 +27,52 @@ export const Sidebar = (props) => {
     defaultMatches: true,
     noSsr: false,
   });
+  const {
+    authState: { user },
+  } = useContext(AuthContext);
+
+  const items = [
+    {
+      href: '/subjects',
+      icon: <SubjectIcon fontSize="small" />,
+      title: 'Danh sách tài liệu',
+    },
+    {
+      href: '/user-subjects',
+      icon: <BookIcon fontSize="small" />,
+      title: user?.role < 2 ? 'Tài liệu yêu thích' : 'Tài liệu đã tạo',
+    },
+    {
+      href: '/industries',
+      icon: <ConstructionIcon fontSize="small" />,
+      title: 'Danh sách lĩnh vực',
+    },
+    {
+      href: '/students',
+      icon: <SchoolIcon fontSize="small" />,
+      title: 'Danh sách tài khoản',
+    },
+    {
+      href: '/admins',
+      icon: <GroupIcon fontSize="small" />,
+      title: 'Danh sách admin',
+    },
+    {
+      href: '/news',
+      icon: <NewspaperIcon fontSize="small" />,
+      title: 'Tin tức',
+    },
+    {
+      href: '/personal',
+      icon: <AccountBoxIcon fontSize="small" />,
+      title: 'Thông tin cá nhân',
+    },
+    {
+      href: '/support',
+      icon: <HelpIcon fontSize="small" />,
+      title: 'Hỗ trợ',
+    },
+  ];
 
   const content = (
     <>
@@ -104,41 +101,88 @@ export const Sidebar = (props) => {
                   }}
                 />
               )}
-              <Link to={item.href}>
-                <ListItem
-                  sx={{
-                    backgroundColor:
-                      location.pathname.split('/')[1] ===
-                        item.href.split('/')[1] && 'rgba(255,255,255, 0.08)',
-                    borderRadius: 1,
-                    color:
-                      location.pathname.split('/')[1] ===
-                      item.href.split('/')[1]
-                        ? 'secondary.main'
-                        : 'neutral.300',
-                    fontWeight:
-                      location.pathname.split('/')[1] ===
-                        item.href.split('/')[1] && 'fontWeightBold',
-                    justifyContent: 'flex-start',
-                    textAlign: 'left',
-                    textTransform: 'none',
-                    width: '100%',
-                    '& .MuiButton-startIcon': {
+              {index === 4 || index === 3 ? (
+                user?.role > 1 ? (
+                  <Link to={item.href}>
+                    <ListItem
+                      sx={{
+                        backgroundColor:
+                          location.pathname.split('/')[1] ===
+                            item.href.split('/')[1] &&
+                          'rgba(255,255,255, 0.08)',
+                        borderRadius: 1,
+                        color:
+                          location.pathname.split('/')[1] ===
+                          item.href.split('/')[1]
+                            ? 'secondary.main'
+                            : 'neutral.300',
+                        fontWeight:
+                          location.pathname.split('/')[1] ===
+                            item.href.split('/')[1] && 'fontWeightBold',
+                        justifyContent: 'flex-start',
+                        textAlign: 'left',
+                        textTransform: 'none',
+                        width: '100%',
+                        '& .MuiButton-startIcon': {
+                          color:
+                            location.pathname.split('/')[1] ===
+                            item.href.split('/')[1]
+                              ? 'secondary.main'
+                              : 'neutral.400',
+                        },
+                        '&:hover': {
+                          backgroundColor: 'rgba(255,255,255, 0.08)',
+                        },
+                      }}
+                    >
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText sx={{ flexGrow: 1 }}>
+                        {item.title}
+                      </ListItemText>
+                    </ListItem>
+                  </Link>
+                ) : (
+                  <></>
+                )
+              ) : (
+                <Link to={item.href}>
+                  <ListItem
+                    sx={{
+                      backgroundColor:
+                        location.pathname.split('/')[1] ===
+                          item.href.split('/')[1] && 'rgba(255,255,255, 0.08)',
+                      borderRadius: 1,
                       color:
                         location.pathname.split('/')[1] ===
                         item.href.split('/')[1]
                           ? 'secondary.main'
-                          : 'neutral.400',
-                    },
-                    '&:hover': {
-                      backgroundColor: 'rgba(255,255,255, 0.08)',
-                    },
-                  }}
-                >
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText sx={{ flexGrow: 1 }}>{item.title}</ListItemText>
-                </ListItem>
-              </Link>
+                          : 'neutral.300',
+                      fontWeight:
+                        location.pathname.split('/')[1] ===
+                          item.href.split('/')[1] && 'fontWeightBold',
+                      justifyContent: 'flex-start',
+                      textAlign: 'left',
+                      textTransform: 'none',
+                      width: '100%',
+                      '& .MuiButton-startIcon': {
+                        color:
+                          location.pathname.split('/')[1] ===
+                          item.href.split('/')[1]
+                            ? 'secondary.main'
+                            : 'neutral.400',
+                      },
+                      '&:hover': {
+                        backgroundColor: 'rgba(255,255,255, 0.08)',
+                      },
+                    }}
+                  >
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText sx={{ flexGrow: 1 }}>
+                      {item.title}
+                    </ListItemText>
+                  </ListItem>
+                </Link>
+              )}
             </Fragment>
           ))}
         </Box>

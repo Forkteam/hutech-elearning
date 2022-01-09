@@ -30,13 +30,7 @@ const schema = new mongoose.Schema(
     fullName: String,
     avatar: String,
     birthday: Date,
-    isExternal: Boolean,
-    subjectIds: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'subjects'
-      }
-    ],
+    isExternal: { type: Boolean, default: false },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users'

@@ -10,6 +10,24 @@ export const getAllSubjects = createActions({
   getAllSubjectsFailure: (error) => error,
 });
 
+export const getAllPublicSubjects = createActions({
+  getAllPublicSubjectsRequest: (payload) => payload,
+  getAllPublicSubjectsSuccess: (payload) => payload,
+  getAllPublicSubjectsFailure: (error) => error,
+});
+
+export const getStudentSubjects = createActions({
+  getStudentSubjectsRequest: (payload) => payload,
+  getStudentSubjectsSuccess: (payload) => payload,
+  getStudentSubjectsFailure: (error) => error,
+});
+
+export const getTeacherSubjects = createActions({
+  getTeacherSubjectsRequest: (payload) => payload,
+  getTeacherSubjectsSuccess: (payload) => payload,
+  getTeacherSubjectsFailure: (error) => error,
+});
+
 export const getSubjectDetail = createActions({
   getSubjectDetailRequest: (payload) => payload,
   getSubjectDetailSuccess: (payload) => payload,
@@ -20,6 +38,18 @@ export const createSubject = createActions({
   createSubjectRequest: (payload) => payload,
   createSubjectSuccess: (payload) => payload,
   createSubjectFailure: (error) => error,
+});
+
+export const subscribeSubject = createActions({
+  subscribeSubjectRequest: (payload) => payload,
+  subscribeSubjectSuccess: (payload) => payload,
+  subscribeSubjectFailure: (error) => error,
+});
+
+export const unsubscribeSubject = createActions({
+  unsubscribeSubjectRequest: (payload) => payload,
+  unsubscribeSubjectSuccess: (payload) => payload,
+  unsubscribeSubjectFailure: (error) => error,
 });
 
 export const updateSubject = createActions({

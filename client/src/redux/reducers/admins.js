@@ -1,11 +1,11 @@
-import { INIT_STATE } from './state';
 import {
+  createUser,
+  deleteUser,
   getType,
   getUsers,
-  createUser,
   updateUser,
-  deleteUser,
 } from '../actions/users';
+import { INIT_STATE } from './state';
 
 export default function adminsReducers(state = INIT_STATE.admins, action) {
   const { type, payload } = action;
@@ -22,8 +22,6 @@ export default function adminsReducers(state = INIT_STATE.admins, action) {
         ...state,
         loading: false,
         data: payload,
-        success: true,
-        message: '',
       };
 
     case getType(getUsers.getUsersFailure()):
@@ -37,16 +35,12 @@ export default function adminsReducers(state = INIT_STATE.admins, action) {
         ...state,
         loading: false,
         data: [...state.data, payload],
-        success: true,
-        message: '',
       };
 
     case getType(createUser.createUserFailure()):
       return {
         ...state,
         loading: false,
-        success: payload.success,
-        message: payload.message,
       };
 
     case getType(updateUser.updateUserSuccess()):
@@ -55,42 +49,30 @@ export default function adminsReducers(state = INIT_STATE.admins, action) {
         loading: false,
         data: state.data
           .filter((user) =>
-            user._id === payload._id && user.role !== payload.role
-              ? false
-              : true
+            user.id === payload.id && payload.role < 2 ? false : true
           )
           .map((user) =>
-            user._id === payload._id && user.role === payload.role
-              ? payload
-              : user
+            user.id === payload.id && payload.role > 1 ? payload : user
           ),
-        success: true,
-        message: '',
       };
 
     case getType(updateUser.updateUserFailure()):
       return {
         ...state,
         loading: false,
-        success: payload.success,
-        message: payload.message,
       };
 
     case getType(deleteUser.deleteUserSuccess()):
       return {
         ...state,
         loading: false,
-        data: state.data.filter((post) => post._id !== payload._id),
-        success: true,
-        message: '',
+        data: state.data.filter((post) => post.id !== payload.id),
       };
 
     case getType(deleteUser.deleteUserFailure()):
       return {
         ...state,
         loading: false,
-        success: payload.success,
-        message: payload.message,
       };
 
     default:

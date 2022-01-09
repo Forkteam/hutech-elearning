@@ -1,12 +1,12 @@
-import { INIT_STATE } from './state';
 import {
-  getType,
-  getLectures,
-  getLectureDetail,
   createLecture,
-  updateLecture,
   deleteLecture,
+  getLectureDetail,
+  getLectures,
+  getType,
+  updateLecture,
 } from '../actions/lectures';
+import { INIT_STATE } from './state';
 
 export default function lecturesReducers(state = INIT_STATE.lectures, action) {
   const { type, payload } = action;
@@ -50,7 +50,7 @@ export default function lecturesReducers(state = INIT_STATE.lectures, action) {
         ...state,
         loading: false,
         data: state.data.map((lecture) =>
-          lecture._id === payload._id ? payload : lecture
+          lecture.id === payload.id ? payload : lecture
         ),
       };
 
@@ -58,7 +58,7 @@ export default function lecturesReducers(state = INIT_STATE.lectures, action) {
       return {
         ...state,
         loading: false,
-        data: state.data.filter((lecture) => lecture._id !== payload._id),
+        data: state.data.filter((lecture) => lecture.id !== payload.id),
       };
 
     default:

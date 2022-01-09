@@ -1,22 +1,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { hideModal, setCurrentId, showToast } from '../../redux/actions';
-import { createLecture } from '../../redux/actions/lectures';
-import { currentId$, modal$ } from '../../redux/selectors';
-import Transition from '../overlays/transition';
+import {
+  hideModal,
+  setCurrentId,
+  showModal,
+  showToast,
+} from '../../redux/actions';
+import { createLecture, updateLecture } from '../../redux/actions/lectures';
+import { currentId$, lectures$, modal$, toast$ } from '../../redux/selectors';
+import AlertMessage from '../layouts/alert-message';
+import Transition from '../layouts/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();
   const { id: subjectId } = useParams();
+  const [alert, setAlert] = useState(null);
   const modal = useSelector(modal$);
+  const toast = useSelector(toast$);
+  const lectures = useSelector(lectures$);
   const currentId = useSelector(currentId$);
   const [newLecture, setNewLecture] = useState({
     title: '',
@@ -25,6 +36,29 @@ const AddModal = () => {
     file: '',
   });
   const { title, description, url } = newLecture;
+  const currentLecture =
+    currentId.id !== 0
+      ? lectures.data.find((lecture) => lecture.id === currentId.id)
+      : null;
+
+  useEffect(() => {
+    if (currentId.id !== 0) {
+      setNewLecture({
+        title: currentLecture.title,
+        description: currentLecture.description,
+        url: currentLecture.url,
+        file: currentLecture.file,
+      });
+      dispatch(showModal());
+    } else {
+      setNewLecture({
+        title: '',
+        description: '',
+        url: '',
+        file: '',
+      });
+    }
+  }, [currentId, dispatch]);
 
   const onChangeNewLectureForm = (event) => {
     setNewLecture({ ...newLecture, [event.target.name]: event.target.value });
@@ -51,42 +85,68 @@ const AddModal = () => {
       file: '',
     });
     dispatch(hideModal());
-    if (currentId._id !== 0) dispatch(setCurrentId(0));
+    if (currentId.id !== 0) dispatch(setCurrentId(0));
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (currentId._id === 0) {
+    if (!title) {
+      setAlert({
+        type: 'warning',
+        message: 'Tiêu đề không được bỏ trống',
+      });
+      setTimeout(() => setAlert(null), 5000);
+      return;
+    }
+    if (
+      url.split('?v=')[0] !== 'https://www.youtube.com/watch' &&
+      url.split('/')[3] !== 'embed' &&
+      url !== ''
+    ) {
+      setAlert({
+        type: 'warning',
+        message: 'URL Youtube không hợp lệ',
+      });
+      setTimeout(() => setAlert(null), 5000);
+      return;
+    }
+    setAlert(null);
+    if (currentId.id === 0) {
       dispatch(
         createLecture.createLectureRequest({
           ...newLecture,
-          subjectId: subjectId,
+          subjectId,
         })
       );
-      console.log(newLecture);
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
     } else {
-      console.log('update lecture');
+      dispatch(
+        updateLecture.updateLectureRequest({
+          id: currentId.id,
+          ...newLecture,
+        })
+      );
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
     }
-    closeDialog();
   };
 
   return (
     <Dialog TransitionComponent={Transition} open={modal.show} scroll="body">
-      <DialogTitle>CREATE NEW LECTURE</DialogTitle>
+      <DialogTitle>{currentId.id === 0 ? 'THÊM' : 'CHỈNH SỬA'}</DialogTitle>
       <DialogContent dividers>
         <Box component="form" onSubmit={onSubmit}>
+          {alert && <AlertMessage info={alert} />}
+          {!alert && <AlertMessage info={toast} />}
           <TextField
             margin="dense"
             type="text"
@@ -94,7 +154,7 @@ const AddModal = () => {
             fullWidth
             variant="standard"
             autoFocus
-            label="Title"
+            label="Tiêu đề"
             name="title"
             value={title}
             onChange={onChangeNewLectureForm}
@@ -102,7 +162,6 @@ const AddModal = () => {
           <TextField
             margin="dense"
             multiline
-            required
             fullWidth
             variant="standard"
             label="Mô tả"
@@ -113,10 +172,10 @@ const AddModal = () => {
           <TextField
             margin="dense"
             multiline
-            required
             fullWidth
             variant="standard"
-            label="URL"
+            label="URL Youtube"
+            helperText="Phải có dạng như sau: https://www.youtube.com/watch?v=sk0VynhUKVQ hoặc https://www.youtube.com/embed/sk0VynhUKVQ"
             name="url"
             value={url}
             onChange={onChangeNewLectureForm}
@@ -126,10 +185,10 @@ const AddModal = () => {
             type="file"
             accept="application/pdf"
             multiple={false}
-            required
             fullWidth
             variant="standard"
             label="File PDF"
+            helperText="Chỉ chấp nhận file PDF (dưới 5mb)"
             name="file"
             onChange={handleFileChange}
           />

@@ -1,13 +1,13 @@
 import express from 'express';
-import verifyToken from '../middleware/auth.js';
 import {
-  getUser,
-  register,
   activate,
+  getUser,
   login,
-  sendMailResetPassword,
-  resetPassword
+  register,
+  resetPassword,
+  sendMailResetPassword
 } from '../controllers/auth.js';
+import verifyToken from '../middleware/auth.js';
 
 const router = express.Router();
 

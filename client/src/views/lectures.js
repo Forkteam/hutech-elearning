@@ -1,24 +1,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CircularProgress from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  CircularProgress,
+  Typography,
+} from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import BackButton from '../components/layouts/back-button';
 import AddModal from '../components/lectures/add-modal';
 import DataTable from '../components/overlays/data-table';
-import { showModal } from '../redux/actions';
-import { getLectures } from '../redux/actions/lectures';
+import DeleteButton from '../components/overlays/delete-button';
+import SubscribeButton from '../components/subjects/subscribe-button';
+import { setCurrentId, showModal } from '../redux/actions';
+import { deleteLecture, getLectures } from '../redux/actions/lectures';
 import { getSubjectDetail } from '../redux/actions/subjects';
 import { lectures$, subjects$, toast$ } from '../redux/selectors';
+import { AuthContext } from '../contexts/auth-context';
 moment.locale('vi');
 
 const Lectures = () => {
@@ -28,6 +33,11 @@ const Lectures = () => {
   const toast = useSelector(toast$);
   const lectures = useSelector(lectures$);
   const subjects = useSelector(subjects$);
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState('');
+  const {
+    authState: { user },
+  } = useContext(AuthContext);
 
   useEffect(() => {
     dispatch(getSubjectDetail.getSubjectDetailRequest(subjectId));
@@ -56,10 +66,33 @@ const Lectures = () => {
       </div>
     );
   }
+
+  const handleEditClick = (id) => (event) => {
+    event.stopPropagation();
+    dispatch(setCurrentId(id));
+  };
+
+  const handleDeleteClick = (id) => (event) => {
+    event.stopPropagation();
+    setSelectedId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setSelectedId('');
+    setOpen(false);
+  };
+
+  const handleAgree = (id) => {
+    dispatch(deleteLecture.deleteLectureRequest(id));
+    setSelectedId('');
+    setOpen(false);
+  };
+
   const columns = [
     {
       field: 'title',
-      headerName: 'Tên',
+      headerName: 'Bài học',
       minWidth: 200,
       flex: 1,
       renderCell: (params) => (
@@ -87,7 +120,7 @@ const Lectures = () => {
     },
     {
       field: 'updatedAt',
-      headerName: 'Cập nhật lần cuối',
+      headerName: 'Lần cuối cập nhật',
       type: 'dateTime',
       minWidth: 150,
       flex: 1,
@@ -102,27 +135,33 @@ const Lectures = () => {
       minWidth: 150,
       flex: 1,
       cellClassName: 'actions',
-      getActions: ({ _id }) => [
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          label="Edit"
-          className="textPrimary"
-          //onClick={handleEditClick(_id)}
-          color="inherit"
-        />,
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          //onClick={handleDeleteClick(_id)}
-          color="inherit"
-        />,
-      ],
+      getActions: ({ id }) =>
+        user?.role > 2
+          ? [
+              <GridActionsCellItem
+                icon={<EditIcon />}
+                label="Edit"
+                className="textPrimary"
+                onClick={handleEditClick(id)}
+                color="inherit"
+              />,
+              <GridActionsCellItem
+                icon={<DeleteIcon />}
+                label="Delete"
+                onClick={handleDeleteClick(id)}
+                color="inherit"
+              />,
+            ]
+          : [],
     },
   ];
 
   return (
     <>
-      <BackButton />
+      <div className="jc-sb flex">
+        <BackButton />
+        <SubscribeButton subjectId={subjectId} />
+      </div>
       <Card
         sx={{ margin: 'auto', display: 'flex', width: '95%', boxShadow: 3 }}
       >
@@ -139,11 +178,11 @@ const Lectures = () => {
           <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
             Ngày đăng:{' '}
             {moment(subjects.singleSubject?.createdAt ?? '2001-01-21').format(
-              'l'
+              'lll'
             )}{' '}
-            - Cập nhật lần cuối{' '}
+            - Lần cuối cập nhật:{' '}
             {moment(subjects.singleSubject?.updatedAt ?? '2001-01-21').format(
-              'l'
+              'lll'
             )}
             <br />
             Người tạo: {subjects.singleSubject?.user.fullName ?? 'Admin'}
@@ -153,6 +192,12 @@ const Lectures = () => {
           </Typography>
         </CardContent>
       </Card>
+      <DeleteButton
+        open={open}
+        id={selectedId}
+        handleClose={handleClose}
+        handleAgree={handleAgree}
+      />
       <DataTable
         component={AddModal}
         toast={toast}

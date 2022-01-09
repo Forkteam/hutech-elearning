@@ -1,11 +1,11 @@
-import { INIT_STATE } from './state';
 import {
-  getType,
-  getIndustries,
   createIndustry,
-  updateIndustry,
   deleteIndustry,
+  getIndustries,
+  getType,
+  updateIndustry,
 } from '../actions/industries';
+import { INIT_STATE } from './state';
 
 export default function industriesReducers(
   state = INIT_STATE.industries,
@@ -40,20 +40,38 @@ export default function industriesReducers(
         data: [...state.data, payload],
       };
 
+    case getType(createIndustry.createIndustryFailure()):
+      return {
+        ...state,
+        loading: false,
+      };
+
     case getType(updateIndustry.updateIndustrySuccess()):
       return {
         ...state,
         loading: false,
         data: state.data.map((industry) =>
-          industry._id === payload._id ? payload : industry
+          industry.id === payload.id ? payload : industry
         ),
+      };
+
+    case getType(updateIndustry.updateIndustryFailure()):
+      return {
+        ...state,
+        loading: false,
       };
 
     case getType(deleteIndustry.deleteIndustrySuccess()):
       return {
         ...state,
         loading: false,
-        data: state.data.filter((industry) => industry._id !== payload._id),
+        data: state.data.filter((industry) => industry.id !== payload.id),
+      };
+
+    case getType(deleteIndustry.deleteIndustryFailure()):
+      return {
+        ...state,
+        loading: false,
       };
 
     default:

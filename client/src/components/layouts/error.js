@@ -1,10 +1,13 @@
-import { CardActionArea } from '@mui/material';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  Paper,
+  Typography,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
+import Image from '../../assets/banner.jpg';
 
 const Error = () => {
   return (
@@ -17,7 +20,7 @@ const Error = () => {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        backgroundImage: `url(http://lib.hutech.edu.vn/ImageSlideShow/BANNER%204.jpg)`,
+        backgroundImage: `url(${Image})`,
       }}
     >
       <Card

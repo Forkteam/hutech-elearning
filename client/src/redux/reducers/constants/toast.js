@@ -1,5 +1,5 @@
-import { INIT_STATE } from '../state';
 import { getType, hideToast, showToast } from '../../actions';
+import { INIT_STATE } from '../state';
 
 export default function toastReducers(state = INIT_STATE.toast, action) {
   const { type, payload } = action;

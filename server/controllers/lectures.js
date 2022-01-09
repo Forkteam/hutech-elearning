@@ -1,9 +1,10 @@
+import _ from 'lodash';
 import mailer from '../mailer/index.js';
 import notificationMail from '../mailer/notification-mail.js';
-import { SubjectModel } from '../models/subject-model.js';
-import { LectureModel } from '../models/lecture-model.js';
-import { UserModel } from '../models/user-model.js';
 import { CommentModel } from '../models/comment-model.js';
+import { LectureModel } from '../models/lecture-model.js';
+import { SubjectModel } from '../models/subject-model.js';
+import { UserModel } from '../models/user-model.js';
 
 export const getLectures = async (req, res) => {
   try {
@@ -13,7 +14,7 @@ export const getLectures = async (req, res) => {
     res.status(200).json({ success: true, lectures });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -34,20 +35,32 @@ export const getLectureDetail = async (req, res) => {
     res.status(200).json({ success: true, lecture });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
 export const createLecture = async (req, res) => {
-  const { title, url, subjectId } = req.body;
-  if (!title)
-    return res.status(400).json({ success: false, message: 'Missing title' });
+  const { title, url, subjectId, file } = req.body;
+  if (!title || !file)
+    return res.status(400).json({
+      success: false,
+      message: 'Tiêu đề hoặc file tài liệu đã bị bỏ trống.'
+    });
 
   try {
     const newLecture = req.body;
+    let newUrl;
+    if (url !== undefined || url !== '') {
+      if (url.split('?v=')[0] === 'https://www.youtube.com/watch')
+        newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
+      else if (url.split('/')[3] === 'embed') newUrl = url;
+      else newUrl = 'https://www.youtube.com/embed/sk0VynhUKVQ';
+    } else {
+      newUrl = 'https://www.youtube.com/embed/sk0VynhUKVQ';
+    }
     let lecture = new LectureModel({
       ...newLecture,
-      url: url.startsWith('https://') ? url : `https://${url}`,
+      url: newUrl,
       user: req.userId
     });
     await lecture.save();
@@ -58,7 +71,7 @@ export const createLecture = async (req, res) => {
       const users = await UserModel.find({
         _id: { $in: subjectData.studentIds }
       });
-      const emailContent = notificationMail(lecture._id, lecture.subjectId);
+      const emailContent = notificationMail(lecture._id);
       users.map((user) => {
         if (user.email) mailer(user.email, emailContent);
       });
@@ -72,25 +85,35 @@ export const createLecture = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
 export const updateLecture = async (req, res) => {
   const { title, url } = req.body;
   if (!title)
-    return res.status(400).json({ success: false, message: 'Missing title' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Tiêu đề tài liệu đã bị bỏ trống.' });
 
   try {
-    const updateLecture = req.body;
+    const updateLecture = _.omitBy(req.body, _.isNil);
+    let newUrl;
+    if (url !== undefined || url !== '') {
+      if (url.split('?v=')[0] === 'https://www.youtube.com/watch')
+        newUrl = `https://www.youtube.com/embed/${url.split('?v=')[1]}`;
+      else if (url.split('/')[3] === 'embed') newUrl = url;
+      else newUrl = 'https://www.youtube.com/embed/sk0VynhUKVQ';
+    } else {
+      newUrl = 'https://www.youtube.com/embed/sk0VynhUKVQ';
+    }
     const lecture = await LectureModel.findOneAndUpdate(
       { _id: req.params.id },
       {
         ...updateLecture,
-        user: req.userId,
-        url: url.startsWith('https://') ? url : `https://${url}`
+        url: newUrl
       },
-      { new: true }
+      { new: true, omitUndefined: true }
     ).populate('user', ['fullName']);
 
     if (!lecture)
@@ -105,7 +128,7 @@ export const updateLecture = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };
 
@@ -125,6 +148,6 @@ export const deleteLecture = async (req, res) => {
       .json({ success: true, message: 'Xoá thành công!', lecture });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
   }
 };

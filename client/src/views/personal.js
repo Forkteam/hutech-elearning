@@ -1,99 +1,251 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable react-hooks/exhaustive-deps */
+import DatePicker from '@mui/lab/DatePicker';
+import { Grid, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import Typography from '@mui/material/Typography';
-import * as React from 'react';
-import TextField from '@mui/material/TextField';
+import moment from 'moment';
+import { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Tooltip from '../components/layouts/tooltip';
+import AlertMessage from '../components/layouts/alert-message';
+import { AuthContext } from '../contexts/auth-context';
+import { showToast } from '../redux/actions';
+import { updateUser } from '../redux/actions/users';
+import { toast$ } from '../redux/selectors';
 
 export default function Personal() {
+  const dispatch = useDispatch();
+  const toast = useSelector(toast$);
+  const {
+    authState: { user },
+    loadUser,
+  } = useContext(AuthContext);
+  const [alert, setAlert] = useState(null);
+  const [data, setData] = useState({
+    fullName: user?.fullName || '',
+    email: user?.email || '',
+    birthday: user?.birthday || '',
+    avatar: user?.avatar || '',
+    id: user?.id,
+    username: user?.username,
+  });
+  const { fullName, email, birthday, avatar } = data;
+
+  useEffect(async () => {
+    clearData();
+    await loadUser();
+  }, [toast]);
+
+  const clearData = () => {
+    document.getElementById('uploadCaptureInputFile').value = '';
+    setData({
+      ...data,
+      fullName: user?.fullName || '',
+      email: user?.email || '',
+      birthday: user?.birthday || '',
+      avatar: user?.avatar || '',
+    });
+  };
+
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+
+  const handleFileChange = async (event) => {
+    const base64image = await toBase64(event.target.files[0]);
+    setData({ ...data, avatar: base64image });
+  };
+
+  const onChangeData = (event) =>
+    setData({ ...data, [event.target.name]: event.target.value });
+
+  const onChangeDate = (value) =>
+    setData({ ...data, birthday: moment(value).utc() });
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (
+      fullName === user?.fullName &&
+      email === user?.email &&
+      (avatar === user?.avatar || avatar === '') &&
+      (birthday === user?.birthday || birthday === '')
+    ) {
+      console.log('nothing change');
+      return;
+    }
+    if (!fullName) {
+      setAlert({
+        type: 'warning',
+        message: 'Họ tên không được bỏ trống',
+      });
+      setTimeout(() => setAlert(null), 5000);
+      return;
+    }
+    if (
+      !email.match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )
+    ) {
+      setAlert({
+        type: 'warning',
+        message: 'Email không hợp lệ',
+      });
+      setTimeout(() => setAlert(null), 5000);
+      return;
+    }
+    setAlert(null);
+    dispatch(updateUser.updateUserRequest(data));
+    dispatch(
+      showToast({
+        message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
+        type: 'warning',
+      })
+    );
+    clearData();
+  };
 
   return (
-    <div className="personal">
-      <div className="div1">
-        <Box className="box1">
-          {' '}
-          <img
-            alt="img"
-            src="https://i1.wp.com/www.polar-pinguin.berlin/wp-content/uploads/2017/12/image_preview.png?w=1080&ssl=1"
-          ></img>
-        </Box>
+    <>
+      <Tooltip toast={toast} />
+      <div className="personal">
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={4} md={3}>
+            <div className="div1">
+              <Box className="box1">
+                {' '}
+                <img
+                  alt="img"
+                  src={
+                    avatar ||
+                    'https://i1.wp.com/www.polar-pinguin.berlin/wp-content/uploads/2017/12/image_preview.png?w=1080&ssl=1'
+                  }
+                ></img>
+              </Box>
+            </div>
+            <div className="div2">
+              <Box className="box2">
+                Cập nhật gần nhất: {moment(user?.updatedAt).fromNow()}{' '}
+              </Box>
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={8} md={9}>
+            <div className="div4">
+              <div className="row" style={{ marginBottom: '20px' }}>
+                <Box>
+                  <Typography
+                    sx={{ lineHeight: '30px', fontSize: '1rem' }}
+                    component="h6"
+                    variant="h6"
+                  >
+                    Mã số {user?.role < 2 ? 'sinh' : 'nhân'} viên:{' '}
+                    <span>{user?.code}</span>
+                  </Typography>
+                  <Typography
+                    sx={{ lineHeight: '30px', fontSize: '1rem' }}
+                    component="h6"
+                    variant="h6"
+                  >
+                    Họ tên: <span>{user?.fullName}</span>
+                  </Typography>
+                  <Typography
+                    sx={{ lineHeight: '30px', fontSize: '1rem' }}
+                    component="h6"
+                    variant="h6"
+                  >
+                    Ngày sinh: <span>{moment(user?.birthday).format('l')}</span>
+                  </Typography>
+                  <Typography
+                    sx={{ lineHeight: '30px', fontSize: '1rem' }}
+                    component="h6"
+                    variant="h6"
+                  >
+                    Email: <span>{user?.email}</span>
+                  </Typography>
+                  <Typography
+                    sx={{ lineHeight: '30px', fontSize: '1rem' }}
+                    component="h6"
+                    variant="h6"
+                  >
+                    Quyền truy cập:{' '}
+                    <span>
+                      {user?.role < 2
+                        ? user?.isExternal
+                          ? 'Khách'
+                          : 'Sinh viên'
+                        : user?.role > 2
+                        ? 'Super admin'
+                        : 'Admin'}
+                    </span>
+                  </Typography>
+                </Box>
+              </div>
+              <fieldset>
+                <legend>
+                  <h4>THÔNG TIN CÁ NHÂN</h4>
+                </legend>
+                <div>
+                  {alert && <AlertMessage info={alert} />}
+                  {!alert && <AlertMessage info={toast} />}
+                  <TextField
+                    required
+                    fullWidth
+                    label="Họ và tên"
+                    onChange={onChangeData}
+                    name="fullName"
+                    value={fullName}
+                    sx={{ mb: 4 }}
+                  />
+                  <DatePicker
+                    label="Ngày sinh"
+                    value={birthday}
+                    onChange={onChangeDate}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        sx={{ mb: 4 }}
+                        required
+                        fullWidth
+                      />
+                    )}
+                  />
+                  <TextField
+                    required
+                    fullWidth
+                    label="Email"
+                    onChange={onChangeData}
+                    name="email"
+                    value={email}
+                    sx={{ mb: 4 }}
+                  />
+                  <TextField
+                    id="uploadCaptureInputFile"
+                    margin="dense"
+                    type="file"
+                    accept="image/*"
+                    multiple={false}
+                    fullWidth
+                    variant="standard"
+                    label="Ảnh"
+                    helperText="Hãy chọn một bức ảnh thật đẹp"
+                    name="avatar"
+                    onChange={handleFileChange}
+                  />
+                </div>
+              </fieldset>
+              <div className="cus_neo_div">
+                <button onClick={clearData} style={{ marginRight: '15px' }}>
+                  Hủy thay đổi
+                </button>
+                <button onClick={onSubmit}>Lưu thông tin</button>
+              </div>
+            </div>
+          </Grid>
+        </Grid>
       </div>
-      <div className="div2">
-        <Box className="box2">
-          Cập nhật gần nhất: 01 giờ 21 phút, ngày 31/12/2021{' '}
-        </Box>
-      </div>
-      <div className="div4">
-        <Typography>
-          <div className="row">
-            <Box className = "box1">
-            <h4><div className="col-md-6" sx ={{ }}> 
-              Mã số sinh viên:{' '}
-              <span className="font-weight-bold">1911064729</span> 
-            </div>
-            <div className="col-md-6">
-              Họ tên:{' '}
-              <span className="font-weight-bold">Nguyễn Văn Chuẩn</span>
-            </div>
-            <div className="col-md-6">
-              Ngày sinh: <span>13-01-2001</span>
-            </div>
-            <div className="col-md-6">
-              Điện thoại: <span>0865562385</span>
-            </div>
-            <div className="col-md-6">
-              Email: <span>nguyenvanchuan13012001@gmail.com</span>
-            </div>
-            </h4>
-            </Box>
-          </div>
-          <fieldset>
-            <legend>
-              <h4 className="font-weight-bold ml-3 my-0">
-                THÔNG TIN SINH VIÊN
-              </h4>
-            </legend>
-            <div className='textField'>
-              <TextField
-                required
-                id="outlined-required"
-                label="Họ và tên đệm"
-                defaultValue="Nguyễn Văn"
-                sx={{paddingRight: 2,paddingBottom:2}}
-              />
-              <TextField
-                required
-                id="outlined-required"
-                label="Tên"
-                defaultValue="Chuẩn"
-                sx={{paddingRight: 2,paddingBottom:2}}
-              />
-              <TextField
-                required
-                id="outlined-required"
-                label="Ngày sinh"
-                defaultValue="13/01/2001"
-                sx={{paddingRight: 2,paddingBottom:2}}
-              />
-              <TextField
-                required
-                id="outlined-required"
-                label="Email"
-                defaultValue="nguyenvanchuan13012001@gmail.com"
-                sx={{paddingRight: 2,paddingBottom:2}}
-              />
-              <TextField
-                required
-                id="outlined-required"
-                label="Điện thoại"
-                defaultValue="0865562385"
-                sx={{paddingRight: 2,paddingBottom:2}}
-              />
-            </div>
-          </fieldset>
-          <div _ngcontent-c9="" class="cus_neo_div ng-star-inserted">
-            <button _ngcontent-c9="" class="btn btn-primary" type="button" sx ={{background: 'rgba(23, 102, 171, 0.49)'}}>Lưu thông tin</button>
-          </div>
-        </Typography>
-      </div>
-    </div>
+    </>
   );
 }

@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import MenuIcon from '@mui/icons-material/Menu';
-// import SearchIcon from '@mui/icons-material/Search';
 import {
   AppBar,
   Avatar,
@@ -74,15 +73,12 @@ export const Navbar = (props) => {
         >
           <MenuIcon fontSize="small" />
         </IconButton>
-        <img alt="HUTECH" src={LogoHutech} width="150px" />
+        <Link to="/">
+          <img alt="HUTECH" src={LogoHutech} width="150px" />
+        </Link>
         <Box sx={{ flexGrow: 1 }} />
-        {/* <Tooltip title="Search">
-          <IconButton sx={{ mr: 1 }}>
-            <SearchIcon fontSize="small" />
-          </IconButton>
-        </Tooltip> */}
         <Box>
-          <Tooltip title="Open settings">
+          <Tooltip title="Mở cài đặt">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar
                 alt={username}
@@ -111,11 +107,12 @@ export const Navbar = (props) => {
             onClose={handleCloseUserMenu}
           >
             <MenuItem>
-              <Typography textAlign="center">Thông tin cá nhân</Typography>
+              <Link to="/personal">
+                <Typography textAlign="center" color="#121828">
+                  Thông tin cá nhân
+                </Typography>
+              </Link>
             </MenuItem>
-            {/* <MenuItem>
-              <Typography textAlign="center">Cài đặt</Typography>
-            </MenuItem> */}
             <MenuItem>
               <Link to="/support">
                 <Typography textAlign="center" color="#121828">

@@ -1,5 +1,4 @@
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
+import { Link, Typography } from '@mui/material';
 
 export default function Copyright(props) {
   return (

@@ -4,32 +4,29 @@ import {
   createSubject,
   deleteSubject,
   getAllSubjects,
-  getSubjectDetail,
   getStudentSubjects,
+  getSubjectDetail,
   getTeacherSubjects,
-  inviteStudentJoinSubject,
   removeStudent,
-  updateSubject
+  updateSubject,
+  getPublicSubjects,
+  getAllPublicSubjects
 } from '../controllers/subjects.js';
 import authTeacher from '../middleware/auth-teacher.js';
 import verifyToken from '../middleware/auth.js';
 
 const router = express.Router();
 
+router.get('/public-subjects', getPublicSubjects);
+router.get('/all-public-subjects', getAllPublicSubjects);
 router.get('/all-subjects', verifyToken, getAllSubjects);
-router.get('/student-subjects', verifyToken, getStudentSubjects);
-router.get('/teacher-subjects', verifyToken, getTeacherSubjects);
+router.get('/student-subjects/:id', verifyToken, getStudentSubjects);
+router.get('/teacher-subjects/:id', verifyToken, getTeacherSubjects);
 router.get('/:id', verifyToken, getSubjectDetail);
 router.post('/', verifyToken, authTeacher, createSubject);
 router.put('/:id', verifyToken, authTeacher, updateSubject);
-router.post(
-  '/:id/invite-student',
-  verifyToken,
-  authTeacher,
-  inviteStudentJoinSubject
-);
 router.post('/:id/add-student', verifyToken, addStudent);
-router.post('/:id/remove-student', verifyToken, authTeacher, removeStudent);
+router.post('/:id/remove-student', verifyToken, removeStudent);
 router.delete('/:id', verifyToken, authTeacher, deleteSubject);
 
 export default router;

@@ -1,22 +1,40 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  MenuItem,
+  TextField,
+} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideModal, setCurrentId, showToast } from '../../redux/actions';
+import {
+  hideModal,
+  setCurrentId,
+  showModal,
+  showToast,
+} from '../../redux/actions';
 import { getIndustries } from '../../redux/actions/industries';
-import { createSubject } from '../../redux/actions/subjects';
-import { currentId$, industries$, modal$ } from '../../redux/selectors';
-import Transition from '../overlays/transition';
+import { createSubject, updateSubject } from '../../redux/actions/subjects';
+import {
+  currentId$,
+  industries$,
+  modal$,
+  subjects$,
+  toast$,
+} from '../../redux/selectors';
+import AlertMessage from '../layouts/alert-message';
+import Transition from '../layouts/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();
+  const [alert, setAlert] = useState(null);
   const modal = useSelector(modal$);
   const currentId = useSelector(currentId$);
+  const toast = useSelector(toast$);
+  const subjects = useSelector(subjects$);
   const industries = useSelector(industries$);
   const [newSubject, setNewSubject] = useState({
     name: '',
@@ -25,7 +43,33 @@ const AddModal = () => {
     status: 'PRIVATE',
     industryId: '',
   });
-  const { name, description, status, industryId } = newSubject;
+  const { name, description, image, status, industryId } = newSubject;
+  const currentAdmin =
+    currentId.id !== 0
+      ? subjects.data.find((admin) => admin.id === currentId.id)
+      : null;
+
+  useEffect(() => {
+    if (currentId.id !== 0) {
+      console.log(currentAdmin, currentId);
+      setNewSubject({
+        name: currentAdmin.name,
+        description: currentAdmin.description,
+        image: currentAdmin.image,
+        status: currentAdmin.status,
+        industryId: currentAdmin.industryId.id,
+      });
+      dispatch(showModal());
+    } else {
+      setNewSubject({
+        name: '',
+        description: '',
+        image: '',
+        status: 'PRIVATE',
+        industryId: '',
+      });
+    }
+  }, [currentId, dispatch]);
 
   useEffect(() => {
     dispatch(getIndustries.getIndustriesRequest());
@@ -57,36 +101,55 @@ const AddModal = () => {
       industryId: '',
     });
     dispatch(hideModal());
-    if (currentId._id !== 0) dispatch(setCurrentId(0));
+    if (currentId.id !== 0) dispatch(setCurrentId(0));
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (currentId._id === 0) {
+    if (!name || !description || !image) {
+      setAlert({
+        type: 'warning',
+        message: 'Vui lòng điền đầy đủ thông tin',
+      });
+      setTimeout(() => setAlert(null), 5000);
+      return;
+    }
+    setAlert(null);
+    if (currentId.id === 0) {
       dispatch(createSubject.createSubjectRequest(newSubject));
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
     } else {
-      console.log('update subject');
+      dispatch(
+        updateSubject.updateSubjectRequest({
+          id: currentId.id,
+          ...newSubject,
+        })
+      );
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
     }
-    closeDialog();
+    dispatch(hideModal());
+    if (currentId.id !== 0) dispatch(setCurrentId(0));
   };
 
   return (
     <Dialog TransitionComponent={Transition} open={modal.show} scroll="body">
-      <DialogTitle>CREATE NEW SUBJECT</DialogTitle>
+      <DialogTitle>{currentId.id === 0 ? 'THÊM' : 'CHỈNH SỬA'}</DialogTitle>
       <DialogContent dividers>
         <Box component="form" onSubmit={onSubmit}>
+          <div style={{ marginBottom: '20px' }}>
+            {alert && <AlertMessage info={alert} />}
+            {!alert && <AlertMessage info={toast} />}
+          </div>
           <TextField
             margin="dense"
             type="text"
@@ -94,7 +157,7 @@ const AddModal = () => {
             fullWidth
             variant="standard"
             autoFocus
-            label="Tên môn học"
+            label="Tên tài liệu"
             name="name"
             value={name}
             onChange={onChangeNewSubjectForm}
@@ -130,7 +193,7 @@ const AddModal = () => {
             fullWidth
             variant="standard"
             select
-            label="Ngành"
+            label="Lĩnh vực"
             name="industryId"
             value={industryId}
             onChange={onChangeNewSubjectForm}
@@ -147,10 +210,10 @@ const AddModal = () => {
             type="file"
             accept="image/*"
             multiple={false}
-            required
             fullWidth
             variant="standard"
-            label="Image"
+            label="Ảnh"
+            helperText="Hãy chọn một bức ảnh thật đẹp"
             name="image"
             onChange={handleFileChange}
           />

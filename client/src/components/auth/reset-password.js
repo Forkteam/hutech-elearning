@@ -1,8 +1,4 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import queryString from 'query-string';
 import { useContext, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
@@ -43,7 +39,7 @@ const ResetPassword = () => {
         if (password.length < 6) {
           setAlert({
             type: 'error',
-            message: "Mật khẩu phải có ít nhất 6 ký tự.",
+            message: 'Mật khẩu phải có ít nhất 6 ký tự.',
           });
           setTimeout(() => setAlert(null), 5000);
           return;

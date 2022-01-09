@@ -1,12 +1,12 @@
-import { INIT_STATE } from '../state';
 import { getType, setCurrentId } from '../../actions';
+import { INIT_STATE } from '../state';
 
 export default function toastReducers(state = INIT_STATE.currentId, action) {
   switch (action.type) {
     case getType(setCurrentId()):
       return {
         ...state,
-        _id: action.payload,
+        id: action.payload,
       };
 
     default:
