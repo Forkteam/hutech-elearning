@@ -279,3 +279,17 @@ a {
     grid-template-rows: 2/3;
   }
 }
+
+.navbar-landing {
+  justify-content: space-between;
+}
+.navbar-landing h6 {
+  text-transform: capitalize;
+  color: inherit;
+  text-align: center;
+  padding: 16px 10px;
+}
+.navbar-landing h6:hover {
+  background-color: rgba(128, 128, 128, 0.05);
+  border-bottom: 4px solid rgba(0, 110, 255, 0.4);
+}

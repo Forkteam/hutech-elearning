@@ -1,27 +1,27 @@
+import MenuIcon from '@mui/icons-material/Menu';
 import {
   Box,
   Button,
   Container,
-  CssBaseline,
+  IconButton,
   Stack,
   Toolbar,
   Typography,
 } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LogoHutech from '../assets/logo.png';
 import About from '../components/landing/about';
+import Contact from '../components/landing/contact';
 import Footer from '../components/landing/footer';
 import Home from '../components/landing/home';
+import Sidebar from '../components/landing/sidebar';
 import { getPublicSubjects } from '../redux/actions/landing';
 import { landing$ } from '../redux/selectors';
-import Contact from '../components/landing/contact';
-
-const theme = createTheme();
 
 export default function Landing({ route }) {
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const landing = useSelector(landing$);
   const dispatch = useDispatch(getPublicSubjects);
 
@@ -30,25 +30,54 @@ export default function Landing({ route }) {
   }, [dispatch]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <>
       <Toolbar>
-        <img alt="HUTECH" src={LogoHutech} width="150px" />
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          align="center"
-          noWrap
-          sx={{ flex: 1, display: { xs: 'none', sm: 'none', md: 'block' } }}
+        <IconButton
+          onClick={() => setSidebarOpen(true)}
+          sx={{
+            mr: 2,
+            display: {
+              xs: 'inline-flex',
+              md: 'none',
+            },
+          }}
         >
-          Đại Học Công Nghệ TP.HCM - HUTECH
-        </Typography>
+          <MenuIcon fontSize="small" />
+        </IconButton>
+        <Sidebar onClose={() => setSidebarOpen(false)} open={isSidebarOpen} />
+        <img alt="HUTECH" src={LogoHutech} width="150px" />
+        <Container
+          maxWidth="xs"
+          className="navbar-landing"
+          sx={{
+            display: { xs: 'none', sm: 'none', md: 'flex' },
+          }}
+        >
+          <Link to="/">
+            <Typography component="h6" variant="h6" noWrap>
+              trang chủ
+            </Typography>
+          </Link>
+          <Link to="/about">
+            <Typography component="h6" variant="h6" noWrap>
+              giới thiệu
+            </Typography>
+          </Link>
+          <Link to="/contact">
+            <Typography component="h6" variant="h6" noWrap>
+              liên hệ
+            </Typography>
+          </Link>
+        </Container>
         <Typography
           sx={{ flex: 1, display: { sm: 'block', md: 'none' } }}
         ></Typography>
         <Link to="/login">
-          <Button variant="contained" size="medium">
+          <Button
+            variant="contained"
+            size="medium"
+            sx={{ backgroundColor: '#1976d2' }}
+          >
             Đăng Nhập
           </Button>
         </Link>
@@ -104,7 +133,9 @@ export default function Landing({ route }) {
               justifyContent="center"
             >
               <Link to="/register">
-                <Button variant="contained">Đăng Ký</Button>
+                <Button variant="contained" sx={{ backgroundColor: '#1976d2' }}>
+                  Đăng Ký
+                </Button>
               </Link>
             </Stack>
           </Container>
@@ -114,6 +145,6 @@ export default function Landing({ route }) {
         {route === 'contact' && <Contact />}
       </main>
       <Footer />
-    </ThemeProvider>
+    </>
   );
 }
