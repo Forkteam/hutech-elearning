@@ -107,7 +107,7 @@ const Students = () => {
       minWidth: 100,
       flex: 1,
       valueGetter: (param) => {
-        return param.value ? 'Khách' : 'Sinh viên';
+        return param.value ? 'Khách' : 'Thành viên';
       },
     },
     {

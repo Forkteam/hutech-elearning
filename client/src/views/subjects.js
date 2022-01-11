@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import TocIcon from '@mui/icons-material/Toc';
 import WindowIcon from '@mui/icons-material/Window';
-import { Box, CircularProgress, Tab, Tabs } from '@mui/material';
+import { Box, CircularProgress, Tab, Tabs, Typography } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
@@ -203,6 +203,15 @@ const Subjects = () => {
           </Tabs>
         </Box>
       </Box>
+      {user?.role < 2 && user?.isExternal === true && (
+        <Typography sx={{ mx: 'auto', textAlign: 'center', mt: 1, px: 1 }}>
+          Vui lòng nâng cấp tài khoản để xem tài liệu dành riêng cho tài khoản
+          thành viên!{' '}
+          <Link to="/personal" className="hover-link">
+            Nâng cấp ngay
+          </Link>
+        </Typography>
+      )}
       {value === 0 && <DataCard subjects={subjects.data} />}
       {value === 1 && (
         <>

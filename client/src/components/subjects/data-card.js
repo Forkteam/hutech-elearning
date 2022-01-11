@@ -23,45 +23,47 @@ const DataCard = ({ subjects }) => {
 
   return (
     <>
-      <Container sx={{ py: 4 }} maxWidth="md">
+      <Container sx={{ pt: 2, pb: 4 }} maxWidth="md">
         <Grid container spacing={2}>
           {subjects
             .slice((page - 1) * itemsPerPage, page * itemsPerPage)
             .map((item) => (
               <Grid item xs={12} sm={6} md={3} key={item.id}>
-                <Link to={`subjects/${item.id}`} component={CardActionArea}>
-                  <Card
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      boxShadow: 3,
-                    }}
-                  >
-                    <CardMedia
-                      component="img"
-                      sx={{
-                        // 16:9
-                        pt: '10px',
-                      }}
-                      height="140"
-                      image={item.image}
-                      alt="random"
-                    />
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography gutterBottom variant="h5" component="h5">
-                        {item.name.length > 14
-                          ? `${item.name.slice(0, 14)}...`
-                          : item.name}
-                      </Typography>
-                      <Typography>
-                        {item.description.length > 100
-                          ? `${item.description.slice(0, 100)}...`
-                          : item.description}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Link>
+                <Card
+                  sx={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    boxShadow: 3,
+                  }}
+                >
+                  <CardActionArea>
+                    <Link to={`subjects/${item.id}`} className="text-black">
+                      <CardMedia
+                        component="img"
+                        sx={{
+                          // 16:9
+                          pt: '10px',
+                        }}
+                        height="140"
+                        image={item.image}
+                        alt="random"
+                      />
+                      <CardContent sx={{ flexGrow: 1 }}>
+                        <Typography gutterBottom variant="h5" component="h5">
+                          {item.name.length > 14
+                            ? `${item.name.slice(0, 14)}...`
+                            : item.name}
+                        </Typography>
+                        <Typography>
+                          {item.description.length > 100
+                            ? `${item.description.slice(0, 100)}...`
+                            : item.description}
+                        </Typography>
+                      </CardContent>
+                    </Link>
+                  </CardActionArea>
+                </Card>
               </Grid>
             ))}
         </Grid>

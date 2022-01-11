@@ -1,7 +1,8 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable react-hooks/exhaustive-deps */
 import DatePicker from '@mui/lab/DatePicker';
-import { Grid, TextField, Typography } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
+import { Grid, TextField, Typography, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import moment from 'moment';
 import { useContext, useEffect, useState } from 'react';
@@ -131,6 +132,17 @@ export default function Personal() {
                 Cập nhật gần nhất: {moment(user?.updatedAt).fromNow()}{' '}
               </Box>
             </div>
+            {user?.role < 2 && user?.isExternal === true && (
+              <Button
+                variant="contained"
+                color="warning"
+                endIcon={<StarIcon />}
+                sx={{ margin: 2, width: '-webkit-fill-available' }}
+                onClick={() => console.log('clicked')}
+              >
+                Nâng cấp tài khoản
+              </Button>
+            )}
           </Grid>
           <Grid item xs={12} sm={8} md={9}>
             <div className="div4">

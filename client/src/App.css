@@ -44,6 +44,9 @@ a {
 .text-white {
   color: #fff;
 }
+.text-black {
+  color: #121828;
+}
 .jc-sb {
   justify-content: space-between;
 }
@@ -292,4 +295,11 @@ a {
 .navbar-landing h6:hover {
   background-color: rgba(128, 128, 128, 0.05);
   border-bottom: 4px solid rgba(0, 110, 255, 0.4);
+}
+
+.hover-link {
+  color: red;
+}
+.hover-link:hover {
+  text-decoration: underline;
 }
