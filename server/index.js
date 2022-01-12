@@ -8,6 +8,7 @@ import industries from './routers/industries.js';
 import lectures from './routers/lectures.js';
 import subjects from './routers/subjects.js';
 import users from './routers/users.js';
+import requests from './routers/requests.js';
 dotenv.config();
 
 const app = express();
@@ -23,6 +24,7 @@ app.use('/subjects', subjects);
 app.use('/lectures', lectures);
 app.use('/comments', comments);
 app.use('/users', users);
+app.use('/requests', requests);
 
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
