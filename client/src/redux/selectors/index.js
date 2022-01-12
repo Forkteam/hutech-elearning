@@ -8,3 +8,4 @@ export const students$ = (state) => state.students;
 export const admins$ = (state) => state.admins;
 export const comments$ = (state) => state.comments;
 export const landing$ = (state) => state.landing;
+export const requests$ = (state) => state.requests;

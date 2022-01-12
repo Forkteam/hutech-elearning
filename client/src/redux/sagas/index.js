@@ -5,13 +5,13 @@ import {
   getComments,
   updateComment,
 } from '../actions/comments';
-import { getPublicSubjects } from '../actions/landing';
 import {
   createIndustry,
   deleteIndustry,
   getIndustries,
   updateIndustry,
 } from '../actions/industries';
+import { getPublicSubjects } from '../actions/landing';
 import {
   createLecture,
   deleteLecture,
@@ -19,17 +19,18 @@ import {
   getLectures,
   updateLecture,
 } from '../actions/lectures';
+import { createRequest, getRequests, updateRequest } from '../actions/requests';
 import {
   createSubject,
   deleteSubject,
+  getAllPublicSubjects,
   getAllSubjects,
+  getStudentSubjects,
   getSubjectDetail,
+  getTeacherSubjects,
   subscribeSubject,
   unsubscribeSubject,
   updateSubject,
-  getTeacherSubjects,
-  getStudentSubjects,
-  getAllPublicSubjects,
 } from '../actions/subjects';
 import { createUser, deleteUser, getUsers, updateUser } from '../actions/users';
 import {
@@ -44,6 +45,7 @@ import {
   getIndustriesSaga,
   updateIndustrySaga,
 } from './industries';
+import { getPublicSubjectsSaga } from './landing';
 import {
   createLectureSaga,
   deleteLectureSaga,
@@ -52,16 +54,21 @@ import {
   updateLectureSaga,
 } from './lectures';
 import {
+  createRequestSaga,
+  getRequestsSaga,
+  updateRequestSaga,
+} from './requests';
+import {
   createSubjectSaga,
   deleteSubjectSaga,
+  getAllPublicSubjectsSaga,
   getAllSubjectsSaga,
+  getStudentSubjectsSaga,
   getSubjectDetailSaga,
+  getTeacherSubjectsSaga,
   subscribeSubjectSaga,
   unsubscribeSubjectSaga,
   updateSubjectSaga,
-  getStudentSubjectsSaga,
-  getTeacherSubjectsSaga,
-  getAllPublicSubjectsSaga,
 } from './subjects';
 import {
   createUserSaga,
@@ -69,7 +76,6 @@ import {
   getUsersSaga,
   updateUserSaga,
 } from './users';
-import { getPublicSubjectsSaga } from './landing';
 
 function* mySaga() {
   yield takeLatest(getIndustries.getIndustriesRequest, getIndustriesSaga);
@@ -129,6 +135,10 @@ function* mySaga() {
     getPublicSubjects.getPublicSubjectsRequest,
     getPublicSubjectsSaga
   );
+
+  yield takeLatest(getRequests.getRequestsRequest, getRequestsSaga);
+  yield takeLatest(createRequest.createRequestRequest, createRequestSaga);
+  yield takeLatest(updateRequest.updateRequestRequest, updateRequestSaga);
 }
 
 export default mySaga;
