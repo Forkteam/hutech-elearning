@@ -207,7 +207,7 @@ const Subjects = () => {
         <Typography sx={{ mx: 'auto', textAlign: 'center', mt: 1, px: 1 }}>
           Vui lòng nâng cấp tài khoản để xem tài liệu dành riêng cho tài khoản
           thành viên!{' '}
-          <Link to="/personal" className="hover-link">
+          <Link to="/upgrade" className="hover-link">
             Nâng cấp ngay
           </Link>
         </Typography>

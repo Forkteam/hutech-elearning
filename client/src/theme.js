@@ -232,7 +232,7 @@ export const theme = createTheme({
     button: {
       fontWeight: 600,
     },
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    fontFamily: "'Arial', sans-serif",
     body1: {
       fontSize: '1rem',
       fontWeight: 400,

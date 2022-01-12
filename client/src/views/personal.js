@@ -6,6 +6,7 @@ import { Grid, TextField, Typography, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import moment from 'moment';
 import { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '../components/layouts/tooltip';
 import AlertMessage from '../components/layouts/alert-message';
@@ -15,6 +16,7 @@ import { updateUser } from '../redux/actions/users';
 import { toast$ } from '../redux/selectors';
 
 export default function Personal() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const toast = useSelector(toast$);
   const {
@@ -138,7 +140,7 @@ export default function Personal() {
                 color="warning"
                 endIcon={<StarIcon />}
                 sx={{ margin: 2, width: '-webkit-fill-available' }}
-                onClick={() => console.log('clicked')}
+                onClick={() => history.push('/upgrade')}
               >
                 Nâng cấp tài khoản
               </Button>
