@@ -23,16 +23,28 @@ export const createRequest = async (req, res) => {
     });
 
   try {
-    const validStudentCode = await UserModel.findOne({
-      code: studentCode,
-      _id: { $ne: req.userId }
-    });
-    if (validStudentCode)
+    const [validStudentCodeUser, validStudentCodeRequest, _] =
+      await Promise.all([
+        UserModel.findOne({
+          code: studentCode,
+          _id: { $ne: req.userId }
+        }),
+        RequestModel.findOne({
+          studentCode,
+          userId: { $ne: req.userId }
+        }),
+        RequestModel.findOneAndDelete({
+          userId: req.userId
+        })
+      ]);
+    if (validStudentCodeUser)
       return res
         .status(400)
         .json({ success: false, message: 'Mã sinh viên đã tồn tại' });
-    const userExisted = await RequestModel.findOne({ _id: req.userId });
-    if (userExisted) await RequestModel.findOneAndDelete({ _id: req.userId });
+    if (validStudentCodeRequest)
+      return res
+        .status(400)
+        .json({ success: false, message: 'Mã sinh viên đã tồn tại' });
 
     const newRequest = req.body;
     let request = new RequestModel({
@@ -40,7 +52,6 @@ export const createRequest = async (req, res) => {
       user: req.userId
     });
     await request.save();
-
     request = await request.populate('user', ['fullName', 'avatar']);
     res
       .status(200)

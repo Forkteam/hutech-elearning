@@ -15,10 +15,17 @@ import {
   Typography,
 } from '@mui/material';
 import { Fragment, useContext, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, Link } from 'react-router-dom';
+import Tooltip from '../components/layouts/tooltip';
 import { AuthContext } from '../contexts/auth-context';
+import { showToast } from '../redux/actions';
+import { createRequest } from '../redux/actions/requests';
+import { toast$ } from '../redux/selectors';
 
 const Checkout = () => {
+  const dispatch = useDispatch();
+  const toast = useSelector(toast$);
   const [activeStep, setActiveStep] = useState(0);
   const [isHutech, setIsHutech] = useState('external');
   const [newRequest, setNewRequest] = useState({
@@ -31,7 +38,7 @@ const Checkout = () => {
     authState: { user },
   } = useContext(AuthContext);
   const steps = ['Bước 1', 'Bước 2'];
-  const { identityFront, identityBack, studentCard, studentCode } = newRequest;
+  const { studentCode } = newRequest;
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -53,6 +60,27 @@ const Checkout = () => {
   };
   const onChangeNewRequestForm = (event) => {
     setNewRequest({ ...newRequest, [event.target.name]: event.target.value });
+  };
+
+  const onSubmitHutech = (event) => {
+    event.preventDefault();
+    dispatch(createRequest.createRequestRequest(newRequest));
+    dispatch(
+      showToast({
+        message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
+        type: 'warning',
+      })
+    );
+    handleNext();
+    document.getElementById('identityFront').value = '';
+    document.getElementById('identityBack').value = '';
+    document.getElementById('studentCard').value = '';
+    setNewRequest({
+      identityFront: '',
+      identityBack: '',
+      studentCard: '',
+      studentCode: '',
+    });
   };
 
   if (user?.role > 1 || !user?.isExternal) {
@@ -85,18 +113,12 @@ const Checkout = () => {
         );
       case 1:
         return isHutech === 'hutech' ? (
-          <Box
-            id="hutech-form"
-            component="form"
-            onSubmit={(event) => {
-              event.preventDefault();
-              console.log(newRequest);
-            }}
-          >
+          <Box id="hutech-form" component="form" onSubmit={onSubmitHutech}>
             <FormLabel component="legend" sx={{ color: '#121828' }}>
               Mặt trước CMND/CCCD *
             </FormLabel>
             <TextField
+              id="identityFront"
               margin="dense"
               type="file"
               accept="image/*"
@@ -111,6 +133,7 @@ const Checkout = () => {
               Mặt sau CMND/CCCD *
             </FormLabel>
             <TextField
+              id="identityBack"
               margin="dense"
               type="file"
               accept="image/*"
@@ -125,6 +148,7 @@ const Checkout = () => {
               Thẻ sinh viên *
             </FormLabel>
             <TextField
+              id="studentCard"
               margin="dense"
               type="file"
               accept="image/*"
@@ -175,54 +199,73 @@ const Checkout = () => {
   );
 
   return (
-    <Container component="main" maxWidth="sm">
-      <Paper variant="outlined" sx={{ my: 2, p: { xs: 2, md: 3 } }}>
-        <Typography component="h1" variant="h4" align="center">
-          Nâng cấp tài khoản
-        </Typography>
-        <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-        <Fragment>
-          {activeStep === steps.length ? (
-            <Fragment>
-              <Typography variant="h5" gutterBottom>
-                Thank you for your order.
-              </Typography>
-              <Typography variant="subtitle1">
-                Your order number is #2001539. We have emailed your order
-                confirmation, and will send you an update when your order has
-                shipped.
-              </Typography>
-            </Fragment>
-          ) : (
-            <Fragment>
-              {getStepContent(activeStep)}
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                {activeStep > 0 && (
-                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                    Trở lại
+    <>
+      <Tooltip toast={toast} />
+      <Container component="main" maxWidth="sm">
+        <Paper variant="outlined" sx={{ my: 2, p: { xs: 2, md: 3 } }}>
+          <Typography component="h1" variant="h4" align="center">
+            Nâng cấp tài khoản
+          </Typography>
+          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <Fragment>
+            {activeStep === steps.length ? (
+              <Fragment>
+                <Typography variant="h5" gutterBottom>
+                  Cảm ơn bạn đã gửi yêu cầu.
+                </Typography>
+                <Typography variant="subtitle1">
+                  Chúng tôi đã nhận được yêu cầu của bạn, vui lòng chờ chúng tôi
+                  xét duyệt và phản hồi lại qua email bạn đã cung cấp trong thời
+                  gian sớm nhất.
+                </Typography>
+                <Typography variant="body1">
+                  Nếu đơn yêu cầu của bạn có sai sót, bạn có thể tải lại trang
+                  và gửi lại cho chúng tôi
+                </Typography>
+                <Link to="/subjects">
+                  <Button
+                    variant="contained"
+                    sx={{
+                      mt: 3,
+                      mx: 'auto',
+                      display: 'flow-root',
+                    }}
+                  >
+                    Trở về danh sách môn học
                   </Button>
-                )}
-                {activeStep === steps.length - 1 ? (
-                  isHutech === 'hutech' ? (
-                    <HutechButton />
+                </Link>
+              </Fragment>
+            ) : (
+              <Fragment>
+                {getStepContent(activeStep)}
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  {activeStep > 0 && (
+                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                      Trở lại
+                    </Button>
+                  )}
+                  {activeStep === steps.length - 1 ? (
+                    isHutech === 'hutech' ? (
+                      <HutechButton />
+                    ) : (
+                      <NextButton />
+                    )
                   ) : (
-                    'thanh toan momo'
-                  )
-                ) : (
-                  <NextButton />
-                )}
-              </Box>
-            </Fragment>
-          )}
-        </Fragment>
-      </Paper>
-    </Container>
+                    <NextButton />
+                  )}
+                </Box>
+              </Fragment>
+            )}
+          </Fragment>
+        </Paper>
+      </Container>
+    </>
   );
 };
 
