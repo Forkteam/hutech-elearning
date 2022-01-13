@@ -6,6 +6,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SchoolIcon from '@mui/icons-material/School';
 import SubjectIcon from '@mui/icons-material/Subject';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import {
   Box,
   Divider,
@@ -46,6 +47,11 @@ export const Sidebar = (props) => {
       href: '/industries',
       icon: <ConstructionIcon fontSize="small" />,
       title: 'Danh sách lĩnh vực',
+    },
+    {
+      href: '/requests',
+      icon: <PendingActionsIcon fontSize="small" />,
+      title: 'Yêu cầu nâng cấp',
     },
     {
       href: '/students',
@@ -93,7 +99,7 @@ export const Sidebar = (props) => {
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item, index) => (
             <Fragment key={index}>
-              {index === 5 && (
+              {index === 6 && (
                 <Divider
                   sx={{
                     borderColor: '#2D3748',
@@ -101,7 +107,7 @@ export const Sidebar = (props) => {
                   }}
                 />
               )}
-              {index === 4 || index === 3 ? (
+              {index <= 5 && index >= 3 ? (
                 user?.role > 1 ? (
                   <Link to={item.href}>
                     <ListItem

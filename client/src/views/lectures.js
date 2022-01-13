@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import EditIcon from '@mui/icons-material/Edit';
 import {
   Card,
@@ -139,14 +139,14 @@ const Lectures = () => {
         user?.role > 2
           ? [
               <GridActionsCellItem
-                icon={<EditIcon />}
+                icon={<EditIcon color="warning" />}
                 label="Edit"
                 className="textPrimary"
                 onClick={handleEditClick(id)}
                 color="inherit"
               />,
               <GridActionsCellItem
-                icon={<DeleteIcon />}
+                icon={<DeleteForeverRoundedIcon color="error" />}
                 label="Delete"
                 onClick={handleDeleteClick(id)}
                 color="inherit"

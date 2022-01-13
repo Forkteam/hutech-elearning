@@ -31,10 +31,10 @@ export const createRequest = async (req, res) => {
         }),
         RequestModel.findOne({
           studentCode,
-          userId: { $ne: req.userId }
+          user: { $ne: req.userId }
         }),
         RequestModel.findOneAndDelete({
-          userId: req.userId
+          user: req.userId
         })
       ]);
     if (validStudentCodeUser)
@@ -75,7 +75,6 @@ export const updateRequest = async (req, res) => {
       { status },
       { new: true }
     ).populate('user', ['fullName', 'avatar']);
-
     if (!request)
       return res
         .status(404)

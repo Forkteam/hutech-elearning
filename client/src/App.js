@@ -21,6 +21,7 @@ import Subjects from './views/subjects';
 import Support from './views/support';
 import UserSubjects from './views/user-subjects';
 import Upgrade from './views/upgrade';
+import Requests from './views/requests';
 
 function App() {
   return (
@@ -92,6 +93,7 @@ function App() {
                 <ProtectedRoute exact path="/personal" component={Personal} />
                 <ProtectedRoute exact path="/support" component={Support} />
                 <ProtectedRoute exact path="/upgrade" component={Upgrade} />
+                <ProtectedRoute exact path="/requests" component={Requests} />
                 <Route path="/:someString" component={Error} />
               </Switch>
             </Router>
