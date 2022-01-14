@@ -26,5 +26,4 @@ app.use('/comments', comments);
 app.use('/users', users);
 app.use('/requests', requests);
 
-const PORT = process.env.PORT || 5050;
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+export default app;
