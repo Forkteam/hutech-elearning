@@ -1,6 +1,7 @@
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
+import SubjectIcon from '@mui/icons-material/Subject';
 import {
   Box,
   Divider,
@@ -32,6 +33,11 @@ const Sidebar = (props) => {
       href: '/contact',
       icon: <ContactSupportIcon fontSize="small" />,
       title: 'Liên hệ',
+    },
+    {
+      href: '/subjects',
+      icon: <SubjectIcon fontSize="small" />,
+      title: 'Tài liệu',
     },
   ];
 

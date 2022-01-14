@@ -2,10 +2,10 @@ import express from 'express';
 import {
   createUser,
   deleteUser,
+  exportExcelTemplate,
   getUsers,
-  updateUser,
   parseImportExcel,
-  exportExcelTemplate
+  updateUser
 } from '../controllers/users.js';
 import authTeacher from '../middleware/auth-teacher.js';
 import verifyToken from '../middleware/auth.js';

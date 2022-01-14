@@ -1,8 +1,8 @@
 import _ from 'lodash';
+import { PUBLIC } from '../enums/status.js';
 import { CommentModel } from '../models/comment-model.js';
 import { LectureModel } from '../models/lecture-model.js';
 import { SubjectModel } from '../models/subject-model.js';
-import { PUBLIC } from '../enums/status.js';
 
 export const getPublicSubjects = async (_, res) => {
   try {

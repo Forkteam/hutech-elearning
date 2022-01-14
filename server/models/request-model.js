@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { PENDING, ACCEPTED, DENIED } from '../enums/status.js';
+import { ACCEPTED, DENIED, PENDING } from '../enums/status.js';
 
 const schema = new mongoose.Schema(
   {

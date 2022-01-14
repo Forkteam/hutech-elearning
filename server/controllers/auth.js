@@ -1,10 +1,10 @@
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 import activateMail from '../mailer/activate-mail.js';
+import contactMail from '../mailer/contact-mail.js';
 import mailer from '../mailer/index.js';
 import resetPasswordMail from '../mailer/reset-password.js';
 import welcomeMail from '../mailer/welcome-mail.js';
-import contactMail from '../mailer/contact-mail.js';
 import { UserModel } from '../models/user-model.js';
 import { VerifyUserModel } from '../models/verify-user-model.js';
 

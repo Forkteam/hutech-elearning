@@ -3,10 +3,10 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  CircularProgress,
   Container,
   Grid,
   Typography,
-  CircularProgress,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 

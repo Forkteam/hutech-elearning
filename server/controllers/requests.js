@@ -1,9 +1,8 @@
-import { RequestModel } from '../models/request-model.js';
-import { UserModel } from '../models/user-model.js';
-import { PENDING } from '../enums/status.js';
+import { ACCEPTED, PENDING } from '../enums/status.js';
 import mailer from '../mailer/index.js';
 import requestMail from '../mailer/request-mail.js';
-import { ACCEPTED } from '../enums/status.js';
+import { RequestModel } from '../models/request-model.js';
+import { UserModel } from '../models/user-model.js';
 
 export const getRequests = async (req, res) => {
   try {

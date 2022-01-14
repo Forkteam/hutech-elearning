@@ -1,7 +1,7 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import { Box, Container, Grid, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (

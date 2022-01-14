@@ -4,9 +4,9 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import GroupIcon from '@mui/icons-material/Group';
 import HelpIcon from '@mui/icons-material/Help';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import SchoolIcon from '@mui/icons-material/School';
 import SubjectIcon from '@mui/icons-material/Subject';
-import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import {
   Box,
   Divider,

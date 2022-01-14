@@ -6,9 +6,9 @@ import auth from './routers/auth.js';
 import comments from './routers/comments.js';
 import industries from './routers/industries.js';
 import lectures from './routers/lectures.js';
+import requests from './routers/requests.js';
 import subjects from './routers/subjects.js';
 import users from './routers/users.js';
-import requests from './routers/requests.js';
 dotenv.config();
 
 const app = express();

@@ -1,11 +1,11 @@
 import express from 'express';
 import {
-  getRequests,
   createRequest,
+  getRequests,
   updateRequest
 } from '../controllers/requests.js';
-import verifyToken from '../middleware/auth.js';
 import authTeacher from '../middleware/auth-teacher.js';
+import verifyToken from '../middleware/auth.js';
 
 const router = express.Router();
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createContext, useReducer } from 'react';
-import { fileReducer } from '../reducers/file-reducer';
 import { apiUrl, DISABLED, ENABLED } from '../constants';
+import { fileReducer } from '../reducers/file-reducer';
 
 export const FileContext = createContext();
 

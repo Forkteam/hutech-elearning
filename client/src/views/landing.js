@@ -47,7 +47,7 @@ export default function Landing({ route }) {
         <Sidebar onClose={() => setSidebarOpen(false)} open={isSidebarOpen} />
         <img alt="HUTECH" src={LogoHutech} width="150px" />
         <Container
-          maxWidth="xs"
+          maxWidth="sm"
           className="navbar-landing"
           sx={{
             display: { xs: 'none', sm: 'none', md: 'flex' },
@@ -66,6 +66,11 @@ export default function Landing({ route }) {
           <Link to="/contact">
             <Typography component="h6" variant="h6" noWrap>
               liên hệ
+            </Typography>
+          </Link>
+          <Link to="/subjects">
+            <Typography component="h6" variant="h6" noWrap>
+              tài liệu
             </Typography>
           </Link>
         </Container>

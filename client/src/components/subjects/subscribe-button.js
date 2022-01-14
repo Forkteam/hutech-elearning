@@ -1,10 +1,10 @@
 import {
   Button,
   Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogContentText,
   DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

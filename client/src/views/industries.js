@@ -4,15 +4,15 @@ import { CircularProgress } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
-import { useCallback, useEffect, useState, useContext } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AddModal from '../components/industries/add-modal';
 import DataTable from '../components/overlays/data-table';
 import DeleteButton from '../components/overlays/delete-button';
+import { AuthContext } from '../contexts/auth-context';
 import { setCurrentId, showModal } from '../redux/actions';
 import { deleteIndustry, getIndustries } from '../redux/actions/industries';
 import { industries$, toast$ } from '../redux/selectors';
-import { AuthContext } from '../contexts/auth-context';
 moment.locale('vi');
 
 const Industries = () => {

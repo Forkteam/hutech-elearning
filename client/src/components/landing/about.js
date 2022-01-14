@@ -7,10 +7,10 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import Huynh from '../../assets/huynh.jpg';
 import An from '../../assets/an.jpg';
-import Tung from '../../assets/tung.jpg';
 import Chuan from '../../assets/chuan.jpg';
+import Huynh from '../../assets/huynh.jpg';
+import Tung from '../../assets/tung.jpg';
 
 export default function About() {
   return (

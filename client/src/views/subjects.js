@@ -18,8 +18,8 @@ import { AuthContext } from '../contexts/auth-context';
 import { setCurrentId, showModal } from '../redux/actions';
 import {
   deleteSubject,
-  getAllSubjects,
   getAllPublicSubjects,
+  getAllSubjects,
 } from '../redux/actions/subjects';
 import { subjects$, toast$ } from '../redux/selectors';
 moment.locale('vi');

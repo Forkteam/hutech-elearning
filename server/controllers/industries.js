@@ -36,13 +36,11 @@ export const createIndustry = async (req, res) => {
     await industry.save();
 
     industry = await industry.populate('user', ['fullName']);
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: 'Tạo lĩnh vực mới thành công!',
-        industry
-      });
+    res.status(200).json({
+      success: true,
+      message: 'Tạo lĩnh vực mới thành công!',
+      industry
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
@@ -78,13 +76,11 @@ export const updateIndustry = async (req, res) => {
         .status(404)
         .json({ success: false, message: 'Không tìm thấy lĩnh vực' });
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: 'Cập nhật lĩnh vực thành công!',
-        industry
-      });
+    res.status(200).json({
+      success: true,
+      message: 'Cập nhật lĩnh vực thành công!',
+      industry
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });

@@ -16,12 +16,12 @@ import LectureDetail from './views/lecture-detail';
 import Lectures from './views/lectures';
 import News from './views/news';
 import Personal from './views/personal';
+import Requests from './views/requests';
 import Students from './views/students';
 import Subjects from './views/subjects';
 import Support from './views/support';
-import UserSubjects from './views/user-subjects';
 import Upgrade from './views/upgrade';
-import Requests from './views/requests';
+import UserSubjects from './views/user-subjects';
 
 function App() {
   return (
