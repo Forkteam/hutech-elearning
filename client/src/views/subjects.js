@@ -203,7 +203,7 @@ const Subjects = () => {
           </Tabs>
         </Box>
       </Box>
-      {user?.role < 2 && user?.isExternal === true && (
+      {user?.role < 2 && user?.isExternal && (
         <Typography sx={{ mx: 'auto', textAlign: 'center', mt: 1, px: 1 }}>
           Vui lòng nâng cấp tài khoản để xem tài liệu dành riêng cho tài khoản
           thành viên!{' '}

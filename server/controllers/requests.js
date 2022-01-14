@@ -1,6 +1,9 @@
 import { RequestModel } from '../models/request-model.js';
 import { UserModel } from '../models/user-model.js';
 import { PENDING } from '../enums/status.js';
+import mailer from '../mailer/index.js';
+import requestMail from '../mailer/request-mail.js';
+import { ACCEPTED } from '../enums/status.js';
 
 export const getRequests = async (req, res) => {
   try {
@@ -74,11 +77,23 @@ export const updateRequest = async (req, res) => {
       { _id: req.params.id },
       { status },
       { new: true }
-    ).populate('user', ['fullName', 'avatar']);
+    ).populate('user', ['id', 'fullName', 'avatar', 'email']);
     if (!request)
       return res
         .status(404)
         .json({ success: false, message: 'Không tìm thấy.' });
+    if (status === ACCEPTED) {
+      await UserModel.findOneAndUpdate(
+        {
+          _id: request.user.id
+        },
+        { isExternal: false, code: request.studentCode },
+        { new: true }
+      );
+    }
+
+    const emailContent = requestMail(status);
+    mailer(request.user.email, emailContent);
 
     res.status(200).json({
       success: true,

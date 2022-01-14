@@ -46,17 +46,7 @@ export default function requestsReducers(state = INIT_STATE.requests, action) {
       return {
         ...state,
         loading: false,
-        data: state.data
-          .filter((request) =>
-            request.id === payload.id && request.role !== payload.role
-              ? false
-              : true
-          )
-          .map((request) =>
-            request.id === payload.id && request.role === payload.role
-              ? payload
-              : request
-          ),
+        data: state.data.filter((request) => request.id !== payload.id),
       };
 
     case getType(updateRequest.updateRequestFailure()):

@@ -18,6 +18,7 @@ import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
 import { Fragment, useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentId, showToast } from '../../redux/actions';
 import { createComment, getComments } from '../../redux/actions/comments';
@@ -152,7 +153,7 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
       <Typography variant="h6" component="h6" sx={{ mt: 4, mb: 1, ml: 4 }}>
         Bình luận
       </Typography>
-      {(!user?.isExternal || user?.role > 1) && (
+      {!user?.isExternal || user?.role > 1 ? (
         <Box
           component="form"
           onSubmit={onSubmit}
@@ -177,6 +178,14 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
             Gửi bình luận
           </Button>
         </Box>
+      ) : (
+        <Typography sx={{ mx: 'auto', textAlign: 'center', mt: 1, px: 1 }}>
+          Vui lòng nâng cấp tài khoản để xem tài liệu dành riêng cho tài khoản
+          thành viên!{' '}
+          <Link to="/upgrade" className="hover-link">
+            Nâng cấp ngay
+          </Link>
+        </Typography>
       )}
       <Divider variant="inset" />
       <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
