@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { apiURL } from '../../api';
 import AlertMessage from '../layouts/alert-message';
+import ContactImage from '../../assets/contact.png';
 
 export default function Contact() {
   const history = useHistory();
@@ -151,10 +152,7 @@ export default function Contact() {
               <span>(028) 5445 7777 - Fax: (028) 5445 4444</span>
             </div>
             <div className="imgInformation">
-              <img
-                src="https://fullstack.edu.vn/assets/icon/contact.png"
-                alt="information"
-              />
+              <img src={ContactImage} alt="information" />
             </div>
           </div>
         </div>
