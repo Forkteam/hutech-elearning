@@ -1,4 +1,14 @@
-import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  InputAdornment,
+  IconButton,
+} from '@mui/material';
 import queryString from 'query-string';
 import { useContext, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
@@ -13,6 +23,7 @@ const ResetPassword = () => {
   const { sendMailResetPassword, resetPassword } = useContext(AuthContext);
   const [alert, setAlert] = useState(null);
   const [email, setEmail] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [resetPasswordForm, setResetPasswordForm] = useState({
     token,
     id,
@@ -26,6 +37,12 @@ const ResetPassword = () => {
       ...resetPasswordForm,
       [event.target.name]: event.target.value,
     });
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -102,9 +119,23 @@ const ResetPassword = () => {
           fullWidth
           name="password"
           label="Mật khẩu"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           autoComplete="current-password"
           onChange={onChangePasswordForm}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
           value={password}
         />
         <TextField
@@ -113,9 +144,23 @@ const ResetPassword = () => {
           fullWidth
           name="confirmPassword"
           label="Nhập lại mật khẩu"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           autoComplete="current-confirmPassword"
           onChange={onChangePasswordForm}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
           value={confirmPassword}
         />
         <Button

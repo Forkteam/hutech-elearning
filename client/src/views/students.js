@@ -121,15 +121,6 @@ const Students = () => {
       },
     },
     {
-      field: 'user',
-      headerName: 'Người tạo',
-      minWidth: 140,
-      flex: 1,
-      valueGetter: (param) => {
-        return param.value?.fullName ? param.value.fullName : '';
-      },
-    },
-    {
       field: 'createdAt',
       headerName: 'Ngày tạo',
       type: 'date',

@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import EditIcon from '@mui/icons-material/Edit';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import {
   Card,
   CardContent,
   CardMedia,
   CircularProgress,
+  Chip,
   Typography,
 } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
@@ -100,15 +102,6 @@ const Lectures = () => {
       ),
     },
     {
-      field: 'user',
-      headerName: 'Người tạo',
-      minWidth: 150,
-      flex: 1,
-      valueGetter: (param) => {
-        return `${param.value.fullName}`;
-      },
-    },
-    {
       field: 'createdAt',
       headerName: 'Ngày tạo',
       type: 'date',
@@ -190,6 +183,12 @@ const Lectures = () => {
           <Typography variant="subtitle1" paragraph>
             {subjects.singleSubject?.description ?? ''}
           </Typography>
+          <Chip
+            icon={<ThumbUpIcon fontSize="small" />}
+            label={`${
+              subjects.singleSubject?.studentIds.length ?? 0
+            } Lượt yêu thích`}
+          />
         </CardContent>
       </Card>
       <DeleteButton

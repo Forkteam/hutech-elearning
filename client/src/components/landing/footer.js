@@ -99,7 +99,7 @@ export default function Footer() {
               <Box component="li" sx={{ py: 0.2 }}>
                 <Typography style={{ color: '#bde6ff' }}>
                   Địa chỉ: Khu Công nghệ cao TP.HCM (SHTP), P.Long Thạnh Mỹ,
-                  TP.Thủ Đức, TP.HCM
+                  Quận 9, TP.HCM
                 </Typography>
               </Box>
               <Box component="li" sx={{ py: 0.2 }}>

@@ -228,21 +228,21 @@ const Requests = () => {
         <DialogTitle>
           {userInfo.fullName} - {userInfo.studentCode}
         </DialogTitle>
-        <DialogContent dividers>
+        <DialogContent dividers sx={{ textAlign: 'center' }}>
           <img
             src={userInfo.identityFront}
             alt={userInfo.fullName}
-            style={{ width: '350px' }}
+            style={{ width: '500px' }}
           />
           <img
             src={userInfo.identityBack}
             alt={userInfo.fullName}
-            style={{ width: '350px' }}
+            style={{ width: '500px' }}
           />
           <img
             src={userInfo.studentCard}
             alt={userInfo.fullName}
-            style={{ width: '350px' }}
+            style={{ width: '500px' }}
           />
         </DialogContent>
         <DialogActions>

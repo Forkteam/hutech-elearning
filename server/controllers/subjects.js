@@ -23,7 +23,7 @@ export const getAllPublicSubjects = async (_, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     return res.status(200).json({ success: true, subjects });
@@ -42,7 +42,7 @@ export const getAllSubjects = async (_, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     return res.status(200).json({ success: true, subjects });
@@ -63,7 +63,7 @@ export const getStudentSubjects = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     return res.status(200).json({ success: true, subjects });
@@ -82,7 +82,7 @@ export const getTeacherSubjects = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     return res.status(200).json({ success: true, subjects });
@@ -101,7 +101,7 @@ export const getSubjectDetail = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     let checkSubscribe = new Promise((resolve, _) => {
@@ -140,7 +140,7 @@ export const createSubject = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     return res.status(200).json({
@@ -173,7 +173,7 @@ export const updateSubject = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     if (!updatedSubject)
@@ -240,7 +240,7 @@ export const addStudent = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     if (!updatedSubject)
@@ -272,7 +272,7 @@ export const removeStudent = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     if (!updatedSubject)

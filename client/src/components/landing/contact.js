@@ -139,8 +139,7 @@ export default function Contact() {
             <div className="Address">
               <p>Địa chỉ</p>
               <span>
-                Khu Công nghệ cao TP.HCM (SHTP), P.Long Thạnh Mỹ, TP.Thủ Đức,
-                TP.HCM
+                Khu Công nghệ cao TP.HCM (SHTP), P.Long Thạnh Mỹ, Quận 9, TP.HCM
               </span>
             </div>
             <div className="ContactEmail">

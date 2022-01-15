@@ -19,6 +19,7 @@ import Home from '../components/landing/home';
 import Sidebar from '../components/landing/sidebar';
 import { getPublicSubjects } from '../redux/actions/landing';
 import { landing$ } from '../redux/selectors';
+import { NavbarRoot } from '../components/layouts/navbar';
 
 export default function Landing({ route }) {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -31,63 +32,65 @@ export default function Landing({ route }) {
 
   return (
     <>
-      <Toolbar>
-        <IconButton
-          onClick={() => setSidebarOpen(true)}
-          sx={{
-            mr: 2,
-            display: {
-              xs: 'inline-flex',
-              md: 'none',
-            },
-          }}
-        >
-          <MenuIcon fontSize="small" />
-        </IconButton>
-        <Sidebar onClose={() => setSidebarOpen(false)} open={isSidebarOpen} />
-        <img alt="HUTECH" src={LogoHutech} width="150px" />
-        <Container
-          maxWidth="sm"
-          className="navbar-landing"
-          sx={{
-            display: { xs: 'none', sm: 'none', md: 'flex' },
-          }}
-        >
-          <Link to="/">
-            <Typography component="h6" variant="h6" noWrap>
-              trang chủ
-            </Typography>
-          </Link>
-          <Link to="/about">
-            <Typography component="h6" variant="h6" noWrap>
-              giới thiệu
-            </Typography>
-          </Link>
-          <Link to="/contact">
-            <Typography component="h6" variant="h6" noWrap>
-              liên hệ
-            </Typography>
-          </Link>
-          <Link to="/subjects">
-            <Typography component="h6" variant="h6" noWrap>
-              tài liệu
-            </Typography>
-          </Link>
-        </Container>
-        <Typography
-          sx={{ flex: 1, display: { sm: 'block', md: 'none' } }}
-        ></Typography>
-        <Link to="/login">
-          <Button
-            variant="contained"
-            size="medium"
-            sx={{ backgroundColor: '#1976d2' }}
+      <NavbarRoot>
+        <Toolbar sx={{ backgroundColor: 'white' }}>
+          <IconButton
+            onClick={() => setSidebarOpen(true)}
+            sx={{
+              mr: 2,
+              display: {
+                xs: 'inline-flex',
+                md: 'none',
+              },
+            }}
           >
-            Đăng Nhập
-          </Button>
-        </Link>
-      </Toolbar>
-      <main style={{ backgroundColor: '#f5f5f0' }}>
+            <MenuIcon fontSize="small" />
+          </IconButton>
+          <Sidebar onClose={() => setSidebarOpen(false)} open={isSidebarOpen} />
+          <img alt="HUTECH" src={LogoHutech} width="150px" />
+          <Container
+            maxWidth="sm"
+            className="navbar-landing"
+            sx={{
+              display: { xs: 'none', sm: 'none', md: 'flex' },
+            }}
+          >
+            <Link to="/">
+              <Typography component="h6" variant="h6" noWrap>
+                trang chủ
+              </Typography>
+            </Link>
+            <Link to="/about">
+              <Typography component="h6" variant="h6" noWrap>
+                giới thiệu
+              </Typography>
+            </Link>
+            <Link to="/contact">
+              <Typography component="h6" variant="h6" noWrap>
+                liên hệ
+              </Typography>
+            </Link>
+            <Link to="/subjects">
+              <Typography component="h6" variant="h6" noWrap>
+                tài liệu
+              </Typography>
+            </Link>
+          </Container>
+          <Typography
+            sx={{ flex: 1, display: { sm: 'block', md: 'none' } }}
+          ></Typography>
+          <Link to="/login">
+            <Button
+              variant="contained"
+              size="medium"
+              sx={{ backgroundColor: '#1976d2' }}
+            >
+              Đăng Nhập
+            </Button>
+          </Link>
+        </Toolbar>
+      </NavbarRoot>
+      <main style={{ backgroundColor: '#f5f5f0', marginTop: '60px' }}>
         <Box
           sx={{
             position: 'relative',

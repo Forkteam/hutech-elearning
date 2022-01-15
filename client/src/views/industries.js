@@ -79,15 +79,6 @@ const Industries = () => {
     { field: 'code', headerName: 'Mã Lĩnh vực', minWidth: 100, flex: 1 },
     { field: 'name', headerName: 'Tên Lĩnh vực', minWidth: 250, flex: 1 },
     {
-      field: 'user',
-      headerName: 'Người tạo',
-      minWidth: 180,
-      flex: 1,
-      valueGetter: (param) => {
-        return `${param.value.fullName}`;
-      },
-    },
-    {
       field: 'createdAt',
       headerName: 'Ngày tạo',
       type: 'date',

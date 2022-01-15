@@ -107,7 +107,7 @@ export const Sidebar = (props) => {
                   }}
                 />
               )}
-              {index <= 5 && index >= 3 ? (
+              {index <= 5 && index >= 2 ? (
                 user?.role > 1 ? (
                   <Link to={item.href}>
                     <ListItem
@@ -149,6 +149,47 @@ export const Sidebar = (props) => {
                   </Link>
                 ) : (
                   <></>
+                )
+              ) : index === 1 ? (
+                user?.role < 2 && (
+                  <Link to={item.href}>
+                    <ListItem
+                      sx={{
+                        backgroundColor:
+                          location.pathname.split('/')[1] ===
+                            item.href.split('/')[1] &&
+                          'rgba(255,255,255, 0.08)',
+                        borderRadius: 1,
+                        color:
+                          location.pathname.split('/')[1] ===
+                          item.href.split('/')[1]
+                            ? 'secondary.main'
+                            : 'neutral.300',
+                        fontWeight:
+                          location.pathname.split('/')[1] ===
+                            item.href.split('/')[1] && 'fontWeightBold',
+                        justifyContent: 'flex-start',
+                        textAlign: 'left',
+                        textTransform: 'none',
+                        width: '100%',
+                        '& .MuiButton-startIcon': {
+                          color:
+                            location.pathname.split('/')[1] ===
+                            item.href.split('/')[1]
+                              ? 'secondary.main'
+                              : 'neutral.400',
+                        },
+                        '&:hover': {
+                          backgroundColor: 'rgba(255,255,255, 0.08)',
+                        },
+                      }}
+                    >
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText sx={{ flexGrow: 1 }}>
+                        {item.title}
+                      </ListItemText>
+                    </ListItem>
+                  </Link>
                 )
               ) : (
                 <Link to={item.href}>

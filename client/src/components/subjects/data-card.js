@@ -9,13 +9,19 @@ import {
   Pagination,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const DataCard = ({ subjects }) => {
   const itemsPerPage = 8;
   const [page, setPage] = useState(1);
-  const [noOfPages] = useState(Math.ceil(subjects.length / itemsPerPage));
+  const [noOfPages, setNoOfPages] = useState(
+    Math.ceil(subjects.length / itemsPerPage)
+  );
+
+  useEffect(() => {
+    setNoOfPages(Math.ceil(subjects.length / itemsPerPage));
+  }, [subjects]);
 
   const handlePageChange = (event, value) => {
     setPage(value);

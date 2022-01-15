@@ -1,4 +1,14 @@
-import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  InputAdornment,
+  IconButton,
+} from '@mui/material';
 import { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth-context';
@@ -8,6 +18,7 @@ import Copyright from '../layouts/copyright';
 const RegisterForm = () => {
   const { registerUser } = useContext(AuthContext);
   let history = useHistory();
+  const [showPassword, setShowPassword] = useState(false);
   const [registerForm, setRegisterForm] = useState({
     firstName: '',
     lastName: '',
@@ -25,6 +36,12 @@ const RegisterForm = () => {
       ...registerForm,
       [event.target.name]: event.target.value,
     });
+  };
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const onSubmit = async (event) => {
@@ -124,10 +141,24 @@ const RegisterForm = () => {
           fullWidth
           name="password"
           label="Mật khẩu"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           autoComplete="current-password"
           onChange={onChangeRegisterForm}
           value={password}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <TextField
           margin="normal"
@@ -135,10 +166,24 @@ const RegisterForm = () => {
           fullWidth
           name="confirmPassword"
           label="Nhập lại mật khẩu"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           autoComplete="current-confirmPassword"
           onChange={onChangeRegisterForm}
           value={confirmPassword}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <Button
           type="submit"

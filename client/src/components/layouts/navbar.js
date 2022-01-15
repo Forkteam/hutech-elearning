@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 import LogoHutech from '../../assets/logo.png';
 import { AuthContext } from '../../contexts/auth-context';
 
-const NavbarRoot = styled(AppBar)(({ theme }) => ({
+export const NavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.neutral[200],
   boxShadow: theme.shadows[3],
 }));

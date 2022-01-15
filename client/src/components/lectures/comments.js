@@ -180,8 +180,7 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
         </Box>
       ) : (
         <Typography sx={{ mx: 'auto', textAlign: 'center', mt: 1, px: 1 }}>
-          Vui lòng nâng cấp tài khoản để xem tài liệu dành riêng cho tài khoản
-          thành viên!{' '}
+          Nâng cấp tài khoản để đăng bình luận!{' '}
           <Link to="/upgrade" className="hover-link">
             Nâng cấp ngay
           </Link>
