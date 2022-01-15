@@ -22,6 +22,7 @@ import { AuthContext } from '../contexts/auth-context';
 import { showToast } from '../redux/actions';
 import { createRequest } from '../redux/actions/requests';
 import { toast$ } from '../redux/selectors';
+import Momo from '../assets/momo.jpg';
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -174,7 +175,26 @@ const Checkout = () => {
             />
           </Box>
         ) : (
-          <>momo payment</>
+          <Box style={{ textAlign: 'center' }}>
+            <div>
+              Bạn hãy Quét mã với Momo. Chọn mục Chuyển tiền và chuyển 10.000.
+              Bạn cũng có thể chuyển trực tiếp qua:
+              <br />
+              SĐT <strong>0947828163</strong> với{' '}
+              <strong>nội dung chuyển khoản là: </strong>
+              <br />
+              <span
+                style={{
+                  color: '#C0392B',
+                  backgroundColor: 'yellow',
+                  fontWeight: 'bold',
+                }}
+              >
+                HutechElearning + {user?.email}
+              </span>
+            </div>
+            <img alt="momo" src={Momo} width="235px" />
+          </Box>
         );
       default:
         return 'Unknown step';
