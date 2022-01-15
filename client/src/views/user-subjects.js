@@ -16,7 +16,7 @@ import { setCurrentId, showModal } from '../redux/actions';
 import {
   deleteSubject,
   getStudentSubjects,
-  getTeacherSubjects,
+  // getTeacherSubjects,
 } from '../redux/actions/subjects';
 import { subjects$, toast$ } from '../redux/selectors';
 moment.locale('vi');
@@ -33,9 +33,10 @@ const UserSubjects = () => {
   const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
-    if (user?.role < 2)
-      dispatch(getStudentSubjects.getStudentSubjectsRequest(user.id));
-    else dispatch(getTeacherSubjects.getTeacherSubjectsRequest(user.id));
+    // if (user?.role < 2)
+    //   dispatch(getStudentSubjects.getStudentSubjectsRequest(user.id));
+    // else dispatch(getTeacherSubjects.getTeacherSubjectsRequest(user.id));
+    dispatch(getStudentSubjects.getStudentSubjectsRequest(user.id));
   }, [dispatch]);
 
   const setShowModal = useCallback(() => {
