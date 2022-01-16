@@ -1,17 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import EditIcon from '@mui/icons-material/Edit';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import {
   Card,
   CardContent,
   CardMedia,
   CircularProgress,
+  Chip,
   Typography,
 } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
-import { useCallback, useEffect, useState, useContext } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import BackButton from '../components/layouts/back-button';
@@ -19,11 +21,11 @@ import AddModal from '../components/lectures/add-modal';
 import DataTable from '../components/overlays/data-table';
 import DeleteButton from '../components/overlays/delete-button';
 import SubscribeButton from '../components/subjects/subscribe-button';
+import { AuthContext } from '../contexts/auth-context';
 import { setCurrentId, showModal } from '../redux/actions';
 import { deleteLecture, getLectures } from '../redux/actions/lectures';
 import { getSubjectDetail } from '../redux/actions/subjects';
 import { lectures$, subjects$, toast$ } from '../redux/selectors';
-import { AuthContext } from '../contexts/auth-context';
 moment.locale('vi');
 
 const Lectures = () => {
@@ -100,15 +102,6 @@ const Lectures = () => {
       ),
     },
     {
-      field: 'user',
-      headerName: 'Người tạo',
-      minWidth: 150,
-      flex: 1,
-      valueGetter: (param) => {
-        return `${param.value.fullName}`;
-      },
-    },
-    {
       field: 'createdAt',
       headerName: 'Ngày tạo',
       type: 'date',
@@ -139,14 +132,14 @@ const Lectures = () => {
         user?.role > 2
           ? [
               <GridActionsCellItem
-                icon={<EditIcon />}
+                icon={<EditIcon color="warning" />}
                 label="Edit"
                 className="textPrimary"
                 onClick={handleEditClick(id)}
                 color="inherit"
               />,
               <GridActionsCellItem
-                icon={<DeleteIcon />}
+                icon={<DeleteForeverRoundedIcon color="error" />}
                 label="Delete"
                 onClick={handleDeleteClick(id)}
                 color="inherit"
@@ -190,6 +183,12 @@ const Lectures = () => {
           <Typography variant="subtitle1" paragraph>
             {subjects.singleSubject?.description ?? ''}
           </Typography>
+          <Chip
+            icon={<ThumbUpIcon fontSize="small" />}
+            label={`${
+              subjects.singleSubject?.studentIds.length ?? 0
+            } Lượt yêu thích`}
+          />
         </CardContent>
       </Card>
       <DeleteButton

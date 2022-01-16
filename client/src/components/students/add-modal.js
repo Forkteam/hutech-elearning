@@ -23,7 +23,7 @@ import {
 import { createUser, updateUser } from '../../redux/actions/users';
 import { currentId$, modal$, students$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
-import Transition from '../overlays/transition';
+import Transition from '../layouts/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();
@@ -186,7 +186,7 @@ const AddModal = () => {
       );
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
@@ -207,7 +207,7 @@ const AddModal = () => {
       );
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );

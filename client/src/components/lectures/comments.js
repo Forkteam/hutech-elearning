@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import EditIcon from '@mui/icons-material/Edit';
 import {
   Avatar,
@@ -17,12 +17,13 @@ import {
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
-import { Fragment, useEffect, useState, useContext } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/auth-context';
 import { setCurrentId, showToast } from '../../redux/actions';
 import { createComment, getComments } from '../../redux/actions/comments';
 import { comments$, currentId$ } from '../../redux/selectors';
-import { AuthContext } from '../../contexts/auth-context';
 moment.locale('vi');
 
 const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
@@ -57,7 +58,7 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
       );
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
@@ -65,7 +66,7 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
       console.log('update comment');
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
@@ -119,14 +120,14 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
             {role > 1 && (
               <>
                 <GridActionsCellItem
-                  icon={<EditIcon />}
+                  icon={<EditIcon color="warning" />}
                   label="Edit"
                   className="textPrimary"
                   onClick={() => handleEditClick(item.id)}
                   color="inherit"
                 />
                 <GridActionsCellItem
-                  icon={<DeleteIcon />}
+                  icon={<DeleteForeverRoundedIcon color="error" />}
                   label="Delete"
                   onClick={() => handleDeleteClick(item.id)}
                   color="inherit"
@@ -152,7 +153,7 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
       <Typography variant="h6" component="h6" sx={{ mt: 4, mb: 1, ml: 4 }}>
         Bình luận
       </Typography>
-      {(!user?.isExternal || user?.role > 1) && (
+      {!user?.isExternal || user?.role > 1 ? (
         <Box
           component="form"
           onSubmit={onSubmit}
@@ -177,6 +178,13 @@ const Comments = ({ role, lectureId, handleEditClick, handleDeleteClick }) => {
             Gửi bình luận
           </Button>
         </Box>
+      ) : (
+        <Typography sx={{ mx: 'auto', textAlign: 'center', mt: 1, px: 1 }}>
+          Nâng cấp tài khoản để đăng bình luận!{' '}
+          <Link to="/upgrade" className="hover-link">
+            Nâng cấp ngay
+          </Link>
+        </Typography>
       )}
       <Divider variant="inset" />
       <List sx={{ width: '100%', bgcolor: 'background.paper' }}>

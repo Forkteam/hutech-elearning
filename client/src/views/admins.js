@@ -1,20 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import EditIcon from '@mui/icons-material/Edit';
 import { CircularProgress } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
-import { useCallback, useEffect, useState, useContext } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import AddModal from '../components/admins/add-modal';
 import DataTable from '../components/overlays/data-table';
 import DeleteButton from '../components/overlays/delete-button';
+import { AuthContext } from '../contexts/auth-context';
 import { setCurrentId, showModal } from '../redux/actions';
 import { deleteUser, getUsers } from '../redux/actions/users';
 import { admins$, toast$ } from '../redux/selectors';
-import { Redirect } from 'react-router-dom';
-import { AuthContext } from '../contexts/auth-context';
 moment.locale('vi');
 
 const Admins = () => {
@@ -83,6 +83,7 @@ const Admins = () => {
   const columns = [
     {
       field: 'avatar',
+      disableExport: true,
       headerName: '#',
       width: 65,
       filterable: false,
@@ -120,15 +121,6 @@ const Admins = () => {
       },
     },
     {
-      field: 'user',
-      headerName: 'Người tạo',
-      minWidth: 140,
-      flex: 1,
-      valueGetter: (param) => {
-        return param.value?.fullName ? param.value.fullName : '';
-      },
-    },
-    {
       field: 'createdAt',
       headerName: 'Ngày tạo',
       type: 'date',
@@ -159,14 +151,14 @@ const Admins = () => {
         user?.role > 2
           ? [
               <GridActionsCellItem
-                icon={<EditIcon />}
+                icon={<EditIcon color="warning" />}
                 label="Edit"
                 className="textPrimary"
                 onClick={handleEditClick(id)}
                 color="inherit"
               />,
               <GridActionsCellItem
-                icon={<DeleteIcon />}
+                icon={<DeleteForeverRoundedIcon color="error" />}
                 label="Delete"
                 onClick={handleDeleteClick(id)}
                 color="inherit"

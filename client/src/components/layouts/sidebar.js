@@ -4,6 +4,7 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import GroupIcon from '@mui/icons-material/Group';
 import HelpIcon from '@mui/icons-material/Help';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import SchoolIcon from '@mui/icons-material/School';
 import SubjectIcon from '@mui/icons-material/Subject';
 import {
@@ -35,17 +36,22 @@ export const Sidebar = (props) => {
     {
       href: '/subjects',
       icon: <SubjectIcon fontSize="small" />,
-      title: 'Danh sách môn học',
+      title: 'Danh sách tài liệu',
     },
     {
       href: '/user-subjects',
       icon: <BookIcon fontSize="small" />,
-      title: user?.role < 2 ? 'Môn học đã lưu' : 'Môn học đã tạo',
+      title: user?.role < 2 ? 'Tài liệu yêu thích' : 'Tài liệu đã tạo',
     },
     {
       href: '/industries',
       icon: <ConstructionIcon fontSize="small" />,
-      title: 'Danh sách ngành học',
+      title: 'Danh sách lĩnh vực',
+    },
+    {
+      href: '/requests',
+      icon: <PendingActionsIcon fontSize="small" />,
+      title: 'Yêu cầu nâng cấp',
     },
     {
       href: '/students',
@@ -93,7 +99,7 @@ export const Sidebar = (props) => {
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item, index) => (
             <Fragment key={index}>
-              {index === 5 && (
+              {index === 6 && (
                 <Divider
                   sx={{
                     borderColor: '#2D3748',
@@ -101,7 +107,7 @@ export const Sidebar = (props) => {
                   }}
                 />
               )}
-              {index === 4 || index === 3 ? (
+              {index <= 5 && index >= 2 ? (
                 user?.role > 1 ? (
                   <Link to={item.href}>
                     <ListItem
@@ -143,6 +149,47 @@ export const Sidebar = (props) => {
                   </Link>
                 ) : (
                   <></>
+                )
+              ) : index === 1 ? (
+                user?.role < 2 && (
+                  <Link to={item.href}>
+                    <ListItem
+                      sx={{
+                        backgroundColor:
+                          location.pathname.split('/')[1] ===
+                            item.href.split('/')[1] &&
+                          'rgba(255,255,255, 0.08)',
+                        borderRadius: 1,
+                        color:
+                          location.pathname.split('/')[1] ===
+                          item.href.split('/')[1]
+                            ? 'secondary.main'
+                            : 'neutral.300',
+                        fontWeight:
+                          location.pathname.split('/')[1] ===
+                            item.href.split('/')[1] && 'fontWeightBold',
+                        justifyContent: 'flex-start',
+                        textAlign: 'left',
+                        textTransform: 'none',
+                        width: '100%',
+                        '& .MuiButton-startIcon': {
+                          color:
+                            location.pathname.split('/')[1] ===
+                            item.href.split('/')[1]
+                              ? 'secondary.main'
+                              : 'neutral.400',
+                        },
+                        '&:hover': {
+                          backgroundColor: 'rgba(255,255,255, 0.08)',
+                        },
+                      }}
+                    >
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText sx={{ flexGrow: 1 }}>
+                        {item.title}
+                      </ListItemText>
+                    </ListItem>
+                  </Link>
                 )
               ) : (
                 <Link to={item.href}>

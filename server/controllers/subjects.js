@@ -1,8 +1,8 @@
 import _ from 'lodash';
+import { PUBLIC } from '../enums/status.js';
 import { CommentModel } from '../models/comment-model.js';
 import { LectureModel } from '../models/lecture-model.js';
 import { SubjectModel } from '../models/subject-model.js';
-import { PUBLIC } from '../enums/status.js';
 
 export const getPublicSubjects = async (_, res) => {
   try {
@@ -23,7 +23,7 @@ export const getAllPublicSubjects = async (_, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     return res.status(200).json({ success: true, subjects });
@@ -42,7 +42,7 @@ export const getAllSubjects = async (_, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     return res.status(200).json({ success: true, subjects });
@@ -63,7 +63,7 @@ export const getStudentSubjects = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     return res.status(200).json({ success: true, subjects });
@@ -82,7 +82,7 @@ export const getTeacherSubjects = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     return res.status(200).json({ success: true, subjects });
@@ -101,7 +101,7 @@ export const getSubjectDetail = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     let checkSubscribe = new Promise((resolve, _) => {
@@ -140,12 +140,12 @@ export const createSubject = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     return res.status(200).json({
       success: true,
-      message: 'Thêm môn học thành công.!',
+      message: 'Thêm tài liệu thành công.!',
       subject
     });
   } catch (error) {
@@ -173,17 +173,17 @@ export const updateSubject = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     if (!updatedSubject)
       return res
         .status(404)
-        .json({ success: false, message: 'Không tìm thấy môn học!' });
+        .json({ success: false, message: 'Không tìm thấy tài liệu!' });
 
     return res.status(200).json({
       success: true,
-      message: 'Cập nhật môn học thành công.!',
+      message: 'Cập nhật tài liệu thành công.!',
       updatedSubject
     });
   } catch (error) {
@@ -193,17 +193,18 @@ export const updateSubject = async (req, res) => {
 };
 
 export const deleteSubject = async (req, res) => {
+  const { id } = req.params;
   if (!id)
     return res
       .status(400)
-      .json({ success: false, message: 'Mã môn học đã bị bỏ trống.' });
+      .json({ success: false, message: 'Mã tài liệu đã bị bỏ trống.' });
 
   try {
     const deletedSubject = await SubjectModel.findOneAndDelete({ _id: id });
     if (!deletedSubject)
       return res
         .status(404)
-        .json({ success: false, message: 'Không tìm thấy môn học!' });
+        .json({ success: false, message: 'Không tìm thấy tài liệu!' });
 
     const lectures = await LectureModel.find({ subjectId: id });
     let lectureIds = [];
@@ -217,7 +218,7 @@ export const deleteSubject = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: 'Xoá môn học thành công.!',
+      message: 'Xoá tài liệu thành công.!',
       deletedSubject
     });
   } catch (error) {
@@ -239,17 +240,17 @@ export const addStudent = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     if (!updatedSubject)
       return res
         .status(404)
-        .json({ success: false, message: 'Không tìm thấy môn học!' });
+        .json({ success: false, message: 'Không tìm thấy tài liệu!' });
     updatedSubject = { ...updatedSubject._doc, isSubscribe: true };
     return res.status(200).json({
       success: true,
-      message: 'Đăng ký thành công.!',
+      message: 'Bạn đã yêu thích tài liệu này.!',
       updatedSubject
     });
   } catch (error) {
@@ -271,17 +272,17 @@ export const removeStudent = async (req, res) => {
       },
       {
         path: 'industryId',
-        select: ['name']
+        select: ['id', 'name']
       }
     ]);
     if (!updatedSubject)
       return res
         .status(404)
-        .json({ success: false, message: 'Không tìm thấy môn học!' });
+        .json({ success: false, message: 'Không tìm thấy tài liệu!' });
     updatedSubject = { ...updatedSubject._doc, isSubscribe: false };
     return res.status(200).json({
       success: true,
-      message: 'Huỳ đăng ký thành công.!',
+      message: 'Bạn đã bỏ yêu thích tài liệu này.!',
       updatedSubject
     });
   } catch (error) {

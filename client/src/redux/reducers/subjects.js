@@ -1,15 +1,15 @@
 import {
   createSubject,
   deleteSubject,
+  getAllPublicSubjects,
   getAllSubjects,
+  getStudentSubjects,
   getSubjectDetail,
+  getTeacherSubjects,
   getType,
   subscribeSubject,
   unsubscribeSubject,
   updateSubject,
-  getTeacherSubjects,
-  getStudentSubjects,
-  getAllPublicSubjects,
 } from '../actions/subjects';
 import { INIT_STATE } from './state';
 

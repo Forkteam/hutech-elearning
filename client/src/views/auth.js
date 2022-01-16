@@ -11,12 +11,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import queryString from 'query-string';
 import { useContext } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
+import Image from '../assets/banner.jpg';
 import ActivateAccount from '../components/auth/activate-account';
 import LoginForm from '../components/auth/login-form';
 import RegisterForm from '../components/auth/register-form';
 import ResetPassword from '../components/auth/reset-password';
 import { AuthContext } from '../contexts/auth-context';
-import Image from '../assets/banner.jpg';
 
 const theme = createTheme();
 

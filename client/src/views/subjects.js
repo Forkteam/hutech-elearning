@@ -1,9 +1,18 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import EditIcon from '@mui/icons-material/Edit';
 import TocIcon from '@mui/icons-material/Toc';
 import WindowIcon from '@mui/icons-material/Window';
-import { Box, CircularProgress, Tab, Tabs } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  Tab,
+  Tabs,
+  Typography,
+  TextField,
+  MenuItem,
+} from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
@@ -15,20 +24,24 @@ import DeleteButton from '../components/overlays/delete-button';
 import AddModal from '../components/subjects/add-modal';
 import DataCard from '../components/subjects/data-card';
 import { AuthContext } from '../contexts/auth-context';
+import { getIndustries } from '../redux/actions/industries';
 import { setCurrentId, showModal } from '../redux/actions';
 import {
   deleteSubject,
-  getAllSubjects,
   getAllPublicSubjects,
+  getAllSubjects,
 } from '../redux/actions/subjects';
-import { subjects$, toast$ } from '../redux/selectors';
+import { subjects$, toast$, industries$ } from '../redux/selectors';
 moment.locale('vi');
 
 const Subjects = () => {
   const dispatch = useDispatch();
   const [rowsPerPage, setRowsPerPage] = useState(7);
+  const [subjectsData, setSubjectsData] = useState({ data: [] });
+  const [industryId, setIndustryId] = useState('61c59469c3342031dc62ace2');
   const [value, setValue] = useState(0);
   const toast = useSelector(toast$);
+  const industries = useSelector(industries$);
   const subjects = useSelector(subjects$);
   const {
     authState: { user },
@@ -37,12 +50,37 @@ const Subjects = () => {
   const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
+    dispatch(getIndustries.getIndustriesRequest());
     if (user?.isExternal && user?.role < 2)
       dispatch(getAllPublicSubjects.getAllPublicSubjectsRequest());
     else dispatch(getAllSubjects.getAllSubjectsRequest());
   }, [dispatch]);
 
-  const handleTabChange = (event, newValue) => {
+  useEffect(() => {
+    console.log(industryId);
+    console.log(subjects.data);
+    setSubjectsData({
+      ...subjectsData,
+      data: subjects.data.filter(
+        (subject) => subject.industryId.id == industryId
+      ),
+    });
+  }, [subjects]);
+
+  useEffect(() => {
+    setSubjectsData({
+      ...subjectsData,
+      data: subjects.data.filter(
+        (subject) => subject.industryId.id == industryId
+      ),
+    });
+  }, [industryId]);
+
+  const onChangeIndustry = (event) => {
+    setIndustryId(event.target.value);
+  };
+
+  const handleTabChange = (_, newValue) => {
     setValue(newValue);
   };
 
@@ -94,6 +132,7 @@ const Subjects = () => {
   const columns = [
     {
       field: 'image',
+      disableExport: true,
       headerName: '#',
       width: 75,
       filterable: false,
@@ -103,7 +142,7 @@ const Subjects = () => {
     },
     {
       field: 'name',
-      headerName: 'Tên môn học',
+      headerName: 'Tên tài liệu',
       minWidth: 100,
       flex: 1,
       renderCell: (params) => (
@@ -112,20 +151,11 @@ const Subjects = () => {
     },
     {
       field: 'industryId',
-      headerName: 'Ngành',
+      headerName: 'Lĩnh vực',
       minWidth: 150,
       flex: 1,
       valueGetter: (param) => {
         return `${param.value.name}`;
-      },
-    },
-    {
-      field: 'user',
-      headerName: 'Người tạo',
-      minWidth: 140,
-      flex: 1,
-      valueGetter: (param) => {
-        return `${param.value.fullName}`;
       },
     },
     {
@@ -159,14 +189,14 @@ const Subjects = () => {
         user?.role > 1
           ? [
               <GridActionsCellItem
-                icon={<EditIcon />}
+                icon={<EditIcon color="warning" />}
                 label="Edit"
                 className="textPrimary"
                 onClick={handleEditClick(id)}
                 color="inherit"
               />,
               <GridActionsCellItem
-                icon={<DeleteIcon />}
+                icon={<DeleteForeverRoundedIcon color="error" />}
                 label="Delete"
                 onClick={handleDeleteClick(id)}
                 color="inherit"
@@ -177,7 +207,7 @@ const Subjects = () => {
   ];
 
   return (
-    <>
+    <div style={{ height: '160vh' }}>
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
@@ -190,19 +220,52 @@ const Subjects = () => {
             <Tab
               icon={<WindowIcon />}
               iconPosition="start"
-              label="dạng lưới"
+              label="lưới"
               sx={{ minHeight: '50px' }}
             />
             <Tab
               icon={<TocIcon />}
               iconPosition="start"
-              label="dạng bảng"
+              label="danh sách"
               sx={{ minHeight: '50px' }}
             />
           </Tabs>
         </Box>
       </Box>
-      {value === 0 && <DataCard subjects={subjects.data} />}
+      {user?.role < 2 && user?.isExternal && (
+        <Typography sx={{ mx: 'auto', textAlign: 'center', mt: 1, px: 1 }}>
+          Nâng cấp tài khoản để xem tài liệu dành riêng cho thành viên!{' '}
+          <Link to="/upgrade" className="hover-link">
+            Nâng cấp ngay
+          </Link>
+        </Typography>
+      )}
+      {value === 0 && (
+        <>
+          <TextField
+            margin="dense"
+            fullWidth
+            select
+            value={industryId}
+            onChange={onChangeIndustry}
+            sx={{
+              alignItems: 'center',
+              mx: 'auto',
+              '.css-1122084-MuiInputBase-root-MuiOutlinedInput-root': {
+                width: '95%',
+                backgroundColor: 'white',
+              },
+            }}
+          >
+            {industries.data.map((industry) => (
+              <MenuItem key={industry.id} value={industry.id}>
+                {industry.name}
+              </MenuItem>
+            ))}
+          </TextField>
+          <DataCard subjects={subjectsData.data} />
+        </>
+      )}
       {value === 1 && (
         <>
           <DeleteButton
@@ -222,7 +285,7 @@ const Subjects = () => {
           />
         </>
       )}
-    </>
+    </div>
   );
 };
 

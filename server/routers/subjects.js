@@ -3,14 +3,14 @@ import {
   addStudent,
   createSubject,
   deleteSubject,
+  getAllPublicSubjects,
   getAllSubjects,
+  getPublicSubjects,
   getStudentSubjects,
   getSubjectDetail,
   getTeacherSubjects,
   removeStudent,
-  updateSubject,
-  getPublicSubjects,
-  getAllPublicSubjects
+  updateSubject
 } from '../controllers/subjects.js';
 import authTeacher from '../middleware/auth-teacher.js';
 import verifyToken from '../middleware/auth.js';

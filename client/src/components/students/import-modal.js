@@ -15,7 +15,7 @@ import { FileContext } from '../../contexts/file-context';
 import { showToast } from '../../redux/actions';
 import { toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
-import Transition from '../overlays/transition';
+import Transition from '../layouts/transition';
 
 const ImportModal = ({ openImport, setOpenImport }) => {
   const dispatch = useDispatch();

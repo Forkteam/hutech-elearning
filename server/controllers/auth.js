@@ -1,6 +1,7 @@
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 import activateMail from '../mailer/activate-mail.js';
+import contactMail from '../mailer/contact-mail.js';
 import mailer from '../mailer/index.js';
 import resetPasswordMail from '../mailer/reset-password.js';
 import welcomeMail from '../mailer/welcome-mail.js';
@@ -223,5 +224,33 @@ export const resetPassword = async (req, res) => {
       success: false,
       message: 'Đặt lại mật khẩu thất bại, hãy thử lại!'
     });
+  }
+};
+
+export const contact = async (req, res) => {
+  const { email, fullName, content, phone } = req.body;
+  if (!email || !fullName || !content)
+    return res
+      .status(400)
+      .json({ success: false, message: 'Vui lòng điền đầy đủ thông tin!' });
+
+  try {
+    const adminData = await UserModel.find({
+      $or: [{ role: 2 }, { role: 3 }]
+    });
+    if (adminData) {
+      const emailContent = contactMail(email, fullName, content, phone);
+      adminData.map((admin) => {
+        if (admin?.email) mailer(admin?.email, emailContent);
+      });
+    }
+    res
+      .status(200)
+      .json({ success: true, message: 'Gửi email liên hệ thành công' });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: 'Gửi email thất bại, hãy thử lại.' });
   }
 };

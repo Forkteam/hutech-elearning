@@ -1,4 +1,14 @@
-import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  InputAdornment,
+  IconButton,
+} from '@mui/material';
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth-context';
@@ -12,10 +22,17 @@ const LoginForm = () => {
     password: '',
   });
   const [alert, setAlert] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const { username, password } = loginForm;
 
   const onChangeLoginForm = (event) => {
     setLoginForm({ ...loginForm, [event.target.name]: event.target.value });
+  };
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const onSubmit = async (event) => {
@@ -55,10 +72,24 @@ const LoginForm = () => {
           fullWidth
           name="password"
           label="Mật khẩu"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           autoComplete="current-password"
           onChange={onChangeLoginForm}
           value={password}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <Button
           type="submit"

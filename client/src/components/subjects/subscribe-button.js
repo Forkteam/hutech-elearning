@@ -1,10 +1,10 @@
 import {
   Button,
   Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogContentText,
   DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ import {
   unsubscribeSubject,
 } from '../../redux/actions/subjects';
 import { subjects$ } from '../../redux/selectors';
-import Transition from '../overlays/transition';
+import Transition from '../layouts/transition';
 
 const SubscribeButton = ({ subjectId }) => {
   const subjects = useSelector(subjects$);
@@ -42,7 +42,7 @@ const SubscribeButton = ({ subjectId }) => {
         sx={{ mt: 1, mr: 3, mb: 1 }}
         onClick={handleClickOpen}
       >
-        {subjects.singleSubject?.isSubscribe ? 'Hủy' : 'Đăng ký'} nhận thông báo
+        {subjects.singleSubject?.isSubscribe ? 'Bỏ yêu thích' : 'Yêu thích'}
       </Button>
       <Dialog
         open={open}
@@ -52,8 +52,7 @@ const SubscribeButton = ({ subjectId }) => {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle>
-          {subjects.singleSubject?.isSubscribe ? 'Hủy' : 'Đăng ký'} nhận thông
-          báo
+          {subjects.singleSubject?.isSubscribe ? 'Bỏ yêu thích' : 'Yêu thích'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">

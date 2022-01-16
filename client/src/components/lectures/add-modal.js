@@ -19,7 +19,7 @@ import {
 import { createLecture, updateLecture } from '../../redux/actions/lectures';
 import { currentId$, lectures$, modal$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
-import Transition from '../overlays/transition';
+import Transition from '../layouts/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();
@@ -100,7 +100,8 @@ const AddModal = () => {
     }
     if (
       url.split('?v=')[0] !== 'https://www.youtube.com/watch' &&
-      url.split('/')[3] !== 'embed'
+      url.split('/')[3] !== 'embed' &&
+      url !== ''
     ) {
       setAlert({
         type: 'warning',
@@ -119,7 +120,7 @@ const AddModal = () => {
       );
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
@@ -132,7 +133,7 @@ const AddModal = () => {
       );
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
@@ -153,7 +154,7 @@ const AddModal = () => {
             fullWidth
             variant="standard"
             autoFocus
-            label="Title"
+            label="Tiêu đề"
             name="title"
             value={title}
             onChange={onChangeNewLectureForm}

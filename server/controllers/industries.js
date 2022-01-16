@@ -18,7 +18,7 @@ export const createIndustry = async (req, res) => {
   if (!code || !name)
     return res.status(400).json({
       success: false,
-      message: 'Mã ngành hoặc tên ngành bị bỏ trống.'
+      message: 'Mã lĩnh vực hoặc tên lĩnh vực bị bỏ trống.'
     });
 
   try {
@@ -26,7 +26,7 @@ export const createIndustry = async (req, res) => {
     if (industryCodeExisted)
       return res
         .status(400)
-        .json({ success: false, message: 'Mã ngành đã tồn tại.' });
+        .json({ success: false, message: 'Mã lĩnh vực đã tồn tại.' });
 
     const newIndustry = req.body;
     let industry = new IndustryModel({
@@ -36,9 +36,11 @@ export const createIndustry = async (req, res) => {
     await industry.save();
 
     industry = await industry.populate('user', ['fullName']);
-    res
-      .status(200)
-      .json({ success: true, message: 'Tạo ngành mới thành công!', industry });
+    res.status(200).json({
+      success: true,
+      message: 'Tạo lĩnh vực mới thành công!',
+      industry
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
@@ -50,7 +52,7 @@ export const updateIndustry = async (req, res) => {
   if (!code || !name)
     return res.status(400).json({
       success: false,
-      message: 'Mã ngành hoặc tên ngành bị bỏ trống.'
+      message: 'Mã lĩnh vực hoặc tên lĩnh vực bị bỏ trống.'
     });
 
   try {
@@ -60,7 +62,7 @@ export const updateIndustry = async (req, res) => {
     if (industryCodeExisted)
       return res
         .status(400)
-        .json({ success: false, message: 'Mã ngành đã tồn tại.' });
+        .json({ success: false, message: 'Mã lĩnh vực đã tồn tại.' });
 
     const updateIndustry = req.body;
     const industry = await IndustryModel.findOneAndUpdate(
@@ -72,11 +74,13 @@ export const updateIndustry = async (req, res) => {
     if (!industry)
       return res
         .status(404)
-        .json({ success: false, message: 'Không tìm thấy ngành' });
+        .json({ success: false, message: 'Không tìm thấy lĩnh vực' });
 
-    res
-      .status(200)
-      .json({ success: true, message: 'Cập nhật ngành thành công!', industry });
+    res.status(200).json({
+      success: true,
+      message: 'Cập nhật lĩnh vực thành công!',
+      industry
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Lỗi máy chủ.' });
@@ -89,7 +93,7 @@ export const deleteIndustry = async (req, res) => {
     if (subject)
       return res.status(400).json({
         success: false,
-        message: 'Không thể xoá vì đã tồn tại môn học.'
+        message: 'Không thể xoá vì đã tồn tại tài liệu.'
       });
 
     const industry = await IndustryModel.findOneAndDelete({
@@ -99,7 +103,7 @@ export const deleteIndustry = async (req, res) => {
     if (!industry)
       return res
         .status(404)
-        .json({ success: false, message: 'Không tìm thấy ngành' });
+        .json({ success: false, message: 'Không tìm thấy lĩnh vực' });
 
     res
       .status(200)

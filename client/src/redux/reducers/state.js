@@ -40,4 +40,8 @@ export const INIT_STATE = {
     loading: false,
     data: [],
   },
+  requests: {
+    loading: false,
+    data: [],
+  },
 };

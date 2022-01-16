@@ -65,3 +65,10 @@ export const getPublicSubjects = (payload) =>
   axios.get(`${apiURL}/subjects/public-subjects`, payload);
 export const getAllPublicSubjects = (payload) =>
   axios.get(`${apiURL}/subjects/all-public-subjects`, payload);
+
+export const getRequests = (payload) =>
+  axios.get(`${apiURL}/requests`, payload);
+export const createRequest = (payload) =>
+  axios.post(`${apiURL}/requests`, payload);
+export const updateRequest = (payload) =>
+  axios.put(`${apiURL}/requests/${payload.id}`, payload);

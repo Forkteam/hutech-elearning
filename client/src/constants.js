@@ -6,3 +6,5 @@ export const LOCAL_STORAGE_TOKEN_NAME = 'token';
 export const LOAD_SUCCESS = 'LOAD_SUCCESS';
 export const DISABLED = 'DISABLED';
 export const ENABLED = 'ENABLED';
+export const ACCEPTED = 'ACCEPTED';
+export const DENIED = 'DENIED';

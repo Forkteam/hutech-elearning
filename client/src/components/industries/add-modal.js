@@ -18,7 +18,7 @@ import {
 import { createIndustry, updateIndustry } from '../../redux/actions/industries';
 import { currentId$, industries$, modal$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
-import Transition from '../overlays/transition';
+import Transition from '../layouts/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();
@@ -69,7 +69,7 @@ const AddModal = () => {
     if (!code || !name) {
       setAlert({
         type: 'warning',
-        message: 'Mã ngành hoặc tên ngành bị bỏ trống.',
+        message: 'Mã lĩnh vực hoặc tên lĩnh vực bị bỏ trống.',
       });
       setTimeout(() => setAlert(null), 5000);
       return;
@@ -79,7 +79,7 @@ const AddModal = () => {
       dispatch(createIndustry.createIndustryRequest(newIndustry));
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
@@ -92,7 +92,7 @@ const AddModal = () => {
       );
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
@@ -107,7 +107,7 @@ const AddModal = () => {
         {!alert && <AlertMessage info={toast} />}
         <TextField
           margin="dense"
-          label="Mã ngành"
+          label="Mã lĩnh vực"
           type="text"
           name="code"
           required
@@ -118,7 +118,7 @@ const AddModal = () => {
         />
         <TextField
           margin="dense"
-          label="Tên ngành"
+          label="Tên lĩnh vực"
           type="text"
           name="name"
           required

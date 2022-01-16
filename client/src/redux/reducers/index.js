@@ -5,10 +5,11 @@ import currentId from './constants/currentId';
 import modal from './constants/modal';
 import toast from './constants/toast';
 import industries from './industries';
+import landing from './landing';
 import lectures from './lectures';
+import requests from './requests';
 import students from './students';
 import subjects from './subjects';
-import landing from './landing';
 
 export default combineReducers({
   industries,
@@ -21,4 +22,5 @@ export default combineReducers({
   admins,
   comments,
   landing,
+  requests,
 });

@@ -19,7 +19,7 @@ import {
 import { updateComment } from '../../redux/actions/comments';
 import { comments$, currentId$, modal$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
-import Transition from '../overlays/transition';
+import Transition from '../layouts/transition';
 
 const CommentModal = ({ lectureId }) => {
   const dispatch = useDispatch();
@@ -84,7 +84,7 @@ const CommentModal = ({ lectureId }) => {
     );
     dispatch(
       showToast({
-        message: 'Please wait! We are updating...',
+        message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
         type: 'warning',
       })
     );

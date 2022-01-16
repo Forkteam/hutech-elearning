@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   activate,
+  contact,
   getUser,
   login,
   register,
@@ -12,6 +13,7 @@ import verifyToken from '../middleware/auth.js';
 const router = express.Router();
 
 router.get('/', verifyToken, getUser);
+router.post('/contact', contact);
 router.post('/register', register);
 router.post('/activate', activate);
 router.post('/login', login);

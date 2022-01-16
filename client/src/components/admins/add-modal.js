@@ -7,12 +7,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField,
   MenuItem,
+  TextField,
 } from '@mui/material';
-import { useEffect, useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthContext } from '../../contexts/auth-context';
 import {
   hideModal,
   setCurrentId,
@@ -22,8 +23,7 @@ import {
 import { createUser, updateUser } from '../../redux/actions/users';
 import { admins$, currentId$, modal$, toast$ } from '../../redux/selectors';
 import AlertMessage from '../layouts/alert-message';
-import Transition from '../overlays/transition';
-import { AuthContext } from '../../contexts/auth-context';
+import Transition from '../layouts/transition';
 
 const AddModal = () => {
   const dispatch = useDispatch();
@@ -171,7 +171,7 @@ const AddModal = () => {
       dispatch(createUser.createUserRequest({ role: 2, ...newAdmin }));
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );
@@ -185,7 +185,7 @@ const AddModal = () => {
       );
       dispatch(
         showToast({
-          message: 'Please wait! We are updating...',
+          message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
           type: 'warning',
         })
       );

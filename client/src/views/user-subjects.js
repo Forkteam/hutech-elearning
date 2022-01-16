@@ -1,8 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import EditIcon from '@mui/icons-material/Edit';
 import { CircularProgress } from '@mui/material';
-import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
 import { useCallback, useContext, useEffect, useState } from 'react';
@@ -12,12 +9,8 @@ import DataTable from '../components/overlays/data-table';
 import DeleteButton from '../components/overlays/delete-button';
 import AddModal from '../components/subjects/add-modal';
 import { AuthContext } from '../contexts/auth-context';
-import { setCurrentId, showModal } from '../redux/actions';
-import {
-  deleteSubject,
-  getStudentSubjects,
-  getTeacherSubjects,
-} from '../redux/actions/subjects';
+import { showModal } from '../redux/actions';
+import { deleteSubject, getStudentSubjects } from '../redux/actions/subjects';
 import { subjects$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
@@ -33,9 +26,10 @@ const UserSubjects = () => {
   const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
-    if (user?.role < 2)
-      dispatch(getStudentSubjects.getStudentSubjectsRequest(user.id));
-    else dispatch(getTeacherSubjects.getTeacherSubjectsRequest(user.id));
+    // if (user?.role < 2)
+    //   dispatch(getStudentSubjects.getStudentSubjectsRequest(user.id));
+    // else dispatch(getTeacherSubjects.getTeacherSubjectsRequest(user.id));
+    dispatch(getStudentSubjects.getStudentSubjectsRequest(user.id));
   }, [dispatch]);
 
   const setShowModal = useCallback(() => {
@@ -61,16 +55,16 @@ const UserSubjects = () => {
     );
   }
 
-  const handleEditClick = (id) => (event) => {
-    event.stopPropagation();
-    dispatch(setCurrentId(id));
-  };
+  // const handleEditClick = (id) => (event) => {
+  //   event.stopPropagation();
+  //   dispatch(setCurrentId(id));
+  // };
 
-  const handleDeleteClick = (id) => (event) => {
-    event.stopPropagation();
-    setSelectedId(id);
-    setOpen(true);
-  };
+  // const handleDeleteClick = (id) => (event) => {
+  //   event.stopPropagation();
+  //   setSelectedId(id);
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     setSelectedId('');
@@ -86,6 +80,7 @@ const UserSubjects = () => {
   const columns = [
     {
       field: 'image',
+      disableExport: true,
       headerName: '#',
       width: 75,
       filterable: false,
@@ -95,7 +90,7 @@ const UserSubjects = () => {
     },
     {
       field: 'name',
-      headerName: 'Tên môn học',
+      headerName: 'Tên tài liệu',
       minWidth: 100,
       flex: 1,
       renderCell: (params) => (
@@ -104,20 +99,11 @@ const UserSubjects = () => {
     },
     {
       field: 'industryId',
-      headerName: 'Ngành',
+      headerName: 'Lĩnh vực',
       minWidth: 150,
       flex: 1,
       valueGetter: (param) => {
         return `${param.value.name}`;
-      },
-    },
-    {
-      field: 'user',
-      headerName: 'Người tạo',
-      minWidth: 140,
-      flex: 1,
-      valueGetter: (param) => {
-        return `${param.value.fullName}`;
       },
     },
     {
@@ -139,32 +125,6 @@ const UserSubjects = () => {
       valueGetter: (param) => {
         return `${moment(param.value).fromNow()}`;
       },
-    },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Thao tác',
-      minWidth: 75,
-      flex: 1,
-      cellClassName: 'actions',
-      getActions: ({ id }) =>
-        user?.role > 1
-          ? [
-              <GridActionsCellItem
-                icon={<EditIcon />}
-                label="Edit"
-                className="textPrimary"
-                onClick={handleEditClick(id)}
-                color="inherit"
-              />,
-              <GridActionsCellItem
-                icon={<DeleteIcon />}
-                label="Delete"
-                onClick={handleDeleteClick(id)}
-                color="inherit"
-              />,
-            ]
-          : [],
     },
   ];
 

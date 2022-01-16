@@ -6,7 +6,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
-import Transition from '../overlays/transition';
+import Transition from '../layouts/transition';
 
 const DeleteButton = ({ open, id, handleClose, handleAgree }) => {
   return (

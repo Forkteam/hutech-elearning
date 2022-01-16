@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import * as api from '../../api';
-import { showToast, hideModal, setCurrentId } from '../actions';
+import { hideModal, setCurrentId, showToast } from '../actions';
 import {
   createIndustry,
   deleteIndustry,

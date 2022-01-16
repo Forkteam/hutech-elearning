@@ -4,6 +4,7 @@ import { hideModal, setCurrentId, showToast } from '../actions';
 import {
   createSubject,
   deleteSubject,
+  getAllPublicSubjects,
   getAllSubjects,
   getStudentSubjects,
   getSubjectDetail,
@@ -11,7 +12,6 @@ import {
   subscribeSubject,
   unsubscribeSubject,
   updateSubject,
-  getAllPublicSubjects,
 } from '../actions/subjects';
 
 export function* getAllSubjectsSaga(action) {

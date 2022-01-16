@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 import LogoHutech from '../../assets/logo.png';
 import { AuthContext } from '../../contexts/auth-context';
 
-const NavbarRoot = styled(AppBar)(({ theme }) => ({
+export const NavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.neutral[200],
   boxShadow: theme.shadows[3],
 }));
@@ -106,20 +106,20 @@ export const Navbar = (props) => {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            <MenuItem>
-              <Link to="/personal">
+            <Link to="/personal">
+              <MenuItem>
                 <Typography textAlign="center" color="#121828">
                   Thông tin cá nhân
                 </Typography>
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link to="/support">
+              </MenuItem>
+            </Link>
+            <Link to="/support">
+              <MenuItem>
                 <Typography textAlign="center" color="#121828">
                   Hỗ trợ
                 </Typography>
-              </Link>
-            </MenuItem>
+              </MenuItem>
+            </Link>
             <MenuItem onClick={logout}>
               <Typography textAlign="center">Đăng xuất</Typography>
             </MenuItem>

@@ -1,19 +1,22 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable react-hooks/exhaustive-deps */
+import StarIcon from '@mui/icons-material/Star';
 import DatePicker from '@mui/lab/DatePicker';
-import { Grid, TextField, Typography } from '@mui/material';
+import { Button, Grid, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import moment from 'moment';
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import AlertMessage from '../components/layouts/alert-message';
+import Tooltip from '../components/layouts/tooltip';
 import { AuthContext } from '../contexts/auth-context';
 import { showToast } from '../redux/actions';
 import { updateUser } from '../redux/actions/users';
 import { toast$ } from '../redux/selectors';
-import Tooltip from '../components/overlays/tooltip';
 
 export default function Personal() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const toast = useSelector(toast$);
   const {
@@ -101,7 +104,7 @@ export default function Personal() {
     dispatch(updateUser.updateUserRequest(data));
     dispatch(
       showToast({
-        message: 'Please wait! We are updating...',
+        message: 'Vui lòng chờ! Dữ liệu đang được cập nhật...',
         type: 'warning',
       })
     );
@@ -131,6 +134,17 @@ export default function Personal() {
                 Cập nhật gần nhất: {moment(user?.updatedAt).fromNow()}{' '}
               </Box>
             </div>
+            {user?.role < 2 && user?.isExternal === true && (
+              <Button
+                variant="contained"
+                color="warning"
+                endIcon={<StarIcon />}
+                sx={{ margin: 2, width: '-webkit-fill-available' }}
+                onClick={() => history.push('/upgrade')}
+              >
+                Nâng cấp tài khoản
+              </Button>
+            )}
           </Grid>
           <Grid item xs={12} sm={8} md={9}>
             <div className="div4">
