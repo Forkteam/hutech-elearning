@@ -138,7 +138,7 @@ const Requests = () => {
     },
     {
       field: 'studentCard',
-      headerName: 'Student Card',
+      headerName: 'Ảnh thẻ Sinh Viên',
       minWidth: 200,
       filterable: false,
       renderCell: (params) => (
@@ -154,7 +154,7 @@ const Requests = () => {
     },
     {
       field: 'identityFront',
-      headerName: 'identity Front',
+      headerName: 'CMND Mặt trước',
       minWidth: 200,
       filterable: false,
       renderCell: (params) => (
@@ -170,7 +170,7 @@ const Requests = () => {
     },
     {
       field: 'identityBack',
-      headerName: 'identity Back',
+      headerName: 'CMND Mặt sau',
       minWidth: 200,
       filterable: false,
       renderCell: (params) => (
