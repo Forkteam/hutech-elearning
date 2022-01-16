@@ -133,33 +133,7 @@ const UserSubjects = () => {
         return `${moment(param.value).fromNow()}`;
       },
     },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Thao tác',
-      minWidth: 75,
-      flex: 1,
-      cellClassName: 'actions',
-      getActions: ({ id }) =>
-        user?.role > 1
-          ? [
-              <GridActionsCellItem
-                icon={<EditIcon color="warning" />}
-                label="Edit"
-                className="textPrimary"
-                onClick={handleEditClick(id)}
-                color="inherit"
-              />,
-              <GridActionsCellItem
-                icon={<DeleteForeverRoundedIcon color="error" />}
-                label="Delete"
-                onClick={handleDeleteClick(id)}
-                color="inherit"
-              />,
-            ]
-          : [],
-    },
-  ];
+     ];
 
   return (
     <>
