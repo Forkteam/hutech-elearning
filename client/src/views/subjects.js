@@ -220,13 +220,13 @@ const Subjects = () => {
             <Tab
               icon={<WindowIcon />}
               iconPosition="start"
-              label="dạng lưới"
+              label="lưới"
               sx={{ minHeight: '50px' }}
             />
             <Tab
               icon={<TocIcon />}
               iconPosition="start"
-              label="dạng bảng"
+              label="danh sách"
               sx={{ minHeight: '50px' }}
             />
           </Tabs>

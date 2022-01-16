@@ -232,17 +232,17 @@ const Requests = () => {
           <img
             src={userInfo.identityFront}
             alt={userInfo.fullName}
-            style={{ width: '500px' }}
+            style={{ width: '280px' }}
           />
           <img
             src={userInfo.identityBack}
             alt={userInfo.fullName}
-            style={{ width: '500px' }}
+            style={{ width: '280px' }}
           />
           <img
             src={userInfo.studentCard}
             alt={userInfo.fullName}
-            style={{ width: '500px' }}
+            style={{ width: '280px' }}
           />
         </DialogContent>
         <DialogActions>
