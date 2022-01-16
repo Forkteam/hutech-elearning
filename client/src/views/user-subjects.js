@@ -1,8 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
-import EditIcon from '@mui/icons-material/Edit';
 import { CircularProgress } from '@mui/material';
-import { GridActionsCellItem } from '@mui/x-data-grid';
 import moment from 'moment';
 import 'moment/locale/vi';
 import { useCallback, useContext, useEffect, useState } from 'react';
@@ -12,12 +9,8 @@ import DataTable from '../components/overlays/data-table';
 import DeleteButton from '../components/overlays/delete-button';
 import AddModal from '../components/subjects/add-modal';
 import { AuthContext } from '../contexts/auth-context';
-import { setCurrentId, showModal } from '../redux/actions';
-import {
-  deleteSubject,
-  getStudentSubjects,
-  // getTeacherSubjects,
-} from '../redux/actions/subjects';
+import { showModal } from '../redux/actions';
+import { deleteSubject, getStudentSubjects } from '../redux/actions/subjects';
 import { subjects$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
@@ -62,16 +55,16 @@ const UserSubjects = () => {
     );
   }
 
-  const handleEditClick = (id) => (event) => {
-    event.stopPropagation();
-    dispatch(setCurrentId(id));
-  };
+  // const handleEditClick = (id) => (event) => {
+  //   event.stopPropagation();
+  //   dispatch(setCurrentId(id));
+  // };
 
-  const handleDeleteClick = (id) => (event) => {
-    event.stopPropagation();
-    setSelectedId(id);
-    setOpen(true);
-  };
+  // const handleDeleteClick = (id) => (event) => {
+  //   event.stopPropagation();
+  //   setSelectedId(id);
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     setSelectedId('');
@@ -133,7 +126,7 @@ const UserSubjects = () => {
         return `${moment(param.value).fromNow()}`;
       },
     },
-     ];
+  ];
 
   return (
     <>
