@@ -57,8 +57,6 @@ const Subjects = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(industryId);
-    console.log(subjects.data);
     setSubjectsData({
       ...subjectsData,
       data: subjects.data.filter(

@@ -6,6 +6,7 @@ import moment from 'moment';
 import 'moment/locale/vi';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import AddModal from '../components/industries/add-modal';
 import DataTable from '../components/overlays/data-table';
 import DeleteButton from '../components/overlays/delete-button';
@@ -38,6 +39,9 @@ const Industries = () => {
     setRowsPerPage(newPageSize);
   };
 
+  if (user?.role < 2) {
+    return <Redirect to="/404" />;
+  }
   if (industries.loading) {
     return (
       <div
