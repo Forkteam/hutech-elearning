@@ -6,11 +6,10 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DataTable from '../components/overlays/data-table';
-import DeleteButton from '../components/overlays/delete-button';
 import AddModal from '../components/subjects/add-modal';
 import { AuthContext } from '../contexts/auth-context';
 import { showModal } from '../redux/actions';
-import { deleteSubject, getStudentSubjects } from '../redux/actions/subjects';
+import { getStudentSubjects } from '../redux/actions/subjects';
 import { subjects$, toast$ } from '../redux/selectors';
 moment.locale('vi');
 
@@ -22,8 +21,8 @@ const UserSubjects = () => {
   const {
     authState: { user },
   } = useContext(AuthContext);
-  const [open, setOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState('');
+  // const [open, setOpen] = useState(false);
+  // const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
     // if (user?.role < 2)
@@ -66,16 +65,16 @@ const UserSubjects = () => {
   //   setOpen(true);
   // };
 
-  const handleClose = () => {
-    setSelectedId('');
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setSelectedId('');
+  //   setOpen(false);
+  // };
 
-  const handleAgree = (id) => {
-    dispatch(deleteSubject.deleteSubjectRequest(id));
-    setSelectedId('');
-    setOpen(false);
-  };
+  // const handleAgree = (id) => {
+  //   dispatch(deleteSubject.deleteSubjectRequest(id));
+  //   setSelectedId('');
+  //   setOpen(false);
+  // };
 
   const columns = [
     {
@@ -130,12 +129,12 @@ const UserSubjects = () => {
 
   return (
     <>
-      <DeleteButton
+      {/* <DeleteButton
         open={open}
         id={selectedId}
         handleClose={handleClose}
         handleAgree={handleAgree}
-      />
+      /> */}
       <DataTable
         component={AddModal}
         toast={toast}
