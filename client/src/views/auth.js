@@ -34,17 +34,9 @@ const Auth = ({ authRoute }) => {
       </div>
     );
   } else if (isAuthenticated) {
-    const { RedirectTo, studentId } = queryString.parse(location.search);
+    const { RedirectTo } = queryString.parse(location.search);
     return (
-      <Redirect
-        to={
-          RedirectTo === undefined
-            ? '/subjects'
-            : studentId === undefined
-            ? RedirectTo
-            : `${RedirectTo}&studentId=${studentId}`
-        }
-      />
+      <Redirect to={RedirectTo === undefined ? '/subjects' : RedirectTo} />
     );
   } else {
     body = (
